@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/catalina-ant.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/catalina-ha.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/catalina-tribes.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/ecj-4.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/el-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/jasper-el.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/tomcat7-websocket.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/tomcat-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/tomcat-i18n-es.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/tomcat-i18n-fr.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/tomcat-i18n-ja.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/tomcat-jdbc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/tomcat-util.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/apache-tomcat-7.0.81/lib/websocket-api.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_141">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/aopalliance-repackaged-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/api/javax.ws.rs-api-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/aopalliance-repackaged-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/cdi-api-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/el-api-2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/hk2-api-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/hk2-locator-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/hk2-utils-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/javassist-3.22.0-CR2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/javax.annotation-api-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/javax.inject-1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/javax.inject-2.5.0-b42.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/javax.json.bind-api-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/javax.json-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/javax.json-api-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/jaxb-api-2.2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/jsr250-api-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/org.osgi.core-4.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/osgi-resource-locator-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/persistence-api-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/validation-api-1.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/ext/yasson-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/lib/jersey-client.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/lib/jersey-common.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/lib/jersey-container-servlet.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/lib/jersey-container-servlet-core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/lib/jersey-hk2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/lib/jersey-media-jaxb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/lib/jersey-media-json-binding.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/lib/jersey-media-sse.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/jaxrs-ri/lib/jersey-server.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
