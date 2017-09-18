@@ -1,4 +1,4 @@
-package org.MM.model;
+package mm.model;
 
 import javax.servlet.http.HttpSession;
 

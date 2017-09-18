@@ -1,5 +1,4 @@
-package org.MM.webclientservlets;
-
+package mm.webclientservlets;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
