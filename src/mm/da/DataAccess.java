@@ -29,7 +29,7 @@ public class DataAccess {
 		}
 	}
 
-	final String url = "jdbc:mysql://localhost:3306/db";
+	final String url = "jdbc:mysql://node4644-env-8285750.elastyco.com:3600/db";
 	private Connection c;
 
 	final String selectLogin = "Select * From users where email=?";
@@ -38,7 +38,7 @@ public class DataAccess {
 
 	public DataAccess() {
 		try {
-			c = DriverManager.getConnection(url, "root", ""); // TODO: when in
+			c = DriverManager.getConnection(url, "root", "ESEahn57327"); // TODO: when in
 																// production
 																// make sure to
 																// have valid
