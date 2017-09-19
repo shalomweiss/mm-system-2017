@@ -38,11 +38,14 @@ public class DataAccess {
 
 	public DataAccess() {
 		try {
-			c = DriverManager.getConnection(url, "root", "ESEahn57327"); // TODO: when in
-																// production
-																// make sure to
-																// have valid
-																// credentials
+			if(isLoadedDriver){
+				c = DriverManager.getConnection(url, "root", "ESEahn57327"); // TODO: when in
+																			 // production
+																			 // make sure to
+																			 // have valid
+																			 // credentials
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
