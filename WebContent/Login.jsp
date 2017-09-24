@@ -150,20 +150,16 @@ body {
 				<input name="uPass"  type="password" placeholder="Password" />
 				
 				
-					   
+			
 					   <input id="inputButton"  type="submit" value="Log in" />
-						  	  <c:if test="${isNotEntered =='1'}">  
+						  	  <c:if test="${isNotEntered =='0'}">  
 								<p style="color: red">Login Failed. Please try again.</p> 
 							  </c:if>
-					
 			</form>
-
-
 		</div>
 	</div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-    <script src="js/index.js"></script>
 
 </body>
 </html>
