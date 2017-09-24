@@ -1,7 +1,5 @@
 package mm.model;
 
-import java.util.ArrayList;
-
 public class Mentor extends User{
 	   private String experience; 
 	   private String role;
