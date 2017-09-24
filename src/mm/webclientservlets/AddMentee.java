@@ -1,6 +1,5 @@
-/*package mm.webclientservlets;
+package mm.webclientservlets;
 
-import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,14 +10,14 @@ import mm.da.DataAccess;
 
 /**
  * Servlet implementation class AddMentee
- *//*
+ */
 @WebServlet("/AddMentee")
 public class AddMentee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
-     *//*
+     */
     public AddMentee() {
         super();
         // TODO Auto-generated constructor stub
@@ -26,19 +25,19 @@ public class AddMentee extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 *//*
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}*/
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 *//*
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		*/
+		
 				/*
 				 * uFirstName
 		uLastName
@@ -56,7 +55,7 @@ public class AddMentee extends HttpServlet {
 				 * 
 				 * */
 		
-	/*	
+		
 		String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
@@ -87,15 +86,15 @@ public class AddMentee extends HttpServlet {
 				&&!uNotes.trim().isEmpty()
 
 				
-				) */
-	/*	myDa.addMentee(uFirstName,uLastName,uPhoneNumber,uEmail,uGender
+				) {
+		myDa.addMentee(uFirstName,uLastName,uPhoneNumber,uEmail,uGender
 				,uAddress,uGraduationStatus,uCourseOfStudy,uAcademicInstitution,uRemSemesters,
 				uAverage,uNotes);
 		}
 		else {
 			
 		}
-	*/	
-	
-
 		
+	
+		}
+	}
