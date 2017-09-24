@@ -25,7 +25,7 @@ public class GetProfile {
 	public JsonUser getProfile(@QueryParam("id") String id,@QueryParam("token") String token) {
 		JsonUser jsonUser;
 		User user;
-<<<<<<< Updated upstream
+
 		
 		DataAccess da = new DataAccess();
 		//user=da.getUser(id);//returns a user or null or session not available
