@@ -1,8 +1,10 @@
 package mm.androidservice;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -10,39 +12,33 @@ import javax.ws.rs.core.MediaType;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.model.Activity;
 import mm.model.JsonUser;
 import mm.model.User;
 
-@Path("/users")
-public class GetProfile {
-	
-	
+public class GetMeetings {
 
 	@GET
-	@Path("/getProfile")
+	@Path("/getMeetings")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public JsonUser getProfile(@QueryParam("id") String id,@QueryParam("token") String token) {
+	
+	id, token, meetingStatus, count, page
+
+	public JsonUser getProfile(@QueryParam("id") String id,@QueryParam("token") String token,@QueryParam("meetingStatus") String status ) {
 		JsonUser jsonUser;
-		User user;
-<<<<<<< Updated upstream
-		
+		Collection <Activity> meetings = new ArrayList<Activity>();
 		DataAccess da = new DataAccess();
-		user=da.getUser(id);//returns a user or null or session not available
-=======
-		DataAccess da = new DataAccess();
-		user=da.getUser(id,token);//returns a user or null or session not available
->>>>>>> Stashed changes
-		if(user==null) {
+		meetings=da.getMeetings(id,token,status);//returns a collection of activities.
+		if(meetings==null) {
 			jsonUser=new JsonUser(null,Constants.STATUS_MISSINGPARA,Constants.USERNOTFOUND,token);
 		}
 		else {
-			jsonUser=new JsonUser(user,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+			jsonUser=new JsonUser(meetings,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
 
 		}
 		
 		return jsonUser;
 		
 	}
-	
 }
