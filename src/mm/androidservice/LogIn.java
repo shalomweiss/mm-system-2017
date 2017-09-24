@@ -3,17 +3,33 @@ package mm.androidservice;
 import java.sql.SQLException;
 
 import javax.ws.rs.Consumes;
+<<<<<<< Updated upstream
+=======
+
+import javax.ws.rs.GET;
+>>>>>>> Stashed changes
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+<<<<<<< Updated upstream
 import controllers.SessionController;
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.JsonUser;
 import mm.model.User;
+=======
+import mm.controllers.SessionController;
+import mm.da.DataAccess;
+import mm.model.*;
+import mm.constants.*;
+
+import java.lang.Object;
+
+import java.sql.SQLException;
+>>>>>>> Stashed changes
 
 @Path("/users")
 public class LogIn {
@@ -27,6 +43,8 @@ public class LogIn {
 	public JsonUser doLogin(@QueryParam("email") String uname,@QueryParam("password") String pwd,@QueryParam("deviceId") String deviceId)
 			 {
 		{
+			System.out.println("heloo");
+		//	PrintWriter writer = 
 
 			
 			DataAccess da = new DataAccess();
