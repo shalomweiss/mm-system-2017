@@ -2,7 +2,7 @@ package mm.model;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.Session;
+
 
 public class JsonUser {
 	
