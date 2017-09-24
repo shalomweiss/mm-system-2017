@@ -1,5 +1,8 @@
 package mm.webclientservlets;
 
+import java.io.IOException;
+import java.io.Writer;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,6 +58,8 @@ public class AddMentee extends HttpServlet {
 				 * 
 				 * */
 		
+	
+		
 		
 		String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
@@ -72,6 +77,10 @@ public class AddMentee extends HttpServlet {
 		DataAccess myDa = new DataAccess();
 		if(
 				
+				uFirstName!=null &&uLastName!=null &&uPhoneNumber!=null &&uEmail!=null &&uGender
+				!=null &&uAddress!=null &&uGraduationStatus!=null &&uCourseOfStudy!=null &&uAcademicInstitution!=null &&uRemSemesters!=null &&
+				uAverage!=null &&uNotes!=null
+				&&
 				!uFirstName.trim().isEmpty()
 				&&!uLastName.trim().isEmpty()
 				&&!uPhoneNumber.trim().isEmpty()
@@ -87,9 +96,9 @@ public class AddMentee extends HttpServlet {
 
 				
 				) {
-		myDa.addMentee(uFirstName,uLastName,uPhoneNumber,uEmail,uGender
-				,uAddress,uGraduationStatus,uCourseOfStudy,uAcademicInstitution,uRemSemesters,
-				uAverage,uNotes);
+		myDa.addMentee(uFirstName.trim(),uLastName.trim(),uPhoneNumber.trim(),uEmail.trim(),uGender.trim()
+				,uAddress.trim(),uGraduationStatus.trim(),uCourseOfStudy.trim(),uAcademicInstitution.trim(),uRemSemesters.trim(),
+				uAverage.trim(),uNotes.trim());
 		}
 		else {
 			
@@ -98,3 +107,7 @@ public class AddMentee extends HttpServlet {
 	
 		}
 	}
+		
+	}
+
+}
