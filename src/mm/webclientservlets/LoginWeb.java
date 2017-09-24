@@ -60,7 +60,7 @@ public class LoginWeb extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		if (temp.getFirstName().isEmpty() || pass.isEmpty()) {
+		if (temp.getFirstName().trim().isEmpty() || pass.isEmpty()) {
 			request.setAttribute("isNotEntered", 1);
 			RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
 			req.include(request, response);
