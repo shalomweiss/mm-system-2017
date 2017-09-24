@@ -106,4 +106,12 @@ public class AddMentee extends HttpServlet {
 		
 	
 		}
+<<<<<<< HEAD
 	}
+=======
+	}
+		
+	}
+
+}
+>>>>>>> Server

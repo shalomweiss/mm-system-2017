@@ -1,7 +1,6 @@
 package mm.model;
 
 
-import org.apache.catalina.Session;
 
 public class JsonUser {
 	
