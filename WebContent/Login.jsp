@@ -12,7 +12,6 @@
   
   
   
-      <link rel="stylesheet" href="css/style.css">
 <style type="text/css">
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
@@ -160,6 +159,7 @@ body {
 	</div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
+    
 
 </body>
 </html>

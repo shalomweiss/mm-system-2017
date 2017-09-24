@@ -8,12 +8,6 @@ public class DBUtil {
 	    public static Connection getConnection() {
 	        if( conn != null )
 	            return conn;
-	 
-	       
-	        
-	        
-
-	    
 	    		try {
 	    			Class.forName("com.mysql.jdbc.Driver");
 	    			
@@ -23,14 +17,10 @@ public class DBUtil {
 	    			
 
 	    		}
-	    	
-	        
-	        
-	        
+
 	         String url = "jdbc:mysql://tsofeninstance100.coi6zcmnhpte.us-east-2.rds.amazonaws.com/db";	         
 	         String username = "tsofenmasterdb";
 	    	 String password = "ESEahn57327";
-	    	 
 	    	 
 	    	 try 
 	         {
