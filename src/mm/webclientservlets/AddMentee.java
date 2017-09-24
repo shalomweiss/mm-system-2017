@@ -87,8 +87,7 @@ public class AddMentee extends HttpServlet {
 				&&!uNotes.trim().isEmpty()
 
 				 
-				
-				
+			
 				) {
 		myDa.addMentee(uFirstName,uLastName,uPhoneNumber,uEmail,uGender
 				,uAddress,uGraduationStatus,uCourseOfStudy,uAcademicInstitution,uRemSemesters,
