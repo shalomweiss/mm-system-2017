@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import da.UserDA;
+
 /**
  * Servlet implementation class LoginWeb
  */
@@ -54,6 +56,7 @@ public class LoginWeb extends HttpServlet {
 		String type = "1"; // tsofen team is 1
 		int isNotEntered = 0;
 		DataAccess da = new DataAccess();
+		//UserDA da = new UserDA();
 		User temp = null;
 		try {
 			temp = da.login(name);
@@ -62,7 +65,7 @@ public class LoginWeb extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		if (temp.getFirstName().isEmpty() || pass.isEmpty()) {
+		if (temp == null) {
 			request.setAttribute("isNotEntered", 1);
 			RequestDispatcher req = request.getRequestDispatcher("Login.jsp");
 			req.include(request, response);
