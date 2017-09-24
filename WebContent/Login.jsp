@@ -12,7 +12,6 @@
   
   
   
-      <link rel="stylesheet" href="css/style.css">
 <style type="text/css">
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
