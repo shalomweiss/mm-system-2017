@@ -1,3 +1,6 @@
+
+///clicking on the "Add Mentor" button
+
 package mm.webclientservlets;
 
 import mm.da.*;
@@ -5,7 +8,8 @@ import mm.model.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -13,19 +17,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
+
 /**
  * Servlet implementation class LoginWeb
  */
-@WebServlet("/LoginWeb")
-public class LoginWeb extends HttpServlet {
+
+@WebServlet("/AddMentor")
+public class AddMentor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
-	
 	/**
 	 * Default constructor.
 	 */
-	public LoginWeb() {
+	public AddMentor() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -36,7 +42,10 @@ public class LoginWeb extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Login Servlet");
+		System.out.println("Mentor Servlet");
+
+
+
 
 	}
 
@@ -47,30 +56,14 @@ public class LoginWeb extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Login Servlet");
+		System.out.println("Mentor Servlet");
 
-		String email = request.getParameter("uName");
-		String pass = request.getParameter("uPass");
-		
-		int isNotEntered = 0;
-		DataAccess da = new DataAccess();
-		User temp = null;
-		try {
-			temp = da.login(email);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        String jsp = request.getParameter("jsp");
 
-		if (temp.getFirstName().trim().isEmpty() || pass.isEmpty()) {
-			request.setAttribute("isNotEntered", 1);
-			RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
-			req.include(request, response);
-		} 
-			if (temp.getPassword().matches(pass)){
-			request.setAttribute("isNotEntered", 0);
-			RequestDispatcher req = request.getRequestDispatcher("Welcome.jsp");
-			req.forward(request, response);
-		}
+        RequestDispatcher req = request.getRequestDispatcher(jsp);
+		req.forward(request, response);
+
+
+
 	}
 }
