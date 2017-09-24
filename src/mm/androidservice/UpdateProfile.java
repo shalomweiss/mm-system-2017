@@ -26,7 +26,8 @@ public class UpdateProfile {
 		JsonUser jsonUser;
 		User user;
 		DataAccess da = new DataAccess();
-		user=da.updateProfile(id,token,updatedUser);
+		//user=da.updateProfile(id,token,updatedUser);
+		user=null;
 		if(user==null) {
 			jsonUser=new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, token);
 		}
