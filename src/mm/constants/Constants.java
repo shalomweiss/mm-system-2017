@@ -6,7 +6,8 @@ import com.google.gson.reflect.TypeToken;
 
 public class Constants {
 	public final static Type USER_CLASS = new TypeToken<Collection<User>>() {}.getType();	
-	
+	public final static Type MENTOR_CLASS = new TypeToken<Collection<Mentor>>() {}.getType();	
+
 
 
 }
