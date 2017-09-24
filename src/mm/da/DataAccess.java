@@ -15,21 +15,6 @@ import mm.model.User.userType;
 
 public class DataAccess {
 
-	private static boolean isLoadedDriver;
-
-	static {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			isLoadedDriver = true;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			isLoadedDriver = false;
-
-		}
-	}
-
-	final String url = "jdbc:mysql://node4644-env-8285750.elastyco.com:3600/db";
 	private Connection c;
 
 	final String selectLogin = "Select * From users where email=?";
@@ -37,18 +22,8 @@ public class DataAccess {
 	final String selectLogin2 = "Select * From mentee where id=?";
 
 	public DataAccess() {
-		try {
-			if(isLoadedDriver){
-				c = DriverManager.getConnection(url, "root", "ESEahn57327"); // TODO: when in
-																			 // production
-																			 // make sure to
-																			 // have valid
-																			 // credentials
-			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		c = util.DBUtil.getConnection();
 
 	}
 
