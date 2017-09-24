@@ -28,11 +28,8 @@ public class GetProfile {
 <<<<<<< Updated upstream
 		
 		DataAccess da = new DataAccess();
-		user=da.getUser(id);//returns a user or null or session not available
-=======
-		DataAccess da = new DataAccess();
-		user=da.getUser(id,token);//returns a user or null or session not available
->>>>>>> Stashed changes
+		//user=da.getUser(id);//returns a user or null or session not available
+		user=null;
 		if(user==null) {
 			jsonUser=new JsonUser(null,Constants.STATUS_MISSINGPARA,Constants.USERNOTFOUND,token);
 		}
