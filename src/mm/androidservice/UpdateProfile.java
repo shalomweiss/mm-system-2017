@@ -23,7 +23,7 @@ import mm.model.User;
 /**
  * Servlet implementation class UpdateProfileTest
  */
-@WebServlet("/UpdateProfileTest")
+@WebServlet("/UpdateProfile")
 public class UpdateProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -44,6 +44,7 @@ public class UpdateProfile extends HttpServlet {
 			return "UserSession [id=" + id + ", token=" + token + ", updatedUser=" + updatedUser + "]";
 		}
 		
+		
 
 	}
 	
@@ -59,18 +60,19 @@ public class UpdateProfile extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		doGet(request, response);
+//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		BufferedReader br = new BufferedReader(
 		        new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
 
@@ -79,14 +81,14 @@ public class UpdateProfile extends HttpServlet {
 		    while ((s = br.readLine()) != null) {
 		         sb.append(s).append("\n");
 		    }
-
+		    
 		    String jsonString = sb.toString();
 		    Gson gson = new Gson();
 		    UserSession userToUpdate = gson.fromJson( jsonString, UserSession.class );
 		    User user = null;
 			DataAccess da = new DataAccess();
 			//TODO
-			user=da.updateProfile(userToUpdate.id,userToUpdate.token,userToUpdate.updatedUser);
+			//user=da.updateProfile(userToUpdate.id,userToUpdate.token,userToUpdate.updatedUser);
 			JsonUser jsonUser=null;
 			
 			if(user==null) {

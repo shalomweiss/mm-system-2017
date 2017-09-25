@@ -48,8 +48,6 @@ public class LogIn extends HttpServlet {
 			return "UserSession [email=" + email + ", password=" + password + ", deviceId=" + deviceId + "]";
 		}
 		
-		
-		
 
 	}
 	
@@ -67,7 +65,7 @@ public class LogIn extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		BufferedReader br = new BufferedReader(
 		        new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
 
@@ -133,10 +131,10 @@ public class LogIn extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-		
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		doGet(request, response);
+//		
+//	}
 
 }
