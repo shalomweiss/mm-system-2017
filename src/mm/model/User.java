@@ -17,7 +17,15 @@ public class User {
 		ADMIN,TSOFEN,MENTOR,MENTEE;
 	}
 	
+	public User(){}
 	
+
+	public User(String firstName, String lastName) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
 
 	public User(int id, String firstName, String lastName, String email, String phoneNumber, String password,
 			String gender, String address, String note, boolean active, userType type) {
@@ -149,6 +157,44 @@ public class User {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", phoneNumber=" + phoneNumber + ", password=" + password + ", gender=" + gender + ", address="
+				+ address + ", note=" + note + ", active=" + active + ", type=" + type + "]";
 	}
 	
 	
