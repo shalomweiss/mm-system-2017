@@ -22,6 +22,7 @@ public class DataAccess {
 	final String updateUserBase = "UPDATE users SET firstName=?, lastName=?, email=?, password=?, address=? WHERE id=?";
 	final String updateUserMentor = "UPDATE mentors SET experience=?, role=?, company=?, volunteering=?, workHistory=? WHERE id=?";
 	final String updateUserMentee = "UPDATE mentees SET remainingSemesters=?, graduationStatus=?, academicInstitute=?, average=?, academicDicipline1=?, academicDecipline2=?, isGuarantee=?, resume=?, gradeSheet=? WHERE id=?";
+	final String deactivateUser = "UPDATE users SET active=0 WHERE id=?";
 	
 	public DataAccess() {
 
@@ -130,6 +131,18 @@ public class DataAccess {
 			return true;
 		}
 		
+		return false;
+	}
+	
+	public boolean deactivateUser(int id) throws SQLException {
+		PreparedStatement stm = c.prepareStatement(selectByID);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();
+		if (rs.next()) {
+			PreparedStatement stm2 = c.prepareStatement(deactivateUser);
+			stm2.setInt(1, id);
+			return true;
+		}
 		return false;
 	}
 
