@@ -28,7 +28,7 @@ import mm.model.User;
 /**
  * Servlet implementation class LogInTest
  */
-@WebServlet("/LogInTest")
+@WebServlet("/LogIn")
 public class LogIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -79,51 +79,49 @@ public class LogIn extends HttpServlet {
 		    Gson gson = new Gson();
 		    UserSession myUser = gson.fromJson( jsonString, UserSession.class );
 		    response.getWriter().append(jsonString);
-			System.out.println("heloo");
+			//System.out.println("heloo");
 			DataAccess da = new DataAccess();
 			User user = null;
-			//user = da.login(myUser.email);	
-			 user = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);
+			try {
+				user = da.login(myUser.email);
+				 //user = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			
 			JsonUser jsonUser=null;
 
 		//return jsonUser;
 			if(user==null) {
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
-			} else {
-				if(user.getPassword().equals(myUser.password)) {
+			} 
+			else if(user.getPassword().equals(myUser.password)){
+				 
 				String token=SessionController.generateToken();
 				//TODO
 				//da.insertSession(myUser.email,token,new Instant.now(),ENDDATE,myUser.deviceId);
 				//insert session into database
 				jsonUser = new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
-				
-				}
+			}			
 				else {
 					jsonUser = new JsonUser(user, Constants.STATUS_WRONGPARA, Constants.WRONGPASSWORD, null);
 				}
 				
-
-			}
 			response.setContentType("application/json");
 			// Get the printwriter object from response to write the required json object to the output stream      
 			PrintWriter out = response.getWriter();
 			// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-			out.print("jjjj"+jsonUser);
+			out.print(jsonUser);
 			out.flush();
 			out.close();
+			
+			
+
+			}
 
 		
 		    
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		System.out.println("LOGIN NDROID");
-//		doGet(request, response);
-//		
-//	}
-
 }
+
+
