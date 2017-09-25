@@ -82,17 +82,12 @@ public class LogIn extends HttpServlet {
 			System.out.println("heloo");
 			DataAccess da = new DataAccess();
 			User user = null;
-			try {
-				user = da.login(myUser.email);
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			JsonUser jsonUser;
+			//user = da.login(myUser.email);	
+			 user = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);
+			JsonUser jsonUser=null;
 
 		//return jsonUser;
-			if(user!=null) {
+			if(user==null) {
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 			} else {
 				if(user.getPassword().equals(myUser.password)) {
@@ -113,7 +108,7 @@ public class LogIn extends HttpServlet {
 			// Get the printwriter object from response to write the required json object to the output stream      
 			PrintWriter out = response.getWriter();
 			// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-			out.print(jsonUser);
+			out.print("jjjj"+jsonUser);
 			out.flush();
 			out.close();
 
@@ -126,6 +121,7 @@ public class LogIn extends HttpServlet {
 	 */
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		// TODO Auto-generated method stub
+//		System.out.println("LOGIN NDROID");
 //		doGet(request, response);
 //		
 //	}

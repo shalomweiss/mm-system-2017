@@ -30,13 +30,13 @@ public class AndroidClientTest {
 
 		String input = "{\"email\":\"Metallica\",\"password\":\"Fade To Black\",\"deviceId\":\"1234\"}";
 
-		//String url = "http://localhost:8080/mm-database-2017/LogIn";
-		String url = "http://localhost:8080/mm-database-2017/updateProfile";
+		String url = "http://localhost:8080/mm-database-2017/LogIn";
+		//String url = "http://localhost:8080/mm-database-2017/updateProfile";
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		// optional default is GET
-		con.setRequestMethod("GET");
+		con.setRequestMethod("POST");
 		con.setDoOutput(true);
 		
 		OutputStream out = con.getOutputStream();

@@ -25,7 +25,7 @@ public class AndroidUpdateProfileTest {
 		Gson myJ = new Gson();
 		String jsonInString = myJ.toJson(myUser);
 		
-		System.out.println(jsonInString);
+		//System.out.println(jsonInString);
 		
 
 
@@ -60,7 +60,7 @@ public class AndroidUpdateProfileTest {
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		// optional default is GET
-		con.setRequestMethod("GET");
+		con.setRequestMethod("POST");
 		con.setDoOutput(true);
 		
 		OutputStream out = con.getOutputStream();
