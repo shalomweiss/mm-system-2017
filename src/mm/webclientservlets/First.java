@@ -32,6 +32,7 @@ public class First extends HttpServlet {
 		
 		request.setAttribute("isNotEntered", 1);
 		RequestDispatcher req = request.getRequestDispatcher("Login.jsp");
+		response.setContentType("text/html");
 		req.include(request, response);
 	}
 	/**

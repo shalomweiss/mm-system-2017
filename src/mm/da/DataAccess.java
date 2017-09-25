@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import mm.model.Mentee;
 import mm.model.Mentor;
@@ -24,12 +26,22 @@ public class DataAccess {
 	final String updateUserMentee = "UPDATE mentees SET remainingSemesters=?, graduationStatus=?, academicInstitute=?, average=?, academicDicipline1=?, academicDecipline2=?, isGuarantee=?, resume=?, gradeSheet=? WHERE id=?";
 	
 	public DataAccess() {
-
+		Logger logger = Logger.getLogger(DataAccess.class.getName());
+		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
 		c = util.DBUtil.getConnection();
+		if(c==null){
+			logger.log(Level.SEVERE,"Connection Failed");
+		}else{
+			logger.log(Level.INFO,"Connection Established");
+		}
 
 	}
 
 	public User login(String email) throws SQLException {
+		Logger logger = Logger.getLogger(DataAccess.class.getName());
+		if(c==null){
+			logger.log(Level.SEVERE,"Connection Failed");
+		}
 		PreparedStatement stm = c.prepareStatement(selectLogin);
 		stm.setString(1, email);
 
@@ -39,15 +51,18 @@ public class DataAccess {
 			int type = rs.getInt(2);
 			switch (type) {
 			case 0:
+				logger.log(Level.WARNING,"User type Admin, no admins exist in system at this time");
 				break;
 
 			case 1:
+				logger.log(Level.INFO,"User type Tsofen");
 				u = new TsofenT(rs.getInt(1), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7),
 						rs.getString(8), rs.getString(9), rs.getString(10),
 						rs.getBoolean(11), userType.TSOFEN);
 				break;
 			case 2:
+				logger.log(Level.INFO,"User type Mentor");
 				PreparedStatement stm2 = c.prepareStatement(selectLogin1);
 				stm2.setInt(1, rs.getInt(1));
 
@@ -60,6 +75,7 @@ public class DataAccess {
 						rs2.getString(6));
 				break;
 			case 3:
+				logger.log(Level.INFO,"User type Mentee");
 				PreparedStatement stm3 = c.prepareStatement(selectLogin2);
 				stm3.setInt(1, rs.getInt(1));
 
@@ -74,6 +90,7 @@ public class DataAccess {
 				break;
 
 			default:
+				logger.log(Level.WARNING,"User type unknown");
 				break;
 			}
 		}
