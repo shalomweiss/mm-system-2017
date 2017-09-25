@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import da.UserDA;
 
 /**
  * Servlet implementation class LoginWeb
@@ -67,11 +66,13 @@ public class LoginWeb extends HttpServlet {
 
 		if (temp == null) {
 			request.setAttribute("isNotEntered", 1);
-			RequestDispatcher req = request.getRequestDispatcher("Login.jsp");
+			response.setContentType("text/html");
+			RequestDispatcher req = request.getRequestDispatcher("/Login.jsp");
 			req.include(request, response);
 		} else {
 			request.setAttribute("isNotEntered", 0);
-			RequestDispatcher req = request.getRequestDispatcher("Welcome.jsp");
+			response.setContentType("text/html");
+			RequestDispatcher req = request.getRequestDispatcher("/Welcome.jsp");
 			req.forward(request, response);
 		}
 	}
