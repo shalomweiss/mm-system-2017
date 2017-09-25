@@ -64,10 +64,12 @@ CREATE TABLE `activities` (
   `date` date DEFAULT NULL,
   `startingTime` time DEFAULT NULL,
   `endingTime` time DEFAULT NULL,
-  KEY `menteeId1_idx` (`menteeId`),
-  KEY `mentorId1` (`mentorId`),
-  CONSTRAINT `menteeId1` FOREIGN KEY (`menteeId`) REFERENCES `pairs` (`menteeId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `mentorId1` FOREIGN KEY (`mentorId`) REFERENCES `pairs` (`mentorId`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `privateMentorReport` text,
+  `privateMenteeReport` text,
+  KEY `thePair_idx` (`mentorId`,`menteeId`),
+  KEY `mentee_idx` (`menteeId`),
+  CONSTRAINT `Id1` FOREIGN KEY (`mentorId`) REFERENCES `pairs` (`mentorId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `Id2` FOREIGN KEY (`menteeId`) REFERENCES `pairs` (`menteeId`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -101,7 +103,7 @@ CREATE TABLE `mentees` (
   PRIMARY KEY (`id`),
   KEY `academicId_idx` (`academicInstitute`),
   CONSTRAINT `academicId` FOREIGN KEY (`academicInstitute`) REFERENCES `academicinstitute` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `menteeId` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `mentee` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -132,7 +134,7 @@ CREATE TABLE `mentors` (
   PRIMARY KEY (`id`),
   KEY `companyId_idx` (`company`),
   CONSTRAINT `companyId` FOREIGN KEY (`company`) REFERENCES `workplaces` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `mentorId` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `mentor` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -154,6 +156,7 @@ DROP TABLE IF EXISTS `pairs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pairs` (
+  `pairsId` int(11) NOT NULL AUTO_INCREMENT,
   `mentorId` int(11) NOT NULL,
   `menteeId` int(11) NOT NULL,
   `activeStatus` tinyint(4) DEFAULT NULL,
@@ -161,10 +164,11 @@ CREATE TABLE `pairs` (
   `endDate` date DEFAULT NULL,
   `jointMessage` text,
   `tsofenMessage` text,
-  PRIMARY KEY (`mentorId`,`menteeId`),
-  KEY `menteeId_idx` (`menteeId`),
-  CONSTRAINT `mentee` FOREIGN KEY (`menteeId`) REFERENCES `mentees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `mentor` FOREIGN KEY (`mentorId`) REFERENCES `mentors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`pairsId`,`menteeId`,`mentorId`),
+  KEY `mentor_idx` (`mentorId`),
+  KEY `mentee_idx` (`menteeId`),
+  CONSTRAINT `menteeId` FOREIGN KEY (`menteeId`) REFERENCES `mentees` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `mentorId` FOREIGN KEY (`mentorId`) REFERENCES `mentors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -276,4 +280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-18 14:11:44
+-- Dump completed on 2017-09-25 13:13:56
