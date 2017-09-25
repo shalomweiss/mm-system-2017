@@ -34,7 +34,7 @@ import java.sql.SQLException;
 
 
 @Path("/users")
-public class LogIn {
+public class DeprecatedLogIn {
 
 	// This method is called if TEXT_PLAIN is request
 	
