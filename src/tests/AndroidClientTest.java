@@ -6,16 +6,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 
 
 
@@ -37,8 +30,8 @@ public class AndroidClientTest {
 
 		String input = "{\"email\":\"Metallica\",\"password\":\"Fade To Black\",\"deviceId\":\"1234\"}";
 
-		String url = "http://localhost:8080/mm-database-2017/LogIn";
-
+		//String url = "http://localhost:8080/mm-database-2017/LogIn";
+		String url = "http://localhost:8080/mm-database-2017/updateProfile";
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 

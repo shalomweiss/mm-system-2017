@@ -15,7 +15,11 @@ public class Constants {
 	public final static int STATUS_MISSINGPARA=401;
 	public final static int STATUS_WRONGPARA=402;
 
+<<<<<<< Updated upstream
 	public final static Type MENTOR_CLASS = new TypeToken<List<Mentor>>() {}.getType();	
+=======
+	public final static Type MENTOR_CLASS = new TypeToken<Collection<Mentor>>() {}.getType();	
+>>>>>>> Stashed changes
 
 
 
