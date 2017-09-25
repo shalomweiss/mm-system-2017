@@ -54,13 +54,31 @@ public class AddNewMentor extends HttpServlet {
 		String workHistory = request.getParameter("uHistory");
 
 		DataAccess da = new DataAccess();
-		Mentor mentor = null;
-		/*
-		 * try {
-		 * da.addMentor(email,firstName,lastName,phoneNumber,workingPlace,address
-		 * ,notes,experience,volunteering,gender,isActive,workHistory); } catch (SQLException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 */
+	//	Mentor mentor = null;
+		
+		if (
+
+				firstName != null && lastName != null && phoneNumber != null
+						&& email != null && gender != null && address != null && 
+						&& notes != null
+						&& !firstName.trim().isEmpty() && !uLastName.trim().isEmpty()
+						&& !uPhoneNumber.trim().isEmpty() && !uEmail.trim().isEmpty()
+						&& !uGender.trim().isEmpty() && !uAddress.trim().isEmpty()
+						&& !uGraduationStatus.trim().isEmpty()
+						&& !uCourseOfStudy.trim().isEmpty()
+						&& !uAcademicInstitution.trim().isEmpty()
+						&& !uRemSemesters.trim().isEmpty()
+						&& !uAverage.trim().isEmpty() && !uNotes.trim().isEmpty()
+				){
+		  try {
+		  da.addMentor(email,firstName,lastName,phoneNumber,workingPlace,address
+		  ,notes,experience,volunteering,gender,isActive,workHistory); } catch
+		  (SQLException e) { // TODO Auto-generated catch block
+		  e.printStackTrace(); }
+		} 
+		else{
+			
+		}
 		request.setAttribute("Status", 200);
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
