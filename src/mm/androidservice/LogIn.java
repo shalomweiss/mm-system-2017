@@ -92,7 +92,7 @@ public class LogIn extends HttpServlet {
 			JsonUser jsonUser;
 
 		//return jsonUser;
-
+			if(user!=null) {
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 			} else {
 				if(user.getPassword().equals(myUser.password)) {
