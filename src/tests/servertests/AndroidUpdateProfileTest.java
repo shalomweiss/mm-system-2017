@@ -1,4 +1,4 @@
-package tests;
+package tests.servertests;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class AndroidUpdateProfileTest {
 		//System.out.println(jsonInString);
 		
 
-
+		//System.out.println(User.class);
 		
 
 //		Client client = Client.create();

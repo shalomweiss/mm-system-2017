@@ -1,4 +1,4 @@
-package tests;
+package tests.servertests;
 
 
 import java.io.BufferedReader;

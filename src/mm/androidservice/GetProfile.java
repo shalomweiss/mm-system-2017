@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
-import controllers.SessionController;
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.JsonUser;
