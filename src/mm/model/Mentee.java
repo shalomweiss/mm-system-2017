@@ -8,7 +8,7 @@ public class Mentee extends User{
 	private float average;
 	private String academicDicipline;
 	private String academicDicipline2;
-	private boolean isGuarantee;
+	private boolean isGraduate;
 	private String resume;
 	private String gradeSheet;
 
@@ -17,7 +17,7 @@ public class Mentee extends User{
 	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
 			String gender, String address, String note, boolean active, userType type, float remainingSemesters,
 			String graduationStatus, String academiclnstitution, float average, String academicDicipline,
-			String academicDicipline2, boolean isGuarantee, String resume, String gradeSheet) {
+			String academicDicipline2, boolean isGraduate, String resume, String gradeSheet) {
 		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, active, type);
 		this.remainingSemesters = remainingSemesters;
 		this.graduationStatus = graduationStatus;
@@ -25,7 +25,7 @@ public class Mentee extends User{
 		this.average = average;
 		this.academicDicipline = academicDicipline;
 		this.academicDicipline2 = academicDicipline2;
-		this.isGuarantee = isGuarantee;
+		this.isGraduate = isGraduate;
 		this.resume = resume;
 		this.gradeSheet = gradeSheet;
 	}
@@ -80,11 +80,11 @@ public class Mentee extends User{
 	}
 
 	public boolean isGuarantee() {
-		return isGuarantee;
+		return isGraduate;
 	}
 
 	public void setGuarantee(boolean isGuarantee) {
-		this.isGuarantee = isGuarantee;
+		this.isGraduate = isGuarantee;
 	}
 
 	public String getGradeSheet() {
