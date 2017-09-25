@@ -1,37 +1,26 @@
-
-///clicking on the "Add Mentor" button
-
 package mm.webclientservlets;
 
-import mm.da.*;
-import mm.model.*;
-
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
 
-import javax.servlet.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-
 /**
- * Servlet implementation class LoginWeb
+ * Servlet implementation class AddMenteeButton
  */
-
-@WebServlet("/AddMentor")
-public class AddMentor extends HttpServlet {
+@WebServlet("/AddMenteeButton")
+public class AddMenteeButton extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Default constructor.
+	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddMentor() {
+	public AddMenteeButton() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -39,14 +28,9 @@ public class AddMentor extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Mentor Servlet");
-
-
-
-
+		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -55,15 +39,13 @@ public class AddMentor extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("Mentor Servlet");
+		System.out.println("Mentee Servlet");
 
-        String jsp = request.getParameter("jsp");
+		String nextPage = request.getParameter("jsp");
 
-        RequestDispatcher req = request.getRequestDispatcher(jsp);
+		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
 
-
-
 	}
+
 }

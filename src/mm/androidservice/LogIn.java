@@ -100,7 +100,7 @@ public class LogIn extends HttpServlet {
 			}
 			JsonUser jsonUser;
 
-			if (user == null) {
+		//return jsonUser;
 
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 			} else {

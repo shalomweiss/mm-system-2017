@@ -43,10 +43,6 @@ public class EditMentor extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Mentor Servlet");
-
-
-
-
 	}
 
 	/**

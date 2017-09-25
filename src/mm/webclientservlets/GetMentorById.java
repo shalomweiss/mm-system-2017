@@ -1,10 +1,4 @@
 
-///clicking on some Mentor
-
-
-
-
-
 package mm.webclientservlets;
 
 import mm.constants.Constants;
@@ -13,9 +7,6 @@ import mm.model.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -27,17 +18,17 @@ import com.google.gson.Gson;
 
 
 /**
- * Servlet implementation class LoginWeb
+ * Servlet implementation class GetMentorById
  */
 
-@WebServlet("/MentorInfo")
-public class MentorInfo extends HttpServlet {
+@WebServlet("/GetMentorById")
+public class GetMentorById extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public MentorInfo() {
+	public GetMentorById() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -48,44 +39,28 @@ public class MentorInfo extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Mentor1 Servlet");
-
-
-        String name = request.getParameter("uName");
+		System.out.println("Get Mentor By ID Servlet");
 		String id = request.getParameter("uId");
-		
         String jsp = request.getParameter("jsp");
-
-
-            String type = "2"; //user type is Mentor(2)
-            DataAccess da = new DataAccess();
+          DataAccess da = new DataAccess();
             Mentor mentor = null;
-            try {
-                mentor = da.getMentor(name,id,type);
+     /*       try {
+                mentor = da.getMentorById(id);
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }
-
+            }*/
+        	mentor=getMentorById();
             Gson gson = new Gson();
-	  //  System.out.println("USER with not json " +Mentors);
-		String MentorResult = gson.toJson(mentor, Constants.MENTOR_CLASS);
-
-	   // System.out.println("USer with JSON" + userResult);
-
+	    System.out.println("USER with not json " +mentor);
+		String MentorById = gson.toJson(mentor, mentor.getClass());
+	    System.out.println("USer with JSON" + MentorById);
 	    PrintWriter writer = response.getWriter();
-		writer.println(MentorResult);
-		writer.close();
-
+		writer.println(MentorById);
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
 		req.forward(request, response);
-
-
-
-
-
+		writer.close();
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -94,7 +69,9 @@ public class MentorInfo extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("Mentor Servlet");
-
-
+	}
+	public Mentor getMentorById(){
+		Mentor m=new Mentor("shushu","CC","DEV");
+		return m;
 	}
 }

@@ -7,6 +7,14 @@ public class Mentor extends User{
 	   private String volunteering;
 	   private String workHistory;
 	 
+	   
+	   
+
+		public Mentor(String firstName, String lastName, String experience) {
+		super(firstName, lastName);
+		this.experience = experience;
+	}
+
 
 		public Mentor(int id, String firstName, String lastName, String email, String phoneNumber, String password,
 			String gender, String address, String note, boolean active, userType type, String experience, String role,
@@ -71,6 +79,16 @@ public class Mentor extends User{
 		public void setVolunteering(String volunteering) {
 			this.volunteering = volunteering;
 		}
+
+
+		@Override
+		public String toString() {
+			return "Mentor [experience=" + experience + ", role=" + role
+					+ ", company=" + company + ", volunteering=" + volunteering
+					+ ", workHistory=" + workHistory + "]";
+		}
+		
+		
 
 
 }

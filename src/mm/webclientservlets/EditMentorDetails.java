@@ -20,14 +20,14 @@ import mm.model.Mentor;
 /**
  * Servlet implementation class EditMentorButton
  */
-@WebServlet("/EditMentorButton")
-public class EditMentorButton extends HttpServlet {
+@WebServlet("/EditMentorDetails")
+public class EditMentorDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditMentorButton() {
+    public EditMentorDetails() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,6 +37,9 @@ public class EditMentorButton extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String jsp = request.getParameter("jsp");
+		RequestDispatcher req = request.getRequestDispatcher(jsp);
+		req.forward(request, response);
 	}
 
 	/**
@@ -53,29 +56,14 @@ public class EditMentorButton extends HttpServlet {
 		String notes = request.getParameter("uNotes");
 		String experience = request.getParameter("uExperience");
 		String volunteering = request.getParameter("uVolunteering");
-		
-        String jsp = request.getParameter("jsp");
-
-		
 		DataAccess da = new DataAccess();
-		Mentor mentor = null;
-		try {
-			mentor = da.updateMentor(email,firstName,lastName,workingPlace,address,notes,experience,volunteering);
+		
+	/*	try {
+			 da.updateMentor(email,firstName,lastName,workingPlace,address,notes,experience,volunteering);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		Gson gson = new Gson();
-		String addedMentor = gson.toJson(mentor, Constants.MENTOR_CLASS);
-
-
-	    PrintWriter writer = response.getWriter();
-		writer.println(addedMentor);
-		writer.close();
-
-		RequestDispatcher req = request.getRequestDispatcher(jsp);
-			req.forward(request, response);
+		}*/
 
 	}
 
