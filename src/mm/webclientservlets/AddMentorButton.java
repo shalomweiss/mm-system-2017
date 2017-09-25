@@ -1,13 +1,11 @@
-//clicking on the Add button
+///clicking on the "Add Mentor" button
 
 package mm.webclientservlets;
 
-import mm.constants.Constants;
 import mm.da.*;
 import mm.model.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,12 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-
 /**
  * Servlet implementation class LoginWeb
  */
 
-@WebServlet("/AddMentorButton")
+@WebServlet("/AddMentor")
 public class AddMentorButton extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -43,11 +40,7 @@ public class AddMentorButton extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("SaveMentor Servlet");
-
-
-
-
+		System.out.println("Mentor Servlet");
 
 	}
 
@@ -57,44 +50,13 @@ public class AddMentorButton extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("SaveMentor Servlet");
 
-		String email = request.getParameter("uEmail");
-		String firstName = request.getParameter("uFirstName");
-		String lastName = request.getParameter("uLastName");
-		String phoneNumber = request.getParameter("uPhoneNumber");
-		String workingPlace = request.getParameter("uWorkingPlace");
-		String address = request.getParameter("uAddress");
-		String notes = request.getParameter("uNotes");
-		String experience = request.getParameter("uExperience");
-		String volunteering = request.getParameter("uVolunteering");
+		System.out.println("Mentor Servlet");
 
-        String jsp = request.getParameter("jsp");
+		String nextPage = request.getParameter("jsp");
 
-
-		DataAccess da = new DataAccess();
-		Mentor mentor = null;
-		try {
-			mentor = da.addMentor(email,firstName,lastName,phoneNumber,workingPlace,address,notes,experience,volunteering);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-
-		Gson gson = new Gson();
-		String addedMentor = gson.toJson(mentor, Constants.MENTOR_CLASS);
-
-
-	    PrintWriter writer = response.getWriter();
-		writer.println(addedMentor);
-		writer.close();
-
-		RequestDispatcher req = request.getRequestDispatcher(jsp);
-			req.forward(request, response);
-
-
+		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		req.forward(request, response);
 
 	}
 }

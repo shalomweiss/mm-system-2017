@@ -17,7 +17,15 @@ public class User {
 		ADMIN,TSOFEN,MENTOR,MENTEE;
 	}
 	
+	public User(){}
 	
+
+	public User(String firstName, String lastName) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
 
 	public User(int id, String firstName, String lastName, String email, String phoneNumber, String password,
 			String gender, String address, String note, boolean active, userType type) {

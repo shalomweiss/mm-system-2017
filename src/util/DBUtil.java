@@ -8,13 +8,7 @@ public class DBUtil {
 	    public static Connection getConnection() {
 	        if( conn != null )
 	            return conn;
-	 
-	       
-	        
-	        
-
-	    
-	    		try {
+		    		try {
 	    			Class.forName("com.mysql.jdbc.Driver");
 	    			
 	    		} catch (ClassNotFoundException e) {

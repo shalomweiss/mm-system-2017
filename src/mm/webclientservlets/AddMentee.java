@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mm.constants.Constants;
 import mm.da.DataAccess;
 
 /**
@@ -17,50 +18,34 @@ import mm.da.DataAccess;
 @WebServlet("/AddMentee")
 public class AddMentee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddMentee() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	public AddMentee() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ")
+				.append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
-				/*
-				 * uFirstName
-		uLastName
-		uPhoneNumber
-		uEmail
-		uGender
-		uAddress
-		uGraduationStatus
-		uCourseOfStudy
-		uAcademicInstitution
-		uRemSemesters
-		uAverage
-		uNotes
-		
-				 * 
-				 * */
-		
-	
-		
-		
 		String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
@@ -69,49 +54,38 @@ public class AddMentee extends HttpServlet {
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
 		String uCourseOfStudy = request.getParameter("uCourseOfStudy");
-		String uAcademicInstitution = request.getParameter("uAcademicInstitution");
+		String uAcademicInstitution = request
+				.getParameter("uAcademicInstitution");
 		String uRemSemesters = request.getParameter("uRemSemesters");
 		String uAverage = request.getParameter("uAverage");
 		String uNotes = request.getParameter("uNotes");
-		
-		DataAccess myDa = new DataAccess();
-		if(
-				
-				uFirstName!=null &&uLastName!=null &&uPhoneNumber!=null &&uEmail!=null &&uGender
-				!=null &&uAddress!=null &&uGraduationStatus!=null &&uCourseOfStudy!=null &&uAcademicInstitution!=null &&uRemSemesters!=null &&
-				uAverage!=null &&uNotes!=null
-				&&
-				!uFirstName.trim().isEmpty()
-				&&!uLastName.trim().isEmpty()
-				&&!uPhoneNumber.trim().isEmpty()
-				&&!uEmail.trim().isEmpty()
-				&&!uGender.trim().isEmpty()
-				&&!uAddress.trim().isEmpty()
-				&&!uGraduationStatus.trim().isEmpty()
-				&&!uCourseOfStudy.trim().isEmpty()
-				&&!uAcademicInstitution.trim().isEmpty()
-				&&!uRemSemesters.trim().isEmpty()
-				&&!uAverage.trim().isEmpty()
-				&&!uNotes.trim().isEmpty()
 
-				
-				) {
-		myDa.addMentee(uFirstName.trim(),uLastName.trim(),uPhoneNumber.trim(),uEmail.trim(),uGender.trim()
-				,uAddress.trim(),uGraduationStatus.trim(),uCourseOfStudy.trim(),uAcademicInstitution.trim(),uRemSemesters.trim(),
-				uAverage.trim(),uNotes.trim());
+		DataAccess myDa = new DataAccess();
+		if (
+
+		uFirstName != null && uLastName != null && uPhoneNumber != null
+				&& uEmail != null && uGender != null && uAddress != null
+				&& uGraduationStatus != null && uCourseOfStudy != null
+				&& uAcademicInstitution != null && uRemSemesters != null
+				&& uAverage != null && uNotes != null
+				&& !uFirstName.trim().isEmpty() && !uLastName.trim().isEmpty()
+				&& !uPhoneNumber.trim().isEmpty() && !uEmail.trim().isEmpty()
+				&& !uGender.trim().isEmpty() && !uAddress.trim().isEmpty()
+				&& !uGraduationStatus.trim().isEmpty()
+				&& !uCourseOfStudy.trim().isEmpty()
+				&& !uAcademicInstitution.trim().isEmpty()
+				&& !uRemSemesters.trim().isEmpty()
+				&& !uAverage.trim().isEmpty() && !uNotes.trim().isEmpty()
+		) {
+			myDa.addMentee(uFirstName.trim(), uLastName.trim(),
+					uPhoneNumber.trim(), uEmail.trim(), uGender.trim(),
+					uAddress.trim(), uGraduationStatus.trim(),
+					uCourseOfStudy.trim(), uAcademicInstitution.trim(),
+					uRemSemesters.trim(), uAverage.trim());
+		} else {
+			// get status 402
 		}
-		else {
-			
-		}
-		
-	
-		}
-<<<<<<< HEAD
-	}
-=======
-	}
-		
+
 	}
 
 }
->>>>>>> Server
