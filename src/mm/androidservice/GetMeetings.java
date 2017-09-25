@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.Activity;
+import mm.model.JsonMeeting;
 import mm.model.JsonUser;
 import mm.model.User;
 
@@ -23,15 +24,15 @@ public class GetMeetings {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	
-	id, token, meetingStatus, count, page
+	
 
 	public JsonUser getProfile(@QueryParam("id") String id,@QueryParam("token") String token,@QueryParam("meetingStatus") String status ) {
-		JsonUser jsonUser;
+		JsonMeeting jsonMeeting;
 		Collection <Activity> meetings = new ArrayList<Activity>();
 		DataAccess da = new DataAccess();
-		meetings=da.getMeetings(id,token,status);//returns a collection of activities.
+		//meetings=da.getMeetings(id,token,status);//returns a collection of activities.
 		if(meetings==null) {
-			jsonUser=new JsonUser(null,Constants.STATUS_MISSINGPARA,Constants.USERNOTFOUND,token);
+			jsonMeeting=new JsonMeeting(null,Constants.STATUS_MISSINGPARA,Constants.USERNOTFOUND,token);
 		}
 		else {
 			jsonUser=new JsonUser(meetings,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
