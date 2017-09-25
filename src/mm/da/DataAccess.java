@@ -39,9 +39,6 @@ public class DataAccess {
 			int type = rs.getInt(2);
 			switch (type) {
 			case 0:
-
-				//LOL
-				//hello world
 				break;
 
 			case 1:
