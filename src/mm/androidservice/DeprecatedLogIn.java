@@ -3,40 +3,27 @@ package mm.androidservice;
 import java.sql.SQLException;
 
 import javax.ws.rs.Consumes;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 
-import javax.ws.rs.GET;
->>>>>>> Stashed changes
-=======
 
 import javax.ws.rs.GET;
 
->>>>>>> Server
+import javax.ws.rs.GET;
+
+
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-<<<<<<< HEAD
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Server
 import controllers.SessionController;
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.JsonUser;
 import mm.model.User;
-<<<<<<< HEAD
-=======
-import mm.controllers.SessionController;
-=======
 
 import controllers.SessionController;
->>>>>>> Server
+
 import mm.da.DataAccess;
 import mm.model.*;
 import mm.constants.*;
@@ -44,11 +31,7 @@ import mm.constants.*;
 import java.lang.Object;
 
 import java.sql.SQLException;
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
 
->>>>>>> Server
 
 @Path("/users")
 public class LogIn {
