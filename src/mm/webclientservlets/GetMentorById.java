@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 /**
  * Servlet implementation class GetMentorById
+ * clickable mentor button
  */
 
 @WebServlet("/GetMentorById")
@@ -51,12 +52,11 @@ public class GetMentorById extends HttpServlet {
                 e.printStackTrace();
             }*/
         	mentor=getMentorById();
-            Gson gson = new Gson();
-	    System.out.println("USER with not json " +mentor);
-		String MentorById = gson.toJson(mentor, mentor.getClass());
-	    System.out.println("USer with JSON" + MentorById);
+      	
+        request.setAttribute("MentorById", mentor);	
+        	
 	    PrintWriter writer = response.getWriter();
-		writer.println(MentorById);
+		writer.println(mentor);
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
 		req.forward(request, response);
 		writer.close();
@@ -70,6 +70,7 @@ public class GetMentorById extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Mentor Servlet");
 	}
+	
 	public Mentor getMentorById(){
 		Mentor m=new Mentor("shushu","CC","DEV");
 		return m;

@@ -1,4 +1,3 @@
-
 ///clicking on the "Add Mentor" button
 
 package mm.webclientservlets;
@@ -19,19 +18,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-
 /**
  * Servlet implementation class LoginWeb
  */
 
 @WebServlet("/AddMentor")
-public class AddMentor extends HttpServlet {
+public class AddMentorButton extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public AddMentor() {
+	public AddMentorButton() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -44,9 +42,6 @@ public class AddMentor extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Mentor Servlet");
 
-
-
-
 	}
 
 	/**
@@ -55,15 +50,13 @@ public class AddMentor extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		System.out.println("Mentor Servlet");
 
-        String jsp = request.getParameter("jsp");
+		String nextPage = request.getParameter("jsp");
 
-        RequestDispatcher req = request.getRequestDispatcher(jsp);
+		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
-
-
 
 	}
 }

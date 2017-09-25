@@ -79,16 +79,9 @@ public class LogIn extends HttpServlet {
 
 		    String jsonString = sb.toString();
 		    Gson gson = new Gson();
-		    UserSession myUser = gson.fromJson( jsonString, UserSession.class ); 
-			
-			
+		    UserSession myUser = gson.fromJson( jsonString, UserSession.class );
 		    response.getWriter().append(jsonString);
-		    
-
 			System.out.println("heloo");
-		//	PrintWriter writer = 
-
-			
 			DataAccess da = new DataAccess();
 			User user = null;
 			try {
