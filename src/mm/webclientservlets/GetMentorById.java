@@ -7,6 +7,7 @@ import mm.model.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -45,12 +46,12 @@ public class GetMentorById extends HttpServlet {
         String jsp = request.getParameter("jsp");
           DataAccess da = new DataAccess();
             Mentor mentor = null;
-     /*       try {
-                mentor = da.getMentorById(id);
+          try {
+                mentor = da.getUser(id);
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-            }*/
+            }
         	mentor=getMentorById();
       	
         request.setAttribute("MentorById", mentor);	
