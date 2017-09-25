@@ -77,11 +77,12 @@ public class AddMentee extends HttpServlet {
 				&& !uRemSemesters.trim().isEmpty()
 				&& !uAverage.trim().isEmpty() && !uNotes.trim().isEmpty()
 		) {
-			myDa.addMentee(uFirstName.trim(), uLastName.trim(),
-					uPhoneNumber.trim(), uEmail.trim(), uGender.trim(),
-					uAddress.trim(), uGraduationStatus.trim(),
-					uCourseOfStudy.trim(), uAcademicInstitution.trim(),
-					uRemSemesters.trim(), uAverage.trim());
+			//TODO: wait for DA method
+//			myDa.addMentee(uFirstName.trim(), uLastName.trim(),
+//					uPhoneNumber.trim(), uEmail.trim(), uGender.trim(),
+//					uAddress.trim(), uGraduationStatus.trim(),
+//					uCourseOfStudy.trim(), uAcademicInstitution.trim(),
+//					uRemSemesters.trim(), uAverage.trim());
 		} else {
 			// get status 402
 		}

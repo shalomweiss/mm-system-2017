@@ -8,7 +8,7 @@ public class JsonMeeting {
 	private String token;
 	public JsonMeeting(Meeting meeting, int code, String message, String token) {
 		super();
-		this.meeting = meeting;
+		//this.meeting = meeting;
 		this.code = code;
 		this.message = message;
 		this.token = token;
