@@ -15,6 +15,5 @@ public class Constants {
 	public final static int STATUS_MISSINGPARA=401;
 	public final static int STATUS_WRONGPARA=402;
 
-	public final static Type MENTOR_CLASS = new TypeToken<List<Mentor>>() {}.getType();	
-
+	
 }
