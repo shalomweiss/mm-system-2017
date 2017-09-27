@@ -60,13 +60,13 @@ public class LoginWeb extends HttpServlet {
 		try {
 			temp = da.login(email);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		if (temp == null) {
 			request.setAttribute("isNotEntered", 1);
 			RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
+
 			response.setContentType("text/html");
 			req.include(request, response);
 		} 
