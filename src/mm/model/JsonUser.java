@@ -1,29 +1,24 @@
 package mm.model;
 
-import javax.servlet.http.HttpSession;
-
-import org.apache.catalina.Session;
-
 public class JsonUser {
 	
 	private User user;
 	private int code;
 	private String message;
-	private HttpSession token;
+	private String token;
 	
 	
-	
-	public JsonUser(User user, int code, String message, HttpSession token) {
+	public JsonUser(User user, int code, String message, String token) {
 		super();
 		this.user = user;
 		this.code = code;
 		this.message = message;
 		this.token=token;
 	}
-	public HttpSession getToken() {
+	public String getToken() {
 		return token;
 	}
-	public void setToken(HttpSession token) {
+	public void setToken(String token) {
 		this.token = token;
 	}
 	public User getUser() {
@@ -44,6 +39,10 @@ public class JsonUser {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	@Override
 	
-
+	public String toString() {
+		return "JsonUser [user=" + user + ", code=" + code + ", message="
+				+ message + ", token=" + token + "]";
+	}
 }

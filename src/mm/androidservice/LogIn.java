@@ -1,64 +1,105 @@
 package mm.androidservice;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.xml.crypto.Data;
-import javax.enterprise.context.spi.Context;
-import javax.json.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.constraints.Past;
-
-import mm.da.DataAccess;
-import mm.model.*;
-
-import java.lang.Object;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
-import org.apache.catalina.Session;
 
-public class LogIn {
 
-	// This method is called if TEXT_PLAIN is request
-	@javax.ws.rs.core.Context
-	@POST
-	@Path("/LogIn")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public JsonUser doLogin(@QueryParam("uName") String uname,
-			@QueryParam("uPass") String pwd,
-			@javax.ws.rs.core.Context HttpServletRequest req) {
-		{
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-			HttpSession session = req.getSession(true);
+import com.google.gson.Gson;
+
+import util.DBUtil;
+import util.ServerUtils;
+import mm.constants.Constants;
+import mm.da.DataAccess;
+import mm.model.JsonUser;
+import mm.model.User;
+import mm.model.UserLoginAndroid;
+
+/**
+ * Servlet implementation class LogInTest
+ */
+@WebServlet("/LogIn")
+public class LogIn extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public LogIn() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+    
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		BufferedReader br = new BufferedReader(
+		        new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
+
+		    StringBuilder sb = new StringBuilder();
+		    String s;
+		    while ((s = br.readLine()) != null) {
+		         sb.append(s).append("\n");
+		    }
+		    PrintWriter out = response.getWriter();
+		//    out.println("HELOO"+sb);
+			    
+		    
+		    String jsonString = sb.toString();
+		    Gson gson = new Gson();
+		    UserLoginAndroid myUser = gson.fromJson( jsonString, UserLoginAndroid.class );
+		//    out.println(myUser);
+		//    response.getWriter().append("STRING JSON: "+jsonString); //like out.println(jsonString)
+			
 			DataAccess da = new DataAccess();
 			User user = null;
 			try {
-				user = da.login(uname);
+				user = da.login(myUser.getEmail());			
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}	
+			JsonUser jsonUser=null;
+			
+			if(user==null) {
+				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+			} 
+			else if(user.getPassword().equals(myUser.getPassword())){
+				String token=ServerUtils.generateToken();
+				jsonUser = new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
+			}			
+			else {
+					jsonUser = new JsonUser(user, Constants.STATUS_WRONGPARA, Constants.WRONGPASSWORD, null);
+				 }
+			response.setContentType("application/json");
+			out.println(jsonUser);
+			out.flush();
+			out.close();
 			}
-			JsonUser jsonUser;
-
-			if (user == null) {
-
-				jsonUser = new JsonUser(user, 403, "invalid input", null);
-			} else {
-
-				// HttpSession session=Context
-				jsonUser = new JsonUser(user, 200, "success", session);
-
-			}
-
-			return jsonUser;
-
-		}
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 	}
+		
+		    
 }
+
+

@@ -1,10 +1,15 @@
 package mm.model;
 
-public class Mentee extends User{
+public class Mentee extends User {
 
 	private float remainingSemesters;
 	private String graduationStatus;
 	private String academiclnstitution;
+
+	public Mentee(String firstName, String lastName) {
+		super(firstName, lastName);
+	}
+
 	private float average;
 	private String academicDicipline;
 	private String academicDicipline2;
@@ -62,7 +67,6 @@ public class Mentee extends User{
 		this.average = average;
 	}
 
-
 	public String getAcademicDicipline() {
 		return academicDicipline;
 	}
@@ -102,5 +106,4 @@ public class Mentee extends User{
 	public void setGradeSheet(String gradeSheet) {
 		this.gradeSheet = gradeSheet;
 	}
-	
 }

@@ -47,6 +47,7 @@ public class DataAccess {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		if(c==null){
 			logger.log(Level.SEVERE,"Connection Failed");
+			return null;
 		}
 		PreparedStatement stm = c.prepareStatement(selectLogin);
 		stm.setString(1, email);
