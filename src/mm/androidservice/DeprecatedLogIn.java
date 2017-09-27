@@ -6,38 +6,29 @@ import javax.ws.rs.Consumes;
 
 
 import javax.ws.rs.GET;
-
 import javax.ws.rs.GET;
-
-
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import controllers.SessionController;
+import util.ServerUtils;
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.JsonUser;
 import mm.model.User;
-
-import controllers.SessionController;
-
 import mm.da.DataAccess;
 import mm.model.*;
 import mm.constants.*;
 
 import java.lang.Object;
-
 import java.sql.SQLException;
 
 
 @Path("/users")
 public class DeprecatedLogIn {
-
 	// This method is called if TEXT_PLAIN is request
-	
 	@POST
 	@Path("/LogIn")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -64,7 +55,7 @@ public class DeprecatedLogIn {
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 			} else {
 				if(user.getPassword().equals(pwd)) {
-				String session=SessionController.generateToken();
+				String session=ServerUtils.generateToken();
 				//insert session into database
 				jsonUser = new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, session);
 				

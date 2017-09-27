@@ -42,6 +42,14 @@ public class JsonUser {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	@Override
+	
+	public String toString() {
+		return "JsonUser [user=" + user + ", code=" + code + ", message="
+				+ message + ", token=" + token + "]";
+	}
+	
+	
 	
 
 }

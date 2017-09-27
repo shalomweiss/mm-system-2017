@@ -47,12 +47,12 @@ public class GetAllMentors extends HttpServlet {
 		String NextPage = request.getParameter("jsp");
 		List<Mentor> ArrMentors = new ArrayList<Mentor>();
 		DataAccess da = new DataAccess();
-		// try {
-		// ArrMentors = da.getAllMentors();
-		// } catch (SQLException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+		 /*try {
+		 ArrMentors = da.getUsers(userType.MENTOR);
+		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }*/
 		request.setAttribute("Mentors", ArrMentors);
 		System.out.println("MENTORS: " + ArrMentors);
 		PrintWriter writer = response.getWriter();

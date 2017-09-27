@@ -1,4 +1,4 @@
-package tests;
+package tests.servertests;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,12 +20,17 @@ public class AndroidUpdateProfileTest {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
-		User myUser = new User(1,"TTTT","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);
+		User myUser = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);
 		
 		Gson myJ = new Gson();
 		String jsonInString = myJ.toJson(myUser);
 		
 		//System.out.println(jsonInString);
+		
+
+		//System.out.println(User.class);
+		
+
 //		Client client = Client.create();
 //
 //		WebResource webResource = client
@@ -36,7 +41,7 @@ public class AndroidUpdateProfileTest {
 				"	\"token\": \"longString\",\r\n" + 
 				"	\"user\": {\r\n" + 
 				"		\"id\": 1,\r\n" + 
-				"		\"firstName\": \"TTTTT\",\r\n" + 
+				"		\"firstName\": \"testMan\",\r\n" + 
 				"		\"lastName\": \"ok\",\r\n" + 
 				"		\"email\": \"gmail.com\",\r\n" + 
 				"		\"phoneNumber\": \"12345\",\r\n" + 
@@ -53,6 +58,7 @@ public class AndroidUpdateProfileTest {
 		//String url = "http://localhost:8080/mm-database-2017/updateProfile";
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
 		// optional default is GET
 		con.setRequestMethod("POST");
 		con.setDoOutput(true);
@@ -67,8 +73,8 @@ public class AndroidUpdateProfileTest {
 		//con.setRequestProperty("myData", input);
 
 		int responseCode = con.getResponseCode();
-		System.out.println("\nSg POSTjjjjj request to URL : " + url);
-	   System.out.println("Response Code : " + responseCode);
+		System.out.println("\nSending 'POST' request to URL : " + url);
+		System.out.println("Response Code : " + responseCode);
 
 		BufferedReader in = new BufferedReader(
 		        new InputStreamReader(con.getInputStream()));

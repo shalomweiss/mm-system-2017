@@ -61,32 +61,30 @@ public class AddMentee extends HttpServlet {
 		String uNotes = request.getParameter("uNotes");
 
 		DataAccess myDa = new DataAccess();
-		if (
-
-		uFirstName != null && uLastName != null && uPhoneNumber != null
-				&& uEmail != null && uGender != null && uAddress != null
-				&& uGraduationStatus != null && uCourseOfStudy != null
-				&& uAcademicInstitution != null && uRemSemesters != null
-				&& uAverage != null && uNotes != null
-				&& !uFirstName.trim().isEmpty() && !uLastName.trim().isEmpty()
-				&& !uPhoneNumber.trim().isEmpty() && !uEmail.trim().isEmpty()
-				&& !uGender.trim().isEmpty() && !uAddress.trim().isEmpty()
-				&& !uGraduationStatus.trim().isEmpty()
-				&& !uCourseOfStudy.trim().isEmpty()
-				&& !uAcademicInstitution.trim().isEmpty()
-				&& !uRemSemesters.trim().isEmpty()
-				&& !uAverage.trim().isEmpty() && !uNotes.trim().isEmpty()
-		) {
-			//TODO: wait for DA method
-//			myDa.addMentee(uFirstName.trim(), uLastName.trim(),
-//					uPhoneNumber.trim(), uEmail.trim(), uGender.trim(),
-//					uAddress.trim(), uGraduationStatus.trim(),
-//					uCourseOfStudy.trim(), uAcademicInstitution.trim(),
-//					uRemSemesters.trim(), uAverage.trim());
-		} else {
-			// get status 402
-		}
-
-	}
-
+//		if (
+//
+//		uFirstName != null && uLastName != null && uPhoneNumber != null
+//				&& uEmail != null && uGender != null && uAddress != null
+//				&& uGraduationStatus != null && uCourseOfStudy != null
+//				&& uAcademicInstitution != null && uRemSemesters != null
+//				&& uAverage != null && uNotes != null
+//				&& !uFirstName.trim().isEmpty() && !uLastName.trim().isEmpty()
+//				&& !uPhoneNumber.trim().isEmpty() && !uEmail.trim().isEmpty()
+//				&& !uGender.trim().isEmpty() && !uAddress.trim().isEmpty()
+//				&& !uGraduationStatus.trim().isEmpty()
+//				&& !uCourseOfStudy.trim().isEmpty()
+//				&& !uAcademicInstitution.trim().isEmpty()
+//				&& !uRemSemesters.trim().isEmpty()
+//				&& !uAverage.trim().isEmpty() && !uNotes.trim().isEmpty()
+//		) {
+			
+		
+		
+		
+		
+		
+		
+		
+		
+		} 
 }
