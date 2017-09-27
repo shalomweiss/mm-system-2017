@@ -52,18 +52,18 @@ public class DataAccess {
 		if (rs.next()) {
 			int type = rs.getInt(2);
 			switch (type) {
-			case 0:
-				logger.log(Level.WARNING,"User type Admin, no admins exist in system at this time");
-				break;
 
-			case 1:
+			case 0: //Admin
+				logger.log(Level.WARNING,"User type Admin, no admins exist in the system at this time");
+				break;
+			case 1: //Tsofen member
 				logger.log(Level.INFO,"User type Tsofen");
 				u = new TsofenT(rs.getInt(1), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7),
 						rs.getString(8), rs.getString(9), rs.getString(10),
 						rs.getBoolean(11), userType.TSOFEN);
 				break;
-			case 2:
+			case 2://Mentor
 				logger.log(Level.INFO,"User type Mentor");
 				PreparedStatement stm2 = c.prepareStatement(selectLogin1);
 				stm2.setInt(1, rs.getInt(1));
@@ -75,8 +75,10 @@ public class DataAccess {
 						rs.getBoolean(11), userType.MENTOR, rs2.getString(2),
 						rs2.getString(3), rs2.getInt(4), rs2.getString(5),
 						rs2.getString(6));
+				rs2.close();
+				stm2.close();
 				break;
-			case 3:
+			case 3://Mentee
 				logger.log(Level.INFO,"User type Mentee");
 				PreparedStatement stm3 = c.prepareStatement(selectLogin2);
 				stm3.setInt(1, rs.getInt(1));
@@ -96,7 +98,9 @@ public class DataAccess {
 				break;
 			}
 		}
-
+		
+		rs.close();
+		stm.close();
 		return u;
 	}
 	
