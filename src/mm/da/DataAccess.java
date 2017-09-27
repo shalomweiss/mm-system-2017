@@ -4,10 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -27,10 +26,13 @@ public class DataAccess implements DataInterface{
 	final String selectLogin1 = "Select * From mentor where id=?";
 	final String selectLogin2 = "Select * From mentee where id=?";
 	final String selectByID = "Select * From users where id=?";
-	final String updateUserBase = "UPDATE users SET firstName=?, lastName=?, email=?, password=?, address=? WHERE id=?";
+	final String updateUserBase = "UPDATE users SET firstName=?, lastName=?, email=?, phoneNumber=?, password=?, gender=?, address=?, notes=?, profilePicture=?, active=? WHERE id=?";
 	final String updateUserMentor = "UPDATE mentors SET experience=?, role=?, company=?, volunteering=?, workHistory=? WHERE id=?";
 	final String updateUserMentee = "UPDATE mentees SET remainingSemesters=?, graduationStatus=?, academicInstitute=?, average=?, academicDicipline1=?, academicDecipline2=?, isGuarantee=?, resume=?, gradeSheet=? WHERE id=?";
 	final String deactivateUser = "UPDATE users SET active=0 WHERE id=?";
+	final String addBaseUser = "INSERT INTO users (type, firstName, lastName, email, phoneNumber, password, gender, address, notes, profilePicture, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	
 	public DataAccess() {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
@@ -66,8 +68,8 @@ public class DataAccess implements DataInterface{
 				logger.log(Level.INFO,"User type Tsofen");
 				u = new TsofenT(rs.getInt(1), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7),
-						rs.getString(8), rs.getString(9), rs.getString(10),
-						rs.getBoolean(11), userType.TSOFEN);
+						rs.getInt(8), rs.getString(9), rs.getString(10),
+						rs.getString(11), rs.getBoolean(12), userType.TSOFEN);
 				break;
 			case 2://Mentor
 				logger.log(Level.INFO,"User type Mentor");
@@ -110,8 +112,7 @@ public class DataAccess implements DataInterface{
 		return u;
 	}
 	
-
-	public boolean updateUserInfo(User user) throws SQLException {
+	public boolean editUser(User user) throws SQLException {
 		PreparedStatement stm = c.prepareStatement(selectByID);
 		stm.setInt(1, user.getId());
 		ResultSet rs = stm.executeQuery();
@@ -119,12 +120,17 @@ public class DataAccess implements DataInterface{
 			return false;
 		
 		PreparedStatement stm2 = c.prepareStatement(updateUserBase);
-		stm2.setString(1, user.getFirstName());
-		stm2.setString(2, user.getLastName());
+		stm2.setInt(1, user.getType().getValue());
+		stm2.setString(2, user.getFirstName());
 		stm2.setString(3, user.getEmail());
-		stm2.setString(4, user.getPassword());
-		stm2.setString(5, user.getAddress());
-		stm2.setInt(6, user.getId());
+		stm2.setString(4, user.getPhoneNumber());
+		stm2.setString(5, user.getPassword());
+		stm2.setInt(6, user.getGender());
+		stm2.setString(7, user.getAddress());
+		stm2.setString(8, user.getNote());
+		stm2.setString(9, user.getProfilePicture());
+		stm2.setInt(10, user.isActive()?1:0);
+		stm2.setInt(11, user.getId());
 		stm2.executeUpdate();
 		
 		if(user.getType()==userType.TSOFEN || user.getType()==userType.ADMIN)
@@ -189,9 +195,9 @@ public class DataAccess implements DataInterface{
 			while (r.next())
 			{
 				u = new TsofenT(r.getInt(1), r.getString(3), r.getString(4),
-					r.getString(5), r.getString(6), r.getString(7),
-					r.getString(8), r.getString(9), r.getString(10),
-					r.getBoolean(11), userType.TSOFEN);
+						r.getString(5), r.getString(6), r.getString(7),
+						r.getInt(8), r.getString(9), r.getString(10),
+						r.getString(11), r.getBoolean(12), userType.TSOFEN);
 			users.add(u);
 			}
 			
@@ -253,8 +259,8 @@ public class DataAccess implements DataInterface{
 			case 1:
 				user = new TsofenT(rs.getInt(1), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7),
-						rs.getString(8), rs.getString(9), rs.getString(10),
-						rs.getBoolean(11), userType.TSOFEN);
+						rs.getInt(8), rs.getString(9), rs.getString(10),
+						rs.getString(11), rs.getBoolean(12), userType.TSOFEN);
 				break;
 			case 2:
 				PreparedStatement stm2 = c.prepareStatement(selectLogin1);
@@ -294,12 +300,6 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public boolean addUser(User u) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean editUser(User u) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}
