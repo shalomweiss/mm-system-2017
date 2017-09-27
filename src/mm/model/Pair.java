@@ -3,25 +3,23 @@ package mm.model;
 import java.sql.Date;
 
 public class Pair {
-	int pairId;
-	int mentorId;
-	int menteeId;
-	private Mentor mentor;
-	private Mentee mentee;
-	int activeStatuse;
-	Date startDate;
-	Date endDate;
-	String joinMessage;
-	String tsofenMessage;
+    private int pairId;
+    private int mentorId;
+    private int menteeId;
+	private	int activeStatuse;
+	private	Date startDate;
+	private	Date endDate;
+	private	String joinMessage;
+	private String tsofenMessage;
 	
 	
-	public Pair(int PairId,Mentor mentor, Mentee mentee, int activeStatuse,
+	public Pair(int PairId,int mentorId, int menteeId, int activeStatuse,
 			Date startDate, Date endDate, String joinMessage,
 			String tsofenMessage) {
 		super();
 		this.pairId=pairId;
-		this.mentor = mentor;
-		this.mentee = mentee;
+		this.mentorId=mentorId;
+		this.menteeId =menteeId;
 		this.activeStatuse = activeStatuse;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -57,24 +55,6 @@ public class Pair {
 	}
 
 
-	public Mentor getMentor() {
-		return mentor;
-	}
-
-
-	public void setMentor(Mentor mentor) {
-		this.mentor = mentor;
-	}
-
-
-	public Mentee getMentee() {
-		return mentee;
-	}
-
-
-	public void setMentee(Mentee mentee) {
-		this.mentee = mentee;
-	}
 
 
 	public int getActiveStatuse() {
