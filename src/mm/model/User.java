@@ -6,7 +6,7 @@ public class User {
 	private String lastName;
 	private String email;
 	private String phoneNumber ;
-	private String password ;
+	transient private String password ;
 	private String gender;
 	private String address;
 	private String note;
