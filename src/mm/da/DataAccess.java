@@ -4,8 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import java.sql.Statement;
+import java.util.ArrayList;
+
 
 import mm.model.Mentee;
 import mm.model.Mentor;
@@ -99,6 +104,7 @@ public class DataAccess {
 		return u;
 	}
 	
+
 	public boolean updateUserInfo(User user) throws SQLException {
 		PreparedStatement stm = c.prepareStatement(selectByID);
 		stm.setInt(1, user.getId());
@@ -159,5 +165,69 @@ public class DataAccess {
 		}
 		return false;
 	}
+
+	public ArrayList<User> getUsers(int type) throws SQLException
+	{
+		User u = null;
+		ArrayList<User> users =null;
+		switch(type) 
+		{
+		case 0:
+			break;
+		case 1:
+			
+			Statement stm= c.createStatement();
+			 stm.executeQuery("select * from user where type ="+type);
+			ResultSet r = stm.getResultSet();
+			while (r.next())
+			{
+				u = new TsofenT(r.getInt(1), r.getString(3), r.getString(4),
+					r.getString(5), r.getString(6), r.getString(7),
+					r.getString(8), r.getString(9), r.getString(10),
+					r.getBoolean(11), userType.TSOFEN);
+			users.add(u);
+			}
+			
+			break;
+		case 2:
+		
+			Statement stm2= c.createStatement();
+			 stm2.executeQuery("select *from user RIGHT JOIN mentor ON user.id = mentor.id");
+			ResultSet r2 = stm2.getResultSet();
+			while (r2.next())
+			{
+				u = new Mentor(r2.getInt(1), r2.getString(3), r2.getString(4),
+						r2.getString(5), r2.getString(6), r2.getString(7),
+						r2.getString(8), r2.getString(9), r2.getString(10),
+						r2.getBoolean(11), userType.MENTOR, r2.getString(2),
+						r2.getString(3), r2.getInt(4), r2.getString(5),
+						r2.getString(6));
+				users.add(u);
+			}
+			
+			break;
+		case 3:
+			
+			Statement stm3= c.createStatement();
+			 stm3.executeQuery("select *from user RIGHT JOIN mentee ON user.id = mentee.id");
+			ResultSet r3 = stm3.getResultSet();
+			while (r3.next())
+			{
+				u = new Mentee(r3.getInt(1), r3.getString(3), r3.getString(4),
+						r3.getString(5), r3.getString(6), r3.getString(7),
+						r3.getString(8), r3.getString(9), r3.getString(10),
+						r3.getBoolean(11), userType.MENTEE, r3.getFloat(2),
+						r3.getString(3), r3.getString(4), r3.getFloat(5),
+						r3.getString(6), r3.getString(7), r3.getBoolean(8),r3.getString(9),r3.getString(10));
+				users.add(u);
+			}
+			break;
+			
+		default:
+			break;
+		}
+		return users;
+	}
+
 
 }
