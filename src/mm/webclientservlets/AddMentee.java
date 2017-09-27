@@ -77,6 +77,7 @@ public class AddMentee extends HttpServlet {
 				&& !uRemSemesters.trim().isEmpty()
 				&& !uAverage.trim().isEmpty() && !uNotes.trim().isEmpty()
 		) {
+			//TODO: wait for DA method
 //			myDa.addMentee(uFirstName.trim(), uLastName.trim(),
 //					uPhoneNumber.trim(), uEmail.trim(), uGender.trim(),
 //					uAddress.trim(), uGraduationStatus.trim(),

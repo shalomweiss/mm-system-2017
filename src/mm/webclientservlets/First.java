@@ -28,9 +28,11 @@ public class First extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("First Servlet");	
-		request.setAttribute("isNotEntered", 0);
-		RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
+		System.out.println("First Servlet");
+		
+		request.setAttribute("isNotEntered", 1);
+		RequestDispatcher req = request.getRequestDispatcher("Login.jsp");
+		response.setContentType("text/html");
 		req.include(request, response);
 	}
 	/**
@@ -40,3 +42,4 @@ public class First extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 }
+

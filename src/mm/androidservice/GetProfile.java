@@ -105,7 +105,7 @@ public class GetProfile extends HttpServlet {
 			JsonUser jsonUser=null;
 
 			if (user == null) {
-				
+				//TODO: request parameters to json user..
 
 
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
