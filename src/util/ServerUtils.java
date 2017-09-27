@@ -17,6 +17,10 @@ import mm.jsonModel.*;;
 
 public class ServerUtils {
 	
+	
+	
+	
+	
 	/** -- Session related methods: */
 	
 	public static String generateToken() {
@@ -62,14 +66,18 @@ public class ServerUtils {
 	 * @param jsonUser
 	 * @throws IOException
 	 */
-	public static void respondJsonUser(HttpServletResponse response,JsonUser jsonUser) throws IOException {
+	public static <T> void respondJsonObject(HttpServletResponse response,T jsonObjectClass) throws IOException {
+		
+		
+		Gson gson =new Gson();
 		
 		
 		response.setContentType("application/json");
 		// Get the printwriter object from response to write the required json object to the output stream      
 		PrintWriter out = response.getWriter();
 		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-		out.print(jsonUser);
+		out.print(gson.toJson(jsonObjectClass));
+		//System.out.println(gson.toJson(jsonUser).toString());
 		out.flush();
 		out.close();
 		
