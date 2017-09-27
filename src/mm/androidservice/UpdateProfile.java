@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.model.JsonUser;
+import mm.jsonModel.JsonUser;
 import mm.model.User;
 import util.ServerUtils;
 
@@ -61,10 +61,10 @@ public class UpdateProfile extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		doGet(request, response);
+//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -84,14 +84,9 @@ public class UpdateProfile extends HttpServlet {
 			}
 			else {
 				jsonUser=new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, userToUpdate.token);
-			}		
-			response.setContentType("application/json");
-			// Get the printwriter object from response to write the required json object to the output stream      
-			PrintWriter out = response.getWriter();
-			// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-			out.print("LLLLL"+jsonUser);
-			out.flush();
-			out.close();
+			}
+			
+			ServerUtils.respondJsonObject(response,jsonUser);
 	}
 	
 
