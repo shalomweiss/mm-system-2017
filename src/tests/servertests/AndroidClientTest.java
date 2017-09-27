@@ -11,10 +11,10 @@ import java.nio.charset.StandardCharsets;
 public class AndroidClientTest {
   public static void main(String[] args) throws IOException {
 
-		String input = "{\"email\":\"Metallica\",\"password\":\"Fade To Black\",\"deviceId\":\"1234\"}";
+		String input = "{\"email\":\"myk22\",\"password\":\"qweasd\",\"deviceId\":\"1234\"}";
 
 		//String url = "http://localhost:8080/mm-database-2017/LogIn";
-		String url = "http://zofenweb-env.hhaqjxq9wa.us-east-2.elasticbeanstalk.com/mm-database-2017/LogIn";
+		String url = "http://zofenweb-env.hhaqjxq9wa.us-east-2.elasticbeanstalk.com/LogIn";
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
