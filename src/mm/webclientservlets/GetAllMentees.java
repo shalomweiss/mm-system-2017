@@ -47,7 +47,7 @@ public class GetAllMentees extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String NextPage = request.getParameter("jsp");
 
-		List<Mentee> ArrMentees = new ArrayList<Mentee>();
+		List<User> ArrMentees = new ArrayList<User>();
 		DataAccess da = new DataAccess();
 //		 try {
 //		 ArrMentees = da.getUsers(userType.MENTEE);
