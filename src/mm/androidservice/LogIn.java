@@ -6,24 +6,16 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-
-
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-
-import util.DBUtil;
-import util.ServerUtils;
 import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.model.JsonUser;
+import mm.jsonModel.*;
 import mm.model.User;
-import mm.model.UserLoginAndroid;
+import util.ServerUtils;
 
 /**
  * Servlet implementation class LogInTest
@@ -32,6 +24,24 @@ import mm.model.UserLoginAndroid;
 public class LogIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private class UserSession {
+		
+		private String email;
+		private String password;
+		private String deviceId;
+		public UserSession(String email, String password, String deviceId) {
+			super();
+			this.email = email;
+			this.password = password;
+			this.deviceId = deviceId;
+		}
+		@Override
+		public String toString() {
+			return "UserSession [email=" + email + ", password=" + password + ", deviceId=" + deviceId + "]";
+		}
+		
+
+	}
 	
        
     /**
@@ -42,62 +52,49 @@ public class LogIn extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		BufferedReader br = new BufferedReader(
-		        new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
+	
+		 UserSession myUser = ServerUtils.getJsonFromRequest(request, UserSession.class);
 
-		    StringBuilder sb = new StringBuilder();
-		    String s;
-		    while ((s = br.readLine()) != null) {
-		         sb.append(s).append("\n");
-		    }
-		    PrintWriter out = response.getWriter();
-		//    out.println("HELOO"+sb);
-			    
-		    
-		    String jsonString = sb.toString();
-		    Gson gson = new Gson();
-		    UserLoginAndroid myUser = gson.fromJson( jsonString, UserLoginAndroid.class );
-		//    out.println(myUser);
-		//    response.getWriter().append("STRING JSON: "+jsonString); //like out.println(jsonString)
-			
 			DataAccess da = new DataAccess();
 			User user = null;
 			try {
-				user = da.login(myUser.getEmail());			
+				user = da.login(myUser.email);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
-			JsonUser jsonUser=null;
+			}
+			//user = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);	
 			
+			JsonUser jsonUser=null;
+
 			if(user==null) {
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 			} 
-			else if(user.getPassword().equals(myUser.getPassword())){
+			else if(user.getPassword().equals(myUser.password)){
+				 
 				String token=ServerUtils.generateToken();
+				//TODO
+				//da.insertSession(myUser.email,token,new Instant.now(),ENDDATE,myUser.deviceId);
+				//insert session into database
 				jsonUser = new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
 			}			
 			else {
-					jsonUser = new JsonUser(user, Constants.STATUS_WRONGPARA, Constants.WRONGPASSWORD, null);
-				 }
-			response.setContentType("application/json");
-			out.println(jsonUser);
-			out.flush();
-			out.close();
+				jsonUser = new JsonUser(user, Constants.STATUS_WRONGPARA, Constants.WRONGPASSWORD, null);
 			}
-	
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-	}
+				
+			
+			ServerUtils.respondJsonObject(response,jsonUser);
+			
+			
+			
+			
+
+			}
+
 		
 		    
 }
