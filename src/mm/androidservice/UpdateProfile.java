@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.model.JsonUser;
+import mm.jsonModel.*;
 import mm.model.User;
 import util.ServerUtils;
 
@@ -93,9 +93,4 @@ public class UpdateProfile extends HttpServlet {
 			out.flush();
 			out.close();
 	}
-	
-
-	
-	
-
 }
