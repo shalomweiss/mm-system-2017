@@ -67,6 +67,7 @@ public class LoginWeb extends HttpServlet {
 		if (temp == null) {
 			request.setAttribute("isNotEntered", 1);
 			RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
+
 			response.setContentType("text/html");
 			req.include(request, response);
 		} 
