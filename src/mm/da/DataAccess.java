@@ -33,6 +33,7 @@ public class DataAccess implements DataInterface{
 	final String addBaseUser = "INSERT INTO users (type, firstName, lastName, email, phoneNumber, password, gender, address, notes, profilePicture, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
+	final String findMentorsOfMentee = "Select users.*, mentors.* From users,mentors INNER JOIN pairs ON users.id=pairs.mentorId";
 	
 	public DataAccess() {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
@@ -176,6 +177,22 @@ public class DataAccess implements DataInterface{
 			return true;
 		}
 		return false;
+	}
+	
+	public ArrayList<User> getAllMentors(int id) throws SQLException {
+		ArrayList<User> list= new ArrayList<User>();
+		PreparedStatement stm = c.prepareStatement(findMentorsOfMentee);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();
+		while (rs.next()) {
+			list.add(new Mentor(rs.getInt(1), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7),
+						rs.getString(8), rs.getString(9), rs.getString(10),
+						rs.getBoolean(11), userType.MENTOR, rs2.getString(2),
+						rs2.getString(3), rs2.getInt(4), rs2.getString(5),
+						rs2.getString(6)));
+		}
+		return null;
 	}
 
 	@Override
