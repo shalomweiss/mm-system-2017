@@ -1,64 +1,102 @@
 package mm.androidservice;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-import javax.xml.crypto.Data;
-import javax.enterprise.context.spi.Context;
-import javax.json.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.constraints.Past;
-
-import mm.da.DataAccess;
-import mm.model.*;
-
-import java.lang.Object;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import mm.constants.Constants;
+import mm.da.DataAccess;
+import mm.jsonModel.*;
+import mm.model.User;
+import util.ServerUtils;
 
-import org.apache.catalina.Session;
+/**
+ * Servlet implementation class LogInTest
+ */
+@WebServlet("/LogIn")
+public class LogIn extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	private class UserSession {
+		
+		private String email;
+		private String password;
+		private String deviceId;
+		public UserSession(String email, String password, String deviceId) {
+			super();
+			this.email = email;
+			this.password = password;
+			this.deviceId = deviceId;
+		}
+		@Override
+		public String toString() {
+			return "UserSession [email=" + email + ", password=" + password + ", deviceId=" + deviceId + "]";
+		}
+		
 
-public class LogIn {
+	}
+	
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public LogIn() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	
+		 UserSession myUser = ServerUtils.getJsonFromRequest(request, UserSession.class);
 
-	// This method is called if TEXT_PLAIN is request
-	@javax.ws.rs.core.Context
-	@POST
-	@Path("/LogIn")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public JsonUser doLogin(@QueryParam("uName") String uname,
-			@QueryParam("uPass") String pwd,
-			@javax.ws.rs.core.Context HttpServletRequest req) {
-		{
-
-			HttpSession session = req.getSession(true);
 			DataAccess da = new DataAccess();
 			User user = null;
 			try {
-				user = da.login(uname);
+				user = da.login(myUser.email);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			JsonUser jsonUser;
+			//user = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);	
+			
+			JsonUser jsonUser=null;
 
-			if (user == null) {
-
-				jsonUser = new JsonUser(user, 403, "invalid input", null);
-			} else {
-
-				// HttpSession session=Context
-				jsonUser = new JsonUser(user, 200, "success", session);
+			if(user==null) {
+				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+			} 
+			else if(user.getPassword().equals(myUser.password)){
+				 
+				String token=ServerUtils.generateToken();
+				//TODO
+				//da.insertSession(myUser.email,token,new Instant.now(),ENDDATE,myUser.deviceId);
+				//insert session into database
+				jsonUser = new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
+			}			
+			else {
+				jsonUser = new JsonUser(user, Constants.STATUS_WRONGPARA, Constants.WRONGPASSWORD, null);
+			}
+				
+			
+			ServerUtils.respondJsonObject(response,jsonUser);
+			
+			
+			
+			
 
 			}
 
-			return jsonUser;
-
-		}
-	}
+		
+		    
 }
+
+
