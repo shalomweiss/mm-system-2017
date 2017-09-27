@@ -34,6 +34,7 @@ public class DataAccess implements DataInterface{
 	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String findMentorsOfMentee = "Select users.*, mentors.* From users,mentors INNER JOIN pairs ON users.id=pairs.mentorId";
+	final String findMentorsOfMentee = "Select users.*, mentors.* From users,mentors INNER JOIN pairs ON users.id=pairs.mentorId";
 	
 	public DataAccess() {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
