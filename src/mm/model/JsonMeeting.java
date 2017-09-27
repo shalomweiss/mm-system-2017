@@ -14,7 +14,6 @@ public class JsonMeeting {
 		this.token = token;
 	}
 	
-	
-	
+
 
 }

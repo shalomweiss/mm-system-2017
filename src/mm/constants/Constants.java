@@ -18,6 +18,9 @@ public class Constants {
 	public final static Type MENTOR_CLASS = new TypeToken<List<Mentor>>() {}.getType();	
 
 
+	public final static String ERROR="error";
+	public final static String MEETING_NOT_FOUND="meeting not found";
+
 
 
 
