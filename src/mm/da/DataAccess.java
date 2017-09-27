@@ -302,8 +302,18 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public ArrayList<Pair> getAllPairs() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	    Pair p =null;
+		ArrayList<Pair> pair =null;
+		Statement stm= c.createStatement();
+		 stm.executeQuery("select * pairs");
+		 ResultSet r = stm.getResultSet();
+	
+			while (r.next())
+			{
+			p= new Pair(r.getInt(1),r.getInt(2) ,r.getInt(3), r.getInt(4), r.getDate(5), r.getDate(6), r.getString(7), r.getString(8));	
+			pair.add(p);
+			}
+		return pair;
 	}
 
 	@Override
