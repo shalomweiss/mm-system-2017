@@ -40,5 +40,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/persistence-api-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/yasson-1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -60,7 +60,6 @@ public class LoginWeb extends HttpServlet {
 		try {
 			temp = da.login(email);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
