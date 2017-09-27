@@ -1,7 +1,6 @@
 package mm.model;
 
 import java.sql.Date;
-
 public class Pair {
 	int pairId;
 	int mentorId;

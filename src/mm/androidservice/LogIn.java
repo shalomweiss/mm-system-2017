@@ -21,7 +21,7 @@ import util.DBUtil;
 import util.ServerUtils;
 import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.model.JsonUser;
+import mm.jsonModel.*;
 import mm.model.User;
 import mm.model.UserLoginAndroid;
 

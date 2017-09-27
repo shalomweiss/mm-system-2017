@@ -1,4 +1,6 @@
-package mm.model;
+package mm.jsonModel;
+
+import mm.model.User;
 
 public class JsonUser {
 	
