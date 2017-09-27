@@ -45,7 +45,7 @@ public class GetAllMentors extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String NextPage = request.getParameter("jsp");
-		List<User> ArrMentors = new ArrayList<User>();
+		ArrayList<User> ArrMentors = new ArrayList<User>();
 		DataAccess da = new DataAccess();
 		 /*try {
 		 ArrMentors = da.getUsers(userType.MENTOR);

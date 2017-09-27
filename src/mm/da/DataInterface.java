@@ -8,6 +8,7 @@ import mm.model.User;
 import mm.model.User.userType;
 
 public interface DataInterface {
+	
 	public User login(String email) throws SQLException;
 	public boolean updateUserInfo(User user) throws SQLException;
 	public boolean deactivateUser(int id) throws SQLException;
@@ -19,4 +20,5 @@ public interface DataInterface {
 	public boolean addPair(int mentorId, int menteeId) throws SQLException;
 	public boolean disconnectPair(int pairId) throws SQLException;
 	public Pair getPair(int pairId) throws SQLException;
+	
 }

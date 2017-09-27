@@ -16,11 +16,7 @@ import mm.jsonModel.*;;
 
 
 public class ServerUtils {
-	
-	
-	
-	
-	
+
 	/** -- Session related methods: */
 	
 	public static String generateToken() {
