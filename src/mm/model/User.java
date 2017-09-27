@@ -6,8 +6,8 @@ public class User {
 	private String lastName;
 	private String email;
 	private String phoneNumber ;
-	private int gender;
 	transient private String password ;
+	private int gender;
 	private String address;
 	private String note;
 	private String profilePicture;
