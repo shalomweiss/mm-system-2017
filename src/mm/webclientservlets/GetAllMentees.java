@@ -27,7 +27,7 @@ import mm.model.User.userType;
 /**
  * Servlet implementation class GetAllMentors
  */
-@WebServlet("/GetAllMenteess")
+@WebServlet("/GetAllMentees")
 public class GetAllMentees extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -47,14 +47,14 @@ public class GetAllMentees extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String NextPage = request.getParameter("jsp");
 
-		List<Mentee> ArrMentees = new ArrayList<Mentee>();
+		List<User> ArrMentees = new ArrayList<User>();
 		DataAccess da = new DataAccess();
-		// try {
-		// ArrMentors = da.getAllMentees();
-		// } catch (SQLException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+//		 try {
+//		 ArrMentees = da.getUsers(userType.MENTEE);
+//		 } catch (SQLException e) {
+//		 // TODO Auto-generated catch block
+//		 e.printStackTrace();
+//		 }
 		request.setAttribute("Mentees", ArrMentees);
 		System.out.println("Mentees: " + ArrMentees);
 		PrintWriter writer = response.getWriter();

@@ -23,5 +23,6 @@ public class Constants {
 
 
 
+	public final static Type MENTOR_CLASS = new TypeToken<List<Mentor>>() {}.getType();	
 
 }

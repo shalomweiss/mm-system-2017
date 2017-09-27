@@ -1,4 +1,5 @@
 package mm.webclientservlets;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -9,16 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class First
+ * Servlet implementation class ForwardPath
+ * 
  */
-@WebServlet("/")
-public class First extends HttpServlet {
+@WebServlet("/ForwardPath")
+public class ForwardPath extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public First() {
+    public ForwardPath() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,14 +29,17 @@ public class First extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("First Servlet");
-		
-		request.setAttribute("isNotEntered", 1);
-		RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
-		response.setContentType("text/html");
-		req.include(request, response);
+		 String path = request.getParameter("jsp");
+		 String switchPath="LogIn.jsp";
+		 switch(path) {
+		 case ("welcome.jsp"): switchPath=path;
+		 case (""):
+			 
+		 }
+		 RequestDispatcher req=request.getRequestDispatcher(switchPath);
+		 req.forward(request, response);	   
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -42,4 +47,3 @@ public class First extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 }
-

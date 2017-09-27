@@ -1,14 +1,11 @@
 package mm.model;
 
-
-
 public class JsonUser {
 	
 	private User user;
 	private int code;
 	private String message;
 	private String token;
-	
 	
 	
 	public JsonUser(User user, int code, String message, String token) {
@@ -42,6 +39,10 @@ public class JsonUser {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	@Override
 	
-
+	public String toString() {
+		return "JsonUser [user=" + user + ", code=" + code + ", message="
+				+ message + ", token=" + token + "]";
+	}
 }

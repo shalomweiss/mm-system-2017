@@ -1,7 +1,6 @@
 package mm.webclientservlets;
-import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,16 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class First
+ * Servlet implementation class CreateNewPair
+ * req: mentorId,menteeId--> da.createPair(mentorId,menteeId)
  */
-@WebServlet("/")
-public class First extends HttpServlet {
+@WebServlet("/CreateNewPair")
+public class CreateNewPair extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public First() {
+    public CreateNewPair() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,18 +28,14 @@ public class First extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("First Servlet");
-		
-		request.setAttribute("isNotEntered", 1);
-		RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
-		response.setContentType("text/html");
-		req.include(request, response);
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 	}
-}
 
+}

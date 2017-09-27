@@ -19,6 +19,22 @@ public class User {
 	
 	public User(){}
 	
+    
+	public User(String firstName, String lastName, String email,
+			String phoneNumber, String gender, String address, String note,
+			boolean active, userType type) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.gender = gender;
+		this.address = address;
+		this.note = note;
+		this.active = active;
+		this.type = type;
+	}
+
 
 	public User(String firstName, String lastName) {
 		super();
