@@ -9,7 +9,6 @@ import mm.model.User.userType;
 
 public interface DataInterface {
 	public User login(String email) throws SQLException;
-	public boolean updateUserInfo(User user) throws SQLException;
 	public boolean deactivateUser(int id) throws SQLException;
 	public ArrayList<User> getUsers(userType type) throws SQLException;
 	public User getUser(int id) throws SQLException;
