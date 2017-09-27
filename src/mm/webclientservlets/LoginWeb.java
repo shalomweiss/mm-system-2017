@@ -64,17 +64,25 @@ public class LoginWeb extends HttpServlet {
 		}
 
 		if (temp == null) {
-			request.setAttribute("isNotEntered", 1);
+			request.setAttribute("isNotEntered", 0);
 			RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
 
 			response.setContentType("text/html");
 			req.include(request, response);
 		} 
 			if (temp.getPassword().matches(pass)){
-			request.setAttribute("isNotEntered", 0);
+			request.setAttribute("isNotEntered", 1);
 			RequestDispatcher req = request.getRequestDispatcher("Welcome.jsp");
 			response.setContentType("text/html");
 			req.forward(request, response);
 		}
+			else{
+				request.setAttribute("isNotEntered", 0);
+				RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
+
+				response.setContentType("text/html");
+				req.include(request, response);
+			}  
+				
 	}
 }
