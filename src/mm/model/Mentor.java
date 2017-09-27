@@ -16,25 +16,9 @@ public class Mentor extends User {
 		super(firstName, lastName);
 	}
 	
-	public Mentor(String firstName, String lastName, String email,
-			String phoneNumber, String gender, String address,
-			String note, boolean active, userType type, String experience,
-			String role, int company, String volunteering, String workHistory) {
-		super(firstName, lastName, email, phoneNumber, gender,
-				address, note, active, type);
-		this.experience = experience;
-		this.role = role;
-		this.company = company;
-		this.volunteering = volunteering;
-		this.workHistory = workHistory;
-	}
 
-	public Mentor(int id, String firstName, String lastName, String email,
-			String phoneNumber, String password, String gender, String address,
-			String note, boolean active, userType type, String experience,
-			String role, int company, String volunteering, String workHistory) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender,
-				address, note, active, type);
+	public Mentor(String experience, String role, int company, String volunteering, String workHistory) {
+		super();
 		this.experience = experience;
 		this.role = role;
 		this.company = company;
