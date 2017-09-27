@@ -1,14 +1,11 @@
 package mm.model;
 
-
-
 public class JsonUser {
 	
 	private User user;
 	private int code;
 	private String message;
 	private String token;
-	
 	
 	
 	public JsonUser(User user, int code, String message, String token) {
@@ -48,8 +45,4 @@ public class JsonUser {
 		return "JsonUser [user=" + user + ", code=" + code + ", message="
 				+ message + ", token=" + token + "]";
 	}
-	
-	
-	
-
 }
