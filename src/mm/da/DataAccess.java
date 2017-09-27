@@ -182,7 +182,7 @@ public class DataAccess implements DataInterface{
 	public ArrayList<User> getUsers(userType type) throws SQLException
 	{
 		User u = null;
-		ArrayList<User> users =null;
+		ArrayList<User> users = new ArrayList<User>();
 		switch(type) 
 		{
 		case ADMIN:
@@ -307,7 +307,7 @@ public class DataAccess implements DataInterface{
 	@Override
 	public ArrayList<Pair> getAllPairs() throws SQLException {
 	    Pair p =null;
-		ArrayList<Pair> pair =null;
+		ArrayList<Pair> pair = new ArrayList<Pair>();
 		Statement stm= c.createStatement();
 		 stm.executeQuery("select * pairs");
 		 ResultSet r = stm.getResultSet();
