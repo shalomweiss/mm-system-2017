@@ -1,44 +1,100 @@
-//package mm.androidservice;
-//
-//import java.util.ArrayList;
-//import java.util.Collection;
-//
-//import javax.ws.rs.Consumes;
-//import javax.ws.rs.GET;
-//import javax.ws.rs.Path;
-//import javax.ws.rs.Produces;
-//import javax.ws.rs.QueryParam;
-//import javax.ws.rs.core.MediaType;
-//
-//import mm.constants.Constants;
-//import mm.da.DataAccess;
-//import mm.model.Activity;
-//import mm.model.JsonUser;
-//import mm.model.User;
-//
-//public class GetMeetings {
-//
-//	@GET
-//	@Path("/getMeetings")
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	
-//	id, token, meetingStatus, count, page
-//
-//	public JsonUser getProfile(@QueryParam("id") String id,@QueryParam("token") String token,@QueryParam("meetingStatus") String status ) {
-//		JsonUser jsonUser;
-//		Collection <Activity> meetings = new ArrayList<Activity>();
-//		DataAccess da = new DataAccess();
-//		meetings=da.getMeetings(id,token,status);//returns a collection of activities.
-//		if(meetings==null) {
-//			jsonUser=new JsonUser(null,Constants.STATUS_MISSINGPARA,Constants.USERNOTFOUND,token);
-//		}
-//		else {
-//			jsonUser=new JsonUser(meetings,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
-//
-//		}
-//		
-//		return jsonUser;
-//		
-//	}
-//}
+package mm.androidservice;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import mm.constants.Constants;
+import mm.da.DataAccess;
+import mm.jsonModel.JsonMeeting;
+import mm.jsonModel.JsonUser;
+import mm.model.User;
+import util.ServerUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import mm.model.Meeting;
+
+/**
+ * Servlet implementation class GetMeetings
+ */
+@WebServlet("/GetMeetings")
+public class GetMeetings extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	private class MeetingSession {
+
+		private int id;
+		private String token;
+		
+		private int meetingStatus;
+		private int count;
+		private int page;
+
+		@Override
+		public String toString() {
+			return "MeetingSession [id=" + id + ", token=" + token + ", meetingStatus="
+					+ meetingStatus + ", count=" + count + ", page=" + page + "]";
+		}
+
+		public MeetingSession(int id, String token, int meetingId, int meetingStatus, int count, int page) {
+			super();
+			this.id = id;
+			this.token = token;
+			this.meetingStatus = meetingStatus;
+			this.count = count;
+			this.page = page;
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public GetMeetings() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
+
+		MeetingSession myMeeting = ServerUtils.getJsonFromRequest(request, MeetingSession.class);
+		JsonMeeting jsonMeeting = null;
+		List<Meeting> meetings =null;
+		DataAccess da = new DataAccess();
+		//TODO: make sure the function name is right
+		//meetings= da.getAllMeetings(myMeeting);
+		if(meetings==null) {
+			jsonMeeting = new JsonMeeting (Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null,meetings);
+		}
+		else {
+			jsonMeeting = new JsonMeeting (Constants.STATUS_SUCCESS, Constants.SUCCESS, myMeeting.token,meetings);
+		}
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+}
