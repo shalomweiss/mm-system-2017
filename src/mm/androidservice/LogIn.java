@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.time.Instant;
-import java.util.Iterator;
+
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,40 +16,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import controllers.SessionController;
+import util.DBUtil;
+import util.ServerUtils;
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.JsonUser;
 import mm.model.User;
+import mm.model.UserLoginAndroid;
 
 /**
  * Servlet implementation class LogInTest
  */
-@WebServlet("/LogInTest")
+@WebServlet("/LogIn")
 public class LogIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private class UserSession {
-		
-		private String email;
-		private String password;
-		private String deviceId;
-		public UserSession(String email, String password, String deviceId) {
-			super();
-			this.email = email;
-			this.password = password;
-			this.deviceId = deviceId;
-		}
-		@Override
-		public String toString() {
-			return "UserSession [email=" + email + ", password=" + password + ", deviceId=" + deviceId + "]";
-		}
-		
-
-	}
 	
        
     /**
@@ -59,13 +41,12 @@ public class LogIn extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		BufferedReader br = new BufferedReader(
 		        new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
 
@@ -74,60 +55,51 @@ public class LogIn extends HttpServlet {
 		    while ((s = br.readLine()) != null) {
 		         sb.append(s).append("\n");
 		    }
-
+		    PrintWriter out = response.getWriter();
+		//    out.println("HELOO"+sb);
+			    
+		    
 		    String jsonString = sb.toString();
 		    Gson gson = new Gson();
-		    UserSession myUser = gson.fromJson( jsonString, UserSession.class );
-		    response.getWriter().append(jsonString);
-			System.out.println("heloo");
+		    UserLoginAndroid myUser = gson.fromJson( jsonString, UserLoginAndroid.class );
+		//    out.println(myUser);
+		//    response.getWriter().append("STRING JSON: "+jsonString); //like out.println(jsonString)
+			
 			DataAccess da = new DataAccess();
 			User user = null;
 			try {
-				user = da.login(myUser.email);
-				
+				user = da.login(myUser.getEmail());			
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			JsonUser jsonUser;
-
-		//return jsonUser;
-			if(user!=null) {
+			}	
+			JsonUser jsonUser=null;
+			
+			if(user==null) {
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
-			} else {
-				if(user.getPassword().equals(myUser.password)) {
-				String token=SessionController.generateToken();
-				//TODO
-				//da.insertSession(myUser.email,token,new Instant.now(),ENDDATE,myUser.deviceId);
-				//insert session into database
+			} 
+			else if(user.getPassword().equals(myUser.getPassword())){
+				String token=ServerUtils.generateToken();
 				jsonUser = new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
-				
-				}
-				else {
+			}			
+			else {
 					jsonUser = new JsonUser(user, Constants.STATUS_WRONGPARA, Constants.WRONGPASSWORD, null);
-				}
-				
-
-			}
+				 }
 			response.setContentType("application/json");
-			// Get the printwriter object from response to write the required json object to the output stream      
-			PrintWriter out = response.getWriter();
-			// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-			out.print(jsonUser);
+			out.println(jsonUser);
 			out.flush();
 			out.close();
-
+			}
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+	}
 		
 		    
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//		
-//	}
-
 }
+
+
