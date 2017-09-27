@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import controllers.SessionController;
+import util.DBUtil;
+import util.ServerUtils;
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.JsonUser;
@@ -77,7 +79,7 @@ public class LogIn extends HttpServlet {
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 			} 
 			else if(user.getPassword().equals(myUser.getPassword())){
-				String token=SessionController.generateToken();
+				String token=ServerUtils.generateToken();
 				jsonUser = new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
 			}			
 			else {

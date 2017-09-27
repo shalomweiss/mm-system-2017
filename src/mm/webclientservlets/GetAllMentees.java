@@ -49,12 +49,12 @@ public class GetAllMentees extends HttpServlet {
 
 		List<Mentee> ArrMentees = new ArrayList<Mentee>();
 		DataAccess da = new DataAccess();
-		 try {
-		 ArrMentees = da.getUsers(userType.MENTEE);
-		 } catch (SQLException e) {
-		 // TODO Auto-generated catch block
-		 e.printStackTrace();
-		 }
+//		 try {
+//		 ArrMentees = da.getUsers(userType.MENTEE);
+//		 } catch (SQLException e) {
+//		 // TODO Auto-generated catch block
+//		 e.printStackTrace();
+//		 }
 		request.setAttribute("Mentees", ArrMentees);
 		System.out.println("Mentees: " + ArrMentees);
 		PrintWriter writer = response.getWriter();

@@ -46,12 +46,12 @@ public class GetMentorById extends HttpServlet {
         String jsp = request.getParameter("jsp");
           DataAccess da = new DataAccess();
             Mentor mentor = null;
-          try {
-                mentor = da.getUser(id);
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+//          try {
+//                mentor = da.getUser(id);
+//            } catch (SQLException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
         	mentor=getMentorById();
       	
         request.setAttribute("MentorById", mentor);	

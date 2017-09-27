@@ -60,14 +60,14 @@ public class AddNewMentor extends HttpServlet {
 		
 		
 		DataAccess da = new DataAccess();
-	    boolean res;
+	    boolean res=false;
 	
-		try {
-			res = da.addUser(newMentor);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			res = da.addUser(newMentor);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		if(res){
 			request.setAttribute("Status", 200);
 		}
