@@ -41,7 +41,7 @@ public interface DataInterface{
 
 	public ArrayList<Mentee> getMenteesOfMentor(int mentorId) throws SQLException;
 
-	public Meeting getMeetingById(int id, int meetingId) throws SQLException;
+	public Meeting getMeetingById( int meetingId) throws SQLException;
 
 	public boolean startUserSession(Session session) throws SQLException;
 
