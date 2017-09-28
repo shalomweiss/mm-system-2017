@@ -20,6 +20,7 @@ public class Constants {
 
 	public final static String ERROR="error";
 	public final static String MEETING_NOT_FOUND="meeting not found";
+	public static final String INVALID_SESSION_TOKEN = "Invalid session token";
 
 
 
