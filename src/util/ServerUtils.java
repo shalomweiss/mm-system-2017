@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.*;
 import mm.model.Session;
 
@@ -144,6 +145,16 @@ public class ServerUtils {
 		return false;
 		
 	}
+	
+	/**
+	 * get DataAccess
+	 * @param da
+	 * @return
+	 */
+	public static DataInterface getDBmethods(DataInterface da) {
+    	return da;
+    }
+
 	
 	//TODO -- add request validation methods for WEB
 	/**Web related methods*/
