@@ -54,6 +54,9 @@ public class DisconnectPair extends HttpServlet {
 //		}
 		if(res){
 			request.setAttribute("Status", 200);
+			response.getWriter().append(pairId);
+			// if id=-1 something is wrong ;
+			
 		}
 		if(!res)
 		request.setAttribute("Status", 400);

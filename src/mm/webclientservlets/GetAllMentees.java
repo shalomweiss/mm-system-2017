@@ -82,5 +82,4 @@ public class GetAllMentees extends HttpServlet {
 
 		return getUsers;
 	}
-
 }
