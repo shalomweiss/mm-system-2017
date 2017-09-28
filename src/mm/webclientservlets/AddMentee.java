@@ -56,7 +56,7 @@ public class AddMentee extends HttpServlet {
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
 		String uEmail = request.getParameter("uEmail");
-		String uGender = request.getParameter("uGender");
+		int uGender = Integer.parseInt( request.getParameter("uGender"));
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
 		String uCourseOfStudy = request.getParameter("uCourseOfStudy");
@@ -69,14 +69,14 @@ public class AddMentee extends HttpServlet {
 		String isGraduate=request.getParameter("uIsGraduate");
 		String resume=request.getParameter("uResume");
 		String gradeSheet=request.getParameter("uGradeSheet");
-		String uProfilePicture=request.getParameter("uProfilePicture");
+		String profilePicture=request.getParameter("profilePicture");
 		
 		float remSemesters=Float.valueOf(uRemSemesters);
 		float avg=Float.valueOf(uAverage);
 		
 		boolean isGradute=Boolean.parseBoolean(isGraduate);
 		String uPass= genPass.getSaltString();	 
-		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,uNotes,uProfilePicture, true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,isGradute,resume,gradeSheet );
+		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,isGradute,resume,gradeSheet );
 		
 		
 		DataAccess da = new DataAccess();
