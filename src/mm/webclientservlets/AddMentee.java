@@ -2,6 +2,7 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -82,12 +83,12 @@ public class AddMentee extends HttpServlet {
 		DataAccess da = new DataAccess();
 	    boolean res=false;
 	
-//		try {
-//			res = da.addUser(newMentee)
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			res = da.addUser(newMentee);
+		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(res){
 			request.setAttribute("Status", 200);
 		}

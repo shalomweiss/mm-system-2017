@@ -54,6 +54,7 @@ public class GetAllPairs extends HttpServlet {
 
 		DataAccess da = new DataAccess();
 		pairsArray = getAllPair();
+		//pairsArray = da.getAllPairs();
 		for (Pair pair : pairsArray) {
 			if (pair.getActiveStatus() == 1) {
 				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),

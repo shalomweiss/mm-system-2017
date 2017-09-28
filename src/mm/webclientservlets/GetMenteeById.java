@@ -2,6 +2,7 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import mm.da.DataAccess;
 import mm.model.Mentee;
 import mm.model.Mentor;
+import mm.model.User;
 
 /**
  * Servlet implementation class GetMenteeById
@@ -35,16 +37,16 @@ public class GetMenteeById extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("GetMenteeById");
-		String id = request.getParameter("uId");
+		int id =Integer.parseInt( request.getParameter("uId"));
         String jsp = request.getParameter("jsp");
           DataAccess da = new DataAccess();
-            Mentee mentee = null;
-//          try {
-//               mentee = da.getUser(id);
-//            } catch (SQLException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
+            User mentee = null;
+          try {
+               mentee = da.getUser(id);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         	
       	
         request.setAttribute("MenteeById", mentee);	

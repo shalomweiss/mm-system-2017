@@ -42,12 +42,12 @@ public class CreateNewPair extends HttpServlet {
 		String nextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
 		boolean res = false;
-		// try {
-		// res = da.addPair(MentorId,MenteeId);
-		// } catch (SQLException e) {
-		//// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+//		 try {
+//		 res = da.addPair(MentorId,MenteeId);
+//		 } catch (SQLException e) {
+//		// // TODO Auto-generated catch block
+//		 e.printStackTrace();
+//		 }
 		if (res) {
 			request.setAttribute("Status", 200);//success
 		}

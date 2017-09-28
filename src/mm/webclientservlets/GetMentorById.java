@@ -42,16 +42,16 @@ public class GetMentorById extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Get Mentor By ID Servlet");
-		String id = request.getParameter("uId");
+		int id =Integer.parseInt( request.getParameter("uId"));
         String jsp = request.getParameter("jsp");
           DataAccess da = new DataAccess();
-            Mentor mentor = null;
-//          try {
-//                mentor = da.getUser(id);
-//            } catch (SQLException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
+            User mentor = null;
+          try {
+                mentor = da.getUser(id);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         request.setAttribute("MentorById", mentor);	
         System.out.println(mentor);
         	

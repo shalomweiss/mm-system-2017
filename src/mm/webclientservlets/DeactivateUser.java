@@ -1,6 +1,7 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,12 +49,12 @@ public class DeactivateUser extends HttpServlet {
 		DataAccess da = new DataAccess();
 	    boolean res=false;
 	    
-//		try {
-//			res = da.deactivateUser(id);
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			res = da.deactivateUser(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(res){
 			
 		}

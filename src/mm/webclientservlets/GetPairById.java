@@ -2,6 +2,7 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,16 +38,16 @@ public class GetPairById extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		System.out.println("GetPairById");
-		String idPair = request.getParameter("pairId");
+		int idPair =Integer.parseInt( request.getParameter("uId"));
         String jsp = request.getParameter("jsp");
           DataAccess da = new DataAccess();
             Pair pair = null;
-//          try {
-//               pair = da.getPair(idPair);
-//            } catch (SQLException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
+          try {
+               pair = da.getPair(idPair);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         request.setAttribute("PairById", pair);	
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
 		req.forward(request, response);	

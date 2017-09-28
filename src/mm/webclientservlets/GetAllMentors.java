@@ -48,12 +48,12 @@ public class GetAllMentors extends HttpServlet {
 		ArrayList<User> ArrMentors = new ArrayList<User>();
 		DataAccess da = new DataAccess();
 		ArrMentors=getAllUsers();
-		 /*try {
+		 try {
 		 ArrMentors = da.getUsers(userType.MENTOR);
 		 } catch (SQLException e) {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
-		 }*/
+		 }
 		request.setAttribute("Mentors", ArrMentors);
 		System.out.println("MENTORS: " + ArrMentors);
 		PrintWriter writer = response.getWriter();
