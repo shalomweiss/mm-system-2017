@@ -39,6 +39,7 @@ public class DataAccess implements DataInterface{
 	final String selectPairId="Select * From pair Where id=?";
 	
 	
+	
 	public DataAccess() {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
@@ -372,7 +373,7 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public ArrayList<Pair> getAllPairs() throws SQLException {
-	    Pair p =null;
+	    Pair p =new Pair();
 		ArrayList<Pair> pair = new ArrayList<Pair>();
 		Statement stm= c.createStatement();
 		 stm.executeQuery("select * pairs");
@@ -458,7 +459,8 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public ArrayList<Meeting> getUserMeetings(int id) {
-		// TODO Auto-generated method stub
+		ArrayList<Meeting> meeting =new ArrayList<>();
+		
 		return null;
 	}
 
@@ -493,8 +495,7 @@ public class DataAccess implements DataInterface{
 	}
 		
 
-		
-
+			
 	@Override
 	public boolean startUserSession(Session session) throws SQLException {
 		// TODO Auto-generated method stub
