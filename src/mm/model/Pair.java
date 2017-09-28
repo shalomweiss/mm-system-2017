@@ -14,6 +14,22 @@ public class Pair {
 	
 	
 
+	public Pair(int pairId, int mentorId, int menteeId, User mentor, User mentee, int activeStatus, long startDate,
+			long endDate, String joinMessage, String tsofenMessage) {
+		super();
+		this.pairId = pairId;
+		this.mentorId = mentorId;
+		this.menteeId = menteeId;
+		this.mentor = mentor;
+		this.mentee = mentee;
+		this.activeStatus = activeStatus;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.joinMessage = joinMessage;
+		this.tsofenMessage = tsofenMessage;
+	}
+
+
 	public Pair(int pairId, int mentorId, int menteeId, int activeStatus, long startDate,
 			long endDate, String joinMessage, String tsofenMessage) {
 		super();
