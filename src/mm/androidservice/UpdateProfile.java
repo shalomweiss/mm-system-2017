@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.JsonUser;
 import mm.model.User;
 import util.ServerUtils;
@@ -57,12 +58,12 @@ public class UpdateProfile extends HttpServlet {
 						
 			JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
 			
-			int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+			int id =  (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 			String token = myJson.get("token").getAsString();
 			User updatedUser = new Gson().fromJson(myJson.get("user").getAsJsonObject(), User.class);
 					//new User(myJson.get("user"));//TODO CHECK VARIABLES
 			
-			DataAccess da = new DataAccess();
+			DataInterface da = new DataAccess();
 			JsonUser jsonUser=null;
 			
 			if(ServerUtils.validateUserSession(id, token, da)&&updatedUser!=null) {
@@ -73,7 +74,7 @@ public class UpdateProfile extends HttpServlet {
 					
 					
 					if(
-					da.updateUserInfo(updatedUser)
+					da.editUser(updatedUser)
 					) {
 						//success
 						jsonUser = new JsonUser(updatedUser, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);

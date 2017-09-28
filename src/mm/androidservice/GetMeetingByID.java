@@ -70,13 +70,13 @@ public class GetMeetingByID extends HttpServlet {
 		
 		DataAccess da = new DataAccess();
 		Meeting meetingFromDB = null;
-		try {
-			//meetingFromDB = da.insert(id,token,meetingId);
-			 //user = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+//		try {
+//			meetingFromDB = da.insert(id,token,meetingId);
+//			//user = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}	
 		
 		JsonMeeting jsonMeeting=null;
 		if(meetingFromDB==null) {
