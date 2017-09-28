@@ -55,7 +55,7 @@ public class User {
 
 
 	public User(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, String profilePicture, String note, boolean active, userType type) {
+			int gender, String address, String note, String profilePicture, boolean active, userType type) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -66,8 +66,8 @@ public class User {
 		this.gender = gender;
 		this.address = address;
 		this.note = note;
-		this.profilePicture = profilePicture;
 		this.active = active;
+		this.profilePicture = profilePicture;
 		this.type = type;
 	}
 
