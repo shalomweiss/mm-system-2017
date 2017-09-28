@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.*;
 import mm.model.Session;
 
@@ -128,7 +129,7 @@ public class ServerUtils {
 	 * @param da
 	 * @return
 	 */
-	public static boolean validateUserSession(int userId,String token,DataAccess da) {
+	public static boolean validateUserSession(int userId,String token,DataInterface da) {
 		
 		ArrayList<Session> userSessions=null;
 		//TODO

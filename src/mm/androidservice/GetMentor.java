@@ -1,6 +1,8 @@
 package mm.androidservice;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.JsonUser;
 import mm.model.User;
 import mm.webclientservlets.GetMentorById;
@@ -48,18 +51,23 @@ public class GetMentor extends HttpServlet {
 
 		JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
 		
-		int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
 		
 		User mentor=null;
 		JsonUser jsonUser=null;
 	
 		
-		DataAccess da = new DataAccess();
+		DataInterface da = new DataAccess();
 		if(ServerUtils.validateUserSession(id,token,da)) {
 			
 
-			//mentor=da.getMentorOfMentee(id);
+			try {
+				mentor=da.getMentorOfMentee(id);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 		if (mentor == null) {
 

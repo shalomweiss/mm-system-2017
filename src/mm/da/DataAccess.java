@@ -474,7 +474,7 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public ArrayList<Mentee> getMenteesOfMentor(int mentorId) throws SQLException {
-		ArrayList<Mentee> mentees = null;
+		ArrayList<Mentee> mentees = new ArrayList<Mentee>();
 		PreparedStatement stm = c.prepareStatement(getMentorofPair);
 		stm.setInt(1, mentorId);
 		stm.setInt(2, 1);

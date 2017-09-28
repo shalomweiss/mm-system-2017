@@ -1,6 +1,7 @@
 package mm.androidservice;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,10 @@ import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.JsonUser;
+import mm.jsonModel.JsonUsers;
+import mm.model.Mentee;
 import mm.model.User;
 import util.ServerUtils;
 
@@ -47,34 +51,39 @@ public class GetMentees extends HttpServlet {
 		// TODO Auto-generated method stub
 		JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
 		
-		int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+		int id =(myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
 
-		DataAccess da = new DataAccess();
-		JsonUser jsonUser=null;
-		List<User> mentees=null;
+		DataInterface da = new DataAccess();
+		JsonUsers jsonUsers=null;
+		List<Mentee> mentees=null;
 		
 		if(ServerUtils.validateUserSession(id,token,da)) {
 		
 		
 		
-		//user=da.getUser(myUser.id);
+		try {
+			mentees=da.getMenteesOfMentor(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if (mentees == null) {
 
-			//jsonUser = new JsonUser(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+			//jsonUsers = new JsonUser(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 		} else {
 			
-			//jsonUser=new JsonUser(user,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+			//jsonUsers =new JsonUser(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
 			
 			}
 		}
 		else {
-			jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN, null);
+			jsonUsers= new JsonUsers(null, Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN, null);
 		}
 
 		
-		ServerUtils.respondJsonObject(response,jsonUser);
+		ServerUtils.respondJsonObject(response,jsonUsers);
 		
 		
 	
