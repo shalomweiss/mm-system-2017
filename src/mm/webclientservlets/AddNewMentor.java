@@ -58,15 +58,9 @@ public class AddNewMentor extends HttpServlet {
 		String workHistory = request.getParameter("history");
 		String role=request.getParameter("role");
 		int company = Integer.parseInt(request.getParameter("company"));
-		String pass= genPass.getSaltString();
+		String pass= GeneratePass.getSaltString();
 		String ProfilePicture=request.getParameter("profilePicture");
-
-
 		User newMentor=new Mentor(firstName,lastName,email,phoneNumber,pass, gender,address,notes,ProfilePicture,true,userType.MENTOR, experience,role,company,volunteering,workHistory);
-
-	
-		
-		
 		DataAccess da = new DataAccess();
 	    boolean res=false;
 	
@@ -77,11 +71,10 @@ public class AddNewMentor extends HttpServlet {
 			e.printStackTrace();
 		}
 		if(res){
-			request.setAttribute("Status", 200);
+			response.getWriter().append("Mentor Added");
 		}
 		if(!res)
-		request.setAttribute("Status", 400);
-		
+			response.getWriter().append("Failed in added Mentor");	
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
 	}
