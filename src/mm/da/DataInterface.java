@@ -1,7 +1,6 @@
 package mm.da;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 import mm.model.Meeting;
 import mm.model.Mentee;
@@ -10,6 +9,8 @@ import mm.model.Pair;
 import mm.model.Session;
 import mm.model.User;
 import mm.model.User.userType;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface DataInterface{
 
