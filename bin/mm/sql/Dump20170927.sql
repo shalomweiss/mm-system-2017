@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `db`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: db
@@ -56,12 +58,16 @@ CREATE TABLE `activities` (
   `status` int(11) NOT NULL,
   `menteeReport` text,
   `mentorReport` text,
+  `menteePrivateReport` text,
+  `mentorPrivateReport` text,
   `meetingType` tinyint(4) NOT NULL,
   `subject` varchar(45) NOT NULL,
   `location` varchar(254) NOT NULL,
   `date` date NOT NULL,
   `startingTime` time NOT NULL,
   `endingTime` time NOT NULL,
+  `mentorComplete` tinyint(4) DEFAULT NULL,
+  `menteeComplete` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`activityId`),
   KEY `menteeID_act_idx` (`menteeId`),
   KEY `mentorID_act_idx` (`mentorId`),
@@ -94,7 +100,7 @@ CREATE TABLE `mentees` (
   `average` float DEFAULT NULL,
   `academicDicipline1` varchar(45) DEFAULT NULL,
   `academicDecipline2` varchar(45) DEFAULT NULL,
-  `isGraduate` tinyint(4) DEFAULT NULL,
+  `signedEULA` tinyint(4) DEFAULT NULL,
   `resume` varchar(254) DEFAULT NULL,
   `gradeSheet` varchar(254) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -186,13 +192,15 @@ DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sessions` (
-  `userId` int(11) NOT NULL,
+  `deviceId` varchar(45) NOT NULL,
   `token` varchar(120) NOT NULL,
+  `userId` int(11) NOT NULL,
   `creationDate` datetime NOT NULL,
   `expirationDate` datetime NOT NULL,
-  `deviceId` varchar(45) NOT NULL,
-  PRIMARY KEY (`userId`,`token`),
-  CONSTRAINT `userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`deviceId`,`token`),
+  UNIQUE KEY `token_UNIQUE` (`token`),
+  KEY `userId_users_idx` (`userId`),
+  CONSTRAINT `userId_users` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -202,7 +210,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (4,'1','2017-09-17 20:00:00','2017-10-17 20:00:00','1');
+INSERT INTO `sessions` VALUES ('1','1',4,'2017-09-17 20:00:00','2017-10-17 20:00:00');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,4 +285,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-27 13:54:46
+-- Dump completed on 2017-09-28 14:59:33
