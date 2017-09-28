@@ -1,7 +1,9 @@
 package mm.androidservice;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import com.google.gson.JsonObject;
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.jsonModel.JsonUser;
+import mm.jsonModel.JsonUsers;
 import mm.model.User;
 import util.ServerUtils;
 
@@ -51,30 +54,32 @@ public class GetMentees extends HttpServlet {
 		String token = myJson.get("token").getAsString();
 
 		DataAccess da = new DataAccess();
-		JsonUser jsonUser=null;
+		JsonUsers jsonUsers=null;
 		List<User> mentees=null;
+		User mentor=null;
+		
 		
 		if(ServerUtils.validateUserSession(id,token,da)) {
 		
 		
 		
-		//user=da.getUser(myUser.id);
+		//mentees=da.getMenteesOfMentor(id);
 		
 		if (mentees == null) {
 
-			//jsonUser = new JsonUser(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+			//jsonUsers = new JsonUsers(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 		} else {
 			
-			//jsonUser=new JsonUser(user,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+			//jsonUsers=new JsonUser(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
 			
 			}
 		}
 		else {
-			jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN, null);
+			jsonUsers = new JsonUsers(null, Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN, null);
 		}
 
 		
-		ServerUtils.respondJsonObject(response,jsonUser);
+		ServerUtils.respondJsonObject(response,jsonUsers);
 		
 		
 	
