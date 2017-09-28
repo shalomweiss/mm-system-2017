@@ -13,7 +13,9 @@
   
   
 <style type="text/css">
+
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -127,12 +129,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
+
+
+
 </style>
   
 </head>
 <div class="login-page">
+
+
+
 		<div class="form">
 			<h3>Login to your account</h3>
+
+
+
 			<form class="login-form" action="LoginWeb" method="post">
 				<input name="uName" type="text" placeholder="Username " /> 
 				<input name="uPass"  type="password" placeholder="Password" />
@@ -147,6 +158,8 @@ body {
 		</div>
 	</div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    
 
 </body>
 </html>

@@ -121,6 +121,19 @@ public class ServerUtils {
 		
 	}
 	
+	
+	/**
+	 * return map as jsonObject
+	 * @param inputMap
+	 * @return
+	 */
+	public static JsonObject mapToJson(Map<String, Object> inputMap){
+
+    return new JsonParser().parse(new Gson().toJson(inputMap)).getAsJsonObject();
+    
+	}
+	
+	
 	/**
 	 * check if the given token is valid for the given user
 	 * @param userId
@@ -145,6 +158,17 @@ public class ServerUtils {
 		
 	}
 	
+	
+	/**
+	 * return map as jsonObject
+	 * @param inputMap
+	 * @return
+	 */
+	public static JsonObject mapToJson(Map<String, Object> inputMap){
+
+    return new JsonParser().parse(new Gson().toJson(inputMap)).getAsJsonObject();
+    
+	}
 	//TODO -- add request validation methods for WEB
 	/**Web related methods*/
 }
