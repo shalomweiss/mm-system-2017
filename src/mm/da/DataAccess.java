@@ -40,6 +40,10 @@ public class DataAccess implements DataInterface{
 	//final String findMentorsOfMentee = "Select users.*, mentors.* From users,mentors INNER JOIN pairs ON users.id=pairs.mentorId";
 	final String insertPair = "INSERT INTO db.`pairs` (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectPairId="Select * From pair Where id=?";
+	final String getMenteeofPair = "Select * From pairs where menteeId=?, activeStatus=?";
+	final String getMentorofPair = "Select * From pairs where mentorId=?, activeStatus=?";
+	
+	
 	public DataAccess() {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
@@ -464,15 +468,27 @@ public class DataAccess implements DataInterface{
 	}
 
 	@Override
-	public Mentor getMentorOfMentee(int menteeId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Mentor getMentorOfMentee(int menteeId) throws SQLException {
+		PreparedStatement stm = c.prepareStatement(getMenteeofPair);
+		stm.setInt(1, menteeId);
+		stm.setInt(2, 1);
+		ResultSet rs = stm.executeQuery();
+		return (Mentor) getUser(rs.getInt(2));
+		
 	}
 
 	@Override
-	public ArrayList<Mentee> getMenteesOfMentor(int mentorId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Mentee> getMenteesOfMentor(int mentorId) throws SQLException {
+		ArrayList<Mentee> mentees = null;
+		PreparedStatement stm = c.prepareStatement(getMentorofPair);
+		stm.setInt(1, mentorId);
+		stm.setInt(2, 1);
+		ResultSet rs = stm.executeQuery();
+		while(!rs.next())
+			{
+			mentees.add((Mentee) getUser(rs.getInt(3)));
+			}
+		return mentees;
 	}
 
 
