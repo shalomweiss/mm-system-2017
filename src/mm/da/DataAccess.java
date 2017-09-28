@@ -494,7 +494,7 @@ public class DataAccess implements DataInterface{
 	}
 
 	@Override
-	public Meeting getMeetingById(int id, int meetingId) throws SQLException {
+	public Meeting getMeetingById(int meetingId) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
