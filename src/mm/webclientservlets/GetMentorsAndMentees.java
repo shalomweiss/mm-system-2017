@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class GetMentorsAndMentees
+ * return all mentees and mentors;
  */
 @WebServlet("/GetMentorsAndMentees")
 public class GetMentorsAndMentees extends HttpServlet {
@@ -34,6 +35,10 @@ public class GetMentorsAndMentees extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	
+	
+	
+	
 	}
 
 }

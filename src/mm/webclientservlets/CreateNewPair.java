@@ -53,7 +53,7 @@ public class CreateNewPair extends HttpServlet {
 //			e.printStackTrace();
 //		}
 		if(res){
-			request.setAttribute("Status", 200);
+		//	response.
 		}
 		if(!res)
 		request.setAttribute("Status", 400);
