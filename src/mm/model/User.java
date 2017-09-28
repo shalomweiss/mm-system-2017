@@ -28,16 +28,17 @@ public class User {
 	}
 	
 	public User(){}
-	
-    
 	public User(String firstName, String lastName, String email,
-			String phoneNumber, int gender, String address, String note,
+			String phoneNumber,String pass, int gender, String address, String note,
 			String profilePicture, boolean active, userType type) {
+
+		
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.password=pass;
 		this.gender = gender;
 		this.address = address;
 		this.note = note;

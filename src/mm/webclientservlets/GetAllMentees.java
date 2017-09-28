@@ -47,7 +47,8 @@ public class GetAllMentees extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String NextPage = request.getParameter("jsp");
 
-		List<User> ArrMentees = new ArrayList<User>();
+		ArrayList<User> ArrMentees = new ArrayList<User>();
+	//	ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
 //		 try {
 //		 ArrMentees = da.getUsers(userType.MENTEE);
@@ -73,15 +74,12 @@ public class GetAllMentees extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	public List<Mentee> getAllUsers() {
+	public List<User> getAllUsers() {
 
-		List<Mentee> getUsers = new ArrayList<Mentee>();
-		getUsers.add(new Mentee("firdos", "bobo"));
-		getUsers.add(new Mentee("dunia", "abo"));
-		getUsers.add(new Mentee("yara", "roh"));
-		getUsers.add(new Mentee("ghada", "aaa"));
+		List<User> getUsers = new ArrayList<User>();
+		getUsers.add(new Mentee(null, "D", "fff", "fffe","rrr", null, null, null, false, null, 0, null, null, 0, null, null, false, null, null));
+		
 
 		return getUsers;
 	}
-
 }

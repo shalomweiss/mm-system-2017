@@ -8,18 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class DeactivUser
- * param: id
- * da.deactiveUser(userId)
+ * Servlet implementation class GetMentorsAndMentees
+ * return all mentees and mentors;
  */
-@WebServlet("/DeactivUser")
-public class DeactivUser extends HttpServlet {
+@WebServlet("/GetMentorsAndMentees")
+public class GetMentorsAndMentees extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeactivUser() {
+    public GetMentorsAndMentees() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,6 +35,10 @@ public class DeactivUser extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	
+	
+	
+	
 	}
 
 }

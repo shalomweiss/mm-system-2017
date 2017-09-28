@@ -45,8 +45,9 @@ public class GetAllMentors extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String NextPage = request.getParameter("jsp");
-		List<User> ArrMentors = new ArrayList<User>();
+		ArrayList<User> ArrMentors = new ArrayList<User>();
 		DataAccess da = new DataAccess();
+		ArrMentors=getAllUsers();
 		 /*try {
 		 ArrMentors = da.getUsers(userType.MENTOR);
 		 } catch (SQLException e) {
@@ -70,14 +71,13 @@ public class GetAllMentors extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	public List<Mentor> getAllUsers() {
+	public ArrayList<User> getAllUsers() {
 
-		List<Mentor> getUsers = new ArrayList<Mentor>();
+		ArrayList<User> getUsers = new ArrayList<User>();
 		getUsers.add(new Mentor("firdos", "bobo"));
 		getUsers.add(new Mentor("dunia", "abo"));
 		getUsers.add(new Mentor("yara", "roh"));
 		getUsers.add(new Mentor("ghada", "aaa"));
-
 		return getUsers;
 	}
 

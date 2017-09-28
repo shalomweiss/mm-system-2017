@@ -52,9 +52,8 @@ public class GetMentorById extends HttpServlet {
 //                // TODO Auto-generated catch block
 //                e.printStackTrace();
 //            }
-        	mentor=getMentorById();
-      	
         request.setAttribute("MentorById", mentor);	
+        System.out.println(mentor);
         	
 	    PrintWriter writer = response.getWriter();
 		writer.println(mentor);
