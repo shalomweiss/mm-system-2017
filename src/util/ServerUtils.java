@@ -144,6 +144,17 @@ public class ServerUtils {
 		
 	}
 	
+	
+	/**
+	 * return map as jsonObject
+	 * @param inputMap
+	 * @return
+	 */
+	public static JsonObject mapToJson(Map<String, Object> inputMap){
+
+    return new JsonParser().parse(new Gson().toJson(inputMap)).getAsJsonObject();
+    
+	}
 	//TODO -- add request validation methods for WEB
 	/**Web related methods*/
 }
