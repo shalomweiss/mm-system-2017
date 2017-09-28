@@ -13,24 +13,26 @@ public class Mentee extends User {
 	private float average;
 	private String academicDicipline;
 	private String academicDicipline2;
-	private boolean isGraduate;
+	private boolean signedEULA;
 	private String resume;
 	private String gradeSheet;
 
-	
-
-	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			String gender, String address, String note, boolean active, userType type, float remainingSemesters,
-			String graduationStatus, String academiclnstitution, float average, String academicDicipline,
-			String academicDicipline2, boolean isGraduate, String resume, String gradeSheet) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, active, type);
+	public Mentee(int id, String firstName, String lastName, String email,
+			String phoneNumber, String password, String gender, String address,
+			String note, boolean active, userType type,
+			float remainingSemesters, String graduationStatus,
+			String academiclnstitution, float average,
+			String academicDicipline, String academicDicipline2,
+			boolean signedEULA, String resume, String gradeSheet) {
+		super(id, firstName, lastName, email, phoneNumber, password, gender,
+				address, note, active, type);
 		this.remainingSemesters = remainingSemesters;
 		this.graduationStatus = graduationStatus;
 		this.academiclnstitution = academiclnstitution;
 		this.average = average;
 		this.academicDicipline = academicDicipline;
 		this.academicDicipline2 = academicDicipline2;
-		this.isGraduate = isGraduate;
+		this.signedEULA = signedEULA;
 		this.resume = resume;
 		this.gradeSheet = gradeSheet;
 	}
@@ -84,11 +86,11 @@ public class Mentee extends User {
 	}
 
 	public boolean isGuarantee() {
-		return isGraduate;
+		return signedEULA;
 	}
 
 	public void setGuarantee(boolean isGuarantee) {
-		this.isGraduate = isGuarantee;
+		this.signedEULA = isGuarantee;
 	}
 
 	public String getGradeSheet() {
@@ -98,11 +100,11 @@ public class Mentee extends User {
 	public String getResume() {
 		return resume;
 	}
-	
+
 	public void setResume(String resume) {
 		this.resume = resume;
 	}
-	
+
 	public void setGradeSheet(String gradeSheet) {
 		this.gradeSheet = gradeSheet;
 	}

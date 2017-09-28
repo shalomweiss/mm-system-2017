@@ -37,7 +37,7 @@ public final class DataContract {
 		public static final String COL_AVERAGE = "average";
 		public static final String COL_ACADEMICDICIPLINE1 = "academicDicipline1";
 		public static final String COL_ACADEMICDICIPLINE2 = "academicDicipline2";
-		public static final String COL_ISGRADUATE = "isGraduate";
+		public static final String COL_SIGNEDEULA = "signedEULA";
 		public static final String COL_RESUME = "resume";
 		public static final String COL_GRADESHEET = "gradeSheet";
 	}
@@ -49,5 +49,17 @@ public final class DataContract {
 		public static final String COL_CREATIONDATE = "creationDate";
 		public static final String COL_EXPIRATIONDATE = "expirationDate";
 		public static final String COL_DEVICEID = "deviceId";
+	}
+	
+	public static class PairsTable{
+		public static final String TABLE_NAME = "pairs";
+		public static final String COL_PAIRID = "pairId";
+		public static final String COL_MENTORID = "mentorId";
+		public static final String COL_MENTEEID = "menteeId";
+		public static final String COL_ACTIVESTATUS = "activeStatus";
+		public static final String COL_STARTDATE = "starteDate";
+		public static final String COL_ENDDATE = "endDate";
+		public static final String COL_JOINTMESSAGE = "jointMessage";
+		public static final String COL_TSOFENMESSAGE = "tsofenMessage";
 	}
 }
