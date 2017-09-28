@@ -57,7 +57,7 @@ public class UpdateProfile extends HttpServlet {
 						
 			JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
 			
-			int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+			int id =  (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 			String token = myJson.get("token").getAsString();
 			User updatedUser = new Gson().fromJson(myJson.get("user").getAsJsonObject(), User.class);
 					//new User(myJson.get("user"));//TODO CHECK VARIABLES
