@@ -5,7 +5,6 @@ import java.util.List;
 import mm.model.Meeting;
 
 public class JsonMeeting {
-	
 	//private Meeting meeting;
 	private int code;
 	private String message;
@@ -23,9 +22,4 @@ public class JsonMeeting {
 		this.token = token;
 		this.meetings = meetings;
 	}
-	
-	
-	
-	
-
 }

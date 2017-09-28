@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.jsonModel.*;
+import mm.jsonModel.JsonUser;
 import mm.model.User;
 import util.ServerUtils;
 
@@ -28,28 +31,7 @@ import util.ServerUtils;
 public class UpdateProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	/*for json parsing*/
-	private class UserSession {
-		
-		private String id;
-		private String token;
-		private User updatedUser;
-		public UserSession(String id, String token, User updatedUser) {
-			super();
-			this.id = id;
-			this.token = token;
-			this.updatedUser = updatedUser;
-		}
-		@Override
-		public String toString() {
-			return "UserSession [id=" + id + ", token=" + token + ", updatedUser=" + updatedUser + "]";
-		}
-		
-		
-
-	}
-	
-       
+   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -61,10 +43,10 @@ public class UpdateProfile extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-	}
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		doGet(request, response);
+//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -72,25 +54,71 @@ public class UpdateProfile extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		    UserSession userToUpdate = ServerUtils.getJsonFromRequest(request,UserSession.class);
-		    User user = null;
+						
+			JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
+			
+			int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+			String token = myJson.get("token").getAsString();
+			User updatedUser = new Gson().fromJson(myJson.get("user").getAsJsonObject(), User.class);
+					//new User(myJson.get("user"));//TODO CHECK VARIABLES
+			
 			DataAccess da = new DataAccess();
-			//TODO
-			//user=da.updateProfile(userToUpdate.id,userToUpdate.token,userToUpdate.updatedUser);
 			JsonUser jsonUser=null;
 			
-			if(user==null) {
-				jsonUser=new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, userToUpdate.token);
+			if(ServerUtils.validateUserSession(id, token, da)&&updatedUser!=null) {
+				try {	
+					//Sending user updated info to database
+					
+					
+					
+					
+					if(
+					da.updateUserInfo(updatedUser)
+					) {
+						//success
+						jsonUser = new JsonUser(updatedUser, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
+						
+					}else {
+						//failed
+						jsonUser = new JsonUser(updatedUser, Constants.STATUS_WRONGPARA, Constants.ERROR, token);
+					}
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+						
+				
+			}else {
+				//TODO
+				//session error
+				jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.ERROR, null);
 			}
-			else {
-				jsonUser=new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, userToUpdate.token);
-			}		
-			response.setContentType("application/json");
-			// Get the printwriter object from response to write the required json object to the output stream      
-			PrintWriter out = response.getWriter();
-			// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-			out.print("LLLLL"+jsonUser);
-			out.flush();
-			out.close();
+			
+
+			ServerUtils.respondJsonObject(response,jsonUser);
+
 	}
+	
+//	private boolean validateUserFields(User user) {
+//		if(user.getFirstName()!=null && !user.getFirstName().trim().isEmpty()) {
+//			user.setFirstName(user.getFirstName().trim());
+//		}else {
+//			return false;
+//		}
+//		
+//		if(user.getLastName()!=null && !user.getLastName().trim().isEmpty()) {
+//			user.setLastName(user.getLastName().trim());
+//		}else {
+//			return false;
+//		}
+//		
+//		if(user.()!=null && !user.getFirstName().trim().isEmpty()) {
+//			user.setFirstName(user.getFirstName().trim());
+//		}else {
+//			return false;
+//		}
+//	}
+	
 }

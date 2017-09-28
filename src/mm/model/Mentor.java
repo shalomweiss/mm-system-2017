@@ -1,11 +1,16 @@
 package mm.model;
 
+import mm.model.User.userType;
+
 public class Mentor extends User {
 	private String experience;
 	private String role;
 	private int company;
 	private String volunteering;
 	private String workHistory;
+	
+	
+	public Mentor(){}
 
 	public Mentor(String firstName, String lastName, String experience) {
 		super(firstName, lastName);
@@ -17,11 +22,16 @@ public class Mentor extends User {
 	}
 	
 	public Mentor(String firstName, String lastName, String email,
-			String phoneNumber, String gender, String address,
-			String note, boolean active, userType type, String experience,
-			String role, int company, String volunteering, String workHistory) {
-		super(firstName, lastName, email, phoneNumber, gender,
-				address, note, active, type);
+			String phoneNumber,String password, int gender, String address,
+			String note, String profilePicture, boolean active, userType type, String experience,
+			String role, int company, String volunteering, String workHistory)
+	
+			{
+	
+
+		super(firstName, lastName, email, phoneNumber,password, gender,
+				address, note, profilePicture, active, type);
+
 		this.experience = experience;
 		this.role = role;
 		this.company = company;
@@ -29,12 +39,10 @@ public class Mentor extends User {
 		this.workHistory = workHistory;
 	}
 
-	public Mentor(int id, String firstName, String lastName, String email,
-			String phoneNumber, String password, String gender, String address,
-			String note, boolean active, userType type, String experience,
+	public Mentor(int id, String firstName, String lastName, String email, String phoneNumber, String password,
+			int gender, String address, String note, String profilePicture, boolean active, userType type, String experience,
 			String role, int company, String volunteering, String workHistory) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender,
-				address, note, active, type);
+		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
 		this.experience = experience;
 		this.role = role;
 		this.company = company;
@@ -86,7 +94,16 @@ public class Mentor extends User {
 	public String toString() {
 		return "Mentor [experience=" + experience + ", role=" + role
 				+ ", company=" + company + ", volunteering=" + volunteering
-				+ ", workHistory=" + workHistory + "]";
+				+ ", workHistory=" + workHistory + ", getType()=" + getType()
+				+ ", getId()=" + getId() + ", getFirstName()=" + getFirstName()
+				+ ", getLastName()=" + getLastName() + ", getEmail()="
+				+ getEmail() + ", getPhoneNumber()=" + getPhoneNumber()
+				+ ", getPassword()=" + getPassword() + ", getGender()="
+				+ getGender() + ", getAddress()=" + getAddress()
+				+ ", getNote()=" + getNote() + ", isActive()=" + isActive()
+				+ ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + ", getClass()=" + getClass() + "]";
 	}
 
+	
 }

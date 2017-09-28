@@ -2,7 +2,6 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,23 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.model.Mentor;
+import mm.model.Mentee;
+import mm.model.Pair;
 
 /**
- * Servlet implementation class EditMentorButton
+ * Servlet implementation class GetPairById
+ * Get Pair Object By sending Pais's ID 
  */
-@WebServlet("/EditMentorDetails")
-public class EditMentorDetails extends HttpServlet {
+@WebServlet("/GetPairById")
+public class GetPairById extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditMentorDetails() {
+    public GetPairById() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,9 +35,21 @@ public class EditMentorDetails extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String jsp = request.getParameter("jsp");
+		
+		System.out.println("GetPairById");
+		String idPair = request.getParameter("pairId");
+        String jsp = request.getParameter("jsp");
+          DataAccess da = new DataAccess();
+            Pair pair = null;
+//          try {
+//               pair = da.getPair(idPair);
+//            } catch (SQLException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+        request.setAttribute("PairById", pair);	
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
-		req.forward(request, response);
+		req.forward(request, response);	
 	}
 
 	/**
@@ -47,24 +57,5 @@ public class EditMentorDetails extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String email = request.getParameter("uEmail");
-		String firstName = request.getParameter("uFirstName");
-		String lastName = request.getParameter("uLastName");
-		String workingPlace = request.getParameter("uWorkingPlace");
-		String address = request.getParameter("uAddress");
-		String notes = request.getParameter("uNotes");
-		String experience = request.getParameter("uExperience");
-		String volunteering = request.getParameter("uVolunteering");
-		DataAccess da = new DataAccess();
-		
-	/*	try {
-			 da.updateMentor(email,firstName,lastName,workingPlace,address,notes,experience,volunteering);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-
 	}
-
 }

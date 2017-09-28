@@ -9,18 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mm.da.DataAccess;
+
 /**
- * Servlet implementation class ForwardPath
- * 
+ * Servlet implementation class DeactivUser
+ * param: id
+ * da.deactiveUser(userId)
  */
-@WebServlet("/ForwardPath")
-public class ForwardPath extends HttpServlet {
+@WebServlet("/DeactivateUser")
+public class DeactivateUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ForwardPath() {
+    public DeactivateUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,15 +32,7 @@ public class ForwardPath extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 String path = request.getParameter("jsp");
-		 String switchPath="LogIn.jsp";
-		 switch(path) {
-		 case ("welcome.jsp"): switchPath=path;
-		 case (""):
-			 
-		 }
-		 RequestDispatcher req=request.getRequestDispatcher(switchPath);
-		 req.forward(request, response);	   
+		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -45,5 +40,26 @@ public class ForwardPath extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String userId=request.getParameter("userId");
+		String nextPage=request.getParameter("jsp");
+		int id=Integer.parseInt(userId);
+		
+		
+		DataAccess da = new DataAccess();
+	    boolean res=false;
+	    
+//		try {
+//			res = da.deactivateUser(id);
+//		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		if(res){
+			
+		}
+		if(!res)
+		request.setAttribute("Status", 400);
+		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		req.forward(request, response);	
 	}
 }
