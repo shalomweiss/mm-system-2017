@@ -77,7 +77,7 @@ public class GetAllMentees extends HttpServlet {
 	public List<User> getAllUsers() {
 
 		List<User> getUsers = new ArrayList<User>();
-		getUsers.add(new Mentee(null, "D", "fff", "fffe","rrr", null, null, null, false, null, 0, null, null, 0, null, null, false, null, null));
+		getUsers.add(new Mentee(0, null, "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, null, 0, null, null, false, null, null));
 		
 
 		return getUsers;
