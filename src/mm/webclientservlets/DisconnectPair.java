@@ -1,11 +1,15 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import mm.da.DataAccess;
 
 /**
  * Servlet implementation class DisconnectPair
@@ -35,6 +39,29 @@ public class DisconnectPair extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String pairId=request.getParameter("pairId");
+		String nextPage=request.getParameter("jsp");
+		int id=Integer.parseInt(pairId);
+		
+		DataAccess da = new DataAccess();
+	    boolean res=false;
+	    
+//		try {
+//			res = da.disconnectPair(id);
+//		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		if(res){
+			request.setAttribute("Status", 200);
+		}
+		if(!res)
+		request.setAttribute("Status", 400);
+		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		req.forward(request, response);
+		
 	}
 
-}
+	}
+
+

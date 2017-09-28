@@ -89,14 +89,7 @@ public class LogIn extends HttpServlet {
 			
 			ServerUtils.respondJsonObject(response,jsonUser);
 			
-			
-			
-			
-
 			}
-
-		
-		    
 }
 
 

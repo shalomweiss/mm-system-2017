@@ -13,7 +13,7 @@ public class Pair {
 	String joinMessage;
 	String tsofenMessage;
 	
-	
+	public Pair(){}
 	public Pair(int PairId,Mentor mentor, Mentee mentee, int activeStatuse,
 			Date startDate, Date endDate, String joinMessage,
 			String tsofenMessage) {
@@ -124,4 +124,14 @@ public class Pair {
 	public void setTsofenMessage(String tsofenMessage) {
 		this.tsofenMessage = tsofenMessage;
 	}
+	@Override
+	public String toString() {
+		return "Pair [pairId=" + pairId + ", mentorId=" + mentorId
+				+ ", menteeId=" + menteeId + ", mentor=" + mentor + ", mentee="
+				+ mentee + ", activeStatuse=" + activeStatuse + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", joinMessage="
+				+ joinMessage + ", tsofenMessage=" + tsofenMessage + "]";
+	}
+	
+	
 }
