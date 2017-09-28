@@ -96,8 +96,9 @@ public class UpdateProfile extends HttpServlet {
 				jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.ERROR, null);
 			}
 			
-			ServerUtils.respondJsonObject(response, jsonUser);
-			
+
+			ServerUtils.respondJsonObject(response,jsonUser);
+
 	}
 	
 //	private boolean validateUserFields(User user) {

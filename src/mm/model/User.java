@@ -7,20 +7,32 @@ public class User {
 	private String email;
 	private String phoneNumber ;
 	transient private String password ;
-	private String gender;
+	private int gender;
 	private String address;
 	private String note;
+	private String profilePicture;
 	private boolean active;
 	private userType type;
 	
 	public enum userType{
-		ADMIN,TSOFEN,MENTOR,MENTEE;
+		ADMIN(0),TSOFEN(1),MENTOR(2),MENTEE(3);
+		
+		private final int value;
+	    private userType(int value) {
+	        this.value = value;
+	    }
+
+	    public int getValue() {
+	        return value;
+	    }
 	}
 	
 	public User(){}
 	public User(String firstName, String lastName, String email,
-			String phoneNumber,String pass, String gender, String address, String note,
-			boolean active, userType type) {
+			String phoneNumber,String pass, int gender, String address, String note,
+			String profilePicture, boolean active, userType type) {
+
+		
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -30,6 +42,7 @@ public class User {
 		this.gender = gender;
 		this.address = address;
 		this.note = note;
+		this.profilePicture = profilePicture;
 		this.active = active;
 		this.type = type;
 	}
@@ -43,7 +56,7 @@ public class User {
 
 
 	public User(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			String gender, String address, String note, boolean active, userType type) {
+			int gender, String address, String note, String profilePicture, boolean active, userType type) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -55,6 +68,7 @@ public class User {
 		this.address = address;
 		this.note = note;
 		this.active = active;
+		this.profilePicture = profilePicture;
 		this.type = type;
 	}
 
@@ -135,12 +149,12 @@ public class User {
 	}
 
 
-	public String getGender() {
+	public int getGender() {
 		return gender;
 	}
 
 
-	public void setGender(String gender) {
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
 
@@ -174,7 +188,14 @@ public class User {
 		this.active = active;
 	}
 
+	public String getProfilePicture() {
+		return profilePicture;
+	}
 
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
 
 
 	@Override
@@ -211,6 +232,9 @@ public class User {
 				+ ", phoneNumber=" + phoneNumber + ", password=" + password + ", gender=" + gender + ", address="
 				+ address + ", note=" + note + ", active=" + active + ", type=" + type + "]";
 	}
+
+
+
 	
 	
 	
