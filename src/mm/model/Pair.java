@@ -15,8 +15,12 @@ public class Pair {
 
 	public Pair(){}
 	public Pair(int PairId,Mentor mentor, Mentee mentee, int activeStatuse,
-			Date startDate, Date endDate, String joinMessage,
-			String tsofenMessage) {
+			Long startDate, Long endDate, String joinMessage,
+			String tsofenMessage)
+	{
+		
+		
+	}
 
 	
 
@@ -133,7 +137,7 @@ public class Pair {
 	public String toString() {
 		return "Pair [pairId=" + pairId + ", mentorId=" + mentorId
 				+ ", menteeId=" + menteeId + ", mentor=" + mentor + ", mentee="
-				+ mentee + ", activeStatuse=" + activeStatuse + ", startDate="
+				+ mentee + ", activeStatuse=" + activeStatus + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", joinMessage="
 				+ joinMessage + ", tsofenMessage=" + tsofenMessage + "]";
 	}
