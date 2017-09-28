@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import mm.jsonModel.*;;
 
 
 public class ServerUtils {

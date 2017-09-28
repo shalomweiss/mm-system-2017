@@ -47,13 +47,15 @@ public class GetAllPairs extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String NextPage = request.getParameter("jsp");
+		
+		//
 
-		ArrayList<Pair> ArrPairs = new ArrayList<Pair>();
+		ArrayList<Pair> pairs = new ArrayList<Pair>();
 		DataAccess da = new DataAccess();
-		Iterator i=ArrPairs.iterator();
-		ArrPairs=getAllPair();
+	//	Iterator i=ArrPairs.iterator();
+		//ArrPairs=getAllPair();
 //		 try {
-//		 ArrPairs = da.getAllPairs();
+//		 pairs = da.getAllPairs();
 //		 } catch (SQLException e) {
 //		 // TODO Auto-generated catch block
 //		 e.printStackTrace();
@@ -61,13 +63,13 @@ public class GetAllPairs extends HttpServlet {
 		  //TODO: check activateStatuse for AppPair: if its==1, keeping, else remove before sending to client side 
 		
 		
-		request.setAttribute("Pairs", ArrPairs);
-		System.out.println("Pairs: " + ArrPairs);
-		PrintWriter writer = response.getWriter();
-		writer.println(ArrPairs);
+		request.setAttribute("pairs", pairs);
+		//System.out.println("Pairs: " + ArrPairs);
+	//	PrintWriter writer = response.getWriter();
+	//	writer.println(ArrPairs);
 		RequestDispatcher req = request.getRequestDispatcher(NextPage);
 		req.forward(request, response);
-		writer.close();
+		//writer.close();
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

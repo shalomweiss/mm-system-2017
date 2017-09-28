@@ -48,12 +48,8 @@ public class GetMenteeById extends HttpServlet {
         	
       	
         request.setAttribute("MenteeById", mentee);	
-        	
-	    PrintWriter writer = response.getWriter();
-		writer.println(mentee);
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
 		req.forward(request, response);
-		writer.close();
 		
 	}
 

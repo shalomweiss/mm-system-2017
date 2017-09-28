@@ -14,6 +14,5 @@ public class GeneratePass {
         }
         String saltStr = salt.toString();
         return saltStr;
-
     }
 }
