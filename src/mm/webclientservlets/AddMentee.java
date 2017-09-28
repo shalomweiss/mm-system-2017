@@ -69,13 +69,14 @@ public class AddMentee extends HttpServlet {
 		String isGraduate=request.getParameter("uIsGraduate");
 		String resume=request.getParameter("uResume");
 		String gradeSheet=request.getParameter("uGradeSheet");
+		String uProfilePicture=request.getParameter("uProfilePicture");
 		
 		float remSemesters=Float.valueOf(uRemSemesters);
 		float avg=Float.valueOf(uAverage);
 		
 		boolean isGradute=Boolean.parseBoolean(isGraduate);
 		String uPass= genPass.getSaltString();	 
-		User newMentee=new Mentee(uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,isGradute,resume,gradeSheet );
+		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,uNotes,uProfilePicture, true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,isGradute,resume,gradeSheet );
 		
 		
 		DataAccess da = new DataAccess();

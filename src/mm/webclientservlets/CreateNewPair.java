@@ -1,5 +1,4 @@
 package mm.webclientservlets;
-
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -55,7 +54,6 @@ public class CreateNewPair extends HttpServlet {
 		if(res){
 		//	response.
 		}
-		
 		if(!res)
 		request.setAttribute("Status", 400);
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
