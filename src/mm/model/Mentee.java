@@ -5,27 +5,23 @@ public class Mentee extends User {
 	private float remainingSemesters;
 	private String graduationStatus;
 	private String academiclnstitution;
-
-	public Mentee(String firstName, String lastName) {
-		super(firstName, lastName);
-	}
-
 	private float average;
 	private String academicDicipline;
 	private String academicDicipline2;
 	private boolean signedEULA;
 	private String resume;
 	private String gradeSheet;
+	
+	
+	public Mentee(String firstName, String lastName) {
+		super(firstName, lastName);
+	}
 
-	public Mentee(int id, String firstName, String lastName, String email,
-			String phoneNumber, String password, String gender, String address,
-			String note, boolean active, userType type,
-			float remainingSemesters, String graduationStatus,
-			String academiclnstitution, float average,
-			String academicDicipline, String academicDicipline2,
-			boolean signedEULA, String resume, String gradeSheet) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender,
-				address, note, active, type);
+	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
+			int gender, String address, String profilePicture, String note, boolean active, userType type, float remainingSemesters,
+			String graduationStatus, String academiclnstitution, float average, String academicDicipline,
+			String academicDicipline2, boolean isGraduate, String resume, String gradeSheet) {
+		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
 		this.remainingSemesters = remainingSemesters;
 		this.graduationStatus = graduationStatus;
 		this.academiclnstitution = academiclnstitution;
@@ -36,6 +32,8 @@ public class Mentee extends User {
 		this.resume = resume;
 		this.gradeSheet = gradeSheet;
 	}
+
+
 
 	public float getRemainingSemesters() {
 		return remainingSemesters;
