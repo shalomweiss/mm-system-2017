@@ -12,21 +12,10 @@ public class Pair {
 	private	String joinMessage;
 	private String tsofenMessage;
 	
-
 	public Pair(){}
-	public Pair(int PairId,Mentor mentor, Mentee mentee, int activeStatuse,
-			Long startDate, Long endDate, String joinMessage,
-			String tsofenMessage)
-	{
-		
-		
-	}
-
 	
-
 	public Pair(int pairId, int mentorId, int menteeId, User mentor, User mentee, int activeStatus, long startDate,
 			long endDate, String joinMessage, String tsofenMessage) {
-
 		super();
 		this.pairId = pairId;
 		this.mentorId = mentorId;
@@ -39,7 +28,6 @@ public class Pair {
 		this.joinMessage = joinMessage;
 		this.tsofenMessage = tsofenMessage;
 	}
-
 
 	public Pair(int pairId, int mentorId, int menteeId, int activeStatus, long startDate,
 			long endDate, String joinMessage, String tsofenMessage) {
@@ -54,13 +42,11 @@ public class Pair {
 		this.tsofenMessage = tsofenMessage;
 	}
 
-
 	public Pair(int mentorId, int menteeId) {
 		super();
 		this.mentorId = mentorId;
 		this.menteeId = menteeId;
 	}
-
 
 	public int getMentorId() {
 		return mentorId;
@@ -137,12 +123,11 @@ public class Pair {
 	public String toString() {
 		return "Pair [pairId=" + pairId + ", mentorId=" + mentorId
 				+ ", menteeId=" + menteeId + ", mentor=" + mentor + ", mentee="
-				+ mentee + ", activeStatuse=" + activeStatus + ", startDate="
+				+ mentee + ", activeStatus=" + activeStatus + ", startDate="
 				+ startDate + ", endDate=" + endDate + ", joinMessage="
 				+ joinMessage + ", tsofenMessage=" + tsofenMessage + "]";
 	}
 	
-
 
 
 	public int getPairId() {
