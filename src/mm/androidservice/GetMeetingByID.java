@@ -2,6 +2,8 @@ package mm.androidservice;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -81,6 +83,8 @@ public class GetMeetingByID extends HttpServlet {
 		JsonMeeting jsonMeeting=null;
 		if(meetingFromDB==null) {
 			//TODO 
+			//jsonMap.put(key, value)
+		
 			jsonMeeting = new JsonMeeting(meetingFromDB, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 		} 
 		else {

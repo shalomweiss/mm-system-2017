@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.util.Iterator;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +20,7 @@ import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.jsonModel.*;
+import mm.model.JsonUser;
 import mm.model.User;
 import util.ServerUtils;
 
@@ -36,6 +39,14 @@ public class LogIn extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+import mm.model.User;
+import controllers.SessionController;
+import mm.da.DataAccess;
+import mm.model.*;
+import mm.constants.*;
+import java.lang.Object;
+import java.sql.SQLException;
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
