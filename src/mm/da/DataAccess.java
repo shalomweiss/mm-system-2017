@@ -376,7 +376,8 @@ public class DataAccess implements DataInterface{
 	
 			while (r.next())
 			{
-			p= new Pair(r.getInt(1),r.getInt(2) ,r.getInt(3), r.getInt(4), r.getDate(5), r.getDate(6), r.getString(7), r.getString(8));	
+			p= new Pair(r.getInt(1), r.getInt(2),r.getInt(3),getUser(r.getInt(2)),getUser(r.getInt(3)),
+					r.getInt(4), r.getDate(5), r.getDate(6), r.getString(7), r.getString(8));	
 			pair.add(p);
 			}
 		return pair;
@@ -390,13 +391,29 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public boolean disconnectPair(int pairId) throws SQLException {
-		// TODO Auto-generated method stub
+		PreparedStatement stm = c.prepareStatement(updatepairId);
+		stm.setInt(1, pairId);
+		ResultSet rs = stm.executeQuery();	
+		if(rs.next()) 
+		{
+			int active =rs.getInt(4);
+			if(active==1)
+			{
+				active=0;
+			}	
+		}
 		return false;
 	}
 
 	@Override
 	public Pair getPair(int pairId) throws SQLException {
-		// TODO Auto-generated method stub
+		PreparedStatement stm = c.prepareStatement(updatepairId);
+		stm.setInt(1, pairId);
+		ResultSet rs = stm.executeQuery();
+		if (!rs.next()) // user does not exist
+			
+		return new Pair(rs.getInt(1), rs.getInt(2),rs.getInt(3),getUser(rs.getInt(2)),getUser(rs.getInt(3)),
+					rs.getInt(4), rs.getDate(5), rs.getDate(6), rs.getString(7), rs.getString(8));
 		return null;
 	}
 

@@ -5,6 +5,8 @@ public class Pair {
     private int pairId;
     private int mentorId;
     private int menteeId;
+    private User mentor;
+    private User mentee;
 	private	int activeStatuse;
 	private	Date startDate;
 	private	Date endDate;
@@ -12,13 +14,15 @@ public class Pair {
 	private String tsofenMessage;
 	
 	
-	public Pair(int PairId,int mentorId, int menteeId, int activeStatuse,
-			Date startDate, Date endDate, String joinMessage,
-			String tsofenMessage) {
+
+	public Pair(int pairId, int mentorId, int menteeId, User mentor, User mentee, int activeStatuse, Date startDate,
+			Date endDate, String joinMessage, String tsofenMessage) {
 		super();
-		this.pairId=pairId;
-		this.mentorId=mentorId;
-		this.menteeId =menteeId;
+		this.pairId = pairId;
+		this.mentorId = mentorId;
+		this.menteeId = menteeId;
+		this.mentor = mentor;
+		this.mentee = mentee;
 		this.activeStatuse = activeStatuse;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -104,4 +108,35 @@ public class Pair {
 	public void setTsofenMessage(String tsofenMessage) {
 		this.tsofenMessage = tsofenMessage;
 	}
+
+
+	public int getPairId() {
+		return pairId;
+	}
+
+
+	public void setPairId(int pairId) {
+		this.pairId = pairId;
+	}
+
+
+	public User getMentor() {
+		return mentor;
+	}
+
+
+	public void setMentor(Mentor mentor) {
+		this.mentor = mentor;
+	}
+
+
+	public User getMentee() {
+		return mentee;
+	}
+
+
+	public void setMentee(Mentee mentee) {
+		this.mentee = mentee;
+	}
+	
 }
