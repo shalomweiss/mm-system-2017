@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.JsonMeeting;
-import mm.model.JsonUser;
 import mm.model.Meeting;
 import mm.model.User;
 import util.ServerUtils;

@@ -86,7 +86,7 @@ public class UpdateProfile extends HttpServlet {
 				jsonUser=new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, userToUpdate.token);
 			}
 			
-			ServerUtils.respondJsonUser(response,jsonUser);
+			ServerUtils.respondJsonObject(response,jsonUser);
 	}
 	
 
