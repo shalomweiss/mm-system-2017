@@ -1,5 +1,7 @@
 package mm.webclientservlets;
+
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,17 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mm.da.DataAccess;
+import mm.model.Mentee;
+import mm.model.Pair;
+
 /**
- * Servlet implementation class First
+ * Servlet implementation class GetPairById
+ * Get Pair Object By sending Pais's ID 
  */
-@WebServlet("/")
-public class First extends HttpServlet {
+@WebServlet("/GetPairById")
+public class GetPairById extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public First() {
+    public GetPairById() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,18 +35,29 @@ public class First extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("First Servlet");
 		
-		request.setAttribute("isNotEntered", 1);
-		RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
-		response.setContentType("text/html");
-		req.include(request, response);
+		System.out.println("GetPAirById");
+		String idPair = request.getParameter("pairId");
+        String jsp = request.getParameter("jsp");
+          DataAccess da = new DataAccess();
+            Pair pair = null;
+//          try {
+//               pair = da.getPair(idPair);
+//            } catch (SQLException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+        request.setAttribute("PairById", pair);	
+		RequestDispatcher req = request.getRequestDispatcher(jsp);
+		req.forward(request, response);
+		
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
-}
 
+}

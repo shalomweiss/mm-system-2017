@@ -1,4 +1,5 @@
 package mm.webclientservlets;
+
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -8,17 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mm.da.DataAccess;
+
 /**
- * Servlet implementation class First
+ * Servlet implementation class CreateNewPair
+ * req: mentorId,menteeId--> da.createPair(mentorId,menteeId)
  */
-@WebServlet("/")
-public class First extends HttpServlet {
+@WebServlet("/CreateNewPair")
+public class CreateNewPair extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public First() {
+    public CreateNewPair() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,18 +32,34 @@ public class First extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("First Servlet");
-		
-		request.setAttribute("isNotEntered", 1);
-		RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
-		response.setContentType("text/html");
-		req.include(request, response);
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String MentorId=request.getParameter("mentorId");
+		String MenteeId=request.getParameter("menteeId");
+		String nextPage=request.getParameter("jsp");
+		
+		DataAccess da = new DataAccess();
+	    boolean res=false;
+	    
+//		try {
+//			res = da.addPair(MentorId,MenteeId);
+//		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		if(res){
+			request.setAttribute("Status", 200);
+		}
+		if(!res)
+		request.setAttribute("Status", 400);
+		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		req.forward(request, response);
+		
 	}
-}
 
+}

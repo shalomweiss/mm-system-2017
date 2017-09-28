@@ -1,41 +1,98 @@
 package mm.androidservice;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.model.JsonUser;
+import mm.jsonModel.JsonUser;
 import mm.model.User;
+import util.ServerUtils;
 
-public class UpdateProfile {
 
+/**
+ * Servlet implementation class UpdateProfileTest
+ */
+@WebServlet("/UpdateProfile")
+public class UpdateProfile extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	
-	
+   
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateProfile() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	@POST
-	@Path("/updateProfile")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public JsonUser updateProfile(@QueryParam("id") String id,@QueryParam("token") String token,@QueryParam("user")User updatedUser) {
-		JsonUser jsonUser;
-		User user;
-		DataAccess da = new DataAccess();
-		//user=da.updateProfile(id,token,updatedUser);
-		user=null;
-		if(user==null) {
-			jsonUser=new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, token);
-		}
-		else {
-			jsonUser=new JsonUser(user, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
-		}
-		
-		return jsonUser;
-		
-}
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		doGet(request, response);
+//	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+						
+			JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
+			
+			int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+			String token = myJson.get("token").getAsString();
+			User updatedUser = new Gson().fromJson(myJson.get("user").getAsJsonObject(), User.class);
+					//new User(myJson.get("user"));//TODO CHECK VARIABLES
+			
+			DataAccess da = new DataAccess();
+			JsonUser jsonUser=null;
+			
+			if(ServerUtils.validateUserSession(id, token, da)) {
+				try {	
+					//Sending user updated info to database
+					if(
+					da.updateUserInfo(updatedUser)
+					) {
+						//success
+						jsonUser = new JsonUser(updatedUser, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
+						
+					}else {
+						//failed
+						jsonUser = new JsonUser(updatedUser, Constants.STATUS_WRONGPARA, Constants.ERROR, token);
+					}
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+						
+				
+			}else {
+				//TODO
+				//session error
+				jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN, null);
+			}
+			
+			ServerUtils.respondJsonObject(response, jsonUser);
+			
+	}
 }
