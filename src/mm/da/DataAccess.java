@@ -80,7 +80,7 @@ public class DataAccess implements DataInterface{
 				u = new Mentor(rs.getInt(1), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7),
 						rs.getInt(8), rs.getString(9), rs.getString(10),
-						rs.getString(11), rs.getBoolean(12), userType.MENTOR, rs2.getString(2),
+						 rs.getBoolean(12), userType.MENTOR, rs2.getString(2),
 						rs2.getString(3), rs2.getInt(4), rs2.getString(5),
 						rs2.getString(6));
 				rs2.close();
@@ -95,7 +95,7 @@ public class DataAccess implements DataInterface{
 				u = new Mentee(rs.getInt(1), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getString(7),
 						rs.getInt(8), rs.getString(9), rs.getString(10),
-						rs.getString(11),rs.getBoolean(12), userType.MENTEE, rs3.getFloat(2),
+						rs.getBoolean(12), userType.MENTEE, rs3.getFloat(2),
 						rs3.getString(3), rs3.getString(4), rs3.getFloat(5),
 						rs3.getString(6), rs3.getString(7), rs3.getBoolean(8),
 						rs3.getString(9),rs3.getString(10));
