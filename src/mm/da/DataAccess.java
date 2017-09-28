@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -37,7 +38,8 @@ public class DataAccess implements DataInterface{
 	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	//final String findMentorsOfMentee = "Select users.*, mentors.* From users,mentors INNER JOIN pairs ON users.id=pairs.mentorId";
-
+	final String insertPair = "INSERT INTO db.`pairs` (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
+	final String selectPairId="Select * From pair Where id=?";
 	public DataAccess() {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
@@ -387,20 +389,66 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public boolean addPair(int mentorId, int menteeId) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		if( getUser(mentorId).getType()==userType.MENTOR ) {
+			int tmp = menteeId;
+			menteeId = mentorId;
+			mentorId = tmp;
+		}
+		PreparedStatement stm = c.prepareStatement(selectLogin1);
+		stm.setInt(1, mentorId);
+		ResultSet rs = stm.executeQuery();
+		if (!rs.next()) // user does not exist
+			return false;
+		stm = c.prepareStatement(selectLogin2);
+		stm.setInt(1, menteeId);
+		ResultSet rs1 = stm.executeQuery();
+		if (!rs1.next()) // user does not exist
+			return false;
+		stm = c.prepareStatement(insertPair);
+		// checking witch user is the mentor and witch is the mentee
+		stm.setInt(1, mentorId);
+		stm.setInt(2, menteeId);
+		stm.setInt(3, 1);
+		stm.setLong(4, System.currentTimeMillis());
+		stm.executeUpdate();
+		return true;
+	
 	}
 
 	@Override
 	public boolean disconnectPair(int pairId) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		PreparedStatement stm = c.prepareStatement(selectPairId);
+	
+			stm.setInt(1, pairId);
+			ResultSet rs = stm.executeQuery();	
+		
+				if(rs.next()) 
+			{
+				int active =rs.getInt(4);
+		
+					if(active==1)
+		
+					{
+						active=0;
+					}	
+				}
+				return true;
+	         }
 
 	@Override
 	public Pair getPair(int pairId) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement stm = c.prepareStatement(selectPairId);
+		
+				stm.setInt(1, pairId);
+		
+				ResultSet rs = stm.executeQuery();
+		
+				if (!rs.next()) // user does not exist
+		
+				return new Pair(rs.getInt(1), rs.getInt(2),rs.getInt(3),getUser(rs.getInt(2)),getUser(rs.getInt(3)),rs.getInt(4), rs.getLong(5),rs.getLong(6), rs.getString(7), rs.getString(8));
+		
+				return null;
+
 	}
 
 	@Override
