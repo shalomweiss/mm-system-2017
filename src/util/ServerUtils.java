@@ -62,6 +62,7 @@ public class ServerUtils {
 //	}
 	
 	
+	/**Android related methods*/
 	
 	/**
 	 * get json object from request stream

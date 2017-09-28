@@ -9,6 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.jsonModel.JsonMeeting;
@@ -27,32 +31,7 @@ import mm.model.Meeting;
 public class GetMeetings extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private class MeetingSession {
-
-		private int id;
-		private String token;
-		
-		private int meetingStatus;
-		private int count;
-		private int page;
-
-		@Override
-		public String toString() {
-			return "MeetingSession [id=" + id + ", token=" + token + ", meetingStatus="
-					+ meetingStatus + ", count=" + count + ", page=" + page + "]";
-		}
-
-		public MeetingSession(int id, String token, int meetingId, int meetingStatus, int count, int page) {
-			super();
-			this.id = id;
-			this.token = token;
-			this.meetingStatus = meetingStatus;
-			this.count = count;
-			this.page = page;
-		}
-
-	}
-
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -68,7 +47,7 @@ public class GetMeetings extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doPost(request, response);
 		
 	}
 
@@ -80,21 +59,35 @@ public class GetMeetings extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
-
-		MeetingSession myMeeting = ServerUtils.getJsonFromRequest(request, MeetingSession.class);
+		JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
+		
+		int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+		String token = myJson.get("token").getAsString();
+		int meetingStatus = (int) (myJson.get("meetingStatus").isJsonNull() ? "" : myJson.get("meetingStatus").getAsInt());
+		int count = (int) (myJson.get("count").isJsonNull() ? "" : myJson.get("count").getAsInt());
+		int page = (int) (myJson.get("page").isJsonNull() ? "" : myJson.get("page").getAsInt());
+	
+				//new User(myJson.get("user"));//TODO CHECK VARIABLES
+		
 		JsonMeeting jsonMeeting = null;
 		List<Meeting> meetings =null;
 		DataAccess da = new DataAccess();
-		//TODO: make sure the function name is right
-		//meetings= da.getAllMeetings(myMeeting);
+		boolean sessionActive=false;
+		
+		
+		if(ServerUtils.validateUserSession(id,token,da)) {
 		if(meetings==null) {
 			jsonMeeting = new JsonMeeting (Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null,meetings);
 		}
 		else {
-			jsonMeeting = new JsonMeeting (Constants.STATUS_SUCCESS, Constants.SUCCESS, myMeeting.token,meetings);
+			jsonMeeting = new JsonMeeting (Constants.STATUS_SUCCESS, Constants.SUCCESS, token,meetings);
 		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		}else {
+			jsonMeeting = new JsonMeeting(Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN,null,meetings);
+		}
+		
+		
+		ServerUtils.respondJsonObject(response,jsonMeeting);
 	}
 
 }

@@ -20,7 +20,7 @@ public class AndroidUpdateProfileTest {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
-		User myUser = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);
+		User myUser = new User(1,"testMan","ok","gmail.com","12345","abc",0, "male","Antractica","good test",true,User.userType.MENTEE);
 		
 		Gson myJ = new Gson();
 		String jsonInString = myJ.toJson(myUser);

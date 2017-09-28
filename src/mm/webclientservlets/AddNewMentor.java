@@ -60,7 +60,10 @@ public class AddNewMentor extends HttpServlet {
 		int w=Integer.parseInt(workingPlace.toString());
 		String pass= genPass.getSaltString();
 
+
 		User newMentor=new Mentor(firstName,lastName,email,phoneNumber,pass,gender,address,notes,true,userType.MENTOR, experience,role,w,volunteering,workHistory);
+
+	
 		
 		
 		DataAccess da = new DataAccess();
