@@ -34,16 +34,16 @@ public class AddNewMentor extends HttpServlet {
 	public void AddMentorButton() {
 	}
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("AddMentor Servlet");
 
 	}
 
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-	    System.out.println("Add New MentorServlet");
-		GeneratePass genPass=new GeneratePass();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("Add New MentorServlet");
+		GeneratePass genPass = new GeneratePass();
 		String email = request.getParameter("email");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
@@ -56,28 +56,27 @@ public class AddNewMentor extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String nextPage = request.getParameter("jsp");
 		String workHistory = request.getParameter("history");
-		String role=request.getParameter("role");
-		int w=Integer.parseInt(workingPlace.toString());
-		String pass= genPass.getSaltString();
+		String role = request.getParameter("role");
+		int w = Integer.parseInt(workingPlace.toString());
+		String pass = genPass.getSaltString();
 
-		User newMentor=new Mentor(firstName,lastName,email,phoneNumber,pass,gender,address,notes,true,userType.MENTOR, experience,role,w,volunteering,workHistory);
-		
-		
+		User newMentor = new Mentor(firstName, lastName, email, phoneNumber, pass, gender, address, notes, true,
+				userType.MENTOR, experience, role, w, volunteering, workHistory);
+
 		DataAccess da = new DataAccess();
-	    boolean res=false;
-	
-//		try {
-//			res = da.addUser(newMentor)
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		if(res){
+		boolean res = false;
+
+		// try {
+		// res = da.addUser(newMentor)
+		// } catch (SQLException e) {
+		//// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		if (res) {
 			request.setAttribute("Status", 200);
-		}
-		if(!res)
-		request.setAttribute("Status", 400);
-		
+		} else
+			request.setAttribute("Status", 400);
+
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
 	}

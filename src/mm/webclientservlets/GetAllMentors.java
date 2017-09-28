@@ -30,45 +30,31 @@ import mm.model.User.userType;
 public class GetAllMentors extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public GetAllMentors() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String NextPage = request.getParameter("jsp");
 		ArrayList<User> ArrMentors = new ArrayList<User>();
 		DataAccess da = new DataAccess();
-		ArrMentors=getAllUsers();
-		 /*try {
-		 ArrMentors = da.getUsers(userType.MENTOR);
-		 } catch (SQLException e) {
-		 // TODO Auto-generated catch block
-		 e.printStackTrace();
-		 }*/
+		ArrMentors = getAllUsers();
+		/*
+		 * try { ArrMentors = da.getUsers(userType.MENTOR); } catch (SQLException e) {
+		 * // TODO Auto-generated catch block e.printStackTrace(); }
+		 */
 		request.setAttribute("Mentors", ArrMentors);
 		System.out.println("MENTORS: " + ArrMentors);
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
-		
+
 		writer.close();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
 	}
 
 	public ArrayList<User> getAllUsers() {
