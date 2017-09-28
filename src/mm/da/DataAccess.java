@@ -30,6 +30,8 @@ public class DataAccess implements DataInterface{
 	final String selectLogin1 = "Select * From mentor where id=?";
 	final String selectLogin2 = "Select * From mentee where id=?";
 	final String selectByID = "Select * From users where id=?";
+	final String getMenteeofPair = "Select * From pairs where menteeId=?, activeStatus=?";
+	final String getMentorofPair = "Select * From pairs where mentorId=?, activeStatus=?";
 	final String updateUserBase = "UPDATE users SET firstName=?, lastName=?, email=?, phoneNumber=?, password=?, gender=?, address=?, notes=?, profilePicture=?, active=? WHERE id=?";
 	final String updateUserMentor = "UPDATE mentors SET experience=?, role=?, company=?, volunteering=?, workHistory=? WHERE id=?";
 	final String updateUserMentee = "UPDATE mentees SET remainingSemesters=?, graduationStatus=?, academicInstitute=?, average=?, academicDicipline1=?, academicDecipline2=?, isGuarantee=?, resume=?, gradeSheet=? WHERE id=?";
@@ -496,6 +498,9 @@ public class DataAccess implements DataInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+		}
+		
 
 	@Override
 	public boolean startUserSession(Session session) throws SQLException {
