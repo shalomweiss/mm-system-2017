@@ -493,6 +493,9 @@ public class DataAccess implements DataInterface{
 	}
 		
 
+		}
+		
+
 	@Override
 	public boolean startUserSession(Session session) throws SQLException {
 		// TODO Auto-generated method stub
