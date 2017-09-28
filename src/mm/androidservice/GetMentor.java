@@ -51,30 +51,23 @@ public class GetMentor extends HttpServlet {
 		int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
 		
-		User mentee = null,mentor=null;
+		User mentor=null;
 		JsonUser jsonUser=null;
-		int MentorId,MenteeId;
+	
 		
 		DataAccess da = new DataAccess();
 		if(ServerUtils.validateUserSession(id,token,da)) {
 			
 
-			//user=da.getUser(myUser.id);
+			//mentor=da.getMentorOfMentee(id);
 		
-		if (mentee == null) {
+		if (mentor == null) {
 
-			jsonUser = new JsonUser(mentee, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+			jsonUser = new JsonUser(mentor, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 		} else {
-					//mentor=da.getUser(mentee.mentorID);
-			if (mentor == null) {
-
-				jsonUser = new JsonUser(mentor, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
-			} else {
-				
-				jsonUser=new JsonUser(mentor,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
-				
-				}
-			
+	 
+					jsonUser=new JsonUser(mentor,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+						
 			}
 		}
 		else {
