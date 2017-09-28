@@ -8,10 +8,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-
 
 import mm.model.Meeting;
 import mm.model.Mentee;
@@ -39,11 +35,8 @@ public class DataAccess implements DataInterface{
 	final String addBaseUser = "INSERT INTO users (type, firstName, lastName, email, phoneNumber, password, gender, address, notes, profilePicture, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
-	//final String findMentorsOfMentee = "Select users.*, mentors.* From users,mentors INNER JOIN pairs ON users.id=pairs.mentorId";
 	final String insertPair = "INSERT INTO db.`pairs` (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectPairId="Select * From pair Where id=?";
-	final String getMenteeofPair = "Select * From pairs where menteeId=?, activeStatus=?";
-	final String getMentorofPair = "Select * From pairs where mentorId=?, activeStatus=?";
 	
 	
 	public DataAccess() {
@@ -481,7 +474,7 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public ArrayList<Mentee> getMenteesOfMentor(int mentorId) throws SQLException {
-		ArrayList<Mentee> mentees = null;
+		ArrayList<Mentee> mentees = new ArrayList<Mentee>();
 		PreparedStatement stm = c.prepareStatement(getMentorofPair);
 		stm.setInt(1, mentorId);
 		stm.setInt(2, 1);
@@ -498,8 +491,8 @@ public class DataAccess implements DataInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+		
 
-		}
 		
 
 	@Override
@@ -507,6 +500,5 @@ public class DataAccess implements DataInterface{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 }
