@@ -70,12 +70,12 @@ public class Pair {
 
 
 
-	public int getActiveStatuse() {
+	public int getActiveStatus() {
 		return activeStatus;
 	}
 
 
-	public void setActiveStatuse(int activeStatus) {
+	public void setActiveStatus(int activeStatus) {
 		this.activeStatus = activeStatus;
 	}
 
