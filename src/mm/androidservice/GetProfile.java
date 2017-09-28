@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.JsonUser;
 import mm.model.User;
 import util.ServerUtils;
@@ -44,12 +46,12 @@ public class GetProfile extends HttpServlet {
 		
 		JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
 		
-		int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
 		
 
 			
-			DataAccess da = new DataAccess();
+			DataInterface da = new DataAccess();
 			JsonUser jsonUser=null;
 			User user=null;
 			
@@ -57,7 +59,12 @@ public class GetProfile extends HttpServlet {
 			
 			
 			
-			//user=da.getUser(myUser.id);
+			try {
+				user=da.getUser(id);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			if (user == null) {
 
