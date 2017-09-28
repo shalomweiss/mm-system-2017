@@ -1,5 +1,7 @@
 package mm.model;
 
+import mm.model.User.userType;
+
 public class Mentor extends User {
 	private String experience;
 	private String role;
@@ -17,11 +19,11 @@ public class Mentor extends User {
 	}
 	
 	public Mentor(String firstName, String lastName, String email,
-			String phoneNumber, String gender, String address,
-			String note, boolean active, userType type, String experience,
+			String phoneNumber, int gender, String address,
+			String note, String profilePicture, boolean active, userType type, String experience,
 			String role, int company, String volunteering, String workHistory) {
 		super(firstName, lastName, email, phoneNumber, gender,
-				address, note, active, type);
+				address, note, profilePicture, active, type);
 		this.experience = experience;
 		this.role = role;
 		this.company = company;
@@ -29,12 +31,10 @@ public class Mentor extends User {
 		this.workHistory = workHistory;
 	}
 
-	public Mentor(int id, String firstName, String lastName, String email,
-			String phoneNumber, String password, String gender, String address,
-			String note, boolean active, userType type, String experience,
+	public Mentor(int id, String firstName, String lastName, String email, String phoneNumber, String password,
+			int gender, String address, String note, String profilePicture, boolean active, userType type, String experience,
 			String role, int company, String volunteering, String workHistory) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender,
-				address, note, active, type);
+		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
 		this.experience = experience;
 		this.role = role;
 		this.company = company;

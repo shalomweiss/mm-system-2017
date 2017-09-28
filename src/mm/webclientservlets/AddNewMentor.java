@@ -56,7 +56,9 @@ public class AddNewMentor extends HttpServlet {
 		String role=request.getParameter("uRole");
 		int w=Integer.parseInt(workingPlace.toString());
 
-		Mentor newMentor=new Mentor(firstName,lastName,email,phoneNumber,gender,address,notes,true,userType.MENTOR, experience,role,w,volunteering,workHistory);
+		Mentor newMentor = new Mentor(firstName, lastName, email, phoneNumber,
+				w, gender, address, notes, true, userType.MENTOR, experience,
+				role, w, volunteering, workHistory);
 		
 		
 		DataAccess da = new DataAccess();
