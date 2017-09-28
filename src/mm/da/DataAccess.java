@@ -491,5 +491,17 @@ public class DataAccess implements DataInterface{
 		return mentees;
 	}
 
+	@Override
+	public Meeting getMeetingById(int id, int meetingId) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean startUserSession(Session session) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 }
