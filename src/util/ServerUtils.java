@@ -6,22 +6,21 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.MapType;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import mm.da.DataAccess;
 import mm.jsonModel.*;
+import mm.model.Session;
 
 
 public class ServerUtils {
@@ -47,20 +46,20 @@ public class ServerUtils {
     }
 	 
 	
-	/**Android related methods*/
-	
-	/**
-	 * getJsonFromRequest
-	 * @param request
-	 * @param toJsonClass
-	 * @return
-	 * @throws IOException
-	 */
-	public static <T> T getJsonFromRequest(HttpServletRequest request,Class<T> toJsonClass) throws IOException {
-		
-	    Gson gson = new Gson();
-	    return gson.fromJson(requestToJsonString(request),toJsonClass);
-	}
+//	/**Android related methods*/
+//	
+//	/**
+//	 * getJsonFromRequest
+//	 * @param request
+//	 * @param toJsonClass
+//	 * @return
+//	 * @throws IOException
+//	 */
+//	public static <T> T getJsonFromRequest(HttpServletRequest request,Class<T> toJsonClass) throws IOException {
+//		
+//	    Gson gson = new Gson();
+//	    return gson.fromJson(requestToJsonString(request),toJsonClass);
+//	}
 	
 	
 	
@@ -130,15 +129,15 @@ public class ServerUtils {
 	 */
 	public static boolean validateUserSession(int userId,String token,DataAccess da) {
 		
-		ArrayList<String> userSessions=null;
+		ArrayList<Session> userSessions=null;
 		//TODO
 		//get method from DA
 		//ArrayList<String> userSessions = da.getUserSessions(userId);
 		
-		for(String s:userSessions) {
-			if(s.equals(token)) {
-				return true;
-			}
+		for(Session s:userSessions) {
+//			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
+//				return true;
+//			}
 		}
 		
 		return false;
