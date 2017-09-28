@@ -48,7 +48,8 @@ public class GetMentor extends HttpServlet {
 
 		JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
 		
-		int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+		int id = (int) (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
+		//int id = (int) (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
 		
 		User mentee = null,mentor=null;
