@@ -11,6 +11,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.jsonModel.*;
@@ -23,25 +27,6 @@ import util.ServerUtils;
 @WebServlet("/LogIn")
 public class LogIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private class UserSession {
-		
-		private String email;
-		private String password;
-		private String deviceId;
-		public UserSession(String email, String password, String deviceId) {
-			super();
-			this.email = email;
-			this.password = password;
-			this.deviceId = deviceId;
-		}
-		@Override
-		public String toString() {
-			return "UserSession [email=" + email + ", password=" + password + ", deviceId=" + deviceId + "]";
-		}
-		
-
-	}
 	
        
     /**
@@ -57,12 +42,18 @@ public class LogIn extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	
-		 UserSession myUser = ServerUtils.getJsonFromRequest(request, UserSession.class);
+		
+	JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
+
+	String email = myJson.get("email").getAsString();
+	String password = myJson.get("password").getAsString();
+	//TODO deviceID storage
+	String deviceId = myJson.get("deviceId").getAsString();
 
 			DataAccess da = new DataAccess();
 			User user = null;
 			try {
-				user = da.login(myUser.email);
+				user = da.login(email);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -74,7 +65,7 @@ public class LogIn extends HttpServlet {
 			if(user==null) {
 				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 			} 
-			else if(user.getPassword().equals(myUser.password)){
+			else if(user.getPassword().equals(password)){
 				 
 				String token=ServerUtils.generateToken();
 				//TODO

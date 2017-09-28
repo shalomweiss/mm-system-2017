@@ -65,9 +65,13 @@ public class UpdateProfile extends HttpServlet {
 			DataAccess da = new DataAccess();
 			JsonUser jsonUser=null;
 			
-			if(ServerUtils.validateUserSession(id, token, da)) {
+			if(ServerUtils.validateUserSession(id, token, da)&&updatedUser!=null) {
 				try {	
 					//Sending user updated info to database
+					
+					
+					
+					
 					if(
 					da.updateUserInfo(updatedUser)
 					) {
@@ -89,10 +93,31 @@ public class UpdateProfile extends HttpServlet {
 			}else {
 				//TODO
 				//session error
-				jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN, null);
+				jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.ERROR, null);
 			}
 			
 			ServerUtils.respondJsonObject(response, jsonUser);
 			
 	}
+	
+//	private boolean validateUserFields(User user) {
+//		if(user.getFirstName()!=null && !user.getFirstName().trim().isEmpty()) {
+//			user.setFirstName(user.getFirstName().trim());
+//		}else {
+//			return false;
+//		}
+//		
+//		if(user.getLastName()!=null && !user.getLastName().trim().isEmpty()) {
+//			user.setLastName(user.getLastName().trim());
+//		}else {
+//			return false;
+//		}
+//		
+//		if(user.()!=null && !user.getFirstName().trim().isEmpty()) {
+//			user.setFirstName(user.getFirstName().trim());
+//		}else {
+//			return false;
+//		}
+//	}
+	
 }
