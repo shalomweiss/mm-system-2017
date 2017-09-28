@@ -17,19 +17,11 @@ public class Mentee extends User {
 		super(firstName, lastName);
 	}
 
-
-<<<<<<< Updated upstream
 	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
 			int gender, String address, String profilePicture, String note, boolean active, userType type, float remainingSemesters,
 			String graduationStatus, String academiclnstitution, float average, String academicDicipline,
 			String academicDicipline2, boolean isGraduate, String resume, String gradeSheet) {
 		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
-=======
-
-	public Mentee(float remainingSemesters, String graduationStatus, String academiclnstitution, float average,
-			String academicDicipline, String academicDicipline2, boolean isGraduate, String resume, String gradeSheet) {
-		super();
->>>>>>> Stashed changes
 		this.remainingSemesters = remainingSemesters;
 		this.graduationStatus = graduationStatus;
 		this.academiclnstitution = academiclnstitution;
