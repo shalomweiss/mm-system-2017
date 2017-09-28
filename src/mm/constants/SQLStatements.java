@@ -83,5 +83,12 @@ public class SQLStatements {
 			+ DataContract.MentorsTable.COL_VOLUNTEERING + ", "
 			+ DataContract.MentorsTable.COL_WORKHISTORY
 			+ ") VALUES (?,?,?,?,?,?)";
-	public final static String selectPairById = "Select * From pair where id=?";
+	final String insertPair = "INSERT INTO "
+			+ DataContract.PairsTable.TABLE_NAME + " ("
+			+ DataContract.PairsTable.COL_MENTORID + ", "
+			+ DataContract.PairsTable.COL_MENTEEID + ", "
+			+ DataContract.PairsTable.COL_ACTIVESTATUS + ", "
+			+ DataContract.PairsTable.COL_STARTDATE + ") VALUES (?,?,?,?)";
+	final String selectPairId = "Select * From "
+			+ DataContract.PairsTable.TABLE_NAME + " Where "+DataContract.PairsTable.COL_PAIRID+"=?";
 }
