@@ -1,28 +1,24 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mm.da.DataAccess;
-
 /**
- * Servlet implementation class CreateNewPair
- * req: mentorId,menteeId--> da.createPair(mentorId,menteeId)
+ * Servlet implementation class GetMentorsAndMentees
+ * return all mentees and mentors;
  */
-@WebServlet("/CreateNewPair")
-public class CreateNewPair extends HttpServlet {
+@WebServlet("/GetMentorsAndMentees")
+public class GetMentorsAndMentees extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateNewPair() {
+    public GetMentorsAndMentees() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,27 +35,10 @@ public class CreateNewPair extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String MentorId=request.getParameter("mentorId");
-		String MenteeId=request.getParameter("menteeId");
-		String nextPage=request.getParameter("jsp");
-		
-		DataAccess da = new DataAccess();
-	    boolean res=false;
-	    
-//		try {
-//			res = da.addPair(MentorId,MenteeId);
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		if(res){
-		//	response.
-		}
-		if(!res)
-		request.setAttribute("Status", 400);
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
-		req.forward(request, response);
-		
+	
+	
+	
+	
 	}
 
 }

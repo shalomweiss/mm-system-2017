@@ -53,6 +53,7 @@ public class GetMentorById extends HttpServlet {
 //                e.printStackTrace();
 //            }
         request.setAttribute("MentorById", mentor);	
+        System.out.println(mentor);
         	
 	    PrintWriter writer = response.getWriter();
 		writer.println(mentor);

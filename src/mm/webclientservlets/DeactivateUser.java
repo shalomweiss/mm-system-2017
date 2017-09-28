@@ -55,13 +55,11 @@ public class DeactivateUser extends HttpServlet {
 //			e.printStackTrace();
 //		}
 		if(res){
-			request.setAttribute("Status", 200);
+			
 		}
 		if(!res)
 		request.setAttribute("Status", 400);
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
-		req.forward(request, response);
-		
+		req.forward(request, response);	
 	}
-
 }
