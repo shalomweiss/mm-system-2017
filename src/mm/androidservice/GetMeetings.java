@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.JsonMeeting;
 import mm.jsonModel.JsonUser;
 import mm.model.User;
@@ -71,8 +72,8 @@ public class GetMeetings extends HttpServlet {
 		
 		JsonMeeting jsonMeeting = null;
 		List<Meeting> meetings =null;
-		DataAccess da = new DataAccess();
-		boolean sessionActive=false;
+		DataInterface da = new DataAccess();
+	
 		
 		
 		if(ServerUtils.validateUserSession(id,token,da)) {
