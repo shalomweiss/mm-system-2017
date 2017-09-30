@@ -62,4 +62,8 @@ public final class DataContract {
 		public static final String COL_JOINTMESSAGE = "jointMessage";
 		public static final String COL_TSOFENMESSAGE = "tsofenMessage";
 	}
+	
+	public static class MeetingTable{
+		public static final String TABLE_NAME = "activities";
+	}
 }

@@ -35,8 +35,9 @@ public class DataAccess implements DataInterface{
 	final String addBaseUser = "INSERT INTO users (type, firstName, lastName, email, phoneNumber, password, gender, address, notes, profilePicture, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
-	final String insertPair = "INSERT INTO db.`pairs` (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
+	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectPairId="Select * From pair Where id=?";
+	
 	
 	
 	public DataAccess() {
@@ -372,7 +373,7 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public ArrayList<Pair> getAllPairs() throws SQLException {
-	    Pair p =null;
+	    Pair p =new Pair();
 		ArrayList<Pair> pair = new ArrayList<Pair>();
 		Statement stm= c.createStatement();
 		 stm.executeQuery("select * pairs");
@@ -458,7 +459,8 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public ArrayList<Meeting> getUserMeetings(int id) {
-		// TODO Auto-generated method stub
+		ArrayList<Meeting> meeting =new ArrayList<>();
+		
 		return null;
 	}
 
@@ -493,8 +495,7 @@ public class DataAccess implements DataInterface{
 	}
 		
 
-		
-
+			
 	@Override
 	public boolean startUserSession(Session session) throws SQLException {
 		// TODO Auto-generated method stub
