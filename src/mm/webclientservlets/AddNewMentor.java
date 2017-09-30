@@ -63,6 +63,7 @@ public class AddNewMentor extends HttpServlet {
 		User newMentor=new Mentor(firstName,lastName,email,phoneNumber,pass, gender,address,notes,ProfilePicture,true,userType.MENTOR, experience,role,company,volunteering,workHistory);
 		DataAccess da = new DataAccess();
 	    boolean res=false;
+	    RequestDispatcher req = null;
 	
 		try {
 			res = da.addUser(newMentor);
@@ -72,10 +73,11 @@ public class AddNewMentor extends HttpServlet {
 		}
 		if(res){
 			response.getWriter().append("Mentor Added");
+			req = request.getRequestDispatcher(nextPage);
 		}
 		if(!res)
 			response.getWriter().append("Failed in added Mentor");	
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		
 		req.forward(request, response);
 	}
 }

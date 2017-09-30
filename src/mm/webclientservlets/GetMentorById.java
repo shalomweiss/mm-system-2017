@@ -41,7 +41,7 @@ public class GetMentorById extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Get Mentor By ID Servlet");
+		System.out.println("GetMentorById Servlet");
 		int id =Integer.parseInt( request.getParameter("uId"));
         String jsp = request.getParameter("jsp");
           DataAccess da = new DataAccess();
@@ -54,12 +54,9 @@ public class GetMentorById extends HttpServlet {
             }
         request.setAttribute("MentorById", mentor);	
         System.out.println(mentor);
-        	
-	    PrintWriter writer = response.getWriter();
-		writer.println(mentor);
+        response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
 		req.forward(request, response);
-		writer.close();
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

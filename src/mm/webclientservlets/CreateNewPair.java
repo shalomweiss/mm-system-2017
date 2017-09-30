@@ -42,6 +42,7 @@ public class CreateNewPair extends HttpServlet {
 		String nextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
 		boolean res = false;
+		RequestDispatcher req = null;
 //		 try {
 //		 res = da.addPair(MentorId,MenteeId);
 //		 } catch (SQLException e) {
@@ -49,12 +50,13 @@ public class CreateNewPair extends HttpServlet {
 //		 e.printStackTrace();
 //		 }
 		if (res) {
-			request.setAttribute("Status", 200);//success
+		 req = request.getRequestDispatcher(nextPage);
+			
 		}
 		else
-			request.setAttribute("Status", 400);
+			response.getWriter().append("Failure");
 		
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		
 		req.forward(request, response);
 
 	}

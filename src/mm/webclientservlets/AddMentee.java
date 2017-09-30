@@ -76,11 +76,12 @@ public class AddMentee extends HttpServlet {
 		float avg=Float.valueOf(uAverage);
 		
 		boolean isGradute=Boolean.parseBoolean(isGraduate);
-		String uPass= genPass.getSaltString();	 
+		String uPass= GeneratePass.getSaltString();	 
 		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,isGradute,resume,gradeSheet );
 		
 		
 		DataAccess da = new DataAccess();
+		RequestDispatcher req=null;
 	    boolean res=false;
 	
 		try {
@@ -90,12 +91,12 @@ public class AddMentee extends HttpServlet {
 			e.printStackTrace();
 		}
 		if(res){
-			request.setAttribute("Status", 200);
+			 req = request.getRequestDispatcher(nextPage);
 		}
 		if(!res)
-		request.setAttribute("Status", 400);
-		
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+			response.getWriter().append("Fails to add a mentee");
+	
+		response.setContentType("text/html");
 		req.forward(request, response);
 	}
 	}

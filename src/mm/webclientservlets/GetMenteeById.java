@@ -36,7 +36,7 @@ public class GetMenteeById extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("GetMenteeById");
+		System.out.println("GetMenteeById Servlet");
 		int id =Integer.parseInt( request.getParameter("uId"));
         String jsp = request.getParameter("jsp");
           DataAccess da = new DataAccess();
@@ -50,6 +50,7 @@ public class GetMenteeById extends HttpServlet {
         	
       	
         request.setAttribute("MenteeById", mentee);	
+        response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
 		req.forward(request, response);
 		

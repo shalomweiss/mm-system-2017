@@ -58,7 +58,9 @@ public class GetAllMentors extends HttpServlet {
 		System.out.println("MENTORS: " + ArrMentors);
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
-		
+		response.setContentType("text/html");
+		RequestDispatcher req = request.getRequestDispatcher(NextPage);
+		req.forward(request, response);
 		writer.close();
 	}
 

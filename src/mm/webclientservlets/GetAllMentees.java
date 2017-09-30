@@ -48,7 +48,7 @@ public class GetAllMentees extends HttpServlet {
 		String NextPage = request.getParameter("jsp");
 
 		ArrayList<User> ArrMentees = new ArrayList<User>();
-	//	ArrMentees=getAllUsers();
+//		ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
 		 try {
 		 ArrMentees = da.getUsers(userType.MENTEE);
@@ -57,10 +57,12 @@ public class GetAllMentees extends HttpServlet {
 		 e.printStackTrace();
 		 }
 		request.setAttribute("Mentees", ArrMentees);
-		
+		//just for testing:
 		System.out.println("Mentees: " + ArrMentees);
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentees);
+		//end test
+		response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(NextPage);
 		req.forward(request, response);
 		writer.close();
@@ -75,10 +77,10 @@ public class GetAllMentees extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	public List<User> getAllUsers() {
+	public ArrayList<User> getAllUsers() {
 
-		List<User> getUsers = new ArrayList<User>();
-	//	getUsers.add(new Mentee(0, null, "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, null, 0, null, null, false, null, null));
+		ArrayList<User> getUsers = new ArrayList<User>();
+	//	getUsers.add(new Mentee(0, null, "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, "SSSSSSSSSS", 0, null, null, false, "LLLLLLL", null));
 		
 
 		return getUsers;

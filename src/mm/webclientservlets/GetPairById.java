@@ -37,10 +37,10 @@ public class GetPairById extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("GetPairById");
+		System.out.println("GetPairById Servlet");
 		int idPair =Integer.parseInt( request.getParameter("uId"));
         String jsp = request.getParameter("jsp");
-          DataAccess da = new DataAccess();
+        DataAccess da = new DataAccess();
             Pair pair = null;
           try {
                pair = da.getPair(idPair);
@@ -49,6 +49,7 @@ public class GetPairById extends HttpServlet {
                 e.printStackTrace();
             }
         request.setAttribute("PairById", pair);	
+        response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
 		req.forward(request, response);	
 	}
