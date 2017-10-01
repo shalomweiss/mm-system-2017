@@ -157,14 +157,14 @@ public class ServerUtils {
 	public static boolean validateUserSession(int userId,String token,DataInterface da) {
 		
 //		ArrayList<Session> userSessions=null;
-//		//TODO
-//		//get method from DA
-//		//ArrayList<String> userSessions = da.getUserSessions(userId);
+//
+//		get method from DA
+//		ArrayList<String> userSessions = da.getUserSessions(userId);
 //		
 //		for(Session s:userSessions) {
-////			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
-////				return true;
-////			}
+//			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
+//				return true;
+//			}
 //		}
 		
 		return false;
