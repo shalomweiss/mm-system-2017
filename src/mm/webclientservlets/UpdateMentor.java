@@ -40,6 +40,7 @@ public class UpdateMentor extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("uId"));
 		String email = request.getParameter("uEmail");
 		String firstName = request.getParameter("uFirstName");
 		String lastName = request.getParameter("uLastName");
@@ -49,7 +50,6 @@ public class UpdateMentor extends HttpServlet {
 		String experience = request.getParameter("uExperience");
 		String volunteering = request.getParameter("uVolunteering");
 		String phoneNum = request.getParameter("uPhoneNumber");
-		String id = request.getParameter("uId");
 		int gender = Integer.parseInt(request.getParameter("uGender"));
 		String password = request.getParameter("uPassword");
 		String profilePic = request.getParameter("uProfilePicture");
@@ -62,7 +62,7 @@ public class UpdateMentor extends HttpServlet {
 
 		DataAccess da = new DataAccess();
 		Boolean status = false;
-		Mentor mentor = new Mentor(firstName, lastName, email, phoneNum, password, gender, address, notes, profilePic,
+		Mentor mentor = new Mentor(id,firstName, lastName, email, phoneNum, password, gender, address, notes, profilePic,
 				isActive, userType.MENTOR, experience, role, company, volunteering, workHistory);
 		User u = (User) mentor;
 		try {
