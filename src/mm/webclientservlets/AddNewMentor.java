@@ -1,18 +1,12 @@
 //clicking on the Add button
 
 package mm.webclientservlets;
-
-import mm.constants.Constants;
 import mm.da.*;
 import mm.model.*;
 import mm.model.User.userType;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import util.GeneratePass;
 
-import com.google.gson.Gson;
 
 /**
  * Servlet implementation class LoginWeb
@@ -58,31 +51,26 @@ public class AddNewMentor extends HttpServlet {
 		String workHistory = request.getParameter("history");
 		String role=request.getParameter("role");
 		int company = Integer.parseInt(request.getParameter("company"));
-		String pass= genPass.getSaltString();
+		String pass= GeneratePass.getSaltString();
 		String ProfilePicture=request.getParameter("profilePicture");
-
-
 		User newMentor=new Mentor(firstName,lastName,email,phoneNumber,pass, gender,address,notes,ProfilePicture,true,userType.MENTOR, experience,role,company,volunteering,workHistory);
-
-	
-		
-		
 		DataAccess da = new DataAccess();
 	    boolean res=false;
+	    RequestDispatcher req = null;
 	
-//		try {
-//			res = da.addUser(newMentor)
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			res = da.addUser(newMentor);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(res){
-			request.setAttribute("Status", 200);
+			response.getWriter().append("Mentor Added");
+			req = request.getRequestDispatcher(nextPage);
 		}
 		if(!res)
-		request.setAttribute("Status", 400);
+			response.getWriter().append("Failed in added Mentor");	
 		
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
 	}
 }

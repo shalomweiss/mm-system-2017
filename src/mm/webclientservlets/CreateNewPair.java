@@ -1,6 +1,6 @@
 package mm.webclientservlets;
-
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,28 +34,31 @@ public class CreateNewPair extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String MentorId = request.getParameter("mentorId");
-		String MenteeId = request.getParameter("menteeId");
+		int MentorId =Integer.parseInt( request.getParameter("mentorId"));
+		int MenteeId =Integer.parseInt( request.getParameter("menteeId"));
 		String nextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
 		boolean res = false;
-		// try {
-		// res = da.addPair(MentorId,MenteeId);
-		// } catch (SQLException e) {
-		//// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+		RequestDispatcher req = null;
+		 try {
+		 res = da.addPair(MentorId,MenteeId);
+		 } catch (SQLException e) {
+		// // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
 		if (res) {
-			request.setAttribute("Status", 200);//success
+		 req = request.getRequestDispatcher(nextPage);
+			
 		}
 		else
-			request.setAttribute("Status", 400);
+			response.getWriter().append("Failure");
 		
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		
 		req.forward(request, response);
 
 	}

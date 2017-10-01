@@ -7,8 +7,9 @@ public class Meeting
  private int mentorId;
  private int menteeId;
  private int meetingId;
+ private int pairId;
  private String note;
- private int status;
+ private meetingStatus status;
  private String menteeReport;
  private String mentorReport;
  private String menteePrivateReport;
@@ -23,12 +24,25 @@ public class Meeting
  private Boolean menteeComplete;
  
  
+ 
  public enum meetingType{
-	 PHONE,FACE_TO_FACE,SMS;	 
+	 PHONE(0),FACE_TO_FACE(1),MESSAGE(2);	 
+	 
+		private final int value;
+	    private meetingType(int value) {
+	        this.value = value;
+	    }
+
+	    public int getValue() {
+	        return value;
+	    }
  }
 
+ public enum meetingStatus{
+	 PENDING,APPROVED,COMPLETE
+ }
 
-public Meeting(int mentorId, int menteeId, int meetingId, String note, int status, String menteeReport,
+public Meeting(int mentorId, int menteeId, int meetingId, int pairId, String note, meetingStatus status, String menteeReport,
 		String mentorReport, String menteePrivateReport, String mentorPrivateReport,
 		mm.model.Meeting.meetingType meetingType, String subject, String location, Long date, Time startingDate,
 		Time endingDate, Boolean mentorComplete, Boolean menteeComplete) {
@@ -36,6 +50,7 @@ public Meeting(int mentorId, int menteeId, int meetingId, String note, int statu
 	this.mentorId = mentorId;
 	this.menteeId = menteeId;
 	this.meetingId = meetingId;
+	this.pairId = pairId;
 	this.note = note;
 	this.status = status;
 	this.menteeReport = menteeReport;
@@ -93,12 +108,12 @@ public void setNote(String note) {
 }
 
 
-public int getStatus() {
+public meetingStatus getStatus() {
 	return status;
 }
 
 
-public void setStatus(int status) {
+public void setStatus(meetingStatus status) {
 	this.status = status;
 }
 
@@ -220,6 +235,16 @@ public Boolean getMenteeComplete() {
 
 public void setMenteeComplete(Boolean menteeComplete) {
 	this.menteeComplete = menteeComplete;
+}
+
+
+public int getPairId() {
+	return pairId;
+}
+
+
+public void setPairId(int pairId) {
+	this.pairId = pairId;
 }
 	
  

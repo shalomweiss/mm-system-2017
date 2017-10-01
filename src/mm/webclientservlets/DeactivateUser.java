@@ -1,6 +1,7 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,23 +44,23 @@ public class DeactivateUser extends HttpServlet {
 		String userId=request.getParameter("userId");
 		String nextPage=request.getParameter("jsp");
 		int id=Integer.parseInt(userId);
-		
-		
 		DataAccess da = new DataAccess();
 	    boolean res=false;
+	    RequestDispatcher req = null;
+	    response.setContentType("text/html");
 	    
-//		try {
-//			res = da.deactivateUser(id);
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		if(res){
-			
+		try {
+			res = da.deactivateUser(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		if(!res)
-		request.setAttribute("Status", 400);
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		if(res){
+		req = request.getRequestDispatcher(nextPage);			
+		}
+		else
+		response.getWriter().append("User is not deactivate-Failure");
+		
 		req.forward(request, response);	
 	}
 }

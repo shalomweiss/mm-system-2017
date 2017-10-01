@@ -1,7 +1,7 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
-import java.io.Writer;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import util.GeneratePass;
 import mm.da.DataAccess;
 import mm.model.Mentee;
-import mm.model.Mentor;
 import mm.model.User;
 import mm.model.User.userType;
 
@@ -51,7 +50,6 @@ public class AddMentee extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String nextPage=request.getParameter("jsp");
-		GeneratePass genPass=new GeneratePass();
 		String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
@@ -75,26 +73,27 @@ public class AddMentee extends HttpServlet {
 		float avg=Float.valueOf(uAverage);
 		
 		boolean isGradute=Boolean.parseBoolean(isGraduate);
-		String uPass= genPass.getSaltString();	 
+		String uPass= GeneratePass.getSaltString();	 
 		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,isGradute,resume,gradeSheet );
 		
 		
 		DataAccess da = new DataAccess();
+		RequestDispatcher req=null;
 	    boolean res=false;
 	
-//		try {
-//			res = da.addUser(newMentee)
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			res = da.addUser(newMentee);
+		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(res){
-			request.setAttribute("Status", 200);
+			 req = request.getRequestDispatcher(nextPage);
 		}
 		if(!res)
-		request.setAttribute("Status", 400);
-		
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+			response.getWriter().append("Fails to add a mentee");
+	
+		response.setContentType("text/html");
 		req.forward(request, response);
 	}
 	}
