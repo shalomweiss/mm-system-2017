@@ -20,6 +20,7 @@ import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.JsonUser;
 import mm.model.User;
 import util.ServerUtils;
@@ -51,7 +52,7 @@ public class UpdateProfile extends HttpServlet {
 		AndroidIOManager iom = new AndroidIOManager(request,response);			
 			JsonObject myJson = iom.getJsonRequest();
 			
-			int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+			int id =  (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 			String token = myJson.get("token").getAsString();
 			User updatedUser = new Gson().fromJson(myJson.get("user").getAsJsonObject(), User.class);
 					//new User(myJson.get("user"));//TODO CHECK VARIABLES

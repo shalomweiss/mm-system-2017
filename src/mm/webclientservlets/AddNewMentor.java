@@ -53,15 +53,16 @@ public class AddNewMentor extends HttpServlet {
 		String notes = request.getParameter("notes");
 		String experience = request.getParameter("experience");
 		String volunteering = request.getParameter("volunteering");
-		String gender = request.getParameter("gender");
+		int gender = Integer.parseInt(request.getParameter("gender"));
 		String nextPage = request.getParameter("jsp");
 		String workHistory = request.getParameter("history");
 		String role=request.getParameter("role");
-		int w=Integer.parseInt(workingPlace.toString());
+		int company = Integer.parseInt(request.getParameter("company"));
 		String pass= genPass.getSaltString();
+		String ProfilePicture=request.getParameter("profilePicture");
 
 
-		User newMentor=new Mentor(firstName,lastName,email,phoneNumber,pass,gender,address,notes,true,userType.MENTOR, experience,role,w,volunteering,workHistory);
+		User newMentor=new Mentor(firstName,lastName,email,phoneNumber,pass, gender,address,notes,ProfilePicture,true,userType.MENTOR, experience,role,company,volunteering,workHistory);
 
 	
 		

@@ -18,83 +18,86 @@ import mm.da.DataAccess;
 import mm.model.Mentee;
 import mm.model.Mentor;
 import mm.model.Pair;
+import mm.model.PairsInfo;
 import mm.model.User;
 
 /**
- * Servlet implementation class GetAllPairs
- * return from db ArrayList<Pair>: Pair Contructor is:
- * public Pair(int pairId, Mentor mentor, Mentee mentee, int activeStatuse,
-			Date startDate, Date endDate, String joinMessage,
-			String tsofenMessage)
-	
-	check if activestatuse==1? send to client else remove this pair		 
+ * Servlet implementation class GetAllPairs return from db ArrayList<Pair>: Pair
+ * Contructor is: public Pair(int pairId, Mentor mentor, Mentee mentee, int
+ * activeStatuse, Date startDate, Date endDate, String joinMessage, String
+ * tsofenMessage)
+ * 
+ * check if activestatuse==1? send to client else remove this pair
  */
 @WebServlet("/GetAllPairs")
 public class GetAllPairs extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GetAllPairs() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String NextPage = request.getParameter("jsp");
-		
-		//
+	public GetAllPairs() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-		ArrayList<Pair> pairs = new ArrayList<Pair>();
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// String NextPage = request.getParameter("jsp");
+		ArrayList<Pair> pairsArray = new ArrayList<Pair>();
+		ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
+
 		DataAccess da = new DataAccess();
-	//	Iterator i=ArrPairs.iterator();
-		//ArrPairs=getAllPair();
-//		 try {
-//		 pairs = da.getAllPairs();
-//		 } catch (SQLException e) {
-//		 // TODO Auto-generated catch block
-//		 e.printStackTrace();
-//		 }
-		  //TODO: check activateStatuse for AppPair: if its==1, keeping, else remove before sending to client side 
-		
-		
-		request.setAttribute("pairs", pairs);
-		//System.out.println("Pairs: " + ArrPairs);
-	//	PrintWriter writer = response.getWriter();
-	//	writer.println(ArrPairs);
-		RequestDispatcher req = request.getRequestDispatcher(NextPage);
-		req.forward(request, response);
-		//writer.close();
+		pairsArray = getAllPair();
+		for (Pair pair : pairsArray) {
+			if (pair.getActiveStatus() == 1) {
+				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
+						pair.getPairId(), pair.getActiveStatus());
+				pairsMainInfo.add(tmpPairInfo);
+			}
+		}
+		request.setAttribute("pairs", pairsMainInfo);
+		System.out.println("Pairs: " + pairsMainInfo);
+		PrintWriter writer = response.getWriter();
+		// RequestDispatcher req = request.getRequestDispatcher(NextPage);
+		// req.forward(request, response);
+		writer.close();
 	}
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 	}
-	public ArrayList<Pair> getAllPair(){
-		ArrayList<Pair> a=new ArrayList<Pair>();
-		Mentee u= new Mentee();
+
+	public ArrayList<Pair> getAllPair() {
+		ArrayList<Pair> a = new ArrayList<Pair>();
+		Mentee u = new Mentee();
 		u.setFirstName("firdos");
 		u.setLastName("F");
 		u.setActive(true);
-		
-		Mentor men=new Mentor();
+		u.setId(4444);
+		Mentor men = new Mentor();
 		men.setFirstName("MENTOR");
 		men.setWorkHistory("MICROSOFT");
-		Pair pair= new Pair();
+		men.setId(1111);
+		Pair pair = new Pair(1111, 4444);
 		pair.setMentor(men);
 		pair.setMentee(u);
-		pair.setActiveStatuse(1);
-		
-		pair.setMentorId(888);
+		pair.setActiveStatus(1);
+		pair.setPairId(2);
 		a.add(pair);
 		return a;
 	}
 
 }
+

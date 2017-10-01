@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.JsonMeeting;
 import mm.jsonModel.JsonUser;
 import mm.model.User;
@@ -61,18 +62,18 @@ public class GetMeetings extends HttpServlet {
 		
 		JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
 		
-		int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
-		int meetingStatus = (int) (myJson.get("meetingStatus").isJsonNull() ? "" : myJson.get("meetingStatus").getAsInt());
-		int count = (int) (myJson.get("count").isJsonNull() ? "" : myJson.get("count").getAsInt());
-		int page = (int) (myJson.get("page").isJsonNull() ? "" : myJson.get("page").getAsInt());
+		int meetingStatus =(myJson.get("meetingStatus").isJsonNull() ? 0 : myJson.get("meetingStatus").getAsInt());
+		int count =  (myJson.get("count").isJsonNull() ? 0 : myJson.get("count").getAsInt());
+		int page =  (myJson.get("page").isJsonNull() ? 0 : myJson.get("page").getAsInt());
 	
-				//new User(myJson.get("user"));//TODO CHECK VARIABLES
+		
 		
 		JsonMeeting jsonMeeting = null;
 		List<Meeting> meetings =null;
-		DataAccess da = new DataAccess();
-		boolean sessionActive=false;
+		DataInterface da = new DataAccess();
+	
 		
 		
 		if(ServerUtils.validateUserSession(id,token,da)) {

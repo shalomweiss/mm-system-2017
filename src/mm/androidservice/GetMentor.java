@@ -1,6 +1,8 @@
 package mm.androidservice;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import com.google.gson.JsonObject;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.da.DataInterface;
 import mm.jsonModel.JsonUser;
 import mm.model.User;
 import mm.webclientservlets.GetMentorById;
@@ -48,33 +51,31 @@ public class GetMentor extends HttpServlet {
 
 		JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
 		
-		int id = (int) (myJson.get("id").isJsonNull() ? "" : myJson.get("id").getAsInt());
+		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
 		
-		User mentee = null,mentor=null;
+		User mentor=null;
 		JsonUser jsonUser=null;
-		int MentorId,MenteeId;
+	
 		
-		DataAccess da = new DataAccess();
+		DataInterface da = new DataAccess();
 		if(ServerUtils.validateUserSession(id,token,da)) {
 			
 
-			//user=da.getUser(myUser.id);
+			try {
+				mentor=da.getMentorOfMentee(id);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
-		if (mentee == null) {
+		if (mentor == null) {
 
-			jsonUser = new JsonUser(mentee, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+			jsonUser = new JsonUser(mentor, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 		} else {
-					//mentor=da.getUser(mentee.mentorID);
-			if (mentor == null) {
-
-				jsonUser = new JsonUser(mentor, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
-			} else {
-				
-				jsonUser=new JsonUser(mentor,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
-				
-				}
-			
+	 
+					jsonUser=new JsonUser(mentor,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+						
 			}
 		}
 		else {
