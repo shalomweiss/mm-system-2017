@@ -48,6 +48,7 @@ public interface DataInterface{
 
 	public boolean startUserSession(Session session) throws SQLException;
 
+
 		
 //	public ArrayList<Mentee> getMenteesWithOutMentor();
 //	public boolean addWorkPlace(WorkPlace workplace);
@@ -75,4 +76,9 @@ public interface DataInterface{
 	 */
 	public boolean confirmMeeting(int meetingId,boolean status) throws SQLException;
 	
+	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException;
+	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException;
+	
+	
+
 }
