@@ -56,6 +56,7 @@ public class LoginWeb extends HttpServlet {
 		User temp = null;
 		try {
 			temp = da.login(email);
+			System.out.println(temp.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

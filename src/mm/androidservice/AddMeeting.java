@@ -46,7 +46,6 @@ public class AddMeeting extends HttpServlet {
 	String token = iom.getJsonRequest().get("token").getAsString();
 	Meeting meeting = new Gson().fromJson(iom.getJsonRequest().get("meeting"), Meeting.class);
 	
-	//todo add more validations
 	if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
 		if(meeting!=null ) {
 			try {
