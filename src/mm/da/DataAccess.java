@@ -522,4 +522,11 @@ public class DataAccess implements DataInterface{
 		return false;
 	}
 
+	@Override
+	public ArrayList<Meeting> getMeetingsByPairId(int pairId)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
