@@ -69,4 +69,8 @@ public interface DataInterface{
 	 */
 	public boolean confirmMeeting(int meetingId,boolean status) throws SQLException;
 	
+	
+	public ArrayList<Mentee> getAllUsersWithoutMentor();
+	public ArrayList<Mentor> getAllMentorsWithoutMentee();
+	
 }

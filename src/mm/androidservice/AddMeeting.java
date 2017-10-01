@@ -59,7 +59,6 @@ public class AddMeeting extends HttpServlet {
 					
 					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 				
-					
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
