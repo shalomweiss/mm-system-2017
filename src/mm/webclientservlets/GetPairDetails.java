@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import mm.da.DataAccess;
 import mm.model.Meeting;
 import mm.model.Pair;
+import mm.model.PairDetails;
 
 /**
  * Servlet implementation class GetPairById
@@ -56,10 +57,12 @@ public class GetPairDetails extends HttpServlet {
                // TODO Auto-generated catch block
                e.printStackTrace();
            }
+          PairDetails pairDetails=new PairDetails();
+          pairDetails.setPair(pair);
+          pairDetails.setMeetings(allMeetings);
           
-          
-        request.setAttribute("PairById", pairId);	
-        request.setAttribute("MeetingsByPairId",allMeetings);	
+        request.setAttribute("Pairs", pairDetails);	
+        
 
         response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);

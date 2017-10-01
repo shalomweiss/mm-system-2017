@@ -41,7 +41,7 @@ public class GetAllMentees extends HttpServlet {
 	//	String NextPage = request.getParameter("jsp");
 
 		ArrayList<User> ArrMentees = new ArrayList<User>();
-		//ArrMentees=getAllUsers();
+	//	ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
 		 try {
 		 ArrMentees = da.getUsers(userType.MENTEE);
