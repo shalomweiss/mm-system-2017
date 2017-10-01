@@ -34,9 +34,8 @@ public class GetAllMentees extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+		HttpServletResponse response) throws ServletException, IOException {
 		String NextPage = request.getParameter("jsp");
-
 		ArrayList<User> ArrMentees = new ArrayList<User>();
 //		ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
@@ -57,7 +56,6 @@ public class GetAllMentees extends HttpServlet {
 		req.forward(request, response);
 		writer.close();
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
