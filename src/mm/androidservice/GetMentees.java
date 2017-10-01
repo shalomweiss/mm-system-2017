@@ -59,16 +59,18 @@ public class GetMentees extends HttpServlet {
 		JsonUsers jsonUsers=null;
 		List<Mentee> mentees=null;
 		
-		try {
-<<<<<<< Updated upstream
+		
+
 			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 			
-=======
-			mentees=da.getMenteesOfMentor(id);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+			try {
+				mentees=da.getMenteesOfMentor(id);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		
 		
 		if (mentees == null) {
 
@@ -77,12 +79,14 @@ public class GetMentees extends HttpServlet {
 			
 			//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
 			
-			try {
-				mentees=iom.getDataAccess().getMenteesOfMentor(id);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+				try {
+					mentees=iom.getDataAccess().getMenteesOfMentor(id);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 			
 			if (mentees == null) {
 
@@ -94,13 +98,11 @@ public class GetMentees extends HttpServlet {
 				
 				}
 			}
+			}
 			else {
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 		
 		iom.SendJsonResponse();
