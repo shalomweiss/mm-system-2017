@@ -52,13 +52,13 @@ public class GetAllPairs extends HttpServlet {
 		ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
 
 		DataAccess da = new DataAccess();
-	//	pairsArray = getAllPair();	
-		 try {
-			 pairsArray = da.getAllPairs();
-			 } catch (SQLException e) {
-			 // TODO Auto-generated catch block
-			 e.printStackTrace();
-			 }
+		pairsArray = getAllPair();	
+//		 try {
+//			 pairsArray = da.getAllPairs();
+//			 } catch (SQLException e) {
+//			 // TODO Auto-generated catch block
+//			 e.printStackTrace();
+//			 }
 		
 		for (Pair pair : pairsArray) {
 			if (pair.getActiveStatus() == 1) {
