@@ -16,15 +16,11 @@ public class Mentee extends User {
 	public Mentee(){}
 
 	
-	public Mentee(String firstName, String lastName) {
-		super(firstName, lastName);
-	}
-
 
 	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
 			int gender, String address, String profilePicture, String note, boolean active, userType type, float remainingSemesters,
 			String graduationStatus, String academiclnstitution, float average, String academicDicipline,
-			String academicDicipline2, boolean isGraduate, String resume, String gradeSheet) {
+			String academicDicipline2, boolean signedEULA, String resume, String gradeSheet) {
 		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
 		this.remainingSemesters = remainingSemesters;
 		this.graduationStatus = graduationStatus;
@@ -37,14 +33,6 @@ public class Mentee extends User {
 		this.gradeSheet = gradeSheet;
 	}
 	
-
-	
-	public Mentee(String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, String profilePicture, String note, boolean active, userType type, float remainingSemesters,
-			String graduationStatus, String academiclnstitution, float average, String academicDicipline,
-			String academicDicipline2, boolean isGraduate, String resume, String gradeSheet) {
-		super(firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
-	}
 
 	public float getRemainingSemesters() {
 		return remainingSemesters;

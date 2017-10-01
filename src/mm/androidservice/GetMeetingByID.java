@@ -20,6 +20,7 @@ import mm.model.JsonMeeting;
 import mm.model.Meeting;
 import mm.model.Session;
 import mm.model.User;
+import mm.androidservice.AndroidIOManager;
 import util.ServerUtils;
 
 /**
@@ -52,28 +53,33 @@ public class GetMeetingByID extends HttpServlet {
 		int meetingId = myJson.get("meetingId").getAsInt();
 
 		Meeting meetingFromDB = null;
-		if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
-			try {
-				meetingFromDB = iom.getDataAccess().getMeetingById(meetingId);
+		try {
+			if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
+				try {
+					meetingFromDB = iom.getDataAccess().getMeetingById(Integer.valueOf(meetingId));
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
 				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
-			
-			
-			if(meetingFromDB==null) {
-				//TODO 
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-			} 
-			else {
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-				iom.addResponseParameter("meeting", meetingFromDB);
-			}
-			
+				
+				if(meetingFromDB==null) {
+					//TODO 
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+				} 
+				else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+					iom.addResponseParameter("meeting", meetingFromDB);
+				}
+				
 
-		}else {
-			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			}else {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	
 	

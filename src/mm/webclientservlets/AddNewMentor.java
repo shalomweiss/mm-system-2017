@@ -53,7 +53,7 @@ public class AddNewMentor extends HttpServlet {
 		int company = Integer.parseInt(request.getParameter("company"));
 		String pass= GeneratePass.getSaltString();
 		String ProfilePicture=request.getParameter("profilePicture");
-		User newMentor=new Mentor(firstName,lastName,email,phoneNumber,pass, gender,address,notes,ProfilePicture,true,userType.MENTOR, experience,role,company,volunteering,workHistory);
+		User newMentor=new Mentor(0,firstName,lastName,email,phoneNumber,pass, gender,address,notes,ProfilePicture,true,userType.MENTOR, experience,role,company,volunteering,workHistory);
 		DataAccess da = new DataAccess();
 	    boolean res=false;
 	    RequestDispatcher req = null;

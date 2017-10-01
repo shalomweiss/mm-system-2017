@@ -83,7 +83,7 @@ public class UpdateProfile extends HttpServlet {
 			}else {
 				//TODO
 				//session error
-		
+
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 			}
 			if(updatedUser!=null) {

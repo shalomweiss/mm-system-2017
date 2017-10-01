@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -73,8 +74,12 @@ public class ServerUtils {
 	 */
 	public static JsonObject  getJsonObjectFromRequest(HttpServletRequest request) throws IOException {
 		
-	   
-	    return  new JsonParser().parse(requestToJsonString(request)).getAsJsonObject();
+	  // System.out.println(requestToJsonString(request));
+	   // return   Json.parse(requestToJsonString(request));
+	   Gson gson=new Gson();
+	   JsonObject jsonObj=gson.fromJson(requestToJsonString(request), JsonObject.class);
+	   System.out.println(jsonObj);
+	   return jsonObj;
 	  	     
 	    
 	}
@@ -153,6 +158,7 @@ public class ServerUtils {
 	 * @param token
 	 * @param da
 	 * @return
+	 * @throws SQLException 
 	 */
 	public static boolean validateUserSession(int userId,String token,DataInterface da) {
 		
