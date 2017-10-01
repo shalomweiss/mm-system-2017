@@ -47,7 +47,7 @@ public class GetAllPairs extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("GetAllPairs Servlet .. s");
 
-	    String NextPage = request.getParameter("jsp");
+	    //String NextPage = request.getParameter("jsp");
 		ArrayList<Pair> pairsArray = new ArrayList<Pair>();
 		ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
 
@@ -71,7 +71,7 @@ public class GetAllPairs extends HttpServlet {
 		System.out.println("Pairs: " + pairsMainInfo);
 		PrintWriter writer = response.getWriter();
 		response.setContentType("text/html");
-	    RequestDispatcher req = request.getRequestDispatcher(NextPage);
+	    RequestDispatcher req = request.getRequestDispatcher("mainPairs.jsp");
 	    req.forward(request, response);
 		writer.close();
 	}
