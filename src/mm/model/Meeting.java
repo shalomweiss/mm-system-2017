@@ -26,16 +26,7 @@ public class Meeting
  
  
  public enum meetingType{
-	 PHONE(0),FACE_TO_FACE(1),MESSAGE(2);	 
-	 
-		private final int value;
-	    private meetingType(int value) {
-	        this.value = value;
-	    }
-
-	    public int getValue() {
-	        return value;
-	    }
+	 PHONE,FACE_TO_FACE,SMS
  }
 
  public enum meetingStatus{
