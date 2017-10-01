@@ -61,6 +61,7 @@ public class GetMentees extends HttpServlet {
 		
 		try {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 			
 =======
@@ -76,6 +77,10 @@ public class GetMentees extends HttpServlet {
 		} else {
 			
 			//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+>>>>>>> Stashed changes
+=======
+			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+			
 >>>>>>> Stashed changes
 			
 			

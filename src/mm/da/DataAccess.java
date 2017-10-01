@@ -622,10 +622,28 @@ public DataAccess() {
 	}
 
 	@Override
+<<<<<<< Updated upstream
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId)
 			throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+=======
+	public boolean addMeeting(Meeting meeting) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean approveMeeting(int meetingId, boolean status) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+>>>>>>> Stashed changes
 	}
 
 }
