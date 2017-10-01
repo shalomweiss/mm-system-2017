@@ -20,8 +20,8 @@ public class Meeting
  private Long date;
  private Time startingDate;
  private Time endingDate;
- private Boolean mentorComplete;
- private Boolean menteeComplete;
+ private boolean mentorComplete;
+ private boolean menteeComplete;
  
  
  

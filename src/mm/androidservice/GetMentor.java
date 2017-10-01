@@ -48,8 +48,11 @@ public class GetMentor extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
+		
+		
+		AndroidIOManager iom = new AndroidIOManager(request,response);
+		JsonObject myJson = iom.getJsonRequest();
+	//	JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
 		
 		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
@@ -59,11 +62,11 @@ public class GetMentor extends HttpServlet {
 	
 		
 		DataInterface da = new DataAccess();
-		if(ServerUtils.validateUserSession(id,token,da)) {
+		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 			
 
 			try {
-				mentor=da.getMentorOfMentee(id);
+				mentor=iom.getDataAccess().getMentorOfMentee(id);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -71,19 +74,20 @@ public class GetMentor extends HttpServlet {
 		
 		if (mentor == null) {
 
-			jsonUser = new JsonUser(mentor, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
-		} else {
-	 
-					jsonUser=new JsonUser(mentor,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+			} else {
+ 
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+				iom.addResponseParameter("user", mentor);
 						
 			}
 		}
 		else {
-			jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN, null);
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 		}
 
 		
-		ServerUtils.respondJsonObject(response,jsonUser);
+		iom.SendJsonResponse();
 		
 	}
 

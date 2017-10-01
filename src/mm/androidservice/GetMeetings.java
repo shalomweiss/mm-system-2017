@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,7 +62,9 @@ public class GetMeetings extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
+		AndroidIOManager iom = new AndroidIOManager(request,response);
+		JsonObject myJson = iom.getJsonRequest();
+		
 		
 		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
@@ -76,19 +80,27 @@ public class GetMeetings extends HttpServlet {
 	
 		
 		
-		if(ServerUtils.validateUserSession(id,token,da)) {
-		if(meetings==null) {
-			jsonMeeting = new JsonMeeting (Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null,meetings);
-		}
-		else {
-			jsonMeeting = new JsonMeeting (Constants.STATUS_SUCCESS, Constants.SUCCESS, token,meetings);
-		}
-		}else {
-			jsonMeeting = new JsonMeeting(Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN,null,meetings);
+		try {
+			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+				
+				meetings=iom.getDataAccess().getUserMeetings(id);
+				if(meetings==null) {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+				}
+				else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+					iom.addResponseParameter("meetings", meetings);
+				}
+					}else {
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+					}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
-		ServerUtils.respondJsonObject(response,jsonMeeting);
+		iom.SendJsonResponse();
 	}
 
 }

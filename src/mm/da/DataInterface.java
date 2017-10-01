@@ -47,6 +47,9 @@ public interface DataInterface{
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException;
 
 	public boolean startUserSession(Session session) throws SQLException;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		
 //	public ArrayList<Mentee> getMenteesWithOutMentor();
 //	public boolean addWorkPlace(WorkPlace workplace);
@@ -74,4 +77,19 @@ public interface DataInterface{
 	 */
 	public boolean confirmMeeting(int meetingId,boolean status) throws SQLException;
 	
+=======
+
+
+
+>>>>>>> Stashed changes
+=======
+
+
+
+>>>>>>> Stashed changes
+=======
+
+
+
+>>>>>>> Stashed changes
 }

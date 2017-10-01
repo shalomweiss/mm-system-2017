@@ -49,7 +49,8 @@ public class GetMentees extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
+		AndroidIOManager iom = new AndroidIOManager(request,response);
+		JsonObject myJson = iom.getJsonRequest();
 		
 		int id =(myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
@@ -58,32 +59,53 @@ public class GetMentees extends HttpServlet {
 		JsonUsers jsonUsers=null;
 		List<Mentee> mentees=null;
 		
-		if(ServerUtils.validateUserSession(id,token,da)) {
 		
+
+			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+			
+
+			try {
+				mentees=da.getMenteesOfMentor(id);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		
-		
-		try {
-			mentees=da.getMenteesOfMentor(id);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		if (mentees == null) {
 
-			//jsonUsers = new JsonUser(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+			//jsonUsers = new JsonUsers(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 		} else {
 			
-			//jsonUsers =new JsonUser(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+			//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
 			
+			
+				try {
+					mentees=iom.getDataAccess().getMenteesOfMentor(id);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			
+			if (mentees == null) {
+
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+			} else {
+				
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+				iom.addResponseParameter("users", mentees);
+				
+				}
 			}
-		}
-		else {
-			jsonUsers= new JsonUsers(null, Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN, null);
-		}
+			}
+			else {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			}
+		
 
 		
-		ServerUtils.respondJsonObject(response,jsonUsers);
+		iom.SendJsonResponse();
 		
 		
 	
