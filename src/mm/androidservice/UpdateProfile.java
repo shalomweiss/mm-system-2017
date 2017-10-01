@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -41,13 +42,6 @@ public class UpdateProfile extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		doGet(request, response);
-//	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -55,33 +49,28 @@ public class UpdateProfile extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-						
-			JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
+		AndroidIOManager iom = new AndroidIOManager(request,response);			
+			JsonObject myJson = iom.getJsonRequest();
 			
 			int id =  (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 			String token = myJson.get("token").getAsString();
 			User updatedUser = new Gson().fromJson(myJson.get("user").getAsJsonObject(), User.class);
 					//new User(myJson.get("user"));//TODO CHECK VARIABLES
-			
-			DataInterface da = new DataAccess();
-			JsonUser jsonUser=null;
-			
-			if(ServerUtils.validateUserSession(id, token, da)&&updatedUser!=null) {
+
+			if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())&&updatedUser!=null) {
 				try {	
 					//Sending user updated info to database
 					
-					
-					
-					
 					if(
-					da.editUser(updatedUser)
+							iom.getDataAccess().editUser(updatedUser)
 					) {
 						//success
-						jsonUser = new JsonUser(updatedUser, Constants.STATUS_SUCCESS, Constants.SUCCESS, token);
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+				
 						
 					}else {
 						//failed
-						jsonUser = new JsonUser(updatedUser, Constants.STATUS_WRONGPARA, Constants.ERROR, token);
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 					}
 					
 					
@@ -94,32 +83,24 @@ public class UpdateProfile extends HttpServlet {
 			}else {
 				//TODO
 				//session error
-				jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.ERROR, null);
+		
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			}
+			if(updatedUser!=null) {
+			iom.addResponseParameter("user", updatedUser);
+			}
+			else {
+				iom.addResponseParameter("user", "");
+			}
+			if(token!=null) {
+			iom.addResponseParameter("token", token);
+			}else {
+				iom.addResponseParameter("token", "");
 			}
 			
-
-			ServerUtils.respondJsonObject(response,jsonUser);
+			iom.SendJsonResponse();
 
 	}
 	
-//	private boolean validateUserFields(User user) {
-//		if(user.getFirstName()!=null && !user.getFirstName().trim().isEmpty()) {
-//			user.setFirstName(user.getFirstName().trim());
-//		}else {
-//			return false;
-//		}
-//		
-//		if(user.getLastName()!=null && !user.getLastName().trim().isEmpty()) {
-//			user.setLastName(user.getLastName().trim());
-//		}else {
-//			return false;
-//		}
-//		
-//		if(user.()!=null && !user.getFirstName().trim().isEmpty()) {
-//			user.setFirstName(user.getFirstName().trim());
-//		}else {
-//			return false;
-//		}
-//	}
 	
 }

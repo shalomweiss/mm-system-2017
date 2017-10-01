@@ -44,7 +44,7 @@ public class GetProfile extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		
-		JsonObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
+		JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
 		
 		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();

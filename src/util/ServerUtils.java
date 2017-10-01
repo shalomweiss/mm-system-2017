@@ -71,7 +71,7 @@ public class ServerUtils {
 	 * @return
 	 * @throws IOException
 	 */
-	public static JsonObject  getJsonObjcetFromRequest(HttpServletRequest request) throws IOException {
+	public static JsonObject  getJsonObjectFromRequest(HttpServletRequest request) throws IOException {
 		
 	   
 	    return  new JsonParser().parse(requestToJsonString(request)).getAsJsonObject();
@@ -99,6 +99,32 @@ public class ServerUtils {
 	    return sb.toString();
 	}
 	
+	
+	
+	/**
+	 * returns json response from map parameters
+	 * @param response
+	 * @param jsonUser
+	 * @throws IOException
+	 */
+	public static void respondJsonMap(HttpServletResponse response,Map<String,Object> jsonParam) throws IOException {
+		
+		
+		Gson gson =new Gson();
+		
+		
+		response.setContentType("application/json");
+		// Get the printwriter object from response to write the required json object to the output stream      
+		PrintWriter out = response.getWriter();
+		// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
+		out.print(gson.toJson(mapToJson(jsonParam)));
+		//System.out.println(gson.toJson(jsonUser).toString());
+		out.flush();
+		out.close();
+		
+	}
+	
+	
 	/**
 	 * returns jsonUser as a response -- jsonUser contains status
 	 * @param response
@@ -109,7 +135,6 @@ public class ServerUtils {
 		
 		
 		Gson gson =new Gson();
-		
 		
 		response.setContentType("application/json");
 		// Get the printwriter object from response to write the required json object to the output stream      
@@ -131,19 +156,30 @@ public class ServerUtils {
 	 */
 	public static boolean validateUserSession(int userId,String token,DataInterface da) {
 		
-		ArrayList<Session> userSessions=null;
-		//TODO
-		//get method from DA
-		//ArrayList<String> userSessions = da.getUserSessions(userId);
-		
-		for(Session s:userSessions) {
-//			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
-//				return true;
-//			}
-		}
+//		ArrayList<Session> userSessions=null;
+//		//TODO
+//		//get method from DA
+//		//ArrayList<String> userSessions = da.getUserSessions(userId);
+//		
+//		for(Session s:userSessions) {
+////			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
+////				return true;
+////			}
+//		}
 		
 		return false;
 		
+	}
+
+	/**
+	 * return map as jsonObject
+	 * @param inputMap
+	 * @return
+	 */
+	public static JsonObject mapToJson(Map<String, Object> inputMap){
+
+    return new JsonParser().parse(new Gson().toJson(inputMap)).getAsJsonObject();
+    
 	}
 	
 	//TODO -- add request validation methods for WEB
