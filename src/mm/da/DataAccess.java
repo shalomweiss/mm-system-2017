@@ -39,6 +39,7 @@ public class DataAccess implements DataInterface {
 	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
+<<<<<<< Updated upstream
 	final String selectPairId = "Select * From pair Where id=?";
 	final String selectMeeting = "Select * From activity where mentoId=? ";
 	final String selectMeeting2 = "Select * From activity where menteeId=? ";
@@ -47,6 +48,15 @@ public class DataAccess implements DataInterface {
 	final String selectMeetingById = ""; //TODO: write statement
 	
 	public DataAccess() {
+=======
+	final String selectPairId="Select * From pair Where id=?";
+	final String selectMeeting="Select * From activity where mentoId=? ";
+	final String selectMeeting2="Select * From activity where menteeId=? ";
+	final String sessionId ="Select * From session where userId=?";
+    final String addUserSession = "INSERT INTO session (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
+	final String selectMeetingById = "Select * From activity where meetingId=?";
+public DataAccess() {
+>>>>>>> Stashed changes
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
 		c = util.DBUtil.getConnection();
@@ -474,6 +484,7 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
+<<<<<<< Updated upstream
 
 			meet = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
 					rs.getInt(4), rs.getString(5),
@@ -507,11 +518,25 @@ public class DataAccess implements DataInterface {
 				meet.setMeetingType(meetingType.SMS);
 				break;
 			default: // ERROR
+=======
+			
+			int type=rs.getInt(10);
+			switch (type)
+			{	
+			case 0:
+		
+			case 1:
+				
+			case 2:
+				
+			default:
+>>>>>>> Stashed changes
 				break;
 			}
 		} else {
 			PreparedStatement stm1 = c.prepareStatement(selectMeeting2);
 			stm1.setInt(1, id);
+<<<<<<< Updated upstream
 			ResultSet rs1 = stm.executeQuery();
 			if (rs1.next()) {
 				meet = new Meeting(rs1.getInt(1), rs1.getInt(2), rs1.getInt(3),
@@ -548,6 +573,24 @@ public class DataAccess implements DataInterface {
 				default: // ERROR
 					break;
 				}			}
+=======
+			ResultSet rs1 = stm.executeQuery();	
+			if(rs1.next())
+			{
+				int type=rs1.getInt(10);
+				switch (type)
+				{	
+				case 0:
+			 
+				case 1:
+					 	
+				case 2:
+					 
+				default:
+					break;		
+			}
+			}	
+>>>>>>> Stashed changes
 		}
 
 		return meeting;
@@ -678,4 +721,5 @@ public class DataAccess implements DataInterface {
 	}
 
 
+}
 }
