@@ -1,26 +1,16 @@
 package mm.webclientservlets;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-
-import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.model.Mentor;
-import mm.model.Mentee;
 import mm.model.User;
 import mm.model.User.userType;
 
@@ -48,18 +38,21 @@ public class GetAllMentees extends HttpServlet {
 		String NextPage = request.getParameter("jsp");
 
 		ArrayList<User> ArrMentees = new ArrayList<User>();
-	//	ArrMentees=getAllUsers();
+//		ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
-//		 try {
-//		 ArrMentees = da.getUsers(userType.MENTEE);
-//		 } catch (SQLException e) {
-//		 // TODO Auto-generated catch block
-//		 e.printStackTrace();
-//		 }
+		 try {
+		 ArrMentees = da.getUsers(userType.MENTEE);
+		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
 		request.setAttribute("Mentees", ArrMentees);
+		//just for testing:
 		System.out.println("Mentees: " + ArrMentees);
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentees);
+		//end test
+		response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(NextPage);
 		req.forward(request, response);
 		writer.close();
@@ -74,10 +67,10 @@ public class GetAllMentees extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	public List<User> getAllUsers() {
+	public ArrayList<User> getAllUsers() {
 
-		List<User> getUsers = new ArrayList<User>();
-		getUsers.add(new Mentee(0, null, "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, null, 0, null, null, false, null, null));
+		ArrayList<User> getUsers = new ArrayList<User>();
+	//	getUsers.add(new Mentee(0, null, "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, "SSSSSSSSSS", 0, null, null, false, "LLLLLLL", null));
 		
 
 		return getUsers;

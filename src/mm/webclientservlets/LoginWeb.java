@@ -52,10 +52,7 @@ public class LoginWeb extends HttpServlet {
 
 		String email = request.getParameter("uName");
 		String pass = request.getParameter("uPass");
-		
-		int isNotEntered = 0;
 		DataAccess da = new DataAccess();
-		//UserDA da = new UserDA();
 		User temp = null;
 		try {
 			temp = da.login(email);
