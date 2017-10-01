@@ -49,42 +49,37 @@ public class ApproveMeeting extends HttpServlet {
 		String meetingId = jsonMeetingToApprove.get("meeting_id").getAsString();
 		Boolean action = jsonMeetingToApprove.get("action").getAsBoolean();
 		
-		try {
-			if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
-				if(meetingId!=null && action!=null) {
-					try {
-						if(iom.getDataAccess().approveMeeting(Integer.parseInt(meetingId), action)){
-							
-							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-							
-					
-
-							
-						}else {
-							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-								
-						}
-					} catch (NumberFormatException | SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-								
-				}else {
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
-					
-					
-				}
-			
+		if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
+			if(meetingId!=null && action!=null) {
+				try {
+					if(iom.getDataAccess().approveMeeting(Integer.parseInt(meetingId), action)){
+						
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+						
 				
-			}else {
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 
+						
+					}else {
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+							
+					}
+				} catch (NumberFormatException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+							
+			}else {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+				
 				
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+			
+		}else {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+
+			
 		}
 		
 		iom.SendJsonResponse();

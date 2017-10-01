@@ -161,43 +161,8 @@ public class ServerUtils {
 	 * @throws SQLException 
 	 */
 	public static boolean validateUserSession(int userId,String token,DataInterface da) {
-		return true;// must be false
-		//ArrayList<Session> userSessions=null;
-		//TODO
-		//get method from DA
-//		ArrayList<Session> userSessions = da.getUserSessions(userId);
-//		
-//		for(Session s:userSessions) {
-//			
-//	        Date date=new Date(s.getExpirationDate());
-//	        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
-//	        String dateText = df2.format(date);
-//	        System.out.println(dateText);
-//			Date expDate=(Date)s.getExpirationDate();
-//			if(s.equals(token) && date.before(new Date())) {
-//				return true;
-//			}
-//		}
-		
-		return true;//must be false
-=======
-=======
->>>>>>> Stashed changes
-	public static boolean validateUserSession(int userId,String token,DataInterface da) {
-		return true;// must be false
-		//ArrayList<Session> userSessions=null;
-		//TODO
-		//get method from DA
-		//ArrayList<String> userSessions = da.getUserSessions(userId);
-		
-		//for(Session s:userSessions) {
-//			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
-//				return true;
-//			}
-	//	}
-		
-		
-		
+		return true;
+
 	}
 
 	/**

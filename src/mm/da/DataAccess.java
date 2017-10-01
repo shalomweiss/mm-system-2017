@@ -44,7 +44,8 @@ public class DataAccess implements DataInterface {
 	final String selectMeeting2 = "Select * From activity where menteeId=? ";
 	final String sessionId = "Select * From session where userId=?";
 	final String addUserSession = "INSERT INTO session (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
-
+	final String selectMeetingById = ""; //TODO: write statement
+	
 	public DataAccess() {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
@@ -658,82 +659,23 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-<<<<<<< Updated upstream
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId)
 			throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
-=======
-	public boolean addMeeting(Meeting meeting) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
-	public boolean approveMeeting(int meetingId, boolean status) throws SQLException {
+	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException {
+	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
->>>>>>> Stashed changes
+		return null;
 	}
 
-	@Override
-	public boolean addMeeting(Meeting meeting) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean approveMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addMeeting(Meeting meeting) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean approveMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addMeeting(Meeting meeting) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean approveMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }
