@@ -1,5 +1,12 @@
 package mm.model;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+
+import javafx.util.converter.LocalDateStringConverter;
+import javafx.util.converter.LocalDateTimeStringConverter;
+
 public class Session {
   
 	private int userId;
@@ -8,12 +15,29 @@ public class Session {
 	private long expirationDate;
 	private String deviceId;
 	
+	@SuppressWarnings("deprecation")
 	public Session(int userId, String token, String deviceId) {
 		super();
 		this.userId = userId;
 		this.token = token;
+		this.deviceId = deviceId;	
+		this.creationDate=new Date().getDate();
+			
+	}
+	
+	
+	public Session(int userId, String token, long creationDate, long expirationDate, String deviceId) {
+		super();
+		this.userId = userId;
+		this.token = token;
+		this.creationDate = creationDate;
+		this.expirationDate = expirationDate;
 		this.deviceId = deviceId;
 	}
+
+
+
+
 	public int getUserId() {
 		return userId;
 	}

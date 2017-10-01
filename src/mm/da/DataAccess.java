@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import java.sql.Statement;
 
 import mm.model.Meeting;
+import mm.model.Meeting.meetingType;
 import mm.model.Mentee;
 import mm.model.Mentor;
 import mm.model.Pair;
@@ -37,10 +38,12 @@ public class DataAccess implements DataInterface{
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectPairId="Select * From pair Where id=?";
+	final String selectMeeting="Select * From activity where mentoId=? ";
+	final String selectMeeting2="Select * From activity where menteeId=? ";
+	final String sessionId ="Select * From session where userId=?";
+final String addUserSession = "INSERT INTO session (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
 	
-	
-	
-	public DataAccess() {
+public DataAccess() {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
 		c = util.DBUtil.getConnection();
@@ -452,16 +455,71 @@ public class DataAccess implements DataInterface{
 	}
 
 	@Override
-	public ArrayList<Session> getUserSessions(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Session> getUserSessions(int id) throws SQLException {
+	      ArrayList<Session>session =new ArrayList<Session>();
+	      Session s =null;
+	      PreparedStatement stm = c.prepareStatement(sessionId);
+			
+			stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+	         if(rs.next())
+	         {
+	        	 s=new Session(id,rs.getString(2) , rs.getLong(3), rs.getLong(4), rs.getString(5));
+	        	 session.add(s);
+	         }
+		return session;
 	}
 
 	@Override
-	public ArrayList<Meeting> getUserMeetings(int id) {
+	public ArrayList<Meeting> getUserMeetings(int id) throws SQLException {
 		ArrayList<Meeting> meeting =new ArrayList<>();
+		Meeting meet = null;
+		PreparedStatement stm = c.prepareStatement(selectMeeting);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();	
+		if (rs.next()) {
+			
+			int type=rs.getInt(10);
+			switch (type)
+			{	
+			case 0:
+		  meet =new Meeting(rs.getInt(2), id, rs.getInt(1), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),meetingType.PHONE, rs.getString(11), rs.getString(12), rs.getLong(13), rs.getTime(14), rs.getTime(15), rs.getBoolean(16), rs.getBoolean(17));	
+		meeting.add(meet);
+			case 1:
+				  meet =new Meeting(rs.getInt(2), id, rs.getInt(1), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),meetingType.FACE_TO_FACE, rs.getString(11), rs.getString(12), rs.getLong(13), rs.getTime(14), rs.getTime(15), rs.getBoolean(16), rs.getBoolean(17));	
+					meeting.add(meet);	
+			case 2:
+				  meet =new Meeting(rs.getInt(2), id, rs.getInt(1), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9),meetingType.MESSAGE, rs.getString(11), rs.getString(12), rs.getLong(13), rs.getTime(14), rs.getTime(15), rs.getBoolean(16), rs.getBoolean(17));	
+					meeting.add(meet);
+			default:
+				break;
+			}	
+			}
+		else {
+			PreparedStatement stm1 = c.prepareStatement(selectMeeting2);
+			stm1.setInt(1, id);
+			ResultSet rs1 = stm.executeQuery();	
+			if(rs1.next())
+			{
+				int type=rs1.getInt(10);
+				switch (type)
+				{	
+				case 0:
+			  meet =new Meeting(rs1.getInt(2), id, rs1.getInt(1), rs1.getString(4), rs1.getInt(5), rs1.getString(6), rs1.getString(7), rs1.getString(8), rs1.getString(9),meetingType.PHONE, rs1.getString(11), rs1.getString(12), rs1.getLong(13), rs1.getTime(14), rs1.getTime(15), rs1.getBoolean(16), rs1.getBoolean(17));	
+			meeting.add(meet);
+				case 1:
+					  meet =new Meeting(rs1.getInt(2), id, rs1.getInt(1), rs1.getString(4), rs1.getInt(5), rs1.getString(6), rs1.getString(7), rs1.getString(8), rs1.getString(9),meetingType.FACE_TO_FACE, rs1.getString(11), rs1.getString(12), rs1.getLong(13), rs1.getTime(14), rs1.getTime(15), rs1.getBoolean(16), rs1.getBoolean(17));	
+						meeting.add(meet);	
+				case 2:
+					  meet =new Meeting(rs1.getInt(2), id, rs1.getInt(1), rs1.getString(4), rs1.getInt(5), rs1.getString(6), rs1.getString(7), rs1.getString(8), rs1.getString(9),meetingType.MESSAGE, rs1.getString(11), rs1.getString(12), rs1.getLong(13), rs1.getTime(14), rs1.getTime(15), rs1.getBoolean(16), rs1.getBoolean(17));	
+						meeting.add(meet);
+				default:
+					break;		
+			}
+			}	
+		}
 		
-		return null;
+		return meeting;
 	}
 
 	@Override
@@ -490,34 +548,38 @@ public class DataAccess implements DataInterface{
 
 	@Override
 	public Meeting getMeetingById(int meetingId) throws SQLException {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
-		
-
-			
+				
 	@Override
 	public boolean startUserSession(Session session) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		PreparedStatement stm = c.prepareStatement(addUserSession);
+		stm.setInt(1, session.getUserId());
+		stm.setString(2, session.getToken());
+		stm.setLong(3,session.getCreationDate());
+		stm.setLong(4,session.getExpirationDate());
+		stm.setString(5, session.getDeviceId());
+		stm.executeUpdate();
+		
+		return true;
+		
 	}
 
 	@Override
 	public boolean addMeeting(Meeting meeting) throws SQLException {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
-	public boolean approveMeeting(int meetingId, boolean status)
-			throws SQLException {
-		// TODO Auto-generated method stub
+	public boolean approveMeeting(int meetingId, boolean status)throws SQLException {
+		
 		return false;
 	}
 
 	@Override
-	public boolean confirmMeeting(int meetingId, boolean status)
-			throws SQLException {
+	public boolean confirmMeeting(int meetingId, boolean status)throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}
