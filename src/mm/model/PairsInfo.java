@@ -42,9 +42,5 @@ public class PairsInfo {
 		this.activeStatus = activeStatus;
 	}
 	
-	
-	
-	
-	
-	
+
 }

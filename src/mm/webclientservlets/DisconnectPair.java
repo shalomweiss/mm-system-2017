@@ -1,6 +1,7 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,22 +46,22 @@ public class DisconnectPair extends HttpServlet {
 		
 		DataAccess da = new DataAccess();
 	    boolean res=false;
+	    RequestDispatcher req = null;
+	    response.setContentType("text/html");
 	    
-//		try {
-//			res = da.disconnectPair(id);
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		if(res){
-			request.setAttribute("Status", 200);
-			response.getWriter().append(pairId);
-			// if id=-1 something is wrong ;
-			
+		try {
+			res = da.disconnectPair(id);
+		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		if(!res)
-		request.setAttribute("Status", 400);
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		if(res){
+			response.getWriter().append("Disconnect Pair Successfull");
+			req = request.getRequestDispatcher(nextPage);
+		}
+		else 
+			response.getWriter().append("Disconnect Pair Is Failure");
+		
 		req.forward(request, response);
 		
 	}

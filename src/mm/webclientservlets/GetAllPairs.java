@@ -2,10 +2,8 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +17,7 @@ import mm.model.Mentee;
 import mm.model.Mentor;
 import mm.model.Pair;
 import mm.model.PairsInfo;
-import mm.model.User;
+
 
 /**
  * Servlet implementation class GetAllPairs return from db ArrayList<Pair>: Pair
@@ -47,13 +45,21 @@ public class GetAllPairs extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("GetAllPairs Servlet .. s");
 
-		// String NextPage = request.getParameter("jsp");
+	    String NextPage = request.getParameter("jsp");
 		ArrayList<Pair> pairsArray = new ArrayList<Pair>();
 		ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
 
 		DataAccess da = new DataAccess();
-		pairsArray = getAllPair();
+		pairsArray = getAllPair();	
+		 try {
+			 pairsArray = da.getAllPairs();
+			 } catch (SQLException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 }
+		
 		for (Pair pair : pairsArray) {
 			if (pair.getActiveStatus() == 1) {
 				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
@@ -61,11 +67,12 @@ public class GetAllPairs extends HttpServlet {
 				pairsMainInfo.add(tmpPairInfo);
 			}
 		}
-		request.setAttribute("pairs", pairsMainInfo);
+		request.setAttribute("Pairs", pairsMainInfo);
 		System.out.println("Pairs: " + pairsMainInfo);
 		PrintWriter writer = response.getWriter();
-		// RequestDispatcher req = request.getRequestDispatcher(NextPage);
-		// req.forward(request, response);
+		response.setContentType("text/html");
+	    RequestDispatcher req = request.getRequestDispatcher(NextPage);
+	    req.forward(request, response);
 		writer.close();
 	}
 

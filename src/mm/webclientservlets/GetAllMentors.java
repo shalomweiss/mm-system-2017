@@ -1,23 +1,16 @@
 package mm.webclientservlets;
 
 import java.sql.SQLException;
-import java.util.List;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-
-import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.Mentor;
 import mm.model.User;
@@ -48,17 +41,19 @@ public class GetAllMentors extends HttpServlet {
 		ArrayList<User> ArrMentors = new ArrayList<User>();
 		DataAccess da = new DataAccess();
 		ArrMentors=getAllUsers();
-		 /*try {
+		 try {
 		 ArrMentors = da.getUsers(userType.MENTOR);
 		 } catch (SQLException e) {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
-		 }*/
+		 }
 		request.setAttribute("Mentors", ArrMentors);
 		System.out.println("MENTORS: " + ArrMentors);
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
-		
+		response.setContentType("text/html");
+		RequestDispatcher req = request.getRequestDispatcher(NextPage);
+		req.forward(request, response);
 		writer.close();
 	}
 

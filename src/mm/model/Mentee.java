@@ -36,8 +36,15 @@ public class Mentee extends User {
 		this.resume = resume;
 		this.gradeSheet = gradeSheet;
 	}
+	
 
-
+	
+	public Mentee(String firstName, String lastName, String email, String phoneNumber, String password,
+			int gender, String address, String profilePicture, String note, boolean active, userType type, float remainingSemesters,
+			String graduationStatus, String academiclnstitution, float average, String academicDicipline,
+			String academicDicipline2, boolean isGraduate, String resume, String gradeSheet) {
+		super(firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
+	}
 
 	public float getRemainingSemesters() {
 		return remainingSemesters;
