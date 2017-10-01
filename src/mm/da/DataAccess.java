@@ -782,5 +782,17 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		
 		return mentorList;	
 }
+
+	@Override
+	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
