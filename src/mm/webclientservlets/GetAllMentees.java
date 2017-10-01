@@ -4,13 +4,16 @@ import java.sql.SQLException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import mm.da.DataAccess;
+import mm.model.Mentee;
 import mm.model.User;
 import mm.model.User.userType;
 
@@ -35,10 +38,10 @@ public class GetAllMentees extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String NextPage = request.getParameter("jsp");
+	//	String NextPage = request.getParameter("jsp");
 
 		ArrayList<User> ArrMentees = new ArrayList<User>();
-//		ArrMentees=getAllUsers();
+		//ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
 		 try {
 		 ArrMentees = da.getUsers(userType.MENTEE);
@@ -53,7 +56,7 @@ public class GetAllMentees extends HttpServlet {
 		writer.println(ArrMentees);
 		//end test
 		response.setContentType("text/html");
-		RequestDispatcher req = request.getRequestDispatcher(NextPage);
+		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
 		req.forward(request, response);
 		writer.close();
 	}
@@ -70,9 +73,9 @@ public class GetAllMentees extends HttpServlet {
 	public ArrayList<User> getAllUsers() {
 
 		ArrayList<User> getUsers = new ArrayList<User>();
-	//	getUsers.add(new Mentee(0, null, "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, "SSSSSSSSSS", 0, null, null, false, "LLLLLLL", null));
+		getUsers.add(new Mentee(0, "hseen", "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, "SSSSSSSSSS", 0, null, null, false, "LLLLLLL", null));
 		
-
+        
 		return getUsers;
 	}
 }

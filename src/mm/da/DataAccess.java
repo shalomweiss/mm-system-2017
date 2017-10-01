@@ -296,7 +296,7 @@ public class DataAccess implements DataInterface{
 		case MENTEE:
 			
 			Statement stm3 = c.createStatement();
-			 stm3.executeQuery("select * from user RIGHT JOIN mentee ON user.id = mentee.id");
+			 stm3.executeQuery("select * from users RIGHT JOIN mentees ON users.id = mentees.id");
 			ResultSet r3 = stm3.getResultSet();
 			while (r3.next())
 			{
