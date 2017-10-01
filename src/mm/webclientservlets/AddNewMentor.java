@@ -36,6 +36,7 @@ public class AddNewMentor extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 	    System.out.println("Add New MentorServlet");
+		GeneratePass genPass=new GeneratePass();
 		String email = request.getParameter("email");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
