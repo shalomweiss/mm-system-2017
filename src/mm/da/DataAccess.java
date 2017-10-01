@@ -216,46 +216,65 @@ public class DataAccess implements DataInterface {
 		stm.setString(1, u.getEmail());
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) // user exists
+		{
+			System.out.println("rs.next(): " + rs.getString(3));
+		
 			return false;
+		}
 		PreparedStatement stm2 = c.prepareStatement(addBaseUser);
 		stm2.setInt(1, u.getType().getValue());
 		stm2.setString(2, u.getFirstName());
-		stm2.setString(3, u.getEmail());
-		stm2.setString(4, u.getPhoneNumber());
-		stm2.setString(5, u.getPassword());
-		stm2.setInt(6, u.getGender());
-		stm2.setString(7, u.getAddress());
-		stm2.setString(8, u.getNote());
-		stm2.setString(9, u.getProfilePicture());
-		stm2.setInt(10, u.isActive() ? 1 : 0);
+		stm2.setString(3, u.getLastName());
+		stm2.setString(4, u.getEmail());
+		stm2.setString(5, u.getPhoneNumber());
+		stm2.setString(6, u.getPassword());
+		stm2.setInt(7, u.getGender());
+		stm2.setString(8, u.getAddress());
+		stm2.setString(9, u.getNote());
+		stm2.setString(10, u.getProfilePicture());
+		stm2.setInt(11, u.isActive() ? 1 : 0);
 		stm2.executeUpdate();
+		
+		stm = c.prepareStatement(selectLogin);
+		stm.setString(1, u.getEmail());
+		rs = stm.executeQuery();
+		int id = 0;
+		if (rs.next()) // user exists
+		{
+			id = rs.getInt(1);
+		}
+		else{
+			return false;
+		}
+		
 
 		if (u.getType() == userType.TSOFEN || u.getType() == userType.ADMIN)
 			return true;
 
 		if (u.getType() == userType.MENTOR) {
 			PreparedStatement stm3 = c.prepareStatement(addMentorUser);
-			stm3.setString(1, ((Mentor) u).getExperience());
-			stm3.setString(2, ((Mentor) u).getRole());
-			stm3.setInt(3, ((Mentor) u).getCompany());
-			stm3.setString(4, ((Mentor) u).getVolunteering());
-			stm3.setString(5, ((Mentor) u).getWorkHistory());
-			stm3.setInt(6, u.getId());
+			stm3.setInt(1, id);
+			stm3.setString(2, ((Mentor) u).getExperience());
+			stm3.setString(3, ((Mentor) u).getRole());
+			stm3.setInt(4, ((Mentor) u).getCompany());
+			stm3.setString(5, ((Mentor) u).getVolunteering());
+			stm3.setString(6, ((Mentor) u).getWorkHistory());
+			
 			stm3.executeUpdate();
 			return true;
 		}
 
 		if (u.getType() == userType.MENTEE) {
 			PreparedStatement stm4 = c.prepareStatement(addMenteeUser);
-			stm4.setFloat(1, ((Mentee) u).getRemainingSemesters());
-			stm4.setString(2, ((Mentee) u).getGraduationStatus());
+			stm4.setInt(1, id);
+			stm4.setFloat(2, ((Mentee) u).getRemainingSemesters());
+			stm4.setString(3, ((Mentee) u).getGraduationStatus());
 			stm4.setString(3, ((Mentee) u).getAcademiclnstitution());
 			stm4.setString(4, ((Mentee) u).getAcademicDicipline());
 			stm4.setString(5, ((Mentee) u).getAcademicDicipline2());
 			stm4.setInt(6, ((Mentee) u).isGuarantee() ? 1 : 0);
 			stm4.setString(7, ((Mentee) u).getResume());
 			stm4.setString(8, ((Mentee) u).getGradeSheet());
-			stm4.setInt(9, u.getId());
 			stm4.executeUpdate();
 			return true;
 		}
@@ -286,14 +305,14 @@ public class DataAccess implements DataInterface {
 		case MENTOR:
 
 			Statement stm2 = c.createStatement();
-			stm2.executeQuery("select * from user RIGHT JOIN mentor ON user.id = mentor.id");
+			stm2.executeQuery("select * from users RIGHT JOIN mentors ON users.id = mentors.id");
 			ResultSet r2 = stm2.getResultSet();
 			while (r2.next()) {
 				u = new Mentor(r2.getInt(1), r2.getString(3), r2.getString(4),
 						r2.getString(5), r2.getString(6), r2.getString(7),
 						r2.getInt(8), r2.getString(9), r2.getString(10),
 						r2.getString(11), r2.getBoolean(12), userType.MENTOR,
-						r2.getString(2), r2.getString(3), r2.getInt(4),
+						r2.getString(14), r2.getString(15), r2.getInt(16),
 						r2.getString(5), r2.getString(6));
 				users.add(u);
 			}
