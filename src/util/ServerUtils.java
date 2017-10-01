@@ -160,10 +160,8 @@ public class ServerUtils {
 	 * @return
 	 * @throws SQLException 
 	 */
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	public static boolean validateUserSession(int userId,String token,DataInterface da) throws SQLException {
-		
+	public static boolean validateUserSession(int userId,String token,DataInterface da) {
+		return true;// must be false
 		//ArrayList<Session> userSessions=null;
 		//TODO
 		//get method from DA
@@ -198,10 +196,6 @@ public class ServerUtils {
 //			}
 	//	}
 		
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 		
 		
 	}

@@ -26,10 +26,7 @@ public class Meeting
  
  
  public enum meetingType{
-	    }
 	 PHONE,FACE_TO_FACE,SMS;	
-	 
-	 
  }
 
  public enum meetingStatus{

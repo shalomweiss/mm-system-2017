@@ -76,11 +76,6 @@ public class GetMentees extends HttpServlet {
 		} else {
 			
 			//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-			
 			
 			try {
 				mentees=iom.getDataAccess().getMenteesOfMentor(id);
