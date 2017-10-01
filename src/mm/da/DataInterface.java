@@ -45,6 +45,7 @@ public interface DataInterface{
 	public Meeting getMeetingById(int meetingId) throws SQLException;
 
 	public boolean startUserSession(Session session) throws SQLException;
+	
 
 	public boolean addMeeting(Meeting meeting) throws SQLException;
 	
