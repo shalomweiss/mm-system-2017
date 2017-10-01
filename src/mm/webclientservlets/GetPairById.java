@@ -2,6 +2,7 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,51 +12,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
+import mm.model.Meeting;
 import mm.model.Pair;
 
 /**
- * Servlet implementation class GetPairById
- * Get Pair Object By sending Pais's ID 
+ * Servlet implementation class GetPairById Get Pair Object By sending Pais's ID
  */
 @WebServlet("/GetPairById")
 public class GetPairById extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GetPairById() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-		System.out.println("GetPairById Servlet");
-		int idPair =Integer.parseInt( request.getParameter("uId"));
-        String jsp = request.getParameter("jsp");
-        DataAccess da = new DataAccess();
-            Pair pair = null;
-          try {
-               pair = da.getPair(idPair);
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        request.setAttribute("PairById", pair);	
-        response.setContentType("text/html");
-		RequestDispatcher req = request.getRequestDispatcher(jsp);
-		req.forward(request, response);	
+	public GetPairById() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("GetPairDetails Servlet");
+		int pairId = Integer.parseInt(request.getParameter("pairId"));
+		String nextPage = request.getParameter("jsp");
+		DataAccess da = new DataAccess();
+		Pair pair = null;
+		try {
+			pair = da.getPair(pairId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("PairById", pairId);
+		response.setContentType("text/html");
+		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		req.forward(request, response);
 	}
+
 }

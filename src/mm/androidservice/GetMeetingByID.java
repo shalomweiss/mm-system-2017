@@ -50,7 +50,7 @@ public class GetMeetingByID extends HttpServlet {
 		//int id,String token,int meetingId
 		int id = myJson.get("id").getAsInt();
 		String token = myJson.get("token").getAsString();
-		String meetingId = myJson.get("meetingId").getAsString();
+		int meetingId = myJson.get("meetingId").getAsInt();
 
 		Meeting meetingFromDB = null;
 		try {
