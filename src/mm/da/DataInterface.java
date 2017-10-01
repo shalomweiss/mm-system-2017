@@ -46,6 +46,6 @@ public interface DataInterface{
 
 	public boolean startUserSession(Session session) throws SQLException;
 		
-	public ArrayList<Mentee> getMenteesWithUotMentor();
+//	public ArrayList<Mentee> getMenteesWithOutMentor();
 
 }

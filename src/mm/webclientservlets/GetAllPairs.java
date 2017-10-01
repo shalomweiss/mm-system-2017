@@ -2,11 +2,8 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,8 +17,7 @@ import mm.model.Mentee;
 import mm.model.Mentor;
 import mm.model.Pair;
 import mm.model.PairsInfo;
-import mm.model.User;
-import mm.model.User.userType;
+
 
 /**
  * Servlet implementation class GetAllPairs return from db ArrayList<Pair>: Pair

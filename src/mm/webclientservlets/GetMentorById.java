@@ -1,12 +1,9 @@
 
 package mm.webclientservlets;
-
-import mm.constants.Constants;
 import mm.da.*;
 import mm.model.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.*;
@@ -15,12 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-
 /**
  * Servlet implementation class GetMentorById
- * clickable mentor button
+ * 
  */
 
 @WebServlet("/GetMentorById")

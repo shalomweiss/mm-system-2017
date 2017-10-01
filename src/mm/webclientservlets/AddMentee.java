@@ -1,7 +1,6 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import util.GeneratePass;
 import mm.da.DataAccess;
 import mm.model.Mentee;
-import mm.model.Mentor;
 import mm.model.User;
 import mm.model.User.userType;
 
@@ -52,7 +50,6 @@ public class AddMentee extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String nextPage=request.getParameter("jsp");
-		GeneratePass genPass=new GeneratePass();
 		String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");

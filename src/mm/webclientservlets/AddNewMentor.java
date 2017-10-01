@@ -1,18 +1,12 @@
 //clicking on the Add button
 
 package mm.webclientservlets;
-
-import mm.constants.Constants;
 import mm.da.*;
 import mm.model.*;
 import mm.model.User.userType;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import util.GeneratePass;
 
-import com.google.gson.Gson;
 
 /**
  * Servlet implementation class LoginWeb
@@ -43,7 +36,6 @@ public class AddNewMentor extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 	    System.out.println("Add New MentorServlet");
-		GeneratePass genPass=new GeneratePass();
 		String email = request.getParameter("email");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
