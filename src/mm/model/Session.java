@@ -33,6 +33,7 @@ public class Session {
 		this.creationDate = creationDate;
 		this.expirationDate = expirationDate;
 		this.deviceId = deviceId;
+		
 	}
 
 

@@ -49,12 +49,12 @@ public class GetMeetingByID extends HttpServlet {
 		//int id,String token,int meetingId
 		int id = myJson.get("id").getAsInt();
 		String token = myJson.get("token").getAsString();
-		String meetingId = myJson.get("meetingId").getAsString();
+		int meetingId = myJson.get("meetingId").getAsInt();
 
 		Meeting meetingFromDB = null;
 		if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
 			try {
-				meetingFromDB = iom.getDataAccess().getMeetingById(Integer.valueOf(meetingId));
+				meetingFromDB = iom.getDataAccess().getMeetingById(meetingId);
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
