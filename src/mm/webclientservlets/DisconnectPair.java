@@ -40,27 +40,30 @@ public class DisconnectPair extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("DISCONNECT PAIR SERVLET");
 		String pairId=request.getParameter("pairId");
-		String nextPage=request.getParameter("jsp");
+	//	String nextPage=request.getParameter("jsp");
 		int id=Integer.parseInt(pairId);
 		
 		DataAccess da = new DataAccess();
-	    boolean res=false;
+	    boolean res=true;
 	    RequestDispatcher req = null;
 	    response.setContentType("text/html");
 	    
-		try {
-			res = da.disconnectPair(id);
-		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			res = da.disconnectPair(id);
+//		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		if(res){
-			response.getWriter().append("Disconnect Pair Successfull");
-			req = request.getRequestDispatcher(nextPage);
+		//	response.getWriter().append("Disconnect Pair Successfull");
+			
+			response.getWriter().append(""+id);
+			//req = request.getRequestDispatcher(nextPage);
 		}
 		else 
-			response.getWriter().append("Disconnect Pair Is Failure");
+			//response.getWriter().append("Disconnect Pair Is Failure");
 		
 		req.forward(request, response);
 		
