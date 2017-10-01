@@ -646,4 +646,22 @@ public DataAccess() {
 >>>>>>> Stashed changes
 	}
 
+	@Override
+	public boolean addMeeting(Meeting meeting) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean approveMeeting(int meetingId, boolean status) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
