@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -73,8 +74,12 @@ public class ServerUtils {
 	 */
 	public static JsonObject  getJsonObjectFromRequest(HttpServletRequest request) throws IOException {
 		
-	   
-	    return  new JsonParser().parse(requestToJsonString(request)).getAsJsonObject();
+	  // System.out.println(requestToJsonString(request));
+	   // return   Json.parse(requestToJsonString(request));
+	   Gson gson=new Gson();
+	   JsonObject jsonObj=gson.fromJson(requestToJsonString(request), JsonObject.class);
+	   System.out.println(jsonObj);
+	   return jsonObj;
 	  	     
 	    
 	}
@@ -153,21 +158,29 @@ public class ServerUtils {
 	 * @param token
 	 * @param da
 	 * @return
+	 * @throws SQLException 
 	 */
-	public static boolean validateUserSession(int userId,String token,DataInterface da) {
+	public static boolean validateUserSession(int userId,String token,DataInterface da) throws SQLException {
 		
-//		ArrayList<Session> userSessions=null;
-//		//TODO
-//		//get method from DA
-//		//ArrayList<String> userSessions = da.getUserSessions(userId);
+		//ArrayList<Session> userSessions=null;
+		//TODO
+		//get method from DA
+//		ArrayList<Session> userSessions = da.getUserSessions(userId);
 //		
 //		for(Session s:userSessions) {
-////			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
-////				return true;
-////			}
+//			
+//	        Date date=new Date(s.getExpirationDate());
+//	        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy");
+//	        String dateText = df2.format(date);
+//	        System.out.println(dateText);
+//			Date expDate=(Date)s.getExpirationDate();
+//			if(s.equals(token) && date.before(new Date())) {
+//				return true;
+//			}
 //		}
 		
-		return false;
+		return true;//must be false
+		
 		
 	}
 
