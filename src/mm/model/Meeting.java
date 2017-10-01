@@ -20,22 +20,13 @@ public class Meeting
  private Long date;
  private Time startingDate;
  private Time endingDate;
- private Boolean mentorComplete;
- private Boolean menteeComplete;
+ private boolean mentorComplete;
+ private boolean menteeComplete;
  
  
  
  public enum meetingType{
-	 PHONE(0),FACE_TO_FACE(1),MESSAGE(2);	 
-	 
-		private final int value;
-	    private meetingType(int value) {
-	        this.value = value;
-	    }
-
-	    public int getValue() {
-	        return value;
-	    }
+	 PHONE,FACE_TO_FACE,SMS
  }
 
  public enum meetingStatus{

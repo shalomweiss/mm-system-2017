@@ -44,23 +44,25 @@ public class GetProfile extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		
-		JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
+		//JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
 		
+	
+		AndroidIOManager iom = new AndroidIOManager(request,response);
+		JsonObject myJson = iom.getJsonRequest();
 		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
 		String token = myJson.get("token").getAsString();
-		
-
+	
 			
 			DataInterface da = new DataAccess();
 			JsonUser jsonUser=null;
 			User user=null;
 			
-			if(ServerUtils.validateUserSession(id,token,da)) {
+			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 			
 			
 			
 			try {
-				user=da.getUser(id);
+				user=iom.getDataAccess().getUser(id);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -68,19 +70,20 @@ public class GetProfile extends HttpServlet {
 			
 			if (user == null) {
 
-				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 			} else {
 				
-				jsonUser=new JsonUser(user,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+				iom.addResponseParameter("user", user);
 				
 				}
 			}
 			else {
-				jsonUser = new JsonUser(null, Constants.STATUS_MISSINGPARA, Constants.INVALID_SESSION_TOKEN, null);
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 			}
 
 			
-			ServerUtils.respondJsonObject(response,jsonUser);
+			iom.SendJsonResponse();
 			
 			
 		
