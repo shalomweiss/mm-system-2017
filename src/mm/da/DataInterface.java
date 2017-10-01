@@ -41,8 +41,31 @@ public interface DataInterface{
 
 	public ArrayList<Mentee> getMenteesOfMentor(int mentorId) throws SQLException;
 
-	public Meeting getMeetingById(int id, int meetingId) throws SQLException;
+	public Meeting getMeetingById(int meetingId) throws SQLException;
 
 	public boolean startUserSession(Session session) throws SQLException;
 
+	public boolean addMeeting(Meeting meeting) throws SQLException;
+	
+	
+	//TODO . . . MEETING STATUS
+	//TODO add meeting approved by mentee, approved by mentor
+	//Approved 
+	/**
+	 * before meeting , if the mentee approves
+	 * @param approvedMeeting
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean approveMeeting(int meetingId,boolean status) throws SQLException;
+	
+	
+	/**
+	 * if the meeting already passed - could be confirmed - not confirmed - did not happen
+	 * @param confirmedMeeting
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean confirmMeeting(int meetingId,boolean status) throws SQLException;
+	
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 public class GeneratePass {
 
 	public static String getSaltString() {
-        String SALTCHARS = "0123456789abcdefghijklmnopqrstvwxyzABCDEFGHIJKLMNOPQRSTVWXWZ";
+        String SALTCHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXWZ";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < 8) { // length of the random string.
