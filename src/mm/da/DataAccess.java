@@ -302,16 +302,16 @@ public class DataAccess implements DataInterface {
 		case MENTEE:
 
 			Statement stm3 = c.createStatement();
-			stm3.executeQuery("select * from user RIGHT JOIN mentee ON user.id = mentee.id");
+			 stm3.executeQuery("select * from users RIGHT JOIN mentees ON users.id = mentees.id");
 			ResultSet r3 = stm3.getResultSet();
 			while (r3.next()) {
 				u = new Mentee(r3.getInt(1), r3.getString(3), r3.getString(4),
 						r3.getString(5), r3.getString(6), r3.getString(7),
-						r3.getInt(8), r3.getString(9), r3.getString(10),
-						r3.getString(11), r3.getBoolean(12), userType.MENTEE,
-						r3.getFloat(2), r3.getString(3), r3.getString(4),
-						r3.getFloat(5), r3.getString(6), r3.getString(7),
-						r3.getBoolean(8), r3.getString(9), r3.getString(10));
+						r3.getInt(8), r3.getString(9), r3.getString(11),
+						r3.getString(10), r3.getBoolean(12), userType.MENTEE,
+						r3.getFloat(14), r3.getString(15), r3.getString(16),
+						r3.getFloat(17), r3.getString(18), r3.getString(19),
+						r3.getBoolean(20), r3.getString(21), r3.getString(22));
 				users.add(u);
 			}
 			break;

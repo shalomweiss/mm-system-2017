@@ -161,8 +161,20 @@ public class ServerUtils {
 	 * @throws SQLException 
 	 */
 	public static boolean validateUserSession(int userId,String token,DataInterface da) {
-		return true;
-
+		
+//		ArrayList<Session> userSessions=null;
+//
+//		get method from DA
+//		ArrayList<String> userSessions = da.getUserSessions(userId);
+//		
+//		for(Session s:userSessions) {
+//			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
+//				return true;
+//			}
+//		}
+		
+		return true;//must be false
+		
 	}
 
 	/**
