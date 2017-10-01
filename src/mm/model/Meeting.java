@@ -3,11 +3,11 @@ package mm.model;
 import java.sql.Time;
 
 public class Meeting 
-{
+{ 
+ private int meetingId; 
+ private int pairId;
  private int mentorId;
  private int menteeId;
- private int meetingId;
- private int pairId;
  private String note;
  private meetingStatus status;
  private String menteeReport;
@@ -33,15 +33,15 @@ public class Meeting
 	 PENDING,APPROVED,COMPLETE
  }
 
-public Meeting(int mentorId, int menteeId, int meetingId, int pairId, String note, meetingStatus status, String menteeReport,
-		String mentorReport, String menteePrivateReport, String mentorPrivateReport,
+public Meeting(int meetingId, int pairId, int mentorId, int menteeId, String note, meetingStatus status,
+		String menteeReport, String mentorReport, String menteePrivateReport, String mentorPrivateReport,
 		mm.model.Meeting.meetingType meetingType, String subject, String location, Long date, Time startingDate,
-		Time endingDate, Boolean mentorComplete, Boolean menteeComplete) {
+		Time endingDate, boolean mentorComplete, boolean menteeComplete) {
 	super();
-	this.mentorId = mentorId;
-	this.menteeId = menteeId;
 	this.meetingId = meetingId;
 	this.pairId = pairId;
+	this.mentorId = mentorId;
+	this.menteeId = menteeId;
 	this.note = note;
 	this.status = status;
 	this.menteeReport = menteeReport;
