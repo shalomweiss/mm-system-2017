@@ -780,9 +780,7 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 			mentorList.add(u);
 		}
 		
-		return mentorList;
-		
-	
+		return mentorList;	
 }
 }
 
