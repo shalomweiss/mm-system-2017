@@ -160,6 +160,7 @@ public class ServerUtils {
 	 * @return
 	 * @throws SQLException 
 	 */
+<<<<<<< Updated upstream
 	public static boolean validateUserSession(int userId,String token,DataInterface da) throws SQLException {
 		
 		//ArrayList<Session> userSessions=null;
@@ -180,6 +181,21 @@ public class ServerUtils {
 //		}
 		
 		return true;//must be false
+=======
+	public static boolean validateUserSession(int userId,String token,DataInterface da) {
+		return true;// must be false
+		//ArrayList<Session> userSessions=null;
+		//TODO
+		//get method from DA
+		//ArrayList<String> userSessions = da.getUserSessions(userId);
+		
+		//for(Session s:userSessions) {
+//			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
+//				return true;
+//			}
+	//	}
+		
+>>>>>>> Stashed changes
 		
 		
 	}

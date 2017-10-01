@@ -48,6 +48,7 @@ public interface DataInterface{
 
 	public boolean startUserSession(Session session) throws SQLException;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 		
 //	public ArrayList<Mentee> getMenteesWithOutMentor();
 //	public boolean addWorkPlace(WorkPlace workplace);
@@ -75,6 +76,11 @@ public interface DataInterface{
 	 */
 	public boolean confirmMeeting(int meetingId,boolean status) throws SQLException;
 	
+=======
+
+
+
+>>>>>>> Stashed changes
 =======
 
 

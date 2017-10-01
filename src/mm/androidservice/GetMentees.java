@@ -60,8 +60,23 @@ public class GetMentees extends HttpServlet {
 		List<Mentee> mentees=null;
 		
 		try {
+<<<<<<< Updated upstream
 			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 			
+=======
+			mentees=da.getMenteesOfMentor(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if (mentees == null) {
+
+			//jsonUsers = new JsonUsers(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+		} else {
+			
+			//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+>>>>>>> Stashed changes
 			
 			
 			try {
