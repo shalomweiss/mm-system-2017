@@ -233,10 +233,10 @@ outline: none !important;
       <tbody>
       <c:forEach var="pair" items="${pairs}" >
         <tr>
-        	<td ><c:out value="${pair.mentor}"></c:out></td>
-			<td><c:out value="${pair.mentee}"></c:out></td>
-			<td><c:out value="${pair.notifications}"></c:out></td>
-        	<td><a class="btn btn-block btn-primary" id="${pair.mentee}"> disconnect </a></td>
+        	<td ><c:out value="${pair.mentorName}"></c:out></td>
+			<td><c:out value="${pair.menteeName}"></c:out></td>
+			<td><c:out value="${pair.activeStatus}"></c:out></td>
+        	<td><a class="btn btn-block btn-primary" id="${pair.pairId}"> disconnect </a></td>
         </tr>
         </c:forEach>
       </tbody>
