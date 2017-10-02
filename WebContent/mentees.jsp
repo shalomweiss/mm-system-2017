@@ -523,17 +523,21 @@ height: 20%;
 		<a href="#close" title="Close" class="close" style=" position:absolute;">X</a>
 	
 <div class="container" style="overflow-y ">
-  <form action="UpdateMentee">
-	
-    <input type="text" id="fname" name="firstname" >
-    <input type="text" id="lname" name="lastname" >
-    <input type="text" id="phone" name="phone" >
-    <input type="text" id="email" name="email" >
-    <input type="text" id="academic" name="academic" >
-    <textarea id="note" name="note"  style="height:50px"></textarea>
+  <form action="AddMentee">
+    <input type="text" id="fname" name="uFirstName" >
+    <input type="text" id="lname" name="uLastName" >
+    <input type="text" id="phone" name="uPhoneNumber" >
+    <input type="text" id="email" name="uEmail" >
+    <input type="text" id="gender" name="uGender" >
+    <input type="text" id="address" name="uAddress" >
+    <input type="text" id="graduationStatus" name="uGraduationStatus" >
+    <input type="text" id="courseOfStudy" name="uCourseOfStudy" >
+    <input type="text" id="academic" name="uAcademicDicipline" >
+    <input type="text" id="academic2" name="uAcademicDicipline2" >
+    <textarea id="note" name="uNotes"  style="height:50px"></textarea>
     <input type="text" id="course" name="course">
-    <input type="text" id="semesters" name="semesters">
-    <input type="text" id="average" name="average" >
+    <input type="text" id="semesters" name="uRemSemesters">
+    <input type="text" id="average" name="uAverage" >
     <input type="text" id="id" name="id" style="display:none" >
     <input type="submit" value="Done">
 
