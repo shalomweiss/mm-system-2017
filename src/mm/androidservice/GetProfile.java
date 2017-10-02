@@ -57,29 +57,34 @@ public class GetProfile extends HttpServlet {
 			JsonUser jsonUser=null;
 			User user=null;
 			
-			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
-			
-			
-			
 			try {
-				user=iom.getDataAccess().getUser(id);
+				if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+				
+				
+				
+				try {
+					user=iom.getDataAccess().getUser(id);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if (user == null) {
+
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+				} else {
+					
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+					iom.addResponseParameter("user", user);
+					
+					}
+				}
+				else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
-			if (user == null) {
-
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-			} else {
-				
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-				iom.addResponseParameter("user", user);
-				
-				}
-			}
-			else {
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 			}
 
 			
