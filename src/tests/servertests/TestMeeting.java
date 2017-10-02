@@ -17,5 +17,4 @@ public class TestMeeting {
 		
 		System.out.println( new Gson().toJson(myTestMeeting, Meeting.class) );
 	}
-
 }
