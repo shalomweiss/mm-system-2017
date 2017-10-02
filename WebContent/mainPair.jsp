@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=windows-1255"
-    pageEncoding="windows-1255"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -12,11 +10,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <head>
 <script>
-
 $(document).ready(function(){
-	$(".btn").click(function(){
+	$(".disB").click(function(){
 		console.log($(this).attr('id'));
-		$.post("DisconnectPair",
+		$.post("DeletePairServlet",
 		        {
 		          pairId: $(this).attr('id'),
 		        },
@@ -24,9 +21,20 @@ $(document).ready(function(){
 		        	//if data is -1 something is wrong
 		            $("#"+data).parent().parent().remove();
 		        });
+		
 	});
+	 $(".button-fill").hover(
+   		  function() {
+   			    $(this).children(".button-inside").addClass("full");
+   			  },
+   			  function() {
+   			    $(this).children(".button-inside").removeClass("full");
+   			  }
+   			);
+	
 });
 
+  
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
@@ -34,7 +42,9 @@ $(document).ready(function(){
 
 
 h1{
-  font-size: 30px;
+  font-size: 40px;
+  letter-spacing: 8px;
+  text-shadow: 2px 4px 4px #CCCCCC;
   color: #fff;
   text-transform: uppercase;
   font-weight: 300;
@@ -55,24 +65,24 @@ table{
   border: 1px solid rgba(255,255,255,0.3);
 }
 th{
-padding: 20px 15px;
-    text-align: center;
-    font-weight: 500;
-    font-size: 14px;
-    color: #fff;
-    text-transform: uppercase;
-    word-wrap: break-word;
+  padding: 20px 15px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+  text-transform: uppercase;
+  word-wrap: break-word;
 }
 td{
-    padding: 15px;
-    text-align: left;
-    vertical-align: middle;
-    font-weight: 300;
-    font-size: 14px;
-    color: #fff;
-    border-right: solid 1px rgba(255,255,255,0.3);
-    border-bottom: solid 1px rgba(255,255,255,0.3);
-    word-wrap: break-word;
+  padding: 15px;
+  text-align: center;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 14px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+  border-right: solid 1px rgba(255,255,255,0.3);
+  word-wrap: break-word;
 }
 
 
@@ -82,11 +92,11 @@ td{
 body{
   background: -webkit-linear-gradient(left, #25c481, #25b7c4);
   background: linear-gradient(to right, #25c481, #25b7c4);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Century Gothic', sans-serif;
 }
 section{
   top:0;
-  margin-top: 90px; 
+  margin-top: 150px; 
   margin-bottom: 50px;
   margin-left: 100px;
   margin-right: 10px;
@@ -156,7 +166,7 @@ body {
 }
 
 .active {
-    background-color: #4CAF50 !important;
+    background-color: #25c481 !important;
 }
 i{
 margin-right:2px;
@@ -167,7 +177,7 @@ body{
 	height:100%;
 }
 html{
-	overflow-y: hidden;
+	
 	height:100%;
 }
 nav.icon-bar{
@@ -201,11 +211,74 @@ outline: none !important;
 	color: white !important;
 	cursor: pointer !important;
 }
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+.button-fill {
+  text-align: center;
+  background: #ccc;
+  display: inline-block;
+  position: relative;
+  text-transform: uppercase;
+  margin: 0px;
+}
+.button-fill.grey {
+  background: #445561;
+  color: white;
+  border-radius: 5px;
+}
+
+.button-text {
+  padding: 0 25px;
+  padding-right: 20px;
+  padding-left: 20px;
+  line-height: 56px;
+  letter-spacing: .1em;
+}
+.button-inside {
+  width: 0px;
+  height: 54px;
+  margin: 0;
+  float: left;
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  line-height: 54px;
+  color: #fff;
+  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+  text-align: center;
+  overflow: hidden;
+  -webkit-transition: width 0.5s, left 0.5s, margin 0.5s;
+  -moz-transition: width 0.5s, left 0.5s, margin 0.5s;
+  -o-transition: width 0.5s, left 0.5s, margin 0.5s;
+  transition: width 0.5s, left 0.5s, margin 0.5s;
+}
+.button-inside.full {
+  width: 100%;
+  left: 0%;
+  top: 0;
+  margin-right: -50px;
+  border: 1px solid #445561;
+  border-radius: 5px;
+}
+.inside-text {
+  text-align: center;
+  position: absolute;
+  right: 50%;
+  letter-spacing: .1em;
+  -webkit-transform: translateX(50%);
+  -moz-transform: translateX(50%);
+  -ms-transform: translateX(50%);
+  transform: translateX(50%);
+}
 </style>
 <body>
+
+
 <nav class="icon-bar">
 	<div class="icon-bar">
-		  <a href="ForwardPath?jsp=welcome.jsp"><i class="fa fa-home"></i></a> 
+		  <a href="#"><i class="fa fa-home"></i></a> 
 		  <a href="#"><i class="fa fa-black-tie"></i></a> 
 		  <a  href="#"><i class="fa fa-graduation-cap"></i></a> 
 		  <a class="active" href="#"><i class="fa fa-group"></i></a>
@@ -223,6 +296,7 @@ outline: none !important;
           <th>Mentor Name</th>
           <th>Mentee Name</th>
           <th>Notification</th>
+          <th>Meetings </th>
           <th>Disconnect </th>
         </tr>
       </thead>
@@ -233,10 +307,27 @@ outline: none !important;
       <tbody>
       <c:forEach var="pair" items="${pairs}" >
         <tr>
-        	<td ><c:out value="${pair.mentorName}"></c:out></td>
-			<td><c:out value="${pair.menteeName}"></c:out></td>
-			<td><c:out value="${pair.activeStatus}"></c:out></td>
-        	<td><a class="btn btn-block btn-primary" id="${pair.pairId}"> disconnect </a></td>
+          <td ><c:out value="${pair.mentor}"></c:out></td>
+			<td><c:out value="${pair.mentee}"></c:out></td>
+			<td><c:out value="${pair.notifications}"></c:out></td>
+			 <td>   <a class="Meetings" href="GetMentorsAndMentees?pageName=meetings&id=${pair.id}" >
+  <div class="button-fill grey">
+    <div class="button-text">Meetings</div>
+    <div class="button-inside">
+      <div class="inside-text">Meetings</div>
+    </div>
+    </div>
+    </a>
+    </td>
+          <td>   <a class="disB" href="#" id="${pair.mentee}">
+  <div class="button-fill grey">
+    <div class="button-text">Disconnect</div>
+    <div class="button-inside">
+      <div class="inside-text">Disconnect</div>
+    </div>
+    </div>
+    </a>
+    </td>
         </tr>
         </c:forEach>
       </tbody>

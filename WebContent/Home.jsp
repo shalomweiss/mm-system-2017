@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=windows-1255"
     pageEncoding="windows-1255"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -9,38 +9,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <head>
-<script>
-
-$(document).ready(function(){
-	$(".btn").click(function(){
-		console.log($(this).attr('id'));
-		$.post("DisconnectPair",
-		        {
-		          pairId: $(this).attr('id'),
-		        },
-		        function(data,status){
-		        	//if data is -1 something is wrong
-		            $("#"+data).parent().parent().remove();
-		        });
-	});
-});
-
-</script>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
 <style>
-
-
-h1{
-  font-size: 30px;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 15px;
-}
 table{
   width:100%;
   table-layout: fixed;
@@ -55,24 +27,21 @@ table{
   border: 1px solid rgba(255,255,255,0.3);
 }
 th{
-padding: 20px 15px;
-    text-align: center;
-    font-weight: 500;
-    font-size: 14px;
-    color: #fff;
-    text-transform: uppercase;
-    word-wrap: break-word;
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
 }
 td{
-    padding: 15px;
-    text-align: left;
-    vertical-align: middle;
-    font-weight: 300;
-    font-size: 14px;
-    color: #fff;
-    border-right: solid 1px rgba(255,255,255,0.3);
-    border-bottom: solid 1px rgba(255,255,255,0.3);
-    word-wrap: break-word;
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
 }
 
 
@@ -187,9 +156,17 @@ div.icon-bar{
 }
 h1{
 	position: absolute;
-	top:5%;
 	right:0;
 	left:90px;
+	font-size: 30px;
+  	color: #fff;
+  	text-transform: uppercase;
+  	font-weight: 300;
+  	text-align: center;
+  	margin-bottom: 15px;
+  	top:30%;
+  	bottom:0;
+  
 }
 button{
 outline: none !important;
@@ -201,51 +178,28 @@ outline: none !important;
 	color: white !important;
 	cursor: pointer !important;
 }
+.tsofen{
+	
+  text-align: center;
+  font-size: 200px;
+  font-family:AR DARLING;
+  color: #fff;
+  
+}
 </style>
 <body>
 <nav class="icon-bar">
 	<div class="icon-bar">
-		  <a href="ForwardPath?jsp=welcome.jsp"><i class="fa fa-home"></i></a> 
+		  <a class="active" href="#"><i class="fa fa-home"></i></a> 
 		  <a href="#"><i class="fa fa-black-tie"></i></a> 
-		  <a  href="#"><i class="fa fa-graduation-cap"></i></a> 
-		  <a class="active" href="#"><i class="fa fa-group"></i></a>
+		  <a href="#"><i class="fa fa-graduation-cap"></i></a> 
+		  <a href="pairs.jsp"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell"></i></a>
 		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
 	</div>
 </nav>
-	<h1>Pairs</h1>
-<section>
-  <!--for demo wrap--> 
-  <div class="tbl-header">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <thead>
-        <tr>
-          <th>Mentor Name</th>
-          <th>Mentee Name</th>
-          <th>Notification</th>
-          <th>Disconnect </th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
-      <tbody>
-      <c:forEach var="pair" items="${pairs}" >
-        <tr>
-        	<td ><c:out value="${pair.mentorName}"></c:out></td>
-			<td><c:out value="${pair.menteeName}"></c:out></td>
-			<td><c:out value="${pair.activeStatus}"></c:out></td>
-        	<td><a class="btn btn-block btn-primary" id="${pair.pairId}"> disconnect </a></td>
-        </tr>
-        </c:forEach>
-      </tbody>
-    </table>
-  </div>
+	<h1 class="tsofen">TSOFEN</h1>
 
- <a class="btn btn-block btn-primary" href="GetMentorsAndMentees?pageName=addPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
 
-</section>
 </body>
 </html> 
-
