@@ -61,46 +61,51 @@ public class GetMentees extends HttpServlet {
 		
 		
 
-			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
-			
-
 			try {
-				mentees=da.getMenteesOfMentor(id);
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		
-		
-		if (mentees == null) {
+				if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+				
 
-			//jsonUsers = new JsonUsers(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
-		} else {
-			
-			//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
-			
-			
 				try {
-					mentees=iom.getDataAccess().getMenteesOfMentor(id);
-				} catch (SQLException e) {
+					mentees=da.getMenteesOfMentor(id);
+				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					e1.printStackTrace();
 				}
-			
-			
-			if (mentees == null) {
 
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-			} else {
+
+if (mentees == null) {
+
+				//jsonUsers = new JsonUsers(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+} else {
 				
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-				iom.addResponseParameter("users", mentees);
+				//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
 				
+				
+					try {
+						mentees=iom.getDataAccess().getMenteesOfMentor(id);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+				
+				if (mentees == null) {
+
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+				} else {
+					
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+					iom.addResponseParameter("users", mentees);
+					
+					}
 				}
-			}
-			}
-			else {
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+				}
+				else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		
 

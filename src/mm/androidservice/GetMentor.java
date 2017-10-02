@@ -62,28 +62,33 @@ public class GetMentor extends HttpServlet {
 	
 		
 		DataInterface da = new DataAccess();
-		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+		try {
+			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+				
+
+				try {
+					mentor=iom.getDataAccess().getMentorOfMentee(id);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			
+			if (mentor == null) {
 
-			try {
-				mentor=iom.getDataAccess().getMentorOfMentee(id);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		if (mentor == null) {
-
-			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-			} else {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+				} else {
  
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-				iom.addResponseParameter("user", mentor);
-						
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+					iom.addResponseParameter("user", mentor);
+							
+				}
 			}
-		}
-		else {
-			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			else {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		
