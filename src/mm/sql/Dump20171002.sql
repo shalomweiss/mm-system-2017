@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `mentees`;
 CREATE TABLE `mentees` (
   `id` int(11) NOT NULL,
   `remainingSemesters` float DEFAULT NULL,
-  `graduationStatus` tinyint(4) DEFAULT NULL,
+  `graduationStatus` varchar(45) DEFAULT NULL,
   `academicInstitute` int(11) NOT NULL,
   `average` float DEFAULT NULL,
   `academicDicipline1` varchar(45) DEFAULT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE `mentees` (
 
 LOCK TABLES `mentees` WRITE;
 /*!40000 ALTER TABLE `mentees` DISABLE KEYS */;
-INSERT INTO `mentees` VALUES (4,2,0,1,87,'cs',NULL,0,NULL,NULL),(5,4,0,2,93,'cs',NULL,0,NULL,NULL),(6,3,0,4,98,'is',NULL,0,NULL,NULL),(13,2,0,1,99,'cs',NULL,0,NULL,NULL);
+INSERT INTO `mentees` VALUES (4,2,'0',1,87,'cs',NULL,0,NULL,NULL),(5,4,'0',2,93,'cs',NULL,0,NULL,NULL),(6,3,'0',4,98,'is',NULL,0,NULL,NULL),(13,2,'0',1,99,'cs',NULL,0,NULL,NULL);
 /*!40000 ALTER TABLE `mentees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,7 +241,7 @@ CREATE TABLE `users` (
   `active` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,7 +250,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (4,3,'m7md','kn3ani','myk22','1234567','qweasd',0,'kaboul','',NULL,1),(5,3,'ayman','fa3our','ayfa','987654','zxcasd',0,'tarshi7a',NULL,NULL,0),(6,3,'maha','bsoul','mahab','21739864','jdsgf',1,'rene',NULL,NULL,0),(7,1,'nagham','ghantous','nghantous','3278569','jkgfbcnry',1,'nazareth',NULL,NULL,1),(8,2,'bill','gates','billie','287365','jkgncrf',0,'kaboul',NULL,NULL,1),(9,2,'mark','zack','brave.heart','45696','urnvcmcoiurn',0,'tamra',NULL,NULL,0),(10,2,'miranda','care','whocares','2345678','xvcvbn',1,'arraba',NULL,NULL,1),(13,2,'yara','rohana','yara.rohana@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(14,2,'ghada','awady','ghada.rohana@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(15,2,'jimmy','keth','jimmy.keth@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(16,3,'Harry','Potter','test','123','test',0,'London',NULL,NULL,1),(17,2,'Severus','Snape','test2','123','test2',0,'Hogworts',NULL,NULL,1),(18,3,'badie','bido','bido@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(19,3,'rachel','green','rachelgreen@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(20,3,'areen','areen','areen@gmail.com','125','blabla',1,'Haifa','okay','pic',1);
+INSERT INTO `users` VALUES (4,3,'m7md','kn3ani','myk22','1234567','qweasd',0,'kaboul','',NULL,1),(5,3,'ayman','fa3our','ayfa','987654','zxcasd',0,'tarshi7a',NULL,NULL,0),(6,3,'maha','bsoul','mahab','21739864','jdsgf',1,'rene',NULL,NULL,0),(7,1,'nagham','ghantous','nghantous','3278569','jkgfbcnry',1,'nazareth',NULL,NULL,1),(8,2,'bill','gates','billie','287365','jkgncrf',0,'kaboul',NULL,NULL,1),(9,2,'mark','zack','brave.heart','45696','urnvcmcoiurn',0,'tamra',NULL,NULL,0),(10,2,'miranda','care','whocares','2345678','xvcvbn',1,'arraba',NULL,NULL,1),(13,2,'yara','rohana','yara.rohana@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(14,2,'ghada','awady','ghada.rohana@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(15,2,'jimmy','keth','jimmy.keth@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(16,3,'Harry','Potter','test','123','test',0,'London',NULL,NULL,1),(17,2,'Severus','Snape','test2','123','test2',0,'Hogworts',NULL,NULL,1),(27,3,'badie','bido','bido@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(28,3,'rachel','green','rachelgreen@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(29,3,'areen','areen','areen@gmail.com','125','blabla',1,'Haifa','okay','pic',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,4 +290,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-02 11:55:47
+-- Dump completed on 2017-10-02 12:15:00
