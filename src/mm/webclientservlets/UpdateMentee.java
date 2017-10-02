@@ -72,7 +72,7 @@ public class UpdateMentee extends HttpServlet {
 		request.setAttribute("status", status);
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
-
+*/
 	}
 
 }

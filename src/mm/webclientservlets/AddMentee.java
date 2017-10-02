@@ -35,8 +35,8 @@ public class AddMentee extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ")
 				.append(request.getContextPath());
@@ -47,8 +47,8 @@ public class AddMentee extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("here to stay");
 	//	String nextPage=request.getParameter("jsp");
@@ -56,11 +56,11 @@ public class AddMentee extends HttpServlet {
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
 		String uEmail = request.getParameter("uEmail");
-		int uGender = Integer.parseInt( request.getParameter("uGender"));
+		int uGender = Integer.parseInt(request.getParameter("uGender"));
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
 		String uCourseOfStudy = request.getParameter("uCourseOfStudy");
-		String uAcademicInstitution = request.getParameter("uAcademicInstitution");
+		int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		String uRemSemesters = request.getParameter("uRemSemesters");
 		String uAverage = request.getParameter("uAverage");
 		String uNotes = request.getParameter("uNotes");
@@ -97,10 +97,10 @@ public class AddMentee extends HttpServlet {
 	//		 req = request.getRequestDispatcher(nextPage);
 			System.out.println("USER IS ADDED SUCSSESS");
 		}
-		if(!res)
+		if (!res)
 			response.getWriter().append("Fails to add a mentee");
-	
+
 		response.setContentType("text/html");
 	//	req.forward(request, response);
 	}
-	}
+}
