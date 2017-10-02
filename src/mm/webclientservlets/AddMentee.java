@@ -49,6 +49,7 @@ public class AddMentee extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("here to stay");
 		String nextPage=request.getParameter("jsp");
 		String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
