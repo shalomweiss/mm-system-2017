@@ -52,7 +52,7 @@ public class GetAllPairs extends HttpServlet {
 		ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
 
 		DataAccess da = new DataAccess();
-		pairsArray = getAllPair();	
+		//pairsArray = getAllPair();	
 		 try {
 			 pairsArray = da.getAllPairs();
 			 } catch (SQLException e) {
@@ -62,6 +62,13 @@ public class GetAllPairs extends HttpServlet {
 		
 		for (Pair pair : pairsArray) {
 			if (pair.getActiveStatus() == 1) {
+				try {
+					pair.setMentee((Mentee)da.getUser(pair.getMenteeId()));
+					pair.setMentor((Mentor)da.getUser(pair.getMentorId()));
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
 						pair.getPairId(), pair.getActiveStatus());
 				pairsMainInfo.add(tmpPairInfo);
