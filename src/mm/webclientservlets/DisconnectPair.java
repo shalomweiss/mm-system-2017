@@ -49,13 +49,13 @@ public class DisconnectPair extends HttpServlet {
 	    boolean res=true;
 	    RequestDispatcher req = null;
 	    response.setContentType("text/html");
-	    
-		try {
-			res = da.disconnectPair(id);
-		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//	    
+//		try {
+//			res = da.disconnectPair(id);
+//		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		if(res){
 		//	response.getWriter().append("Disconnect Pair Successfull");
 			

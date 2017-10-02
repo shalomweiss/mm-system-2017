@@ -38,6 +38,7 @@ public class UpdateMentee extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("UPDATE MENTEE DETAILDS");
 		int id = Integer.parseInt(request.getParameter("uId"));
 		String firstName = request.getParameter("uFirstName");
 		String lastName = request.getParameter("uLastName");
@@ -58,14 +59,11 @@ public class UpdateMentee extends HttpServlet {
 		String notes = request.getParameter("uNotes");
 		boolean isActive = Boolean.parseBoolean(request.getParameter("uActive"));
 		boolean signedEULA = Boolean.parseBoolean(request.getParameter("signedEULA"));
-
-
-
-		String nextPage = request.getParameter("jsp");
-
+    	String nextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
 		Boolean status = false;
 		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,password,gender,address,profilePic,notes,isActive,userType.MENTEE,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,resume,gradeSheet);
+		System.out.println(mentee);
 		try {
 			status = da.editUser(mentee);
 		} catch (SQLException e) {

@@ -40,6 +40,7 @@ public class AddMentee extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ")
 				.append(request.getContextPath());
+		System.out.println("addmentee");
 	}
 
 	/**
@@ -50,8 +51,8 @@ public class AddMentee extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("here to stay");
-		String nextPage=request.getParameter("jsp");
-		String uFirstName = request.getParameter("uFirstName");
+	//	String nextPage=request.getParameter("jsp");
+    	String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
 		String uEmail = request.getParameter("uEmail");
@@ -84,21 +85,22 @@ public class AddMentee extends HttpServlet {
 		
 		DataAccess da = new DataAccess();
 		RequestDispatcher req=null;
-	    boolean res=false;
+	    boolean res=true;
 	
-		try {
-			res = da.addUser(newMentee);
-		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			res = da.addUser(newMentee);
+//		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		if(res){
-			 req = request.getRequestDispatcher(nextPage);
+	//		 req = request.getRequestDispatcher(nextPage);
+			System.out.println("USER IS ADDED SUCSSESS");
 		}
 		if(!res)
 			response.getWriter().append("Fails to add a mentee");
 	
 		response.setContentType("text/html");
-		req.forward(request, response);
+	//	req.forward(request, response);
 	}
 	}
