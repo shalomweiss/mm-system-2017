@@ -30,7 +30,14 @@ public class SendPairUpdates extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("GetPairDetails Servlet");
-
+		String nextPage = request.getParameter("jsp");
+		int pairId = Integer.parseInt(request.getParameter("pairId"));
+		String apk=request.getParameter("APK");
+		String note=request.getParameter("note");
+		
+		DataAccess da = new DataAccess();
+		String updates  = da.getUpdates(pairId);
+		request.setAttribute("Updates", updates);
 	}
 	
 
