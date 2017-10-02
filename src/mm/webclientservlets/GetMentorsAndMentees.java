@@ -36,7 +36,7 @@ public class GetMentorsAndMentees extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String NextPage = request.getParameter("jsp");
+	//	String NextPage = request.getParameter("jsp");
 		ArrayList<User> ArrMentors = new ArrayList<User>();
 		DataAccess da = new DataAccess();
 		 try {
@@ -52,16 +52,16 @@ public class GetMentorsAndMentees extends HttpServlet {
 		writer.println(ArrMentors);
 		
 		ArrayList<User> ArrMentees = new ArrayList<User>();
-//		 try {
-//		 ArrMentees = da.getMenteesWhithOutMentor();
-//		 } catch (SQLException e) {
-//		 // TODO Auto-generated catch block
-//		 e.printStackTrace();
-//		 }
+		 try {
+		 ArrMentees = da.getUsers(User.userType.MENTEE);
+		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
 		
 		request.setAttribute("Mentees", ArrMentees);
 		response.setContentType("text/html");
-		RequestDispatcher req = request.getRequestDispatcher(NextPage);
+		RequestDispatcher req = request.getRequestDispatcher("addPair.jsp");
 		req.forward(request, response);
 		writer.close();
 	}

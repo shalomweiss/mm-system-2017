@@ -22,7 +22,7 @@
 			var trs= document.getElementsByClassName("selected");
 			var menteeId=trs[0].childNodes[10].innerHTML;
 			var mentorId=trs[1].childNodes[10].innerHTML;
-			$.post("AddPair",
+			$.post("CreateNewPair",
 			        {
 			          menteeID: menteeId,
 			          mentorID: mentorId
@@ -440,7 +440,6 @@ $(function(){
     <table cellpadding="0" cellspacing="0" border="0" id="myTable">
       <tbody>
       <c:forEach var="mentee" items="${Mentees}" >
-      
 			<tr class="para" id="tabletest"><td><c:out value="${mentee.firstName}"></c:out></td>
 			<td ><c:out value="${mentee.lastName}"></c:out></td>
 			<td><c:out value="${mentee.phoneNumber}"></c:out></td>
