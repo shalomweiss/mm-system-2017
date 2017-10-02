@@ -41,6 +41,12 @@ public class PairsInfo {
 	public void setActiveStatus(int activeStatus) {
 		this.activeStatus = activeStatus;
 	}
+	@Override
+	public String toString() {
+		return "PairsInfo [menteeName=" + menteeName + ", mentorName="
+				+ mentorName + ", pairId=" + pairId + ", activeStatus="
+				+ activeStatus + "]";
+	}
 	
 
 }

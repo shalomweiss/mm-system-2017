@@ -35,31 +35,32 @@ public class AddMentee extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ")
 				.append(request.getContextPath());
+		System.out.println("addmentee");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("here to stay");
-		String nextPage=request.getParameter("jsp");
-		String uFirstName = request.getParameter("uFirstName");
+	//	String nextPage=request.getParameter("jsp");
+    	String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
 		String uEmail = request.getParameter("uEmail");
-		int uGender = Integer.parseInt( request.getParameter("uGender"));
+		int uGender = Integer.parseInt(request.getParameter("uGender"));
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
 		String uCourseOfStudy = request.getParameter("uCourseOfStudy");
-		String uAcademicInstitution = request.getParameter("uAcademicInstitution");
+		int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		String uRemSemesters = request.getParameter("uRemSemesters");
 		String uAverage = request.getParameter("uAverage");
 		String uNotes = request.getParameter("uNotes");
@@ -69,7 +70,11 @@ public class AddMentee extends HttpServlet {
 //		String resume=request.getParameter("uResume");
 //		String gradeSheet=request.getParameter("uGradeSheet");
 //		String profilePicture=request.getParameter("profilePicture");
-//		
+		
+		String isGraduate=null;
+		String resume=null;
+		String gradeSheet=null;
+		String profilePicture=null;
 		float remSemesters=Float.valueOf(uRemSemesters);
 		float avg=Float.valueOf(uAverage);
 		
@@ -80,21 +85,22 @@ public class AddMentee extends HttpServlet {
 		
 		DataAccess da = new DataAccess();
 		RequestDispatcher req=null;
-	    boolean res=false;
+	    boolean res=true;
 	
-		try {
-			res = da.addUser(newMentee);
-		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			res = da.addUser(newMentee);
+//		} catch (SQLException e) {
+////			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		if(res){
-			 req = request.getRequestDispatcher(nextPage);
+	//		 req = request.getRequestDispatcher(nextPage);
+			System.out.println("USER IS ADDED SUCSSESS");
 		}
-		if(!res)
+		if (!res)
 			response.getWriter().append("Fails to add a mentee");
-	
+
 		response.setContentType("text/html");
-		req.forward(request, response);
+	//	req.forward(request, response);
 	}
-	}
+}

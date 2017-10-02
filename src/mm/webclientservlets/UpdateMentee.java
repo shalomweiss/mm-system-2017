@@ -38,6 +38,7 @@ public class UpdateMentee extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("UPDATE MENTEE DETAILDS");
 		int id = Integer.parseInt(request.getParameter("uId"));
 		String firstName = request.getParameter("uFirstName");
 		String lastName = request.getParameter("uLastName");
@@ -52,20 +53,18 @@ public class UpdateMentee extends HttpServlet {
 		int gender = Integer.parseInt(request.getParameter("uGender"));
 		String address = request.getParameter("uAddress");
 		String graduationStatus = request.getParameter("uGraduationStatus");
-		String academicInstitution = request.getParameter("uAcademicInstitution");
+		
 		float remSemesters = Float.parseFloat(request.getParameter("uRemSemesters"));
 		float average = Float.parseFloat(request.getParameter("uAverage"));
 		String notes = request.getParameter("uNotes");
 		boolean isActive = Boolean.parseBoolean(request.getParameter("uActive"));
 		boolean signedEULA = Boolean.parseBoolean(request.getParameter("signedEULA"));
-
-
-
-		String nextPage = request.getParameter("jsp");
-
+    	String nextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
 		Boolean status = false;
+		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,password,gender,address,profilePic,notes,isActive,userType.MENTEE,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,resume,gradeSheet);
+		System.out.println(mentee);
 		try {
 			status = da.editUser(mentee);
 		} catch (SQLException e) {
