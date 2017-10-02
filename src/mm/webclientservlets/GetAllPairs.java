@@ -52,23 +52,23 @@ public class GetAllPairs extends HttpServlet {
 		ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
 
 		DataAccess da = new DataAccess();
-		pairsArray = getAllPair();	
-//		 try {
-//			 pairsArray = da.getAllPairs();
-//			 } catch (SQLException e) {
-//			 // TODO Auto-generated catch block
-//			 e.printStackTrace();
-//			 }
+	//	pairsArray = getAllPair();	
+		 try {
+			 pairsArray = da.getAllPairs();
+			 } catch (SQLException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 }
 		
-		for (Pair pair : pairsArray) {
-			if (pair.getActiveStatus() == 1) {
-				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
-						pair.getPairId(), pair.getActiveStatus());
-				pairsMainInfo.add(tmpPairInfo);
-			}
-		}
+//		for (Pair pair : pairsArray) {
+//			if (pair.getActiveStatus() == 1) {
+//				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
+//						pair.getPairId(), pair.getActiveStatus());
+//				pairsMainInfo.add(tmpPairInfo);
+//			}
+//		}
 		request.setAttribute("pairs", pairsMainInfo);
-		System.out.println("Pairs: " + pairsMainInfo);
+		System.out.println("Pairs: " + pairsArray);
 		PrintWriter writer = response.getWriter();
 		response.setContentType("text/html");
 	    RequestDispatcher req = request.getRequestDispatcher("mainPairs.jsp");
