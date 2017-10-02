@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,6 +30,7 @@ public class DataAccess implements DataInterface {
 	final String selectLogin1 = "Select * From mentor where id=?";
 	final String selectLogin2 = "Select * From mentee where id=?";
 	final String selectByID = "Select * From users where id=?";
+	final String sessionId = "Select * From session where userId=?";
 	final String getMenteeofPair = "Select * From pairs where menteeId=?, activeStatus=?";
 	final String getMentorofPair = "Select * From pairs where mentorId=?, activeStatus=?";
 	final String updateUserBase = "UPDATE users SET firstName=?, lastName=?, email=?, phoneNumber=?, password=?, gender=?, address=?, notes=?, profilePicture=?, active=? WHERE id=?";
@@ -42,21 +42,29 @@ public class DataAccess implements DataInterface {
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectPairId = "Select * From pair Where id=?";
+	final String updateActiveStatus = "UPDATE pairs SET active=0 WHERE pairsId=?";
 	final String selectMeeting = "Select * From activity where mentoId=? ";
 	final String selectMeeting2 = "Select * From activity where menteeId=? ";
-	final String sessionId = "Select * From session where userId=?";
 	final String addUserSession = "INSERT INTO session (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
-	final String selectMeetingById = ""; //TODO: write statement
-    final String selectMeetingByPair="Select * From activities where pairId=?" ; 
-    final String addMeeting = "INSERT INTO activities (pairId,mentorId,menteeId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    final String getAllMenteesWithoutMentor="select m.* user RIGHT JOIN mentee as m ON user.id = m.id as m where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
-    final String getAllMentorsWithoutMentees="select m.* user RIGHT JOIN mentors "
+	final String selectMeetingById = "Select * From activities where activityId=?";
+	final String selectMeetingByPair="Select * From activities where pairId=?" ; 
+	final String addMeeting = "INSERT INTO activities (pairId,mentorId,menteeId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	final String getAllMenteesWithoutMentor="select m.* user LEFT JOIN mentee as m ON user.id = m.id as m where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
+	final String getAllMentorsWithoutMentees="select m.* user LEFT JOIN mentors "
 			+ "as m ON user.id = m.id as m where m.id  in (select mentorId from pairs	"
 			+ "where mentorId = m.id  and activeStatus = 0	) or	"
 			+ "NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
-    
-     public DataAccess() {
-	
+
+
+
+
+	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
+
+	final String getMeetings2 = "Select * From activites where menteeId=?AND status=? ORDER BY date DESC LIMIT ?, ? ";
+
+
+	public DataAccess() {
+
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
@@ -222,7 +230,7 @@ public class DataAccess implements DataInterface {
 		if (rs.next()) // user exists
 		{
 			System.out.println("rs.next(): " + rs.getString(3));
-		
+
 			return false;
 		}
 		PreparedStatement stm2 = c.prepareStatement(addBaseUser);
@@ -238,7 +246,7 @@ public class DataAccess implements DataInterface {
 		stm2.setString(10, u.getProfilePicture());
 		stm2.setInt(11, u.isActive() ? 1 : 0);
 		stm2.executeUpdate();
-		
+
 		stm = c.prepareStatement(selectLogin);
 		stm.setString(1, u.getEmail());
 		rs = stm.executeQuery();
@@ -250,7 +258,7 @@ public class DataAccess implements DataInterface {
 		else{
 			return false;
 		}
-		
+
 
 		if (u.getType() == userType.TSOFEN || u.getType() == userType.ADMIN)
 			return true;
@@ -263,7 +271,7 @@ public class DataAccess implements DataInterface {
 			stm3.setInt(4, ((Mentor) u).getCompany());
 			stm3.setString(5, ((Mentor) u).getVolunteering());
 			stm3.setString(6, ((Mentor) u).getWorkHistory());
-			
+
 			stm3.executeUpdate();
 			return true;
 		}
@@ -444,20 +452,16 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public boolean disconnectPair(int pairId) throws SQLException {
-		PreparedStatement stm = c.prepareStatement(selectPairId);
-
-		stm.setInt(1, pairId);
-		ResultSet rs = stm.executeQuery();
-
-		if (rs.next()) {
-			int active = rs.getInt(4);
-
-			if (active == 1)
-
-			{
-				active = 0;
-			}
+	public boolean disconnectPair(int pairId){
+		try
+		{	
+			PreparedStatement stm = c.prepareStatement(updateActiveStatus);
+			stm.setInt(1, pairId);
+			stm.executeUpdate();
+		}
+		catch (SQLException e)
+		{
+			return false;
 		}
 		return true;
 	}
@@ -483,7 +487,7 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public ArrayList<Session> getUserSessions(int id) throws SQLException {
-		ArrayList<Session> session = null;
+		ArrayList<Session> session = new ArrayList<Session>();
 		Session s = null;
 		PreparedStatement stm = c.prepareStatement(sessionId);
 
@@ -598,7 +602,7 @@ public class DataAccess implements DataInterface {
 	@Override
 	public ArrayList<Mentee> getMenteesOfMentor(int mentorId)
 			throws SQLException {
-		ArrayList<Mentee> mentees = null;
+		ArrayList<Mentee> mentees = new ArrayList<Mentee>();
 		PreparedStatement stm = c.prepareStatement(getMentorofPair);
 		stm.setInt(1, mentorId);
 		stm.setInt(2, 1);
@@ -672,9 +676,9 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public boolean addMeeting(Meeting meeting) throws SQLException {
-PreparedStatement stm = c.prepareStatement(addMeeting);
-	
-		
+		PreparedStatement stm = c.prepareStatement(addMeeting);
+
+
 		stm.setInt(1, meeting.getPairId());
 		stm.setInt(2,meeting.getMentorId());
 		stm.setInt(3, meeting.getMenteeId());
@@ -693,18 +697,18 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		stm.setString(15,meeting.getEndingDate().toString());
 		stm.setBoolean(16,meeting.getMentorComplete());
 		stm.setBoolean(17,meeting.getMenteeComplete());
-		
+
 		stm.executeUpdate();
 
-	
+
 		return false;
-		
+
 	}
 
 	@Override
 	public boolean approveMeeting(int meetingId, boolean status)
 			throws SQLException {
-		
+		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -725,15 +729,15 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) 
 		{
-		  meeting=new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+			meeting=new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
 					rs.getInt(4), rs.getString(5),
 					mm.model.Meeting.meetingStatus.APPROVED, rs.getString(7),
 					rs.getString(8), rs.getString(9), rs.getString(10),
 					mm.model.Meeting.meetingType.SMS, rs.getString(12),
 					rs.getString(13), rs.getLong(14), rs.getTime(15),
 					rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
-		  
-		  switch (rs.getInt(6)/* meetingStatus */) {
+
+			switch (rs.getInt(6)/* meetingStatus */) {
 			case 0: // PENDING
 				meeting.setStatus(meetingStatus.PENDING);
 				break;
@@ -759,51 +763,51 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 				break;
 			default: // ERROR
 				break;
-		}	
-	}
+			}	
+		}
 		return m;
 	}
 	@Override
 	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException {
 		Mentee u=null;
 		ArrayList<Mentee> menteesList = new ArrayList<Mentee>();
-		Statement stm3 = c.createStatement();
-		stm3.executeQuery(getAllMenteesWithoutMentor);
-		ResultSet r3 = stm3.getResultSet();
-		while (r3.next()) {
-			u = new Mentee(r3.getInt(1), r3.getString(3), r3.getString(4),
-					r3.getString(5), r3.getString(6), r3.getString(7),
-					r3.getInt(8), r3.getString(9), r3.getString(10),
-					r3.getString(11), r3.getBoolean(12), userType.MENTEE,
-					r3.getFloat(2), r3.getString(3), r3.getString(4),
-					r3.getFloat(5), r3.getString(6), r3.getString(7),
-					r3.getBoolean(8), r3.getString(9), r3.getString(10));
+		Statement stm = c.createStatement();
+		stm.executeQuery(getAllMenteesWithoutMentor);
+		ResultSet r = stm.getResultSet();
+		while (r.next()) {
+			u = new Mentee(r.getInt(1), r.getString(3), r.getString(4),
+					r.getString(5), r.getString(6), r.getString(7),
+					r.getInt(8), r.getString(9), r.getString(10),
+					r.getString(11), r.getBoolean(12), userType.MENTEE,
+					r.getFloat(13), r.getString(14), r.getString(15),
+					r.getFloat(16), r.getString(17), r.getString(18),
+					r.getBoolean(19), r.getString(20), r.getString(21));
 			menteesList.add(u);
 		}
-		
+
 		return menteesList;
-		
+
 	}
 
 	@Override
 	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
 		Mentor u=null;
 		ArrayList<Mentor> mentorList = new ArrayList<Mentor>();
-		Statement stm3 = c.createStatement();
-		stm3.executeQuery(getAllMentorsWithoutMentees);
-		ResultSet r2 = stm3.getResultSet();
-		while (r2.next()) {
-			u = new Mentor(r2.getInt(1), r2.getString(3), r2.getString(4),
-					r2.getString(5), r2.getString(6), r2.getString(7),
-					r2.getInt(8), r2.getString(9), r2.getString(10),
-					r2.getString(11), r2.getBoolean(12), userType.MENTOR,
-					r2.getString(2), r2.getString(3), r2.getInt(4),
-					r2.getString(5), r2.getString(6));
+		Statement stm = c.createStatement();
+		stm.executeQuery(getAllMentorsWithoutMentees);
+		ResultSet r = stm.getResultSet();
+		while (r.next()) {
+			u = new Mentor(r.getInt(1), r.getString(3), r.getString(4),
+					r.getString(5), r.getString(6), r.getString(7),
+					r.getInt(8), r.getString(9), r.getString(10),
+					r.getString(11), r.getBoolean(12), userType.MENTOR,
+					r.getString(13), r.getString(14), r.getInt(15),
+					r.getString(16), r.getString(17));
 			mentorList.add(u);
 		}
-		
+
 		return mentorList;	
-}
+	}
 
 	@Override
 	public boolean addWorkPlace(WorkPlace workplace) {
@@ -811,12 +815,93 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		return false;
 	}
 
+	//	@Override
+	//	public List<Meeting> getUserMeetingsOfStatus(int id,
+	//			meetingStatus meetingStatus) {
+	//		// TODO Auto-generated method stub
+	//		return null;
+	//	}
+
 	@Override
-	public List<Meeting> getUserMeetingsOfStatus(int id,
-			meetingStatus meetingStatus) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page) throws SQLException
+
+	{
+
+		ArrayList<Meeting>m=null;
+
+
+
+		PreparedStatement stm =null; 
+
+
+
+		userType type = getUser(userId).getType();
+
+		if (type == userType.MENTEE) 
+
+		{
+
+			stm=c.prepareStatement(getMeetings2);
+
+
+
+		}
+
+
+
+		if(type == userType.MENTOR) 
+
+		{
+
+			stm=c.prepareStatement(getMeetings1);    
+
+		}
+
+		if(stm!=null)
+
+		{
+
+			ResultSet rs=stm.executeQuery();
+
+			stm.setInt(1,userId);
+
+			stm.setInt(2, status.getValue());
+
+			stm.setInt(3, (page-1)*(count));
+
+			stm.setInt(4, count);
+
+
+
+			m=new ArrayList<>();
+
+			while (rs.next())
+
+			{
+
+				Meeting meet = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+
+						rs.getInt(4), rs.getString(5),status, rs.getString(7),
+
+						rs.getString(8), rs.getString(9), rs.getString(10),
+
+						meetingType.getByValue(rs.getInt(11)), rs.getString(12),
+
+						rs.getString(13), rs.getLong(14), rs.getTime(15),
+
+						rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
+
+				m.add(meet);
+
+			}
+
+
+
+		} 
+
+		return m;
 	}
+
 
 
 }

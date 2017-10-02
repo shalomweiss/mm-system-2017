@@ -2,6 +2,9 @@ package mm.model;
 
 import java.sql.Time;
 
+import mm.model.Meeting.meetingType;
+
+
 public class Meeting 
 { 
  private int meetingId; 
@@ -26,11 +29,41 @@ public class Meeting
  
  
  public enum meetingType{
-	 PHONE,FACE_TO_FACE,SMS
+	 PHONE(0),FACE_TO_FACE(1),SMS(2);
+	
+	 private final int value;
+	    private meetingType(int value) {
+	        this.value = value;
+	    }
+
+	    public int getValue() {
+	        return value;
+	    }
+	    
+	    public static meetingType getByValue(int i) {
+	    	switch (i) {
+			case 0: // PHONE
+				return PHONE;
+			case 1: // FACE_TO_FACE
+				return FACE_TO_FACE;
+			case 2: // SMS
+				return SMS;
+			default:
+				return null;
+			}
+	    }
  }
 
  public enum meetingStatus{
-	 PENDING,APPROVED,COMPLETE
+	 PENDING(0),APPROVED(1),COMPLETE(2);
+		private final int value;
+	    private meetingStatus(int value) {
+	        this.value = value;
+	    }
+
+	    public int getValue() {
+	        return value;
+	    }
  }
 
 public Meeting(int meetingId, int pairId, int mentorId, int menteeId, String note, meetingStatus status,
