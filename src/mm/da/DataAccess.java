@@ -47,16 +47,24 @@ public class DataAccess implements DataInterface {
 	final String selectMeeting2 = "Select * From activity where menteeId=? ";
 	final String addUserSession = "INSERT INTO session (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
 	final String selectMeetingById = "Select * From activities where activityId=?";
-    final String selectMeetingByPair="Select * From activities where pairId=?" ; 
-    final String addMeeting = "INSERT INTO activities (pairId,mentorId,menteeId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    final String getAllMenteesWithoutMentor="select m.* user LEFT JOIN mentee as m ON user.id = m.id as m where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
-    final String getAllMentorsWithoutMentees="select m.* user LEFT JOIN mentors "
+	final String selectMeetingByPair="Select * From activities where pairId=?" ; 
+	final String addMeeting = "INSERT INTO activities (pairId,mentorId,menteeId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	final String getAllMenteesWithoutMentor="select m.* user LEFT JOIN mentee as m ON user.id = m.id as m where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
+	final String getAllMentorsWithoutMentees="select m.* user LEFT JOIN mentors "
 			+ "as m ON user.id = m.id as m where m.id  in (select mentorId from pairs	"
 			+ "where mentorId = m.id  and activeStatus = 0	) or	"
 			+ "NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
-    
-     public DataAccess() {
-	
+
+
+
+
+	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
+
+	final String getMeetings2 = "Select * From activites where menteeId=?AND status=? ORDER BY date DESC LIMIT ?, ? ";
+
+
+	public DataAccess() {
+
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
@@ -222,7 +230,7 @@ public class DataAccess implements DataInterface {
 		if (rs.next()) // user exists
 		{
 			System.out.println("rs.next(): " + rs.getString(3));
-		
+
 			return false;
 		}
 		PreparedStatement stm2 = c.prepareStatement(addBaseUser);
@@ -238,7 +246,7 @@ public class DataAccess implements DataInterface {
 		stm2.setString(10, u.getProfilePicture());
 		stm2.setInt(11, u.isActive() ? 1 : 0);
 		stm2.executeUpdate();
-		
+
 		stm = c.prepareStatement(selectLogin);
 		stm.setString(1, u.getEmail());
 		rs = stm.executeQuery();
@@ -250,7 +258,7 @@ public class DataAccess implements DataInterface {
 		else{
 			return false;
 		}
-		
+
 
 		if (u.getType() == userType.TSOFEN || u.getType() == userType.ADMIN)
 			return true;
@@ -263,7 +271,7 @@ public class DataAccess implements DataInterface {
 			stm3.setInt(4, ((Mentor) u).getCompany());
 			stm3.setString(5, ((Mentor) u).getVolunteering());
 			stm3.setString(6, ((Mentor) u).getWorkHistory());
-			
+
 			stm3.executeUpdate();
 			return true;
 		}
@@ -668,9 +676,9 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public boolean addMeeting(Meeting meeting) throws SQLException {
-PreparedStatement stm = c.prepareStatement(addMeeting);
-	
-		
+		PreparedStatement stm = c.prepareStatement(addMeeting);
+
+
 		stm.setInt(1, meeting.getPairId());
 		stm.setInt(2,meeting.getMentorId());
 		stm.setInt(3, meeting.getMenteeId());
@@ -689,12 +697,12 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		stm.setString(15,meeting.getEndingDate().toString());
 		stm.setBoolean(16,meeting.getMentorComplete());
 		stm.setBoolean(17,meeting.getMenteeComplete());
-		
+
 		stm.executeUpdate();
 
-	
+
 		return false;
-		
+
 	}
 
 	@Override
@@ -721,15 +729,15 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) 
 		{
-		  meeting=new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+			meeting=new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
 					rs.getInt(4), rs.getString(5),
 					mm.model.Meeting.meetingStatus.APPROVED, rs.getString(7),
 					rs.getString(8), rs.getString(9), rs.getString(10),
 					mm.model.Meeting.meetingType.SMS, rs.getString(12),
 					rs.getString(13), rs.getLong(14), rs.getTime(15),
 					rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
-		  
-		  switch (rs.getInt(6)/* meetingStatus */) {
+
+			switch (rs.getInt(6)/* meetingStatus */) {
 			case 0: // PENDING
 				meeting.setStatus(meetingStatus.PENDING);
 				break;
@@ -755,8 +763,8 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 				break;
 			default: // ERROR
 				break;
-		}	
-	}
+			}	
+		}
 		return m;
 	}
 	@Override
@@ -776,9 +784,9 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 					r.getBoolean(19), r.getString(20), r.getString(21));
 			menteesList.add(u);
 		}
-		
+
 		return menteesList;
-		
+
 	}
 
 	@Override
@@ -797,9 +805,9 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 					r.getString(16), r.getString(17));
 			mentorList.add(u);
 		}
-		
+
 		return mentorList;	
-}
+	}
 
 	@Override
 	public boolean addWorkPlace(WorkPlace workplace) {
@@ -807,19 +815,93 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		return false;
 	}
 
-//	@Override
-//	public List<Meeting> getUserMeetingsOfStatus(int id,
-//			meetingStatus meetingStatus) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	//	@Override
+	//	public List<Meeting> getUserMeetingsOfStatus(int id,
+	//			meetingStatus meetingStatus) {
+	//		// TODO Auto-generated method stub
+	//		return null;
+	//	}
 
 	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId, meetingStatus status, int count, int page)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page) throws SQLException
+
+	{
+
+		ArrayList<Meeting>m=null;
+
+
+
+		PreparedStatement stm =null; 
+
+
+
+		userType type = getUser(userId).getType();
+
+		if (type == userType.MENTEE) 
+
+		{
+
+			stm=c.prepareStatement(getMeetings2);
+
+
+
+		}
+
+
+
+		if(type == userType.MENTOR) 
+
+		{
+
+			stm=c.prepareStatement(getMeetings1);    
+
+		}
+
+		if(stm!=null)
+
+		{
+
+			ResultSet rs=stm.executeQuery();
+
+			stm.setInt(1,userId);
+
+			stm.setInt(2, status.getValue());
+
+			stm.setInt(3, (page-1)*(count));
+
+			stm.setInt(4, count);
+
+
+
+			m=new ArrayList<>();
+
+			while (rs.next())
+
+			{
+
+				Meeting meet = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+
+						rs.getInt(4), rs.getString(5),status, rs.getString(7),
+
+						rs.getString(8), rs.getString(9), rs.getString(10),
+
+						meetingType.getByValue(rs.getInt(11)), rs.getString(12),
+
+						rs.getString(13), rs.getLong(14), rs.getTime(15),
+
+						rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
+
+				m.add(meet);
+
+			}
+
+
+
+		} 
+
+		return m;
 	}
+
 
 
 }
