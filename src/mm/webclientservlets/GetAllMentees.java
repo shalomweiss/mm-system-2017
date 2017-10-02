@@ -43,14 +43,16 @@ public class GetAllMentees extends HttpServlet {
 		ArrayList<User> ArrMentees = new ArrayList<User>();
 	//	ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
-		 try {
-		 ArrMentees = da.getUsers(userType.MENTEE);
-		 } catch (SQLException e) {
-		 // TODO Auto-generated catch block
-		 e.printStackTrace();
-		 }
-		//ArrMentees=getAllUsers();
+//		 try {
+//		 ArrMentees = da.getUsers(userType.MENTEE);
+//		 } catch (SQLException e) {
+//		 // TODO Auto-generated catch block
+//		 e.printStackTrace();
+//		 }
+		ArrMentees=getAllUsers();
 		request.setAttribute("Mentees", ArrMentees);
+		//TODO : getAllAcadimicIns;
+	//	request.setAttribute("AcadimicIn", AcadimicIn); 
 		//just for testing:
 		//System.out.println("Mentees: " + ArrMentees);
 		PrintWriter writer = response.getWriter();
@@ -73,7 +75,11 @@ public class GetAllMentees extends HttpServlet {
 	public ArrayList<User> getAllUsers() {
 
 		ArrayList<User> getUsers = new ArrayList<User>();
-		//getUsers.add(new Mentee(0, "hseen", "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, "SSSSSSSSSS", 0, null, null, false, "LLLLLLL", null));
+		Mentee m=new Mentee();
+		m.setFirstName("hseen");
+		m.setLastName("SSSS");
+		getUsers.add(m);
+		
 		
         
 		return getUsers;

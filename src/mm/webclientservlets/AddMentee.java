@@ -94,17 +94,17 @@ public class AddMentee extends HttpServlet {
 //			e.printStackTrace();
 //		}
 		if(res){
-	//		 req = request.getRequestDispatcher(nextPage);
+			request.setAttribute("AddedSuc", 1);
 			System.out.println("USER IS ADDED SUCSSESS");
 		}
-		if (!res)
+		if (!res){
+			request.setAttribute("AddedSuc", 0);
 			response.getWriter().append("Fails to add a mentee");
-		
-		
-		req = request.getRequestDispatcher("GetAllMentees");
-		
-		
-		
-		req.forward(request, response);
+		}
+	//	req = request.getRequestDispatcher("mentees.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("GetAllMentees");
+		rd.forward(request, response);
+	//	response.setContentType("text/html");
+		//req.forward(request, response);
 	}
 }
