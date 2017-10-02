@@ -20,6 +20,7 @@ import mm.model.Session;
 import mm.model.TsofenT;
 import mm.model.User;
 import mm.model.User.userType;
+import mm.model.WorkPlace;
 
 public class DataAccess implements DataInterface {
 
@@ -293,7 +294,7 @@ public class DataAccess implements DataInterface {
 		case TSOFEN:
 
 			Statement stm = c.createStatement();
-			stm.executeQuery("select * from user where type =" + type);
+			stm.executeQuery("select * from users where type =" + type);
 			ResultSet r = stm.getResultSet();
 			while (r.next()) {
 				u = new TsofenT(r.getInt(1), r.getString(3), r.getString(4),
@@ -323,16 +324,16 @@ public class DataAccess implements DataInterface {
 		case MENTEE:
 
 			Statement stm3 = c.createStatement();
-			 stm3.executeQuery("select * from users RIGHT JOIN mentees ON users.id = mentees.id");
+			stm3.executeQuery("select * from users RIGHT JOIN mentee ON user.id = mentee.id");
 			ResultSet r3 = stm3.getResultSet();
 			while (r3.next()) {
 				u = new Mentee(r3.getInt(1), r3.getString(3), r3.getString(4),
 						r3.getString(5), r3.getString(6), r3.getString(7),
-						r3.getInt(8), r3.getString(9), r3.getString(11),
-						r3.getString(10), r3.getBoolean(12), userType.MENTEE,
-						r3.getFloat(14), r3.getString(15), r3.getString(16),
-						r3.getFloat(17), r3.getString(18), r3.getString(19),
-						r3.getBoolean(20), r3.getString(21), r3.getString(22));
+						r3.getInt(8), r3.getString(9), r3.getString(10),
+						r3.getString(11), r3.getBoolean(12), userType.MENTEE,
+						r3.getFloat(2), r3.getString(3), r3.getString(4),
+						r3.getFloat(5), r3.getString(6), r3.getString(7),
+						r3.getBoolean(8), r3.getString(9), r3.getString(10));
 				users.add(u);
 			}
 			break;
@@ -701,7 +702,7 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 	@Override
 	public boolean approveMeeting(int meetingId, boolean status)
 			throws SQLException {
-
+		
 		return false;
 	}
 
@@ -781,6 +782,38 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		return menteesList;
 		
 	}
+//
+//	@Override
+//	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
+//		Mentor u=null;
+//		ArrayList<Mentor> mentorList = new ArrayList<Mentor>();
+//		Statement stm3 = c.createStatement();
+//		stm3.executeQuery(getAllMentorsWithoutMentees);
+//		ResultSet r2 = stm3.getResultSet();
+//		while (r2.next()) {
+//			u = new Mentor(r2.getInt(1), r2.getString(3), r2.getString(4),
+//					r2.getString(5), r2.getString(6), r2.getString(7),
+//					r2.getInt(8), r2.getString(9), r2.getString(10),
+//					r2.getString(11), r2.getBoolean(12), userType.MENTOR,
+//					r2.getString(2), r2.getString(3), r2.getInt(4),
+//					r2.getString(5), r2.getString(6));
+//			mentorList.add(u);
+//		}
+//		
+//		return mentorList;	
+//}
+//
+//	@Override
+//	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
@@ -802,6 +835,12 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		return mentorList;	
 }
 
-	
+	@Override
+	public boolean addWorkPlace(WorkPlace workplace) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 }
 

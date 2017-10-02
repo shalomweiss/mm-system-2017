@@ -9,6 +9,8 @@ import mm.model.Pair;
 import mm.model.Session;
 import mm.model.User;
 import mm.model.User.userType;
+import mm.model.WorkPlace;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -51,7 +53,7 @@ public interface DataInterface{
 
 		
 //	public ArrayList<Mentee> getMenteesWithOutMentor();
-//	public boolean addWorkPlace(WorkPlace workplace);
+	public boolean addWorkPlace(WorkPlace workplace);
 
 	public boolean addMeeting(Meeting meeting) throws SQLException;
 	
