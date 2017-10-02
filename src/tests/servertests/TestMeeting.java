@@ -24,5 +24,4 @@ public class TestMeeting {
 		//System.out.println(DBUtil.getConnection());
 		System.out.println( new Gson().toJson(myTestMeeting, Meeting.class) );
 	}
-
 }
