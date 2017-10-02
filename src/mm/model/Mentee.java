@@ -82,7 +82,7 @@ public class Mentee extends User {
 		this.academicDicipline2 = academicDicipline2;
 	}
 
-	public boolean isGuarantee() {
+	public boolean signedEULA() {
 		return signedEULA;
 	}
 

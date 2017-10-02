@@ -272,12 +272,13 @@ public class DataAccess implements DataInterface {
 			stm4.setInt(1, id);
 			stm4.setFloat(2, ((Mentee) u).getRemainingSemesters());
 			stm4.setString(3, ((Mentee) u).getGraduationStatus());
-			stm4.setString(3, ((Mentee) u).getAcademiclnstitution());
-			stm4.setString(4, ((Mentee) u).getAcademicDicipline());
-			stm4.setString(5, ((Mentee) u).getAcademicDicipline2());
-			stm4.setInt(6, ((Mentee) u).isGuarantee() ? 1 : 0);
-			stm4.setString(7, ((Mentee) u).getResume());
-			stm4.setString(8, ((Mentee) u).getGradeSheet());
+			stm4.setString(4, ((Mentee) u).getAcademiclnstitution());
+			stm4.setFloat(5, ((Mentee) u).getAverage());
+			stm4.setString(6, ((Mentee) u).getAcademicDicipline());
+			stm4.setString(7, ((Mentee) u).getAcademicDicipline2());
+			stm4.setInt(8, ((Mentee) u).signedEULA() ? 1 : 0);
+			stm4.setString(9, ((Mentee) u).getResume());
+			stm4.setString(10, ((Mentee) u).getGradeSheet());
 			stm4.executeUpdate();
 			return true;
 		}
