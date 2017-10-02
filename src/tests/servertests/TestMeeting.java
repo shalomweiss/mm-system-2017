@@ -18,11 +18,10 @@ public class TestMeeting {
 
 		
 		Meeting myTestMeeting = new Meeting(1, 4, 8, 2, null,meetingStatus.APPROVED, null, null, null, null, meetingType.FACE_TO_FACE, null, null, null, null, null, false,false);
-		//new DataAccess().addMeeting(myTestMeeting);
+		new DataAccess().addMeeting(myTestMeeting);
 		//new DataAccess().getMeetingById(1);
 		
-		System.out.println(DBUtil.getConnection());
-		//System.out.println( new Gson().toJson(myTestMeeting, Meeting.class) );
+		//System.out.println(DBUtil.getConnection());
+		System.out.println( new Gson().toJson(myTestMeeting, Meeting.class) );
 	}
-
 }
