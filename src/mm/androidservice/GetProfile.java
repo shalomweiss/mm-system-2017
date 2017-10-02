@@ -69,12 +69,16 @@ public class GetProfile extends HttpServlet {
 			}
 			
 			if (user == null) {
-
+				System.out.println("");
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+				iom.addResponseParameter("code", Constants.STATUS_MISSINGPARA);
+				iom.addResponseParameter("message", Constants.SUCCESS);
 			} else {
 				
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 				iom.addResponseParameter("user", user);
+				iom.addResponseParameter("code", Constants.STATUS_SUCCESS);
+				iom.addResponseParameter("message", Constants.SUCCESS);
 				
 				}
 			}

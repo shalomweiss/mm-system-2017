@@ -76,20 +76,26 @@ public class GetMeetings extends HttpServlet {
 	
 		
 		
-		JsonMeeting jsonMeeting = null;
+		//JsonMeeting jsonMeeting = null;
 		List<Meeting> meetings =null;
-		DataInterface da = new DataAccess();
-	
-		
+		//DataInterface da = new DataAccess();
+		System.out.println("het");
 		
 		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 			
-			meetings=iom.getDataAccess().getUserMeetingsOfStatus(id,meetingStatus);
+			try {
+				meetings=iom.getDataAccess().getMeetingByStatus(id, meetingStatus, count, page);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if(meetings==null) {
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 			}
 			else {
 				///each meeting must not contain pairId, all reports,complete...
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+				
 				for(int i=0;i<meetings.size();i++) {
 					meetings.get(i).setPairId(0);
 					meetings.get(i).setMenteePrivateReport(null);
@@ -98,8 +104,9 @@ public class GetMeetings extends HttpServlet {
 					meetings.get(i).setMenteeReport(null);
 					meetings.get(i).setMenteeComplete(null);
 					meetings.get(i).setMentorComplete(null);
+					
+					
 				}
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 				iom.addResponseParameter("meetings", meetings);
 			}
 				}else {
