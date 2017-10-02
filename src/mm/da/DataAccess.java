@@ -412,7 +412,7 @@ public class DataAccess implements DataInterface {
 		Pair p = new Pair();
 		ArrayList<Pair> pair = new ArrayList<Pair>();
 		Statement stm = c.createStatement();
-		stm.executeQuery("select * pairs");
+		stm.executeQuery("select * from pairs");
 		ResultSet r = stm.getResultSet();
 
 		while (r.next()) {
