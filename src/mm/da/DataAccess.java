@@ -20,6 +20,7 @@ import mm.model.Session;
 import mm.model.TsofenT;
 import mm.model.User;
 import mm.model.User.userType;
+import mm.model.WorkPlace;
 
 public class DataAccess implements DataInterface {
 
@@ -683,6 +684,12 @@ public class DataAccess implements DataInterface {
 	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean addWorkPlace(WorkPlace workplace) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 
