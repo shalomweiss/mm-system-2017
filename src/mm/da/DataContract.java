@@ -57,7 +57,7 @@ public final class DataContract {
 		public static final String COL_MENTORID = "mentorId";
 		public static final String COL_MENTEEID = "menteeId";
 		public static final String COL_ACTIVESTATUS = "activeStatus";
-		public static final String COL_STARTDATE = "starteDate";
+		public static final String COL_STARTDATE = "startDate";
 		public static final String COL_ENDDATE = "endDate";
 		public static final String COL_JOINTMESSAGE = "jointMessage";
 		public static final String COL_TSOFENMESSAGE = "tsofenMessage";
