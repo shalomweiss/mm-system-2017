@@ -49,6 +49,7 @@ public class AddMentee extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("here to stay");
 		String nextPage=request.getParameter("jsp");
 		String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
@@ -64,11 +65,11 @@ public class AddMentee extends HttpServlet {
 		String uNotes = request.getParameter("uNotes");
 		String academicDicipline =request.getParameter("uAcademicDicipline");
 		String academicDicipline2=request.getParameter("uAcademicDicipline2");
-		String isGraduate=request.getParameter("uIsGraduate");
-		String resume=request.getParameter("uResume");
-		String gradeSheet=request.getParameter("uGradeSheet");
-		String profilePicture=request.getParameter("profilePicture");
-		
+//		String isGraduate=request.getParameter("uIsGraduate");
+//		String resume=request.getParameter("uResume");
+//		String gradeSheet=request.getParameter("uGradeSheet");
+//		String profilePicture=request.getParameter("profilePicture");
+//		
 		float remSemesters=Float.valueOf(uRemSemesters);
 		float avg=Float.valueOf(uAverage);
 		
