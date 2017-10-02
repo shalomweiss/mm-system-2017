@@ -55,7 +55,16 @@ public class DataAccess implements DataInterface {
 			+ "where mentorId = m.id  and activeStatus = 0	) or	"
 			+ "NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
 
+
+
+
+	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
+
+	final String getMeetings2 = "Select * From activites where menteeId=?AND status=? ORDER BY date DESC LIMIT ?, ? ";
+
+
 	public DataAccess() {
+
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
@@ -256,6 +265,7 @@ public class DataAccess implements DataInterface {
 		} else {
 			return false;
 		}
+
 
 		if (u.getType() == userType.TSOFEN || u.getType() == userType.ADMIN)
 			return true;
@@ -677,6 +687,7 @@ public class DataAccess implements DataInterface {
 	public boolean addMeeting(Meeting meeting) throws SQLException {
 		PreparedStatement stm = c.prepareStatement(addMeeting);
 
+
 		stm.setInt(1, meeting.getPairId());
 		stm.setInt(2, meeting.getMentorId());
 		stm.setInt(3, meeting.getMenteeId());
@@ -721,11 +732,15 @@ public class DataAccess implements DataInterface {
 		PreparedStatement stm = c.prepareStatement(selectMeetingByPair);
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
-		if (rs.next()) {
-			meeting = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
-					mm.model.Meeting.meetingStatus.APPROVED, rs.getString(7), rs.getString(8), rs.getString(9),
-					rs.getString(10), mm.model.Meeting.meetingType.SMS, rs.getString(12), rs.getString(13),
-					rs.getLong(14), rs.getTime(15), rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
+		if (rs.next()) 
+		{
+			meeting=new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+					rs.getInt(4), rs.getString(5),
+					mm.model.Meeting.meetingStatus.APPROVED, rs.getString(7),
+					rs.getString(8), rs.getString(9), rs.getString(10),
+					mm.model.Meeting.meetingType.SMS, rs.getString(12),
+					rs.getString(13), rs.getLong(14), rs.getTime(15),
+					rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
 
 			switch (rs.getInt(6)/* meetingStatus */) {
 			case 0: // PENDING
@@ -824,10 +839,83 @@ public class DataAccess implements DataInterface {
 	// }
 
 	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId, meetingStatus status, int count, int page)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page) throws SQLException
+
+	{
+
+		ArrayList<Meeting>m=null;
+
+
+
+		PreparedStatement stm =null; 
+
+
+
+		userType type = getUser(userId).getType();
+
+		if (type == userType.MENTEE) 
+
+		{
+
+			stm=c.prepareStatement(getMeetings2);
+
+
+
+		}
+
+
+
+		if(type == userType.MENTOR) 
+
+		{
+
+			stm=c.prepareStatement(getMeetings1);    
+
+		}
+
+		if(stm!=null)
+
+		{
+
+			ResultSet rs=stm.executeQuery();
+
+			stm.setInt(1,userId);
+
+			stm.setInt(2, status.getValue());
+
+			stm.setInt(3, (page-1)*(count));
+
+			stm.setInt(4, count);
+
+
+
+			m=new ArrayList<>();
+
+			while (rs.next())
+
+			{
+
+				Meeting meet = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+
+						rs.getInt(4), rs.getString(5),status, rs.getString(7),
+
+						rs.getString(8), rs.getString(9), rs.getString(10),
+
+						meetingType.getByValue(rs.getInt(11)), rs.getString(12),
+
+						rs.getString(13), rs.getLong(14), rs.getTime(15),
+
+						rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
+
+				m.add(meet);
+
+			}
+
+
+
+		} 
+
+		return m;
 	}
 
 }
