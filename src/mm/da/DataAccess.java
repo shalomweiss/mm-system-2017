@@ -325,16 +325,16 @@ public class DataAccess implements DataInterface {
 		case MENTEE:
 
 			Statement stm3 = c.createStatement();
-			stm3.executeQuery("select * from users RIGHT JOIN mentee ON user.id = mentee.id");
+			stm3.executeQuery("select * from users RIGHT JOIN mentees ON users.id = mentees.id");
 			ResultSet r3 = stm3.getResultSet();
 			while (r3.next()) {
-				u = new Mentee(r3.getInt(1), r3.getString(3), r3.getString(4),
-						r3.getString(5), r3.getString(6), r3.getString(7),
-						r3.getInt(8), r3.getString(9), r3.getString(10),
-						r3.getString(11), r3.getBoolean(12), userType.MENTEE,
-						r3.getFloat(2), r3.getString(3), r3.getString(4),
-						r3.getFloat(5), r3.getString(6), r3.getString(7),
-						r3.getBoolean(8), r3.getString(9), r3.getString(10));
+				u = new Mentee(r3.getInt(DataContract.UsersTable.COL_ID), r3.getString(DataContract.UsersTable.COL_FIRSTNAME), r3.getString(DataContract.UsersTable.COL_LASTNAME),
+						r3.getString(DataContract.UsersTable.COL_EMAIL), r3.getString(DataContract.UsersTable.COL_PHONENUMBER), r3.getString(DataContract.UsersTable.COL_PASSWORD),
+						r3.getInt(DataContract.UsersTable.COL_GENDER), r3.getString(DataContract.UsersTable.COL_ADDRESS), r3.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
+						r3.getString(DataContract.UsersTable.COL_NOTES), r3.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTEE,
+						r3.getFloat(DataContract.MenteeTable.COL_REMAININGSEMESTERS), r3.getString(DataContract.MenteeTable.COL_GRADUATIONSTATUS), r3.getString(DataContract.MenteeTable.COL_ACADEMICINSTITUTE),
+						r3.getFloat(DataContract.MenteeTable.COL_AVERAGE), r3.getString(DataContract.MenteeTable.COL_ACADEMICDICIPLINE1), r3.getString(DataContract.MenteeTable.COL_ACADEMICDICIPLINE2),
+						r3.getBoolean(DataContract.MenteeTable.COL_SIGNEDEULA), r3.getString(DataContract.MenteeTable.COL_RESUME), r3.getString(DataContract.MenteeTable.COL_GRADESHEET));
 				users.add(u);
 			}
 			break;
