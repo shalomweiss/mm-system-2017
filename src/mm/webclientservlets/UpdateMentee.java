@@ -63,7 +63,7 @@ public class UpdateMentee extends HttpServlet {
 
 		String nextPage = request.getParameter("jsp");
 
-		DataAccess da = new DataAccess();
+		/*DataAccess da = new DataAccess();
 		Boolean status = false;
 		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,password,gender,address,profilePic,notes,isActive,userType.MENTEE,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,resume,gradeSheet);
 		try {
@@ -74,7 +74,7 @@ public class UpdateMentee extends HttpServlet {
 		request.setAttribute("status", status);
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
-
+*/
 	}
 
 }
