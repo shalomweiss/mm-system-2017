@@ -85,7 +85,7 @@ public class GetMeetings extends HttpServlet {
 		try {
 			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 				
-		meetings=iom.getDataAccess().getUserMeetingsOfStatus(id,meetingStatus);
+				meetings=iom.getDataAccess().getUserMeetingsOfStatus(id,meetingStatus);
 				if(meetings==null) {
 					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 				}
