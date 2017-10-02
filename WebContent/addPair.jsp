@@ -18,29 +18,93 @@
 		$("tr").click(function() {
 		    $(this).addClass('selected').siblings().removeClass("selected");
 		});
-		$(".btn").click(function(){
+		$("#createPair").click(function(){
 			var trs= document.getElementsByClassName("selected");
-			if(trs.length==2)
-			{
-				var menteeId=trs[0].childNodes[10].innerHTML;
-				var mentorId=trs[1].childNodes[10].innerHTML;
-				$.post("AddPair",
-				        {
-				          menteeID: menteeId,
-				          mentorID: mentorId
-				        },
-				        function(data,status){
-				            alert("Success");
-				        });
-			}	
-		});
+			var menteeId=trs[0].childNodes[10].innerHTML;
+			var mentorId=trs[1].childNodes[10].innerHTML;
+			$.post("AddPair",
+			        {
+			          menteeID: menteeId,
+			          mentorID: mentorId
+			        },
+			        function(data,status){
+			            alert("Big Love");
+			        });
+	});
 	});
 	</script>
-		
+	<script>
+	function sort() {
+	  var input, filter, table, tr, td, i;
+	  input = document.getElementById("myInput");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("myTable");
+	  console.log(document.getElementById("dropdown").innerHTML);
+	  tr = table.getElementsByTagName("tr");
+	  var column;
+	  console.log(document.getElementById("dropdown").children[1].innerHTML);
+	  switch(document.getElementById("dropdown").children[1].innerHTML){
+	   case "Location":
+		   column=12;
+		   break;
+	   case "University":
+		   column=14;
+		   break;
+	   default:
+		   column=0;
+	  }
+	  console.log(column);
+	  console.log(tr[0].childNodes[column]);
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[column];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }       
+	  }
+	}
+	
+	function sort1() {
+		  var input, filter, table, tr, td, i;
+		  input = document.getElementById("myInput1");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById("myTable1");
+		  console.log("hey");
+		  tr = table.getElementsByTagName("tr");
+		  console.log(tr);
+		  for (i = 0; i < tr.length; i++) {
+		    td = tr[i].getElementsByTagName("td")[0];
+		    if (td) {
+		      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+		        tr[i].style.display = "";
+		      } else {
+		        tr[i].style.display = "none";
+		      }
+		    }       
+		  }
+		}
+</script>		
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
 
 <style>
+.navbar .navbar-search .dropdown-menu { min-width: 25px; }
+.dropdown-menu .label-icon { margin-left: 5px;
+	color: black;
+ }
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: all .5s;
+}
+.navbar{
+	padding-right: 0px ; 
+	padding-left: 0px;
+}
+
 h1{
   font-size: 30px;
   color: #fff;
@@ -65,7 +129,7 @@ table{
 }
 th{
   padding: 20px 15px;
-  text-align: center !important;
+  text-align: left;
   font-weight: 500;
   font-size: 14px;
   color: #fff;
@@ -79,8 +143,7 @@ td{
   font-weight: 300;
   font-size: 14px;
   color: #fff;
-  border-right: solid 1px rgba(255,255,255,0.3);
-  border-bottom: solid 1px rgba(255,255,255,0.3);
+  border-bottom: solid 1px rgba(255,255,255,0.1);
   word-wrap: break-word;
 }
 
@@ -145,7 +208,9 @@ body {
 	top:0;
 	margin:0
 }
+a{
 
+}
 .icon-bar {
 	top:30vh;
     width: 90px;
@@ -232,11 +297,13 @@ tr.selected td{
 
 </style>
 <body>
+
+
 <nav class="icon-bar">
 	<div class="icon-bar">
 		  <a href="#"><i class="fa fa-home"></i></a> 
 		  <a href="#"><i class="fa fa-black-tie"></i></a> 
-		  <a  href="#"><i class="fa fa-graduation-cap"></i></a> 
+		  <a  href="mentees.jsp"><i class="fa fa-graduation-cap"></i></a> 
 		  <a class="active" href="#"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell"></i></a>
 		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
@@ -246,10 +313,73 @@ tr.selected td{
 	<h1>New Pairs</h1>
 	<section>
 	
+	
+
 <div class="container-fluid" >
+
   <div class="row">
     <div class="col-md-6" style= "padding-left: 0px;">
     <h5 id="mentee">MENTEE</h5>
+<nav class="navbar navbar-default">
+        <div class="">
+ 
+            <form class="navbar-form navbar-search" role="search">
+                <div class="input-group">
+                
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="dropdown">
+                            <span class="glyphicon glyphicon-search"></span>
+                            <span class="label-icon" >Search</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-left" role="menu">
+                           <li>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="label-icon"  >Location</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                <span class="glyphicon glyphicon-book"></span>
+                                <span class="label-icon" >University</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+        
+                    <input type="text" class="form-control" id="myInput" onkeyup="sort()" placeholder="Search for..">
+                
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-search btn-default">
+                        GO
+                        </button>
+                         
+                         
+                    </div>
+                </div>  
+            </form>   
+         
+        </div>
+    </nav>
+<script>
+
+$(function(){
+    
+    $(".input-group-btn .dropdown-menu li a").click(function(){
+
+        var selText = $(this).html();
+    
+        //working version - for single button //
+       //$('.btn:first-child').html(selText+'<span class="caret"></span>');  
+       
+       //working version - for multiple buttons //
+       $(this).parents('.input-group-btn').find('.btn-search').html(selText);
+
+   });
+
+});
+</script>
 		 <div class="tbl-header">
 		 
     <table cellpadding="0" cellspacing="0" border="0">
@@ -265,7 +395,7 @@ tr.selected td{
     </table>
   </div>
   <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
+    <table cellpadding="0" cellspacing="0" border="0" id="myTable">
       <tbody>
       <c:forEach var="mentee" items="${Mentees}" >
       
@@ -274,7 +404,9 @@ tr.selected td{
 			<td><c:out value="${mentee.phoneNumber}"></c:out></td>
 			<td><c:out value="${mentee.email}"></c:out></td>
 			<td><c:out value="${mentee.gender}"></c:out></td>
-			<td style="display:none;" class="menteeId"><c:out value="${mentee.id}"></c:out></td></tr>
+			<td style="display:none;" class="menteeId"><c:out value="${mentee.id}"></c:out></td>
+			<td style="display:none;" class="menteeAddress"><c:out value="${mentee.address}"></c:out></td>
+			<td style="display:none;" class="menteeCompany"><c:out value="${mentee.academiclnstitution}"></c:out></td></tr>
 		</c:forEach>
       </tbody>
     </table>
@@ -283,6 +415,66 @@ tr.selected td{
     <div class="col-md-6" style= "padding-right: 0px;" >
 	<!--for demo wrap-->
 	<h5>MENTOR</h5>
+	 <nav class="navbar navbar-default">
+        <div class="nav nav-justified navbar-nav">
+ 
+            <form class="navbar-form navbar-search" role="search">
+                <div class="input-group">
+                
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-search"></span>
+                            <span class="label-icon">Search</span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-left" role="menu">
+                           <li>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="label-icon">Location</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                <span class="glyphicon glyphicon-book"></span>
+                                <span class="label-icon">Company</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+        
+                    <input type="text" class="form-control" id="myInput1" onkeyup="sort1()" placeholder="Search for..">
+                
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-search btn-default">
+                        GO
+                        </button>
+                         
+                         
+                    </div>
+                </div>  
+            </form>   
+         
+        </div>
+    </nav>
+<script>
+
+$(function(){
+    
+    $(".input-group-btn .dropdown-menu li a").click(function(){
+
+        var selText = $(this).html();
+    
+        //working version - for single button //
+       //$('.btn:first-child').html(selText+'<span class="caret"></span>');  
+       
+       //working version - for multiple buttons //
+       $(this).parents('.input-group-btn').find('.btn-search').html(selText);
+
+   });
+
+});
+</script>
   <div class="tbl-header">
   
     <table cellpadding="0" cellspacing="0" border="0">
@@ -298,7 +490,7 @@ tr.selected td{
     </table>
   </div>
   <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
+    <table cellpadding="0" cellspacing="0" border="0" id="myTable1">
       <tbody>
        <c:forEach items="${Mentors}" var="mentor">
 			<tr class="para"><td><c:out value="${mentor.firstName}"></c:out></td>
@@ -306,7 +498,9 @@ tr.selected td{
 			<td><c:out value="${mentor.phoneNumber}"></c:out></td>
 			<td><c:out value="${mentor.email}"></c:out></td>
 			<td><c:out value="${mentor.gender}"></c:out></td>
-			<td style="display:none;" class="mentorId"><c:out value="${mentor.id}"></c:out></td></tr>
+			<td style="display:none;" class="mentorId"><c:out value="${mentor.id}"></c:out></td>
+			<td style="display:none;" class="mentorAddress"><c:out value="${mentor.address}"></c:out></td>
+			<td style="display:none;" class="mentorCompany"><c:out value="${mentor.company}"></c:out></td></tr>
 		</c:forEach>
       </tbody>
     </table>
@@ -314,7 +508,7 @@ tr.selected td{
 	</div>
   </div>
 </div>
-     <a class="btn btn-block btn-primary" > <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
+     <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
 </section>
 </body>
 

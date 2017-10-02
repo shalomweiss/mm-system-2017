@@ -57,10 +57,8 @@ public class CreateNewPair extends HttpServlet {
 		}
 		else
 			response.getWriter().append("Failure");
-		
-		
+			
 		req.forward(request, response);
 
 	}
-
 }

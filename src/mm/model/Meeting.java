@@ -2,13 +2,17 @@ package mm.model;
 
 import java.sql.Time;
 
+import mm.model.Meeting.meetingType;
+
+
 public class Meeting 
-{
+{ 
+ private int meetingId; 
+ private int pairId;
  private int mentorId;
  private int menteeId;
- private int meetingId;
  private String note;
- private int status;
+ private meetingStatus status;
  private String menteeReport;
  private String mentorReport;
  private String menteePrivateReport;
@@ -19,23 +23,58 @@ public class Meeting
  private Long date;
  private Time startingDate;
  private Time endingDate;
- private Boolean mentorComplete;
- private Boolean menteeComplete;
+ private boolean mentorComplete;
+ private boolean menteeComplete;
+ 
  
  
  public enum meetingType{
-	 PHONE,FACE_TO_FACE,SMS;	 
+	 PHONE(0),FACE_TO_FACE(1),SMS(2);
+	
+	 private final int value;
+	    private meetingType(int value) {
+	        this.value = value;
+	    }
+
+	    public int getValue() {
+	        return value;
+	    }
+	    
+	    public static meetingType getByValue(int i) {
+	    	switch (i) {
+			case 0: // PHONE
+				return PHONE;
+			case 1: // FACE_TO_FACE
+				return FACE_TO_FACE;
+			case 2: // SMS
+				return SMS;
+			default:
+				return null;
+			}
+	    }
  }
 
+ public enum meetingStatus{
+	 PENDING(0),APPROVED(1),COMPLETE(2);
+		private final int value;
+	    private meetingStatus(int value) {
+	        this.value = value;
+	    }
 
-public Meeting(int mentorId, int menteeId, int meetingId, String note, int status, String menteeReport,
-		String mentorReport, String menteePrivateReport, String mentorPrivateReport,
+	    public int getValue() {
+	        return value;
+	    }
+ }
+
+public Meeting(int meetingId, int pairId, int mentorId, int menteeId, String note, meetingStatus status,
+		String menteeReport, String mentorReport, String menteePrivateReport, String mentorPrivateReport,
 		mm.model.Meeting.meetingType meetingType, String subject, String location, Long date, Time startingDate,
-		Time endingDate, Boolean mentorComplete, Boolean menteeComplete) {
+		Time endingDate, boolean mentorComplete, boolean menteeComplete) {
 	super();
+	this.meetingId = meetingId;
+	this.pairId = pairId;
 	this.mentorId = mentorId;
 	this.menteeId = menteeId;
-	this.meetingId = meetingId;
 	this.note = note;
 	this.status = status;
 	this.menteeReport = menteeReport;
@@ -93,12 +132,12 @@ public void setNote(String note) {
 }
 
 
-public int getStatus() {
+public meetingStatus getStatus() {
 	return status;
 }
 
 
-public void setStatus(int status) {
+public void setStatus(meetingStatus status) {
 	this.status = status;
 }
 
@@ -220,6 +259,16 @@ public Boolean getMenteeComplete() {
 
 public void setMenteeComplete(Boolean menteeComplete) {
 	this.menteeComplete = menteeComplete;
+}
+
+
+public int getPairId() {
+	return pairId;
+}
+
+
+public void setPairId(int pairId) {
+	this.pairId = pairId;
 }
 	
  
