@@ -39,22 +39,20 @@
 	  input = document.getElementById("myInput");
 	  filter = input.value.toUpperCase();
 	  table = document.getElementById("myTable");
-	  console.log(document.getElementById("dropdown").innerHTML);
 	  tr = table.getElementsByTagName("tr");
+	
 	  var column;
-	  console.log(document.getElementById("dropdown").children[1].innerHTML);
-	  switch(document.getElementById("dropdown").children[1].innerHTML){
+	  switch(document.getElementById("drop").innerHTML){
 	   case "Location":
-		   column=12;
+		   column=6;
 		   break;
 	   case "University":
-		   column=14;
+		   column=7;
 		   break;
 	   default:
 		   column=0;
 	  }
-	  console.log(column);
-	  console.log(tr[0].childNodes[column]);
+	  
 	  for (i = 0; i < tr.length; i++) {
 	    td = tr[i].getElementsByTagName("td")[column];
 	    if (td) {
@@ -72,11 +70,22 @@
 		  input = document.getElementById("myInput1");
 		  filter = input.value.toUpperCase();
 		  table = document.getElementById("myTable1");
-		  console.log("hey");
 		  tr = table.getElementsByTagName("tr");
-		  console.log(tr);
+		 
+		  var column;
+		  switch(document.getElementById("drop1").innerHTML){
+		   case "Location":
+			   column=6;
+			   break;
+		   case "Company":
+			   column=7;
+			   break;
+		   default:
+			   column=0;
+		  }
+		  
 		  for (i = 0; i < tr.length; i++) {
-		    td = tr[i].getElementsByTagName("td")[0];
+		    td = tr[i].getElementsByTagName("td")[column];
 		    if (td) {
 		      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
 		        tr[i].style.display = "";
@@ -86,27 +95,22 @@
 		    }       
 		  }
 		}
-</script>		
+</script>	
+
+<script>
+	function goBack() {
+	    window.history.back();
+	}
+</script>	
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
 
 <style>
-.navbar .navbar-search .dropdown-menu { min-width: 25px; }
-.dropdown-menu .label-icon { margin-left: 5px;
-	color: black;
- }
-.btn-outline {
-    background-color: transparent;
-    color: inherit;
-    transition: all .5s;
-}
-.navbar{
-	padding-right: 0px ; 
-	padding-left: 0px;
-}
 
 h1{
-  font-size: 30px;
+  font-size: 40px;
+  letter-spacing: 8px;
+  text-shadow: 2px 4px 4px #CCCCCC;
   color: #fff;
   text-transform: uppercase;
   font-weight: 300;
@@ -144,6 +148,7 @@ td{
   font-size: 14px;
   color: #fff;
   border-bottom: solid 1px rgba(255,255,255,0.1);
+  border-right: solid 1px rgba(255,255,255,0.3);
   word-wrap: break-word;
 }
 
@@ -154,7 +159,7 @@ td{
 body{
   background: -webkit-linear-gradient(left, #25c481, #25b7c4);
   background: linear-gradient(to right, #25c481, #25b7c4);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Century Gothic', sans-serif;
 }
 section{
   top:0;
@@ -241,7 +246,7 @@ body{
 	height:100%;
 }
 html{
-	overflow-y: hidden;
+	
 	height:100%;
 }
 nav.icon-bar{
@@ -282,8 +287,6 @@ tr.para:hover td{
 	color: #69A489;
 }
 
-
-
 h5{
 	color: #fff;;
 }
@@ -295,6 +298,51 @@ tr.selected td{
 	color: #69A489;
 }
 
+.navbar .navbar-search .dropdown-menu { min-width: 25px; }
+.dropdown-menu .label-icon { margin-left: 5px;
+	color: #1AD79E;
+	font-weight: bold;
+ }
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: all .5s;
+}
+.navbar{
+	padding-right: 0px ; 
+	padding-left: 0px;
+}
+
+#searchB{
+	background-color: rgba(255,255,255,0.3);
+	color: #fff;	
+}
+
+#dropdownM{
+	background-color: #fff;
+	opacity: 0.9;
+	width: 105px;
+}
+
+#myInput,#myInput1{
+	background-color: #fff;
+	opacity: 0.9;
+	
+}
+li:hover{
+	background-color: #BDCFC9;
+}
+
+.label-icon:hover{
+ 	text-decoration: underline #BDCFC9;
+}
+
+
+#goBack{
+	font-size: 50px;
+	color: #555;
+	margin-bottom: 20px;
+}
 </style>
 <body>
 
@@ -312,7 +360,8 @@ tr.selected td{
 
 	<h1>New Pairs</h1>
 	<section>
-	
+<i class="fa fa-arrow-left" aria-hidden="true" onclick="goBack()" id="goBack"></i>	
+
 	
 
 <div class="container-fluid" >
@@ -327,36 +376,29 @@ tr.selected td{
                 <div class="input-group">
                 
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="dropdown">
-                            <span class="glyphicon glyphicon-search"></span>
-                            <span class="label-icon" >Search</span>
+                        <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
+                            <span class="glyphicon glyphicon-search" ></span>
+                            <span class="label-icon" id="drop">Search</span>
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu pull-left" role="menu">
+                        <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
                                     <span class="glyphicon glyphicon-user"></span>
-                                    <span class="label-icon"  >Location</span>
+                                    <span class="label-icon" id="drop"  >Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                 <span class="glyphicon glyphicon-book"></span>
-                                <span class="label-icon" >University</span>
+                                <span class="label-icon" id="drop">University</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
         
-                    <input type="text" class="form-control" id="myInput" onkeyup="sort()" placeholder="Search for..">
+                    <input type="text" class="form-control" id="myInput" onkeyup="sort()" placeholder="Type here..">
                 
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-search btn-default">
-                        GO
-                        </button>
-                         
-                         
-                    </div>
                 </div>  
             </form>   
          
@@ -406,7 +448,7 @@ $(function(){
 			<td><c:out value="${mentee.gender}"></c:out></td>
 			<td style="display:none;" class="menteeId"><c:out value="${mentee.id}"></c:out></td>
 			<td style="display:none;" class="menteeAddress"><c:out value="${mentee.address}"></c:out></td>
-			<td style="display:none;" class="menteeCompany"><c:out value="${mentee.academiclnstitution}"></c:out></td></tr>
+			<td style="display:none;" class="menteeUniversity"><c:out value="${mentee.academiclnstitution}"></c:out></td></tr>
 		</c:forEach>
       </tbody>
     </table>
@@ -422,36 +464,29 @@ $(function(){
                 <div class="input-group">
                 
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown">
+                        <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search"></span>
-                            <span class="label-icon">Search</span>
+                            <span class="label-icon" id="drop1">Search</span>
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu pull-left" role="menu">
+                        <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
                                     <span class="glyphicon glyphicon-user"></span>
-                                    <span class="label-icon">Location</span>
+                                    <span class="label-icon" id="drop1">Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                 <span class="glyphicon glyphicon-book"></span>
-                                <span class="label-icon">Company</span>
+                                <span class="label-icon" id="drop1">Company</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
         
-                    <input type="text" class="form-control" id="myInput1" onkeyup="sort1()" placeholder="Search for..">
-                
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-search btn-default">
-                        GO
-                        </button>
-                         
-                         
-                    </div>
+                    <input type="text" class="form-control" id="myInput1" onkeyup="sort1()" placeholder="Type here..">
+              
                 </div>  
             </form>   
          

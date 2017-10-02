@@ -10,19 +10,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <head>
 <script>
+
 $(document).ready(function(){
-	$(".disB").click(function(){
-		console.log($(this).attr('id'));
-		$.post("DeletePairServlet",
-		        {
-		          pairId: $(this).attr('id'),
-		        },
-		        function(data,status){
-		        	//if data is -1 something is wrong
-		            $("#"+data).parent().parent().remove();
-		        });
-		
-	});
+
 	 $(".button-fill").hover(
    		  function() {
    			    $(this).children(".button-inside").addClass("full");
@@ -34,7 +24,20 @@ $(document).ready(function(){
 	
 });
 
-  
+function goBack() {
+    window.history.back();
+}
+</script>
+<script>
+
+function  getId(note1,note2,note3,note4) {
+
+	document.getElementById("note1").innerHTML=note1;
+	document.getElementById("note2").innerHTML=note2;
+	document.getElementById("note3").innerHTML=note3;
+	document.getElementById("note4").innerHTML=note4;
+	
+}
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
@@ -42,7 +45,7 @@ $(document).ready(function(){
 
 
 h1{
-  font-size: 40px;
+    font-size: 37px;
   letter-spacing: 8px;
   text-shadow: 2px 4px 4px #CCCCCC;
   color: #fff;
@@ -50,6 +53,19 @@ h1{
   font-weight: 300;
   text-align: center;
   margin-bottom: 15px;
+  position: absolute;
+	top:5%;
+	right:0;
+	left:90px;
+}
+h4{
+  font-size: 40px;
+  text-shadow: 2px 4px 4px #CCCCCC;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 100;
+  text-align: center;
+  margin-bottom: 10px;
 }
 table{
   width:100%;
@@ -196,7 +212,7 @@ div.icon-bar{
 	bottom:0;
 }
 h1{
-	position: absolute;
+
 	top:5%;
 	right:0;
 	left:90px;
@@ -272,6 +288,30 @@ outline: none !important;
   -ms-transform: translateX(50%);
   transform: translateX(50%);
 }
+
+#goBack{
+	font-size: 50px;
+	color: #fff;
+	margin-bottom: 20px;
+}
+.modal-content{
+	width:500px;
+	height:500px;
+	
+	margin-left:200px;
+}
+.modal-header{
+	border-bottom-width: 0px;
+}
+.close{
+	position: absolute;
+	right:0;
+	top:0;
+	margin-right:10px;
+	margin-top:10px;
+}
+
+
 </style>
 <body>
 
@@ -286,18 +326,32 @@ outline: none !important;
 		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
 	</div>
 </nav>
-	<h1>Pairs</h1>
+	
+	
+<h1>
+Mentor: 
+ <c:out value="${Mentor.firstName}"></c:out>
+		 <c:out value="${Mentor.lastName}"></c:out>, 
+	 <c:out value="${Mentor.phoneNumber}"></c:out>
+<br>
+Mentee: 
+		 <c:out value="${Mentee.firstName}"></c:out>
+		  <c:out value="${Mentee.lastName}"></c:out>, 
+	 <c:out  value="${Mentee.phoneNumber}"></c:out>
+</h1>
+
 <section>
+<i class="fa fa-arrow-left" aria-hidden="true" onclick="goBack()" id="goBack"></i>	
   <!--for demo wrap--> 
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Mentor Name</th>
-          <th>Mentee Name</th>
-          <th>Notification</th>
-          <th>Meetings </th>
-          <th>Disconnect </th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Meeting Type</th>
+          <th>Meeting subject</th>
+          <th>Reviews </th>
         </tr>
       </thead>
     </table>
@@ -305,38 +359,54 @@ outline: none !important;
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
-      <c:forEach var="pair" items="${pairs}" >
+      <c:forEach var="meeting" items="${Meetings}" >
         <tr>
-          <td ><c:out value="${pair.mentor}"></c:out></td>
-			<td><c:out value="${pair.mentee}"></c:out></td>
-			<td><c:out value="${pair.notifications}"></c:out></td>
-			 <td>   <a class="Meetings" href="GetMentorsAndMentees?pageName=meetings&id=${pair.id}" >
+          <td ><c:out value="${meeting.date}"></c:out></td>
+			<td><c:out value="${meeting.location}"></c:out></td>
+			<td><c:out value="${meeting.type}"></c:out></td>
+			<td><c:out value="${meeting.subject}"></c:out></td>
+			 <td>   <a class="cd-popup-trigger" href="#" data-toggle="modal" data-target="#myModal" onclick="getId('${meeting.note1}','${meeting.note2}','${meeting.note3}','${meeting.note4}');">
   <div class="button-fill grey">
-    <div class="button-text">Meetings</div>
+    <div class="button-text">Reviews</div>
     <div class="button-inside">
-      <div class="inside-text">Meetings</div>
+      <div class="inside-text">Reviews</div>
     </div>
     </div>
     </a>
     </td>
-          <td>   <a class="disB" href="#" id="${pair.mentee}">
-  <div class="button-fill grey">
-    <div class="button-text">Disconnect</div>
-    <div class="button-inside">
-      <div class="inside-text">Disconnect</div>
+    <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        
+        <div class="modal-body">
+      
+        <b>Mentor's Review:</b>  <p id="note1"></p>
+        <b>Mentee's Review:</b>  <p id="note2"> </p>
+        <b>Mentor's Review to Tsofen member:</b>  <p id="note3"></p>
+        <b>Mentee's Review to Tsofen member:</b>  <p id="note4"></p>
+         
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
     </div>
-    </div>
-    </a>
-    </td>
+  </div>
+
         </tr>
+        
         </c:forEach>
+        
       </tbody>
     </table>
   </div>
 
- <a class="btn btn-block btn-primary" href="GetMentorsAndMentees?pageName=addPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
+
 
 </section>
 </body>
 </html> 
-
