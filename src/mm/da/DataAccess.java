@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
@@ -42,7 +41,7 @@ public class DataAccess implements DataInterface {
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectPairId = "Select * From pair Where id=?";
-	final String updateActiveStatus = "UPDATE pairs SET active=0 WHERE pairsId=?";
+	final String updateActiveStatus = "UPDATE pairs SET activeStatus=0 WHERE pairsId=?";
 	final String selectMeeting = "Select * From activity where mentoId=? ";
 	final String selectMeeting2 = "Select * From activity where menteeId=? ";
 	final String addUserSession = "INSERT INTO session (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
@@ -667,34 +666,34 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public boolean addMeeting(Meeting meeting) throws SQLException {
-PreparedStatement stm = c.prepareStatement(addMeeting);
-	
-		
-		stm.setInt(1, meeting.getPairId());
-		stm.setInt(2,meeting.getMentorId());
-		stm.setInt(3, meeting.getMenteeId());
-
-		stm.setString(4, meeting.getNote());
-		stm.setInt(5, Integer.valueOf(meeting.getStatus().ordinal()));
-		stm.setString(6, meeting.getMenteeReport());
-		stm.setString(7, meeting.getMentorReport());
-		stm.setString(8, meeting.getMenteePrivateReport());
-		stm.setString(9, meeting.getMentorPrivateReport());
-		stm.setInt(10, Integer.valueOf(meeting.getMeetingType().ordinal()));
-		stm.setString(11,meeting.getSubject());
-		stm.setString(12,meeting.getLocation());
-		stm.setLong(13,meeting.getDate());
-		stm.setString(14,meeting.getStartingDate().toString());
-		stm.setString(15,meeting.getEndingDate().toString());
-		stm.setBoolean(16,meeting.getMentorComplete());
-		stm.setBoolean(17,meeting.getMenteeComplete());
-		
-		stm.executeUpdate();
-
-	
-		return false;
-		
+	public boolean addMeeting(Meeting meeting) {
+		try
+		{
+			PreparedStatement stm = c.prepareStatement(addMeeting);
+			stm.setInt(1, meeting.getPairId());
+			stm.setInt(2,meeting.getMentorId());
+			stm.setInt(3, meeting.getMenteeId());
+			stm.setString(4, meeting.getNote());
+			stm.setInt(5, Integer.valueOf(meeting.getStatus().ordinal()));
+			stm.setString(6, meeting.getMenteeReport());
+			stm.setString(7, meeting.getMentorReport());
+			stm.setString(8, meeting.getMenteePrivateReport());
+			stm.setString(9, meeting.getMentorPrivateReport());
+			stm.setInt(10, Integer.valueOf(meeting.getMeetingType().ordinal()));
+			stm.setString(11,meeting.getSubject());
+			stm.setString(12,meeting.getLocation());
+			stm.setLong(13,meeting.getDate());
+			stm.setString(14,meeting.getStartingDate().toString());
+			stm.setString(15,meeting.getEndingDate().toString());
+			stm.setBoolean(16,meeting.getMentorComplete());
+			stm.setBoolean(17,meeting.getMenteeComplete());
+			stm.executeUpdate();
+		} 
+		catch (SQLException e) 
+		{
+			return false;
+		}
+		return true;	
 	}
 
 	@Override
@@ -807,12 +806,11 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		return false;
 	}
 
-	@Override
-	public List<Meeting> getUserMeetingsOfStatus(int id,
-			meetingStatus meetingStatus) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<Meeting> getUserMeetingsOfStatus(int id,meetingStatus meetingStatus) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public ArrayList<Meeting> getMeetingByStatus(int userId, meetingStatus status, int count, int page)
