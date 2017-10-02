@@ -781,32 +781,38 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		return menteesList;
 		
 	}
-
-	@Override
-	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
-		Mentor u=null;
-		ArrayList<Mentor> mentorList = new ArrayList<Mentor>();
-		Statement stm3 = c.createStatement();
-		stm3.executeQuery(getAllMentorsWithoutMentees);
-		ResultSet r2 = stm3.getResultSet();
-		while (r2.next()) {
-			u = new Mentor(r2.getInt(1), r2.getString(3), r2.getString(4),
-					r2.getString(5), r2.getString(6), r2.getString(7),
-					r2.getInt(8), r2.getString(9), r2.getString(10),
-					r2.getString(11), r2.getBoolean(12), userType.MENTOR,
-					r2.getString(2), r2.getString(3), r2.getInt(4),
-					r2.getString(5), r2.getString(6));
-			mentorList.add(u);
-		}
-		
-		return mentorList;	
-}
-
-	@Override
-	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//
+//	@Override
+//	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
+//		Mentor u=null;
+//		ArrayList<Mentor> mentorList = new ArrayList<Mentor>();
+//		Statement stm3 = c.createStatement();
+//		stm3.executeQuery(getAllMentorsWithoutMentees);
+//		ResultSet r2 = stm3.getResultSet();
+//		while (r2.next()) {
+//			u = new Mentor(r2.getInt(1), r2.getString(3), r2.getString(4),
+//					r2.getString(5), r2.getString(6), r2.getString(7),
+//					r2.getInt(8), r2.getString(9), r2.getString(10),
+//					r2.getString(11), r2.getBoolean(12), userType.MENTOR,
+//					r2.getString(2), r2.getString(3), r2.getInt(4),
+//					r2.getString(5), r2.getString(6));
+//			mentorList.add(u);
+//		}
+//		
+//		return mentorList;	
+//}
+//
+//	@Override
+//	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException {
