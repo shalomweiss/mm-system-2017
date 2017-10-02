@@ -99,8 +99,12 @@ public class AddMentee extends HttpServlet {
 		}
 		if (!res)
 			response.getWriter().append("Fails to add a mentee");
-
-		response.setContentType("text/html");
-	//	req.forward(request, response);
+		
+		
+		req = request.getRequestDispatcher("GetAllMentees");
+		
+		
+		
+		req.forward(request, response);
 	}
 }
