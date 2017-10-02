@@ -4,7 +4,7 @@ public class Mentee extends User {
 
 	private float remainingSemesters;
 	private String graduationStatus;
-	private String academiclnstitution;
+	private int academiclnstitution;
 	private float average;
 	private String academicDicipline;
 	private String academicDicipline2;
@@ -19,7 +19,7 @@ public class Mentee extends User {
 
 	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
 			int gender, String address, String profilePicture, String note, boolean active, userType type, float remainingSemesters,
-			String graduationStatus, String academiclnstitution, float average, String academicDicipline,
+			String graduationStatus, int academiclnstitution, float average, String academicDicipline,
 			String academicDicipline2, boolean signedEULA, String resume, String gradeSheet) {
 		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
 		this.remainingSemesters = remainingSemesters;
@@ -50,11 +50,11 @@ public class Mentee extends User {
 		this.graduationStatus = graduationStatus;
 	}
 
-	public String getAcademiclnstitution() {
+	public int getAcademiclnstitution() {
 		return academiclnstitution;
 	}
 
-	public void setAcademiclnstitution(String academiclnstitution) {
+	public void setAcademiclnstitution(int academiclnstitution) {
 		this.academiclnstitution = academiclnstitution;
 	}
 

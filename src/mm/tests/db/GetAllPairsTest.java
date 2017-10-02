@@ -13,16 +13,15 @@ public class GetAllPairsTest {
 
 	static DataAccess da;
 
-	public void GetAllPairsTest() {
-	}
+	
 
 	public static void main(String[] args) throws SQLException {
 		da = new DataAccess();
-		Mentor m1 = new Mentor(0, "yara", "rohana", "yara.rohana@gmail.com", "125", "blabla", 1, "Haifa", "okay", "pic",
+		Mentor m1 = new Mentor(0, "sara", "rohana", "sara.rohana@gmail.com", "125", "blabla", 1, "Haifa", "okay", "pic",
 				true, userType.MENTOR, "none", "Student", 2, "yes", "none");
 
-		Mentee m2 = new Mentee(0, "rachel", "green", "rachelgreen@gmail.com", "125", "blabla", 1, "Haifa", "pic",
-				"okay", true, userType.MENTEE, (float) 1, "not yet", "University of Haifa", (float) 90,
+		Mentee m2 = new Mentee(0, "rachell", "green", "rachellgreen@gmail.com", "125", "blabla", 1, "Haifa", "pic",
+				"okay", true, userType.MENTEE, (float) 1, "not yet", 1, (float) 90,
 				"Computer Science", "nope", false, "file", "file");
 		boolean res1=da.addUser(m1);
 		if(res1)System.out.println("mentor added successfully");

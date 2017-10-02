@@ -35,65 +35,63 @@ public class AddMentee extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ")
-				.append(request.getContextPath());
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String nextPage=request.getParameter("jsp");
+		String nextPage = request.getParameter("jsp");
 		String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
 		String uEmail = request.getParameter("uEmail");
-		int uGender = Integer.parseInt( request.getParameter("uGender"));
+		int uGender = Integer.parseInt(request.getParameter("uGender"));
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
 		String uCourseOfStudy = request.getParameter("uCourseOfStudy");
-		String uAcademicInstitution = request.getParameter("uAcademicInstitution");
+		int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		String uRemSemesters = request.getParameter("uRemSemesters");
 		String uAverage = request.getParameter("uAverage");
 		String uNotes = request.getParameter("uNotes");
-		String academicDicipline =request.getParameter("uAcademicDicipline");
-		String academicDicipline2=request.getParameter("uAcademicDicipline2");
-		String isGraduate=request.getParameter("uIsGraduate");
-		String resume=request.getParameter("uResume");
-		String gradeSheet=request.getParameter("uGradeSheet");
-		String profilePicture=request.getParameter("profilePicture");
-		
-		float remSemesters=Float.valueOf(uRemSemesters);
-		float avg=Float.valueOf(uAverage);
-		
-		boolean isGradute=Boolean.parseBoolean(isGraduate);
-		String uPass= GeneratePass.getSaltString();	 
-		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,isGradute,resume,gradeSheet );
-		
-		
+		String academicDicipline = request.getParameter("uAcademicDicipline");
+		String academicDicipline2 = request.getParameter("uAcademicDicipline2");
+		String isGraduate = request.getParameter("uIsGraduate");
+		String resume = request.getParameter("uResume");
+		String gradeSheet = request.getParameter("uGradeSheet");
+		String profilePicture = request.getParameter("profilePicture");
+		float remSemesters = Float.valueOf(uRemSemesters);
+		float avg = Float.valueOf(uAverage);
+		boolean isGradute = Boolean.parseBoolean(isGraduate);
+		String uPass = GeneratePass.getSaltString();
+		User newMentee = new Mentee(0, uFirstName, uLastName, uEmail, uPhoneNumber, uPass, uGender, uAddress,
+				profilePicture, uNotes, true, userType.MENTEE, remSemesters, uGraduationStatus, uAcademicInstitution,
+				avg, academicDicipline, academicDicipline2, isGradute, resume, gradeSheet);
+
 		DataAccess da = new DataAccess();
-		RequestDispatcher req=null;
-	    boolean res=false;
-	
+		RequestDispatcher req = null;
+		boolean res = false;
+
 		try {
 			res = da.addUser(newMentee);
 		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
+			// // TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(res){
-			 req = request.getRequestDispatcher(nextPage);
+		if (res) {
+			req = request.getRequestDispatcher(nextPage);
 		}
-		if(!res)
+		if (!res)
 			response.getWriter().append("Fails to add a mentee");
-	
+
 		response.setContentType("text/html");
 		req.forward(request, response);
 	}
-	}
+}

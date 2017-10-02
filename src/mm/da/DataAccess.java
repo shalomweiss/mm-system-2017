@@ -38,7 +38,7 @@ public class DataAccess implements DataInterface {
 	final String updateUserMentee = "UPDATE mentees SET remainingSemesters=?, graduationStatus=?, academicInstitute=?, average=?, academicDicipline1=?, academicDecipline2=?, isGuarantee=?, resume=?, gradeSheet=? WHERE id=?";
 	final String deactivateUser = "UPDATE users SET active=0 WHERE id=?";
 	final String addBaseUser = "INSERT INTO users (type, firstName, lastName, email, phoneNumber, password, gender, address, notes, profilePicture, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDicipline2, signedEULA, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectPairId = "Select * From pair Where id=?";
@@ -223,7 +223,7 @@ public class DataAccess implements DataInterface {
 		{
 			System.out.println("rs.next(): " + rs.getString(3));
 		
-			return false;
+		//	return false;
 		}
 		PreparedStatement stm2 = c.prepareStatement(addBaseUser);
 		stm2.setInt(1, u.getType().getValue());
@@ -274,11 +274,12 @@ public class DataAccess implements DataInterface {
 			stm4.setFloat(2, ((Mentee) u).getRemainingSemesters());
 			stm4.setString(3, ((Mentee) u).getGraduationStatus());
 			stm4.setString(4, ((Mentee) u).getAcademiclnstitution());
-			stm4.setString(5, ((Mentee) u).getAcademicDicipline());
-			stm4.setString(6, ((Mentee) u).getAcademicDicipline2());
-			stm4.setInt(7, ((Mentee) u).isGuarantee() ? 1 : 0);
-			stm4.setString(8, ((Mentee) u).getResume());
-			stm4.setString(9, ((Mentee) u).getGradeSheet());
+			stm4.setFloat(5, ((Mentee) u).getAverage());
+			stm4.setString(6, ((Mentee) u).getAcademicDicipline());
+			stm4.setString(7, ((Mentee) u).getAcademicDicipline2());
+			stm4.setInt(8, ((Mentee) u).getSignedEULA() ? 1 : 0);
+			stm4.setString(9, ((Mentee) u).getResume());
+			stm4.setString(10, ((Mentee) u).getGradeSheet());
 			stm4.executeUpdate();
 			return true;
 		}
