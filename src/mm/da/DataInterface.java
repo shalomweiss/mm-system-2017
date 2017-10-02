@@ -3,14 +3,18 @@ package mm.da;
 
 
 import mm.model.Meeting;
+import mm.model.Meeting.meetingStatus;
 import mm.model.Mentee;
 import mm.model.Mentor;
 import mm.model.Pair;
 import mm.model.Session;
 import mm.model.User;
 import mm.model.User.userType;
+import mm.model.WorkPlace;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface DataInterface{
 
@@ -51,7 +55,7 @@ public interface DataInterface{
 
 		
 //	public ArrayList<Mentee> getMenteesWithOutMentor();
-//	public boolean addWorkPlace(WorkPlace workplace);
+	public boolean addWorkPlace(WorkPlace workplace);
 
 	public boolean addMeeting(Meeting meeting) throws SQLException;
 	
@@ -78,6 +82,7 @@ public interface DataInterface{
 	
 	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException;
 	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException;
+	public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page)throws SQLException;
 	
 	
 

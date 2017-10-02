@@ -1,10 +1,10 @@
-CREATE DATABASE  IF NOT EXISTS `db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE  IF NOT EXISTS `db` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `db`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: db
+-- Host: aa16lmxbq1txb0j.coi6zcmnhpte.us-east-2.rds.amazonaws.com    Database: db
 -- ------------------------------------------------------
--- Server version	5.7.19-log
+-- Server version	5.6.35-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -102,7 +102,7 @@ CREATE TABLE `mentees` (
   `academicInstitute` int(11) NOT NULL,
   `average` float DEFAULT NULL,
   `academicDicipline1` varchar(45) DEFAULT NULL,
-  `academicDecipline2` varchar(45) DEFAULT NULL,
+  `academicDicipline2` varchar(45) DEFAULT NULL,
   `signedEULA` tinyint(4) DEFAULT NULL,
   `resume` varchar(254) DEFAULT NULL,
   `gradeSheet` varchar(254) DEFAULT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE `mentees` (
 
 LOCK TABLES `mentees` WRITE;
 /*!40000 ALTER TABLE `mentees` DISABLE KEYS */;
-INSERT INTO `mentees` VALUES (4,2,0,1,87,'cs',NULL,0,NULL,NULL),(5,4,0,2,93,'cs',NULL,0,NULL,NULL),(6,3,0,4,98,'is',NULL,0,NULL,NULL);
+INSERT INTO `mentees` VALUES (4,2,0,1,87,'cs',NULL,0,NULL,NULL),(5,4,0,2,93,'cs',NULL,0,NULL,NULL),(6,3,0,4,98,'is',NULL,0,NULL,NULL),(13,2,0,1,99,'cs',NULL,0,NULL,NULL);
 /*!40000 ALTER TABLE `mentees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +150,7 @@ CREATE TABLE `mentors` (
 
 LOCK TABLES `mentors` WRITE;
 /*!40000 ALTER TABLE `mentors` DISABLE KEYS */;
-INSERT INTO `mentors` VALUES (8,NULL,NULL,5,NULL,NULL),(9,NULL,NULL,3,NULL,NULL),(10,NULL,NULL,6,NULL,NULL);
+INSERT INTO `mentors` VALUES (8,NULL,NULL,5,NULL,NULL),(9,NULL,NULL,3,NULL,NULL),(10,NULL,NULL,6,NULL,NULL),(13,'none','Student',2,'yes','none'),(14,'none','Student',2,'yes','none'),(15,'none','Student',2,'yes','none');
 /*!40000 ALTER TABLE `mentors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +175,7 @@ CREATE TABLE `pairs` (
   KEY `menteeID_pairs_idx` (`menteeId`),
   CONSTRAINT `menteeID_pairs` FOREIGN KEY (`menteeId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `mentorID_pairs` FOREIGN KEY (`mentorId`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,6 +184,7 @@ CREATE TABLE `pairs` (
 
 LOCK TABLES `pairs` WRITE;
 /*!40000 ALTER TABLE `pairs` DISABLE KEYS */;
+INSERT INTO `pairs` VALUES (1,8,4,1,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `pairs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +214,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('1','1',4,'2017-09-17 20:00:00','2017-10-17 20:00:00');
+INSERT INTO `sessions` VALUES ('1','1',4,'2017-09-17 20:00:00','2017-10-17 20:00:00'),('2','2',16,'2017-09-17 20:00:00','2017-10-17 20:00:00'),('3','3',16,'2017-09-17 20:00:00','2017-10-17 20:00:00'),('4','4',16,'2017-09-17 20:00:00','2017-10-17 20:00:00');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,7 +240,7 @@ CREATE TABLE `users` (
   `active` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,7 +249,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (4,1,'m7md','kn3ani','myk22','1234567','qweasd',0,'kaboul','',NULL,1),(5,1,'ayman','fa3our','ayfa','987654','zxcasd',0,'tarshi7a',NULL,NULL,0),(6,1,'maha','bsoul','mahab','21739864','jdsgf',1,'rene',NULL,NULL,0),(7,3,'nagham','ghantous','nghantous','3278569','jkgfbcnry',1,'nazareth',NULL,NULL,1),(8,2,'bill','gates','billie','287365','jkgncrf',0,'kaboul',NULL,NULL,1),(9,2,'mark','zack','brave.heart','45696','urnvcmcoiurn',0,'tamra',NULL,NULL,0),(10,2,'miranda','care','whocares','2345678','xvcvbn',1,'arraba',NULL,NULL,1);
+INSERT INTO `users` VALUES (4,3,'m7md','kn3ani','myk22','1234567','qweasd',0,'kaboul','',NULL,1),(5,3,'ayman','fa3our','ayfa','987654','zxcasd',0,'tarshi7a',NULL,NULL,0),(6,3,'maha','bsoul','mahab','21739864','jdsgf',1,'rene',NULL,NULL,0),(7,1,'nagham','ghantous','nghantous','3278569','jkgfbcnry',1,'nazareth',NULL,NULL,1),(8,2,'bill','gates','billie','287365','jkgncrf',0,'kaboul',NULL,NULL,1),(9,2,'mark','zack','brave.heart','45696','urnvcmcoiurn',0,'tamra',NULL,NULL,0),(10,2,'miranda','care','whocares','2345678','xvcvbn',1,'arraba',NULL,NULL,1),(13,2,'yara','rohana','yara.rohana@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(14,2,'ghada','awady','ghada.rohana@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(15,2,'jimmy','keth','jimmy.keth@gmail.com','125','blabla',1,'Haifa','okay','pic',1),(16,3,'Harry','Potter','test','123','test',0,'London',NULL,NULL,1),(17,2,'Sirius ','Snape','test2','123','test2',0,'Hogworts',NULL,NULL,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,4 +289,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-01 11:04:38
+-- Dump completed on 2017-10-02 11:29:56
