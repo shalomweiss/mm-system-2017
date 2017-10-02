@@ -39,7 +39,7 @@ public class GetAllMentees extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 
 		HttpServletResponse response) throws ServletException, IOException {
-		String NextPage = request.getParameter("jsp");
+	//	String NextPage = request.getParameter("jsp");
 		ArrayList<User> ArrMentees = new ArrayList<User>();
 	//	ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
@@ -49,9 +49,10 @@ public class GetAllMentees extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
+		//ArrMentees=getAllUsers();
 		request.setAttribute("Mentees", ArrMentees);
 		//just for testing:
-		System.out.println("Mentees: " + ArrMentees);
+		//System.out.println("Mentees: " + ArrMentees);
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentees);
 		//end test
@@ -72,7 +73,7 @@ public class GetAllMentees extends HttpServlet {
 	public ArrayList<User> getAllUsers() {
 
 		ArrayList<User> getUsers = new ArrayList<User>();
-		getUsers.add(new Mentee(0, "hseen", "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, "SSSSSSSSSS", 0, null, null, false, "LLLLLLL", null));
+		//getUsers.add(new Mentee(0, "hseen", "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, "SSSSSSSSSS", 0, null, null, false, "LLLLLLL", null));
 		
         
 		return getUsers;
