@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
@@ -808,6 +809,13 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 	public boolean addWorkPlace(WorkPlace workplace) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<Meeting> getUserMeetingsOfStatus(int id,
+			meetingStatus meetingStatus) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

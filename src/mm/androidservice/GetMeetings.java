@@ -82,34 +82,29 @@ public class GetMeetings extends HttpServlet {
 	
 		
 		
-		try {
-			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
-				
-				meetings=iom.getDataAccess().getUserMeetingsOfStatus(id,meetingStatus);
-				if(meetings==null) {
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+			
+			meetings=iom.getDataAccess().getUserMeetingsOfStatus(id,meetingStatus);
+			if(meetings==null) {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+			}
+			else {
+				///each meeting must not contain pairId, all reports,complete...
+				for(int i=0;i<meetings.size();i++) {
+					meetings.get(i).setPairId(0);
+					meetings.get(i).setMenteePrivateReport(null);
+					meetings.get(i).setMentorPrivateReport(null);
+					meetings.get(i).setMentorReport(null);
+					meetings.get(i).setMenteeReport(null);
+					meetings.get(i).setMenteeComplete(null);
+					meetings.get(i).setMentorComplete(null);
 				}
-				else {
-					///each meeting must not contain pairId, all reports,complete...
-					for(int i=0;i<meetings.size();i++) {
-						meetings.get(i).setPairId(0);
-						meetings.get(i).setMenteePrivateReport(null);
-						meetings.get(i).setMentorPrivateReport(null);
-						meetings.get(i).setMentorReport(null);
-						meetings.get(i).setMenteeReport(null);
-						meetings.get(i).setMenteeComplete(null);
-						meetings.get(i).setMentorComplete(null);
-					}
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-					iom.addResponseParameter("meetings", meetings);
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+				iom.addResponseParameter("meetings", meetings);
+			}
+				}else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 				}
-					}else {
-						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
-					}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		
 		iom.SendJsonResponse();
