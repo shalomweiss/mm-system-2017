@@ -293,7 +293,7 @@ public class DataAccess implements DataInterface {
 		case TSOFEN:
 
 			Statement stm = c.createStatement();
-			stm.executeQuery("select * from user where type =" + type);
+			stm.executeQuery("select * from users where type =" + type);
 			ResultSet r = stm.getResultSet();
 			while (r.next()) {
 				u = new TsofenT(r.getInt(1), r.getString(3), r.getString(4),
@@ -323,7 +323,7 @@ public class DataAccess implements DataInterface {
 		case MENTEE:
 
 			Statement stm3 = c.createStatement();
-			stm3.executeQuery("select * from user RIGHT JOIN mentee ON user.id = mentee.id");
+			stm3.executeQuery("select * from users RIGHT JOIN mentee ON user.id = mentee.id");
 			ResultSet r3 = stm3.getResultSet();
 			while (r3.next()) {
 				u = new Mentee(r3.getInt(1), r3.getString(3), r3.getString(4),
