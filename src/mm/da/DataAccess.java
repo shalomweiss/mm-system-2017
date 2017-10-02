@@ -178,7 +178,7 @@ public class DataAccess implements DataInterface {
 			stm4.setString(3, ((Mentee) user).getAcademiclnstitution());
 			stm4.setString(4, ((Mentee) user).getAcademicDicipline());
 			stm4.setString(5, ((Mentee) user).getAcademicDicipline2());
-			stm4.setInt(6, ((Mentee) user).isGuarantee() ? 1 : 0);
+			stm4.setInt(6, ((Mentee) user).signedEULA() ? 1 : 0);
 			stm4.setString(7, ((Mentee) user).getResume());
 			stm4.setString(8, ((Mentee) user).getGradeSheet());
 			stm4.setInt(9, user.getId());
