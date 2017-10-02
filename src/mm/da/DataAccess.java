@@ -1,6 +1,7 @@
 package mm.da;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,10 +10,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
-
 import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
 import mm.model.Meeting.meetingType;
+
 import mm.model.Mentee;
 import mm.model.Mentor;
 import mm.model.Pair;
@@ -40,6 +41,7 @@ public class DataAccess implements DataInterface {
 	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
+	//TODO -- update query
 	final String selectPairId = "Select * From pair Where id=?";
 	final String selectMeeting = "Select * From activity where mentoId=? ";
 	final String selectMeeting2 = "Select * From activity where menteeId=? ";
@@ -53,9 +55,10 @@ public class DataAccess implements DataInterface {
 			+ "as m ON user.id = m.id as m where m.id  in (select mentorId from pairs	"
 			+ "where mentorId = m.id  and activeStatus = 0	) or	"
 			+ "NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
-    
-     public DataAccess() {
-	
+    final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
+    final String getMeetings2 = "Select * From activites where menteeId=?AND status=? ORDER BY date DESC LIMIT ?, ? ";
+    public DataAccess() {
+	 
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
@@ -445,7 +448,7 @@ public class DataAccess implements DataInterface {
 	@Override
 	public boolean disconnectPair(int pairId) throws SQLException {
 		PreparedStatement stm = c.prepareStatement(selectPairId);
-
+//TODO update change 3shan t3'yer bl database
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
 
@@ -514,13 +517,13 @@ public class DataAccess implements DataInterface {
 					rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
 			switch (rs.getInt(6)/* meetingStatus */) {
 			case 0: // PENDING
-				meet.setStatus(meetingStatus.PENDING);
+				
 				break;
 			case 1: // APPRVED
-				meet.setStatus(meetingStatus.APPROVED);
+				
 				break;
 			case 2: // COMPLETE
-				meet.setStatus(meetingStatus.COMPLETE);
+				
 				break;
 			default: // ERROR
 				break;
@@ -553,13 +556,13 @@ public class DataAccess implements DataInterface {
 						rs1.getTime(16), rs1.getBoolean(17), rs1.getBoolean(18));
 				switch (rs1.getInt(6)/* meetingStatus */) {
 				case 0: // PENDING
-					meet.setStatus(meetingStatus.PENDING);
+				
 					break;
 				case 1: // APPRVED
-					meet.setStatus(meetingStatus.APPROVED);
+				
 					break;
 				case 2: // COMPLETE
-					meet.setStatus(meetingStatus.COMPLETE);
+					
 					break;
 				default: // ERROR
 					break;
@@ -625,13 +628,13 @@ public class DataAccess implements DataInterface {
 
 			switch (rs.getInt(6)/* meetingStatus */) {
 			case 0: // PENDING
-				m.setStatus(meetingStatus.PENDING);
+			
 				break;
 			case 1: // APPRVED
-				m.setStatus(meetingStatus.APPROVED);
+				
 				break;
 			case 2: // COMPLETE
-				m.setStatus(meetingStatus.COMPLETE);
+				
 				break;
 			default: // ERROR
 				break;
@@ -734,13 +737,13 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		  
 		  switch (rs.getInt(6)/* meetingStatus */) {
 			case 0: // PENDING
-				meeting.setStatus(meetingStatus.PENDING);
+				
 				break;
 			case 1: // APPRVED
-				meeting.setStatus(meetingStatus.APPROVED);
+			
 				break;
 			case 2: // COMPLETE
-				meeting.setStatus(meetingStatus.COMPLETE);
+			
 				break;
 			default: // ERROR
 				break;
@@ -841,7 +844,49 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+    public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page) throws SQLException
+    {
+    	ArrayList<Meeting>m=null;
+    	
+    	PreparedStatement stm =null; 
+	
+    	userType type = getUser(userId).getType();
+    	if (type == userType.MENTEE) 
+    	{
+    		stm=c.prepareStatement(getMeetings2);
+    		
+    	}
+    	
+    	if(type == userType.MENTOR) 
+    	{
+    		stm=c.prepareStatement(getMeetings1);		
+    	}
+    	if(stm!=null)
+    	{
+    		ResultSet rs=stm.executeQuery();
+    		stm.setInt(1,userId);
+    		stm.setInt(2, status.getValue());
+    		stm.setInt(3, (page-1)*(count));
+    		stm.setInt(4, count);
+    		
+    		m=new ArrayList<>();
+    		while (rs.next())
+    		{
+    		 	Meeting meet = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
+    					rs.getInt(4), rs.getString(5),status, rs.getString(7),
+    					rs.getString(8), rs.getString(9), rs.getString(10),
+    					meetingType.getByValue(rs.getInt(11)), rs.getString(12),
+    					rs.getString(13), rs.getLong(14), rs.getTime(15),
+    					rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
+    		 	m.add(meet);
+    		}
+    		
+    	} 
+		return m;
+    	
+    }
+  
+    
 
 }
 
