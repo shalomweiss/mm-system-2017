@@ -839,80 +839,39 @@ public class DataAccess implements DataInterface {
 	// }
 
 	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page) throws SQLException
-
-	{
-
+	public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page) throws SQLException{
 		ArrayList<Meeting>m=null;
-
-
-
 		PreparedStatement stm =null; 
-
-
 
 		userType type = getUser(userId).getType();
 
 		if (type == userType.MENTEE) 
-
 		{
-
 			stm=c.prepareStatement(getMeetings2);
-
-
-
 		}
-
-
-
 		if(type == userType.MENTOR) 
-
 		{
-
 			stm=c.prepareStatement(getMeetings1);    
-
 		}
-
 		if(stm!=null)
-
 		{
-
-			ResultSet rs=stm.executeQuery();
 
 			stm.setInt(1,userId);
-
-			stm.setInt(2, status.getValue());
-
+			stm.setInt(2, status.ordinal());
 			stm.setInt(3, (page-1)*(count));
-
 			stm.setInt(4, count);
-
-
-
-			m=new ArrayList<>();
-
+			ResultSet rs=stm.executeQuery();
+			m=new ArrayList<Meeting>();
 			while (rs.next())
-
 			{
-
 				Meeting meet = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
-
 						rs.getInt(4), rs.getString(5),status, rs.getString(7),
-
 						rs.getString(8), rs.getString(9), rs.getString(10),
-
 						meetingType.getByValue(rs.getInt(11)), rs.getString(12),
-
 						rs.getString(13), rs.getLong(14), rs.getTime(15),
-
 						rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
-
 				m.add(meet);
-
 			}
-
-
-
 		} 
 
 		return m;

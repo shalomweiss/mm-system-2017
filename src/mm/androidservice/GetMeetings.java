@@ -102,8 +102,8 @@ public class GetMeetings extends HttpServlet {
 					meetings.get(i).setMentorPrivateReport(null);
 					meetings.get(i).setMentorReport(null);
 					meetings.get(i).setMenteeReport(null);
-					meetings.get(i).setMenteeComplete(null);
-					meetings.get(i).setMentorComplete(null);
+//					meetings.get(i).setMenteeComplete(null);
+//					meetings.get(i).setMentorComplete(null);
 					
 					
 				}
