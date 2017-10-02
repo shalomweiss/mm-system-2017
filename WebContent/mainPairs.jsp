@@ -205,7 +205,7 @@ outline: none !important;
 <body>
 <nav class="icon-bar">
 	<div class="icon-bar">
-		  <a href="#"><i class="fa fa-home"></i></a> 
+		  <a href="ForwardPath?jsp=welcome.jsp"><i class="fa fa-home"></i></a> 
 		  <a href="#"><i class="fa fa-black-tie"></i></a> 
 		  <a  href="#"><i class="fa fa-graduation-cap"></i></a> 
 		  <a class="active" href="#"><i class="fa fa-group"></i></a>

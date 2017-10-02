@@ -82,12 +82,12 @@ public class Mentee extends User {
 		this.academicDicipline2 = academicDicipline2;
 	}
 
-	public boolean signedEULA() {
+	public boolean getSignedEULA() {
 		return signedEULA;
 	}
 
-	public void setGuarantee(boolean isGuarantee) {
-		this.signedEULA = isGuarantee;
+	public void setSignedEULA(boolean signedEULA) {
+		this.signedEULA = signedEULA;
 	}
 
 	public String getGradeSheet() {
