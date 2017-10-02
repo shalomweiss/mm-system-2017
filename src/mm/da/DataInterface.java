@@ -82,8 +82,7 @@ public interface DataInterface{
 	
 	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException;
 	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException;
-
-	public List<Meeting> getUserMeetingsOfStatus(int id, meetingStatus meetingStatus);
+	public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page)throws SQLException;
 	
 	
 

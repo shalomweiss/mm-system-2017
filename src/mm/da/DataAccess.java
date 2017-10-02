@@ -807,9 +807,16 @@ PreparedStatement stm = c.prepareStatement(addMeeting);
 		return false;
 	}
 
+//	@Override
+//	public List<Meeting> getUserMeetingsOfStatus(int id,
+//			meetingStatus meetingStatus) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 	@Override
-	public List<Meeting> getUserMeetingsOfStatus(int id,
-			meetingStatus meetingStatus) {
+	public ArrayList<Meeting> getMeetingByStatus(int userId, meetingStatus status, int count, int page)
+			throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -123,12 +123,5 @@ public class Mentee extends User {
 				+ ", getNote()=" + getNote() + ", isActive()=" + isActive()
 				+ ", hashCode()=" + hashCode() + ", toString()="
 				+ super.toString() + ", getClass()=" + getClass() + "]";
-	}
-
-
-	
-	
-	
-	
-	
+	}  
 }
