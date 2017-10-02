@@ -61,51 +61,46 @@ public class GetMentees extends HttpServlet {
 		
 		
 
-			try {
-				if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
-				
+			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+			
 
-				try {
-					mentees=da.getMenteesOfMentor(id);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			try {
+				mentees=da.getMenteesOfMentor(id);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 
 if (mentees == null) {
 
-				//jsonUsers = new JsonUsers(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
+			//jsonUsers = new JsonUsers(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
 } else {
-				
-				//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
-				
-				
-					try {
-						mentees=iom.getDataAccess().getMenteesOfMentor(id);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-				
-				if (mentees == null) {
+			
+			//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
+			
+			
+				try {
+					mentees=iom.getDataAccess().getMenteesOfMentor(id);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+			
+			if (mentees == null) {
 
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-				} else {
-					
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-					iom.addResponseParameter("users", mentees);
-					
-					}
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+			} else {
+				
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+				iom.addResponseParameter("users", mentees);
+				
 				}
-				}
-				else {
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}
+			}
+			else {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 			}
 		
 
