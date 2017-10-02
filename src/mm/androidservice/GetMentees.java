@@ -70,12 +70,12 @@ public class GetMentees extends HttpServlet {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		
-		
-		if (mentees == null) {
+
+
+if (mentees == null) {
 
 			//jsonUsers = new JsonUsers(mentees, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
-		} else {
+} else {
 			
 			//jsonUsers =new JsonUsers(mentees,Constants.STATUS_SUCCESS,Constants.SUCCESS,token);
 			
