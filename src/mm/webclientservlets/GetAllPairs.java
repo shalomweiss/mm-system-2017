@@ -60,13 +60,19 @@ public class GetAllPairs extends HttpServlet {
 			 e.printStackTrace();
 			 }
 		
-//		for (Pair pair : pairsArray) {
-//			if (pair.getActiveStatus() == 1) {
-//				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
-//						pair.getPairId(), pair.getActiveStatus());
-//				pairsMainInfo.add(tmpPairInfo);
-//			}
-//		}
+		for (Pair pair : pairsArray) {
+			if (pair.getActiveStatus() == 1) {
+				try {
+					String name=da.getUser(pair.getMentor().getId()).getFirstName();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
+						pair.getPairId(), pair.getActiveStatus());
+				pairsMainInfo.add(tmpPairInfo);
+			}
+		}
 		request.setAttribute("pairs", pairsMainInfo);
 		System.out.println("Pairs: " + pairsArray);
 		PrintWriter writer = response.getWriter();

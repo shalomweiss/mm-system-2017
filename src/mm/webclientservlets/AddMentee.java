@@ -64,11 +64,15 @@ public class AddMentee extends HttpServlet {
 		String uNotes = request.getParameter("uNotes");
 		String academicDicipline =request.getParameter("uAcademicDicipline");
 		String academicDicipline2=request.getParameter("uAcademicDicipline2");
-		String isGraduate=request.getParameter("uIsGraduate");
-		String resume=request.getParameter("uResume");
-		String gradeSheet=request.getParameter("uGradeSheet");
-		String profilePicture=request.getParameter("profilePicture");
+//		String isGraduate=request.getParameter("uIsGraduate");
+//		String resume=request.getParameter("uResume");
+//		String gradeSheet=request.getParameter("uGradeSheet");
+//		String profilePicture=request.getParameter("profilePicture");
 		
+		String isGraduate=null;
+		String resume=null;
+		String gradeSheet=null;
+		String profilePicture=null;
 		float remSemesters=Float.valueOf(uRemSemesters);
 		float avg=Float.valueOf(uAverage);
 		
