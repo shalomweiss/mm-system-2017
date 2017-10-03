@@ -307,10 +307,10 @@ outline: none !important;
       <tbody>
       <c:forEach var="pair" items="${pairs}" >
         <tr>
-          <td ><c:out value="${pair.mentor}"></c:out></td>
-			<td><c:out value="${pair.mentee}"></c:out></td>
-			<td><c:out value="${pair.notifications}"></c:out></td>
-			 <td>   <a class="Meetings" href="GetMentorsAndMentees?pageName=meetings&id=${pair.id}" >
+          <td ><c:out value="${pair.mentorName}"></c:out></td>
+			<td><c:out value="${pair.menteeName}"></c:out></td>
+			<td><c:out value="${pair.activeStatus}"></c:out></td>
+			 <td>   <a class="Meetings" href="GetMentorsAndMentees?pageName=meetings&id=${pair.pairId}" >
   <div class="button-fill grey">
     <div class="button-text">Meetings</div>
     <div class="button-inside">
@@ -319,7 +319,7 @@ outline: none !important;
     </div>
     </a>
     </td>
-          <td>   <a class="disB" href="#" id="${pair.mentee}">
+          <td>   <a class="disB" href="#" id="${pair.menteeName}">
   <div class="button-fill grey">
     <div class="button-text">Disconnect</div>
     <div class="button-inside">

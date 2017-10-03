@@ -49,17 +49,16 @@ public class GetAllMentees extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-		//ArrMentees=getAllUsers();
+//		ArrMentees=getAllUsers();
 		request.setAttribute("Mentees", ArrMentees);
-		//just for testing:
-		//System.out.println("Mentees: " + ArrMentees);
-		PrintWriter writer = response.getWriter();
-		writer.println(ArrMentees);
-		//end test
-		response.setContentType("text/html");
+		//TODO : getAllAcadimicIns;
+	//	request.setAttribute("AcadimicIn", AcadimicIn); 
+	
+		System.out.println("Mentees: " + ArrMentees);
+	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
 		req.forward(request, response);
-		writer.close();
+		
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -68,12 +67,17 @@ public class GetAllMentees extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doGet(request,response);
 	}
 
 	public ArrayList<User> getAllUsers() {
 
 		ArrayList<User> getUsers = new ArrayList<User>();
-		//getUsers.add(new Mentee(0, "hseen", "D", "fff", "fffe","rrr", 0, null, null, null, false, null, 0, null, "SSSSSSSSSS", 0, null, null, false, "LLLLLLL", null));
+		Mentee m=new Mentee();
+		m.setFirstName("hseen");
+		m.setLastName("SSSS");
+		getUsers.add(m);
+		
 		
         
 		return getUsers;
