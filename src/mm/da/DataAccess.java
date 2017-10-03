@@ -823,9 +823,9 @@ public class DataAccess implements DataInterface {
 	@Override
 	public boolean addAcademicInstitute(AcademicInstitute a) {
 		PreparedStatement stm = c.prepareStatement(insertAcademicinstitute);
-		stm.setString(1, e.getName());
-		stm.setString(2, e.getArea());
-		stm.setString(3, e.getCity());
+		stm.setString(1, a.getName());
+		stm.setString(2, a.getArea());
+		stm.setString(3, a.getCity());
 		stm.executeUpdate();
 		return true;
 	}
