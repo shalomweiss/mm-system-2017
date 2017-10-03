@@ -64,6 +64,19 @@ public class Meeting
 	    public int getValue() {
 	        return value;
 	    }
+	    
+	    public static meetingStatus valueOf(int i) {
+	    	switch (i) {
+			case 0: // PHONE
+				return PENDING;
+			case 1: // FACE_TO_FACE
+				return meetingStatus.APPROVED;
+			case 2: // SMS
+				return meetingStatus.COMPLETE;
+			default:
+				return null;
+			}
+	    }
  }
 
 public Meeting(int meetingId, int pairId, int mentorId, int menteeId, String note, meetingStatus status,

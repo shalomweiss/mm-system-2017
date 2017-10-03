@@ -101,6 +101,7 @@ public interface DataInterface{
 	
 	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException;
 	
+	public ArrayList<Meeting> getMeetingByStatus(int userId,int status,int count,int page)throws SQLException;
 	
 	
 
