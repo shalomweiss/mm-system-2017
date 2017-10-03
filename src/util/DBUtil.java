@@ -20,6 +20,10 @@ public class DBUtil {
 			e.printStackTrace();
 
 		}
+////
+//		String url = "jdbc:mysql://aa16lmxbq1txb0j.coi6zcmnhpte.us-east-2.rds.amazonaws.com:3306/db";
+//		String username = "tsofendbmaster2";
+//		String password = "ESEahn57327";
 
 		String url = "jdbc:mysql://aa16lmxbq1txb0j.coi6zcmnhpte.us-east-2.rds.amazonaws.com:3306/db";
 		String username = "tsofendbmaster2";

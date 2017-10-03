@@ -38,9 +38,7 @@ public class AddMentee extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ")
-				.append(request.getContextPath());
-		System.out.println("addmentee");
+		doPost(request,response);
 	}
 
 	/**
@@ -66,11 +64,10 @@ public class AddMentee extends HttpServlet {
 		String uNotes = request.getParameter("uNotes");
 		String academicDicipline =request.getParameter("uAcademicDicipline");
 		String academicDicipline2=request.getParameter("uAcademicDicipline2");
-//		String isGraduate=request.getParameter("uIsGraduate");
-//		String resume=request.getParameter("uResume");
-//		String gradeSheet=request.getParameter("uGradeSheet");
-//		String profilePicture=request.getParameter("profilePicture");
-		
+	//	String isGraduate=request.getParameter("uIsGraduate");
+	//	String resume=request.getParameter("uResume");
+	//	String gradeSheet=request.getParameter("uGradeSheet");
+	//	String profilePicture=request.getParameter("profilePicture");
 		String isGraduate=null;
 		String resume=null;
 		String gradeSheet=null;
@@ -85,22 +82,24 @@ public class AddMentee extends HttpServlet {
 		
 		DataAccess da = new DataAccess();
 		RequestDispatcher req=null;
-	    boolean res=true;
+	    boolean res=false;
 	
-//		try {
-//			res = da.addUser(newMentee);
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			res = da.addUser(newMentee);
+		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(res){
-	//		 req = request.getRequestDispatcher(nextPage);
+			request.setAttribute("AddedSuc", 1);
 			System.out.println("USER IS ADDED SUCSSESS");
 		}
-		if (!res)
+		if (!res){
+			request.setAttribute("AddedSuc", 0);
 			response.getWriter().append("Fails to add a mentee");
-
-		response.setContentType("text/html");
-	//	req.forward(request, response);
+		}
+		
+		req=request.getRequestDispatcher("GetAllMentees");
+		req.forward(request, response);
 	}
 }
