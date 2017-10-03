@@ -54,6 +54,12 @@ public class AcademicInstitute {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+
+	@Override
+	public String toString() {
+		return "AcademicInstitute [id=" + id + ", name=" + name + ", area=" + area + ", city=" + city + "]";
+	}
 	
 	
 

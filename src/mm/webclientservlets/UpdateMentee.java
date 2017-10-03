@@ -70,6 +70,7 @@ public class UpdateMentee extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		request.setAttribute("status", status);
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
