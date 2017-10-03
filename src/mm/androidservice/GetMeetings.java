@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.sql.Time;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
+import mm.model.Meeting.meetingType;
 
 /**
  * Servlet implementation class GetMeetings
@@ -59,7 +61,7 @@ public class GetMeetings extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	/*protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
@@ -74,47 +76,57 @@ public class GetMeetings extends HttpServlet {
 		int count =  (myJson.get("count").isJsonNull() ? 0 : myJson.get("count").getAsInt());
 		int page =  (myJson.get("page").isJsonNull() ? 0 : myJson.get("page").getAsInt());
 	
+	
+		List<Meeting> meetings =new ArrayList<Meeting>();
 		
+		///////////////TEST////////////////
+		Time time =new Time(12, 12, 2017);
+		Meeting meeting= new Meeting(111,5,4,16,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017, time,time,false,false);
+		Meeting meeting2= new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false);
+		meetings.add(meeting);
+		meetings.add(meeting2);
+		iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+		////////////END OF TEST/////////////////////////
 		
-		//JsonMeeting jsonMeeting = null;
-		List<Meeting> meetings =null;
 		//DataInterface da = new DataAccess();
-		System.out.println("het");
 		
-		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
-			
-			try {
-				meetings=iom.getDataAccess().getMeetingByStatus(id, status, count, page);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if(meetings==null) {
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-			}
-			else {
-				///each meeting must not contain pairId, all reports,complete...
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-				
+		
+		
+//		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+//			
+//			try {
+//				meetings=iom.getDataAccess().getMeetingByStatus(id, meetingStatus, count, page);
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			if(meetings==null) {
+//				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+//			}
+//			else {
+//				///each meeting must not contain pairId, all reports,complete...
+//				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+//				
 				for(int i=0;i<meetings.size();i++) {
 					meetings.get(i).setPairId(0);
 					meetings.get(i).setMenteePrivateReport(null);
 					meetings.get(i).setMentorPrivateReport(null);
 					meetings.get(i).setMentorReport(null);
 					meetings.get(i).setMenteeReport(null);
-//					meetings.get(i).setMenteeComplete(null);
-//					meetings.get(i).setMentorComplete(null);
-					
-					
 				}
-				iom.addResponseParameter("meetings", meetings);
-			}
-				}else {
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
-				}
+////					meetings.get(i).setMenteeComplete(null);
+////					meetings.get(i).setMentorComplete(null);
+//					
+//					
+//				}
+			iom.addResponseParameter("meetings", meetings);
+//			}
+//				}else {
+//					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+//				}
 		
 		
 		iom.SendJsonResponse();
 	}
-*/
-}
+	}
+

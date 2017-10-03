@@ -53,8 +53,7 @@ public class GetProfile extends HttpServlet {
 		String token = myJson.get("token").getAsString();
 	
 			
-			DataInterface da = new DataAccess();
-			JsonUser jsonUser=null;
+			
 			User user=null;
 			
 			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
@@ -63,6 +62,7 @@ public class GetProfile extends HttpServlet {
 			
 			try {
 				user=iom.getDataAccess().getUser(id);
+				System.out.println(user.toString());
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -71,14 +71,12 @@ public class GetProfile extends HttpServlet {
 			if (user == null) {
 				System.out.println("");
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-				iom.addResponseParameter("code", Constants.STATUS_MISSINGPARA);
-				iom.addResponseParameter("message", Constants.SUCCESS);
-			} else {
 				
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+			} else {
 				iom.addResponseParameter("user", user);
-				iom.addResponseParameter("code", Constants.STATUS_SUCCESS);
-				iom.addResponseParameter("message", Constants.SUCCESS);
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+				
+				
 				
 				}
 			}
