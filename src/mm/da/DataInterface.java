@@ -1,7 +1,5 @@
 package mm.da;
 
-
-
 import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
 import mm.model.AcademicInstitute;
@@ -17,10 +15,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface DataInterface{
+public interface DataInterface {
 
 	/*
-	 *	Users db Requests
+	 * Users db Requests
 	 */
 	public User login(String email) throws SQLException;
 
@@ -33,7 +31,7 @@ public interface DataInterface{
 	public boolean addUser(User u) throws SQLException;
 
 	public boolean editUser(User u) throws SQLException;
-	
+
 	/*
 	 * Pairs db Requests
 	 */
@@ -45,71 +43,81 @@ public interface DataInterface{
 	public boolean disconnectPair(int pairId) throws SQLException;
 
 	public Pair getPair(int pairId) throws SQLException;
-	
+
 	/*
 	 * Sessions db Requests
 	 */
 
 	public ArrayList<Session> getUserSessions(int id) throws SQLException;
-	
+
 	public boolean startUserSession(Session session) throws SQLException;
-	public ArrayList<AcademicInstitute> getAllAcademiclnstitution()throws SQLException;
 
+	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() throws SQLException;
 
-		
-	
-	
-	
+	public ArrayList<Mentee> getMenteesWithOutMentor();
+
 	/*
 	 * Activities (Meetings) db Requests
 	 */
-	
+
 	public boolean addMeeting(Meeting meeting) throws SQLException;
 
 	public ArrayList<Meeting> getUserMeetings(int id) throws SQLException;
-	
+
 	public Meeting getMeetingById(int meetingId) throws SQLException;
-	
+
 	/**
 	 * before meeting , if the mentee approves
+	 * 
 	 * @param approvedMeeting
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean approveMeeting(int meetingId,boolean status) throws SQLException;
-	
-	
+	public boolean approveMeeting(int meetingId, boolean status) throws SQLException;
+
 	/**
-	 * if the meeting already passed - could be confirmed - not confirmed - did not happen
+	 * if the meeting already passed - could be confirmed - not confirmed - did
+	 * not happen
+	 * 
 	 * @param confirmedMeeting
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean confirmMeeting(int meetingId,boolean status) throws SQLException;
-	
+	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException;
+
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException;
 
-	public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page)throws SQLException;
-	
+	public ArrayList<Meeting> getMeetingByStatus(int userId, meetingStatus status, int count, int page)
+			throws SQLException;
+
 	/*
 	 * Util
 	 */
-	
+
 	public Mentor getMentorOfMentee(int menteeId) throws SQLException;
 
 	public ArrayList<Mentee> getMenteesOfMentor(int mentorId) throws SQLException;
-	
+
 	public boolean addWorkPlace(WorkPlace workplace);
 	
 	public boolean addAcademicInstitute(AcademicInstitute a) throws SQLException;
 
 	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException;
-	
+
 	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException;
 	
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException;
 	
 	
 		
+
+}
+
+	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException;
+
+	public ArrayList<User> getAllCorrespondingMentees(String address,String gender,String academicInstitution, boolean inPair,
+					 String academicDicipline1,String academicDicipline2);
+	
+	public ArrayList<User> getAllCorrespondingMentors(String address,String gender,String workPlace, boolean inPair);
 
 }
