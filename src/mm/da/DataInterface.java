@@ -53,6 +53,12 @@ public interface DataInterface{
 	public ArrayList<Session> getUserSessions(int id) throws SQLException;
 	
 	public boolean startUserSession(Session session) throws SQLException;
+	public ArrayList<AcademicInstitute> getAllAcademiclnstitution();
+
+
+		
+	public ArrayList<Mentee> getMenteesWithOutMentor();
+	
 	
 	/*
 	 * Activities (Meetings) db Requests
@@ -100,7 +106,7 @@ public interface DataInterface{
 	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException;
 	
 	public ArrayList<Mentor> getAllMentorsWithoutMentees() throws SQLException;
-	
+
 	public ArrayList<Meeting> getMeetingByStatus(int userId,int status,int count,int page)throws SQLException;
 	
 	

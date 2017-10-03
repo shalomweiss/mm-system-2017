@@ -78,7 +78,7 @@ public class GetAllPairs extends HttpServlet {
 		System.out.println("Pairs: " + pairsArray);
 		PrintWriter writer = response.getWriter();
 		response.setContentType("text/html");
-	    RequestDispatcher req = request.getRequestDispatcher("mainPairs.jsp");
+	    RequestDispatcher req = request.getRequestDispatcher("mainPair.jsp");
 	    req.forward(request, response);
 		writer.close();
 	}
