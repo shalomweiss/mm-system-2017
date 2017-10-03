@@ -114,14 +114,13 @@ public class Mentee extends User {
 				+ average + ", academicDicipline=" + academicDicipline
 				+ ", academicDicipline2=" + academicDicipline2
 				+ ", isGraduate=" + signedEULA + ", resume=" + resume
-				+ ", gradeSheet=" + gradeSheet + ", getType()=" + getType()
-				+ ", getId()=" + getId() + ", getFirstName()=" + getFirstName()
-				+ ", getLastName()=" + getLastName() + ", getEmail()="
-				+ getEmail() + ", getPhoneNumber()=" + getPhoneNumber()
-				+ ", getPassword()=" + getPassword() + ", getGender()="
-				+ getGender() + ", getAddress()=" + getAddress()
-				+ ", getNote()=" + getNote() + ", isActive()=" + isActive()
-				+ ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + "]";
+				+ ", gradeSheet=" + gradeSheet + ", Type=" + getType()
+				+ ", Id=" + getId() + ", FirstName=" + getFirstName()
+				+ ", LastName=" + getLastName() + ", Email="
+				+ getEmail() + ", PhoneNumber=" + getPhoneNumber()
+				+ ",Password=" + getPassword() + ", Gender="
+				+ getGender() + ", Address=" + getAddress()
+				+ ", Note=" + getNote() + ", isActive=" + isActive()
+				+ super.toString() + ", Class=" + getClass() + "]";
 	}  
 }
