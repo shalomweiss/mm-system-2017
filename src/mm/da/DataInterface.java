@@ -53,7 +53,7 @@ public interface DataInterface{
 	public ArrayList<Session> getUserSessions(int id) throws SQLException;
 	
 	public boolean startUserSession(Session session) throws SQLException;
-	public ArrayList<AcademicInstitute> getAllAcademiclnstitution();
+	public ArrayList<AcademicInstitute> getAllAcademiclnstitution()throws SQLException;
 
 
 		
@@ -101,7 +101,7 @@ public interface DataInterface{
 	
 	public boolean addWorkPlace(WorkPlace workplace);
 	
-	public boolean addAcademicInstitute(AcademicInstitute a);
+	public boolean addAcademicInstitute(AcademicInstitute a) throws SQLException;
 
 	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException;
 	
@@ -112,6 +112,6 @@ public interface DataInterface{
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException;
 	
 	
-	
+		
 
 }
