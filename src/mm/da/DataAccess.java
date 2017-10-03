@@ -31,7 +31,10 @@ public class DataAccess implements DataInterface {
 	final String selectLogin = "Select * From users where email=?"; 
 	final String selectLogin1 = "Select * From mentors where id=?"; 
 	final String selectLogin2 = "Select * From mentees where id=?";
+	final String selectByType = "Select * from users where type=?";
 	final String selectByID = "Select * From users where id=?";
+	final String selectMentor = "Select * from users RIGHT JOIN mentors ON users.id = mentors.id";
+	final String selectMentee = "Select * from users RIGHT JOIN mentees ON users.id = mentees.id";
 	final String sessionId = "Select * From sessions where userId=?"; //to check 
 	final String getMenteeofPair = "Select * From pairs where menteeId=?, activeStatus=?";
 	final String getMentorofPair = "Select * From pairs where mentorId=?, activeStatus=?";
@@ -43,6 +46,7 @@ public class DataAccess implements DataInterface {
 	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDicipline2, signedEULA, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
+	final String selectAllPairs = "Select * from pairs";
 	final String selectPairId = "Select * From pairs Where pairId=?";
 	final String updateActiveStatus = "UPDATE pairs SET activeStatus=0 WHERE pairId=?";
 	final String selectMeeting = "Select * From activities where mentorId=? ";
@@ -53,6 +57,7 @@ public class DataAccess implements DataInterface {
 	final String addMeeting = "INSERT INTO activities (pairId,mentorId,menteeId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u LEFT JOIN mentees as m ON u.id = m.id where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
 	final String getAllMentorsWithoutMentees = "select u.*,m.* from users as u LEFT JOIN mentors as m ON u.id = m.id  where m.id  in (select mentorId from pairs where mentorId = m.id  and activeStatus = 0	) or NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
+	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
 
 	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 
@@ -304,10 +309,9 @@ public class DataAccess implements DataInterface {
 		case ADMIN:
 			break;
 		case TSOFEN:
-
-			Statement stm = c.createStatement();
-			stm.executeQuery("select * from users where type =" + type);
-			ResultSet r = stm.getResultSet();
+			PreparedStatement stm = c.prepareStatement(selectByType);
+			stm.setInt(1, type.getValue());
+			ResultSet r = stm.executeQuery();
 			while (r.next()) {
 				u = new TsofenT(r.getInt(1), r.getString(3), r.getString(4), r.getString(5), r.getString(6),
 						r.getString(7), r.getInt(8), r.getString(9), r.getString(10), r.getString(11), r.getBoolean(12),
@@ -319,7 +323,7 @@ public class DataAccess implements DataInterface {
 		case MENTOR:
 
 			Statement stm2 = c.createStatement();
-			stm2.executeQuery("select * from users RIGHT JOIN mentors ON users.id = mentors.id");
+			stm2.executeQuery("selectMentor");
 			ResultSet r2 = stm2.getResultSet();
 			while (r2.next()) {
 				u = new Mentor(r2.getInt(1), r2.getString(3), r2.getString(4), r2.getString(5), r2.getString(6),
@@ -333,7 +337,7 @@ public class DataAccess implements DataInterface {
 		case MENTEE:
 
 			Statement stm3 = c.createStatement();
-			stm3.executeQuery("select * from users RIGHT JOIN mentees ON users.id = mentees.id");
+			stm3.executeQuery("selectMentee");
 			ResultSet r3 = stm3.getResultSet();
 			while (r3.next()) {
 				u = new Mentee(r3.getInt(DataContract.UsersTable.COL_ID),
@@ -446,7 +450,7 @@ public class DataAccess implements DataInterface {
 		Pair p = new Pair();
 		ArrayList<Pair> pair = new ArrayList<Pair>();
 		Statement stm = c.createStatement();
-		stm.executeQuery("select * from pairs");
+		stm.executeQuery("selectAllPairs");
 		ResultSet r = stm.getResultSet();
 
 		while (r.next()) {
@@ -818,12 +822,24 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public boolean addAcademicInstitute(AcademicInstitute a) {
-		// TODO Auto-generated method stub
-		return false;
+		PreparedStatement stm = c.prepareStatement(insertAcademicinstitute);
+		stm.setString(1, e.getName());
+		stm.setString(2, e.getArea());
+		stm.setString(3, e.getCity());
+		stm.executeUpdate();
+		return true;
 	}
 
 	@Override
 	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public ArrayList<Meeting> getMeetingByStatus(int userId,
+			meetingStatus status, int count, int page) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -834,11 +850,5 @@ public class DataAccess implements DataInterface {
 		return null;
 	}
 
-	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId,
-			meetingStatus status, int count, int page) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
