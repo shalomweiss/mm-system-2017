@@ -66,7 +66,7 @@ public final class DataContract {
 	public static class MeetingTable{
 		public static final String TABLE_NAME = "activities";
 		public static final String COL_MENTORID = "mentorId";
-		public static final String COL_MENTEEID = "mentorId";
+		public static final String COL_MENTEEID = "menteeId";
 		public static final String COL_ACTIVITYID = "activityId";
 		public static final String COL_PAIRID = "pairId";
 		public static final String COL_NOTE = "note";
