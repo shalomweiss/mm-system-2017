@@ -28,34 +28,31 @@ public class DataAccess implements DataInterface {
 
 	private Connection c;
 
-	final String selectLogin = "Select * From users where email=?";
-	final String selectLogin1 = "Select * From mentors where id=?";
+	final String selectLogin = "Select * From users where email=?"; 
+	final String selectLogin1 = "Select * From mentors where id=?"; 
 	final String selectLogin2 = "Select * From mentees where id=?";
 	final String selectByID = "Select * From users where id=?";
-	final String sessionId = "Select * From session where userId=?";
+	final String sessionId = "Select * From sessions where userId=?"; //to check 
 	final String getMenteeofPair = "Select * From pairs where menteeId=?, activeStatus=?";
 	final String getMentorofPair = "Select * From pairs where mentorId=?, activeStatus=?";
-	final String updateUserBase = "UPDATE users SET firstName=?, lastName=?, email=?, phoneNumber=?, password=?, gender=?, address=?, notes=?, profilePicture=?, active=? WHERE id=?";
+	final String updateUserBase = "UPDATE users SET firstName=?, lastName=?, phoneNumber=?, gender=?, address=?, notes=?, profilePicture=?, active=? WHERE id=?";
 	final String updateUserMentor = "UPDATE mentors SET experience=?, role=?, company=?, volunteering=?, workHistory=? WHERE id=?";
-	final String updateUserMentee = "UPDATE mentees SET remainingSemesters=?, graduationStatus=?, academicInstitute=?, average=?, academicDicipline1=?, academicDecipline2=?, isGuarantee=?, resume=?, gradeSheet=? WHERE id=?";
+	final String updateUserMentee = "UPDATE mentees SET remainingSemesters=?, graduationStatus=?, academicInstitute=?, average=?, academicDicipline1=?, academicDicipline2=?, signedEULA=?, resume=?, gradeSheet=? WHERE id=?";
 	final String deactivateUser = "UPDATE users SET active=0 WHERE id=?";
 	final String addBaseUser = "INSERT INTO users (type, firstName, lastName, email, phoneNumber, password, gender, address, notes, profilePicture, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDicipline2, signedEULA, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
-	final String selectPairId = "Select * From pair Where id=?";
+	final String selectPairId = "Select * From pairs Where pairId=?";
 	final String updateActiveStatus = "UPDATE pairs SET activeStatus=0 WHERE pairId=?";
-	final String selectMeeting = "Select * From activity where mentoId=? ";
-	final String selectMeeting2 = "Select * From activity where menteeId=? ";
+	final String selectMeeting = "Select * From activities where mentorId=? ";
+	final String selectMeeting2 = "Select * From activites where menteeId=? ";
 	final String addUserSession = "INSERT INTO session (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
 	final String selectMeetingById = "Select * From activities where activityId=?";
 	final String selectMeetingByPair = "Select * From activities where pairId=?";
 	final String addMeeting = "INSERT INTO activities (pairId,mentorId,menteeId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	final String getAllMenteesWithoutMentor = "select m.* user LEFT JOIN mentee as m ON user.id = m.id as m where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
-	final String getAllMentorsWithoutMentees = "select m.* user LEFT JOIN mentors "
-			+ "as m ON user.id = m.id as m where m.id  in (select mentorId from pairs	"
-			+ "where mentorId = m.id  and activeStatus = 0	) or	"
-			+ "NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
+	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u LEFT JOIN mentees as m ON u.id = m.id where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
+	final String getAllMentorsWithoutMentees = "select u.*,m.* from users as u LEFT JOIN mentors as m ON u.id = m.id  where m.id  in (select mentorId from pairs where mentorId = m.id  and activeStatus = 0	) or NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
 
 	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 
@@ -159,17 +156,15 @@ public class DataAccess implements DataInterface {
 			return false;
 
 		PreparedStatement stm2 = c.prepareStatement(updateUserBase);
-		stm2.setInt(1, user.getType().getValue());
-		stm2.setString(2, user.getFirstName());
-		stm2.setString(3, user.getEmail());
-		stm2.setString(4, user.getPhoneNumber());
-		stm2.setString(5, user.getPassword());
-		stm2.setInt(6, user.getGender());
-		stm2.setString(7, user.getAddress());
-		stm2.setString(8, user.getNote());
-		stm2.setString(9, user.getProfilePicture());
-		stm2.setInt(10, user.isActive() ? 1 : 0);
-		stm2.setInt(11, user.getId());
+		stm2.setString(1, user.getFirstName());
+		stm2.setString(2, user.getLastName());
+		stm2.setString(3, user.getPhoneNumber());
+		stm2.setInt(4, user.getGender());
+		stm2.setString(5, user.getAddress());
+		stm2.setString(6, user.getNote());
+		stm2.setString(7, user.getProfilePicture());
+		stm2.setInt(8, user.isActive() ? 1 : 0);
+		stm2.setInt(9, user.getId());
 		stm2.executeUpdate();
 
 		if (user.getType() == userType.TSOFEN || user.getType() == userType.ADMIN)
@@ -177,6 +172,7 @@ public class DataAccess implements DataInterface {
 
 		if (user.getType() == userType.MENTOR) {
 			PreparedStatement stm3 = c.prepareStatement(updateUserMentor);
+			
 			stm3.setString(1, ((Mentor) user).getExperience());
 			stm3.setString(2, ((Mentor) user).getRole());
 			stm3.setInt(3, ((Mentor) user).getCompany());
@@ -192,12 +188,13 @@ public class DataAccess implements DataInterface {
 			stm4.setFloat(1, ((Mentee) user).getRemainingSemesters());
 			stm4.setString(2, ((Mentee) user).getGraduationStatus());
 			stm4.setInt(3, ((Mentee) user).getAcademiclnstitution());
-			stm4.setString(4, ((Mentee) user).getAcademicDicipline());
-			stm4.setString(5, ((Mentee) user).getAcademicDicipline2());
-			stm4.setInt(6, ((Mentee) user).getSignedEULA() ? 1 : 0);
-			stm4.setString(7, ((Mentee) user).getResume());
-			stm4.setString(8, ((Mentee) user).getGradeSheet());
-			stm4.setInt(9, user.getId());
+			stm4.setFloat(4, ((Mentee) user).getAverage());
+			stm4.setString(5, ((Mentee) user).getAcademicDicipline());
+			stm4.setString(6, ((Mentee) user).getAcademicDicipline2());
+			stm4.setInt(7, ((Mentee) user).getSignedEULA() ? 1 : 0);
+			stm4.setString(8, ((Mentee) user).getResume());
+			stm4.setString(9, ((Mentee) user).getGradeSheet());
+			stm4.setInt(10, user.getId());
 			stm4.executeUpdate();
 			return true;
 		}

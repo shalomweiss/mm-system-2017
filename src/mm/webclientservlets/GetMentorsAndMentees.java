@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
+import mm.model.Mentee;
 import mm.model.User;
 import mm.model.User.userType;
 
@@ -51,16 +52,18 @@ public class GetMentorsAndMentees extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
 		
-		ArrayList<User> ArrMentees = new ArrayList<User>();
+		ArrayList<Mentee> arrMentees = new ArrayList<Mentee>();
 		 try {
-		 ArrMentees = da.getUsers(User.userType.MENTEE);
+		// ArrMentees = da.getUsers(User.userType.MENTEE);
+			 arrMentees = da.getAllMenteesWithoutMentor();
 		 } catch (SQLException e) {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
 		
-		request.setAttribute("Mentees", ArrMentees);
-		System.out.println("MEntees: " + ArrMentees);
+		request.setAttribute("Mentees", arrMentees);
+		response.setContentType("text/html");
+	
 		RequestDispatcher req = request.getRequestDispatcher("addPair.jsp");
 		req.forward(request, response);
 		writer.close();

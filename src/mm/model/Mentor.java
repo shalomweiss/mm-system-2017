@@ -75,17 +75,15 @@ public class Mentor extends User {
 
 	@Override
 	public String toString() {
-		return "Mentor [experience=" + experience + ", role=" + role
-				+ ", company=" + company + ", volunteering=" + volunteering
-				+ ", workHistory=" + workHistory + ", getType()=" + getType()
-				+ ", getId()=" + getId() + ", getFirstName()=" + getFirstName()
-				+ ", getLastName()=" + getLastName() + ", getEmail()="
-				+ getEmail() + ", getPhoneNumber()=" + getPhoneNumber()
-				+ ", getPassword()=" + getPassword() + ", getGender()="
-				+ getGender() + ", getAddress()=" + getAddress()
-				+ ", getNote()=" + getNote() + ", isActive()=" + isActive()
-				+ ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + "]";
+		return "Mentor [experience=" + experience + ", role=" + role + ", company=" + company + ", volunteering="
+				+ volunteering + ", workHistory=" + workHistory + ", Role=" + getRole() + ", Company="
+				+ getCompany() + ", Experience=" + getExperience() + ", WorkHistory=" + getWorkHistory()
+				+ ", Volunteering=" + getVolunteering() + ", Type=" + getType() + ", Id=" + getId()
+				+ ", FirstName=" + getFirstName() + ", LastName=" + getLastName() + ", Email="
+				+ getEmail() + ", PhoneNumber=" + getPhoneNumber() + ", Password=" + getPassword()
+				+ ",Gender=" + getGender() + ", Address=" + getAddress() + ", Note=" + getNote()
+				+ ", isActive=" + isActive() + ", ProfilePicture=" + getProfilePicture() 
+				+ super.toString() + ", Class=" + getClass() + "]";
 	}
 
 	
