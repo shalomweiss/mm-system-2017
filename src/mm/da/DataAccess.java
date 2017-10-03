@@ -818,7 +818,7 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public boolean addAcademicInstitute(AcademicInstitute a) {
+	public boolean addAcademicInstitute(AcademicInstitute a) throws SQLException {
 		PreparedStatement stm = c.prepareStatement(insertAcademicinstitute);
 		stm.setString(1, a.getName());
 		stm.setString(2, a.getArea());
@@ -830,8 +830,8 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() throws SQLException {
-		ArrayList<AcademicInstitute>a= new ArrayList<>();
-		AcademicInstitute academic =null;
+		ArrayList<AcademicInstitute> a = new ArrayList<AcademicInstitute>();
+		AcademicInstitute academic = null;
 		PreparedStatement stm = c.prepareStatement(selectAcademicInstitute);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) 

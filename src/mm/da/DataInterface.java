@@ -101,7 +101,7 @@ public interface DataInterface{
 	
 	public boolean addWorkPlace(WorkPlace workplace);
 	
-	public boolean addAcademicInstitute(AcademicInstitute a);
+	public boolean addAcademicInstitute(AcademicInstitute a) throws SQLException;
 
 	public ArrayList<Mentee> getAllMenteesWithoutMentor() throws SQLException;
 	
