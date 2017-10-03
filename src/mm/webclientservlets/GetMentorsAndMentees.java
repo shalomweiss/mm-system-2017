@@ -63,7 +63,7 @@ public class GetMentorsAndMentees extends HttpServlet {
 		
 		request.setAttribute("Mentees", arrMentees);
 		response.setContentType("text/html");
-		System.out.println("MEntees: " + ArrMentees);
+	
 		RequestDispatcher req = request.getRequestDispatcher("addPair.jsp");
 		req.forward(request, response);
 		writer.close();
