@@ -21,18 +21,14 @@ public class DBUtil {
 
 		}
 ////
-//		String url = "jdbc:mysql://aa16lmxbq1txb0j.coi6zcmnhpte.us-east-2.rds.amazonaws.com:3306/db";
-//		String username = "tsofendbmaster2";
-//		String password = "ESEahn57327";
+		String url = "jdbc:mysql://aa16lmxbq1txb0j.coi6zcmnhpte.us-east-2.rds.amazonaws.com:3306/db";
+		String username = "tsofendbmaster2";
+		String password = "ESEahn57327";
 
-//		String url = "jdbc:mysql://aa16lmxbq1txb0j.coi6zcmnhpte.us-east-2.rds.amazonaws.com:3306/db";
-//		String username = "tsofendbmaster2";
-//		String password = "ESEahn57327";
-
-		// DEBUG VALUES
-		 String url = "jdbc:mysql://localhost:3306/db";
-		 String username = "root";
-		 String password = "d123";
+	//	 DEBUG VALUES
+//		 String url = "jdbc:mysql://localhost:3306/db";
+//		 String username = "root";
+//		 String password = "1234";
 		try {
 			logger.log(Level.INFO,"Attempting to connection to: " + url + " with user: " + username + " password: " +password);
 			conn = DriverManager.getConnection(url, username, password);

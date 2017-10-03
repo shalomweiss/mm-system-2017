@@ -69,9 +69,11 @@ public class GetAllPairs extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
 				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
 						pair.getPairId(), pair.getActiveStatus());
 				pairsMainInfo.add(tmpPairInfo);
+				
 			}
 		}
 		request.setAttribute("pairs", pairsMainInfo);
