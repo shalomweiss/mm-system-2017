@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import java.sql.Statement;
 import java.time.LocalDate;
 
+import mm.constants.SQLStatements;
 import mm.model.AcademicInstitute;
 import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
@@ -47,7 +48,7 @@ public class DataAccess implements DataInterface {
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectAllPairs = "Select * from pairs";
-	final String selectPairId = "Select * From pairs Where pairId=?";
+	final String selectPairId = "Select * From pairs Where pairId=?"; 
 	final String updateActiveStatus = "UPDATE pairs SET activeStatus=0 WHERE pairId=?";
 	final String selectMeeting = "Select * From activities where mentorId=? ";
 	final String selectMeeting2 = "Select * From activites where menteeId=? ";
@@ -58,13 +59,13 @@ public class DataAccess implements DataInterface {
 	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u LEFT JOIN mentees as m ON u.id = m.id where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
 	final String getAllMentorsWithoutMentees = "select u.*,m.* from users as u LEFT JOIN mentors as m ON u.id = m.id  where m.id  in (select mentorId from pairs where mentorId = m.id  and activeStatus = 0	) or NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
 	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
-
+	
 	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 
 	final String getMeetings2 = "Select * From activites where menteeId=?AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
 	
-	public DataAccess() {
+	public DataAccess() { 
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
 		logger.log(Level.INFO, "DataAccess c'tor: attempting connection...");
@@ -161,7 +162,7 @@ public class DataAccess implements DataInterface {
 		if (!rs.next()) // user does not exist
 			return false;
 
-		PreparedStatement stm2 = c.prepareStatement(updateUserBase);
+		PreparedStatement stm2 = c.prepareStatement(SQLStatements.updateUserById);
 		stm2.setString(1, user.getFirstName());
 		stm2.setString(2, user.getLastName());
 		stm2.setString(3, user.getPhoneNumber());
@@ -177,7 +178,7 @@ public class DataAccess implements DataInterface {
 			return true;
 
 		if (user.getType() == userType.MENTOR) {
-			PreparedStatement stm3 = c.prepareStatement(updateUserMentor);
+			PreparedStatement stm3 = c.prepareStatement(SQLStatements.updateMentorById);
 			
 			stm3.setString(1, ((Mentor) user).getExperience());
 			stm3.setString(2, ((Mentor) user).getRole());
@@ -190,7 +191,7 @@ public class DataAccess implements DataInterface {
 		}
 
 		if (user.getType() == userType.MENTEE) {
-			PreparedStatement stm4 = c.prepareStatement(updateUserMentee);
+			PreparedStatement stm4 = c.prepareStatement(SQLStatements.updaterMenteeById);
 			stm4.setFloat(1, ((Mentee) user).getRemainingSemesters());
 			stm4.setString(2, ((Mentee) user).getGraduationStatus());
 			stm4.setInt(3, ((Mentee) user).getAcademiclnstitution());
@@ -213,7 +214,7 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
-			PreparedStatement stm2 = c.prepareStatement(deactivateUser);
+			PreparedStatement stm2 = c.prepareStatement(SQLStatements.setUserDeactiveById);
 			stm2.setInt(1, id);
 			return true;
 		}
@@ -243,7 +244,7 @@ public class DataAccess implements DataInterface {
 
 			// return false;
 		}
-		PreparedStatement stm2 = c.prepareStatement(addBaseUser);
+		PreparedStatement stm2 = c.prepareStatement(SQLStatements.insertUser);
 		stm2.setInt(1, u.getType().getValue());
 		stm2.setString(2, u.getFirstName());
 		stm2.setString(3, u.getLastName());
@@ -272,7 +273,7 @@ public class DataAccess implements DataInterface {
 			return true;
 
 		if (u.getType() == userType.MENTOR) {
-			PreparedStatement stm3 = c.prepareStatement(addMentorUser);
+			PreparedStatement stm3 = c.prepareStatement(SQLStatements.insertMentor);
 			stm3.setInt(1, id);
 			stm3.setString(2, ((Mentor) u).getExperience());
 			stm3.setString(3, ((Mentor) u).getRole());
@@ -285,7 +286,7 @@ public class DataAccess implements DataInterface {
 		}
 
 		if (u.getType() == userType.MENTEE) {
-			PreparedStatement stm4 = c.prepareStatement(addMenteeUser);
+			PreparedStatement stm4 = c.prepareStatement(SQLStatements.insertMentee);
 			stm4.setInt(1, id);
 			stm4.setFloat(2, ((Mentee) u).getRemainingSemesters());
 			stm4.setString(3, ((Mentee) u).getGraduationStatus());
@@ -451,7 +452,7 @@ public class DataAccess implements DataInterface {
 		Pair p = new Pair();
 		ArrayList<Pair> pair = new ArrayList<Pair>();
 		Statement stm = c.createStatement();
-		stm.executeQuery("selectAllPairs");
+		stm.executeQuery(SQLStatements.selectPairs);
 		ResultSet r = stm.getResultSet();
 
 		while (r.next()) {
@@ -474,7 +475,7 @@ public class DataAccess implements DataInterface {
 		ResultSet rs1 = stm.executeQuery();
 		if (!rs1.next()) // user does not exist
 			return false;
-		stm = c.prepareStatement(insertPair);
+		stm = c.prepareStatement(SQLStatements.insertPair);
 		// checking witch user is the mentor and witch is the mentee
 		stm.setInt(1, mentorId);
 		stm.setInt(2, menteeId);
@@ -488,7 +489,7 @@ public class DataAccess implements DataInterface {
 	@Override
 	public boolean disconnectPair(int pairId) {
 		try {
-			PreparedStatement stm = c.prepareStatement(updateActiveStatus);
+			PreparedStatement stm = c.prepareStatement(SQLStatements.setPairDeactiveById);
 			stm.setInt(1, pairId);
 			stm.executeUpdate();
 		} catch (SQLException e) {
@@ -499,7 +500,7 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public Pair getPair(int pairId) throws SQLException {
-		PreparedStatement stm = c.prepareStatement(selectPairId);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectPairById);
 
 		stm.setInt(1, pairId);
 
@@ -540,7 +541,7 @@ public class DataAccess implements DataInterface {
 	public ArrayList<Meeting> getUserMeetings(int id) throws SQLException {
 		ArrayList<Meeting> meeting = new ArrayList<Meeting>();
 		Meeting meet = null;
-		PreparedStatement stm = c.prepareStatement(selectMeeting);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMeetingsByMentorId);
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
@@ -551,7 +552,7 @@ public class DataAccess implements DataInterface {
 					rs.getLong(14), rs.getTime(15), rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
 			
 		} else {
-			PreparedStatement stm1 = c.prepareStatement(selectMeeting2);
+			PreparedStatement stm1 = c.prepareStatement(SQLStatements.selectMeetingsByMenteeId);
 			stm1.setInt(1, id);
 			ResultSet rs1 = stm.executeQuery();
 			if (rs1.next()) {
@@ -592,7 +593,7 @@ public class DataAccess implements DataInterface {
 	@Override
 	public Meeting getMeetingById(int meetingId) throws SQLException {
 		Meeting m = null;
-		PreparedStatement stm = c.prepareStatement(selectMeetingById);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMeetingById);
 		stm.setInt(1, meetingId);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
@@ -675,7 +676,7 @@ public class DataAccess implements DataInterface {
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException {
 		ArrayList<Meeting> m = new ArrayList<Meeting>();
 		Meeting meeting = null;
-		PreparedStatement stm = c.prepareStatement(selectMeetingByPair);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMeetingByPairId);
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
