@@ -82,14 +82,14 @@ public class AddMentee extends HttpServlet {
 		
 		DataAccess da = new DataAccess();
 		RequestDispatcher req=null;
-	    boolean res=true;
+	    boolean res=false;
 	
-//		try {
-//			res = da.addUser(newMentee);
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			res = da.addUser(newMentee);
+		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(res){
 			request.setAttribute("AddedSuc", 1);
 			System.out.println("USER IS ADDED SUCSSESS");
