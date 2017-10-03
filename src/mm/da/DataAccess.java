@@ -61,7 +61,7 @@ public class DataAccess implements DataInterface {
 
 	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 
-	final String getMeetings2 = "Select * From activites where menteeId=?AND status=? ORDER BY date DESC LIMIT ?, ? ";
+	final String getMeetings2 = "Select * From activites where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
 	
 	public DataAccess() {
