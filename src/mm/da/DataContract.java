@@ -65,5 +65,40 @@ public final class DataContract {
 	
 	public static class MeetingTable{
 		public static final String TABLE_NAME = "activities";
+		public static final String COL_MENTORID = "mentorId";
+		public static final String COL_MENTEEID = "mentorId";
+		public static final String COL_ACTIVITYID = "activityId";
+		public static final String COL_PAIRID = "pairId";
+		public static final String COL_NOTE = "note";
+		public static final String COL_STATUS = "status";
+		public static final String COL_MENTEEREPORT = "menteeReport";
+		public static final String COL_MENTORREPORT = "mentorReport";
+		public static final String COL_MENTEEPRIVREPORT = "menteePrivateReport";
+		public static final String COL_MENTORPRIVREPORT = "mentorPrivateReport";
+		public static final String COL_MEETINGTYPE = "meetingType";
+		public static final String COL_SUBJECT = "subject";
+		public static final String COL_LOCATION = "location";
+		public static final String COL_DATE = "date";
+		public static final String COL_STARTINGTIME = "startingTime";
+		public static final String COL_ENDINGTIME = "endingTime";
+		public static final String COL_MENTORCOMPLETE = "mentorComplete";
+		public static final String COL_MENTEECOMPLETE = "menteeComplete";
+	}
+	
+	public static class AcademicInstituteTable{
+		public static final String TABLE_NAME = "academicinstitute";
+		public static final String COL_ID = "id";
+		public static final String COL_NAME = "name";
+		public static final String COL_AREA = "area";
+		public static final String COL_CITY = "city";
+	}
+	
+	public static class WorkplacesTable{
+		public static final String TABLE_NAME = "workplaces";
+		public static final String COL_ID = "id";
+		public static final String COL_NAME = "name";
+		public static final String COL_AREA = "area";
+		public static final String COL_CITY = "city";
+		public static final String COL_ADDRESS = "address";
 	}
 }
