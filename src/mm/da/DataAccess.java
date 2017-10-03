@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import java.sql.Statement;
 import java.time.LocalDate;
 
+import mm.model.AcademicInstitute;
 import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
 import mm.model.Meeting.meetingType;
@@ -906,6 +907,12 @@ public class DataAccess implements DataInterface {
 		}
 
 		return m;
+	}
+
+	@Override
+	public boolean addAcademicInstitute(AcademicInstitute a) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
