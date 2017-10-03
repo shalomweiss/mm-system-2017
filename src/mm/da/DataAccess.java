@@ -800,7 +800,7 @@ public class DataAccess implements DataInterface {
 		AcademicInstitute academic = null;
 		PreparedStatement stm = c.prepareStatement(selectAcademicInstitute);
 		ResultSet rs = stm.executeQuery();
-		if (rs.next()) 
+		while (rs.next()) 
 		{
 			academic = new AcademicInstitute(rs.getInt(DataContract.AcademicInstituteTable.COL_ID), rs.getString(DataContract.AcademicInstituteTable.COL_NAME), rs.getString(DataContract.AcademicInstituteTable.COL_AREA), rs.getString(DataContract.AcademicInstituteTable.COL_CITY));
 			a.add(academic);
