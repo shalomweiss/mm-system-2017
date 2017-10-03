@@ -747,7 +747,7 @@ public class DataAccess implements DataInterface {
 
 
 	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId,int status,int count,int page)throws SQLException
+	public ArrayList<Meeting> getMeetingByStatus(int userId,int status,int count,int page) throws SQLException
 
 	{
 
@@ -836,7 +836,6 @@ public class DataAccess implements DataInterface {
 		}
 		return a;
 	}
-
 
 	@Override
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
