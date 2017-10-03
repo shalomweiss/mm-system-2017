@@ -69,6 +69,7 @@ public class GetAllPairs extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				System.out.println("status is"+pair.getActiveStatus());
 				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
 						pair.getPairId(), pair.getActiveStatus());
 				pairsMainInfo.add(tmpPairInfo);
