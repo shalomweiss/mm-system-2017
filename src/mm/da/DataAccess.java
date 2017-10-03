@@ -59,7 +59,7 @@ public class DataAccess implements DataInterface {
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectAllPairs = "Select * from pairs";
-	final String selectPairId = "Select * From pairs Where pairId=?";
+	final String selectPairId = "Select * From pairs Where pairId=?"; 
 	final String updateActiveStatus = "UPDATE pairs SET activeStatus=0 WHERE pairId=?";
 	final String selectMeeting = "Select * From activities where mentorId=? ";
 	final String selectMeeting2 = "Select * From activites where menteeId=? ";
