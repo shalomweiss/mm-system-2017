@@ -324,7 +324,7 @@ public class DataAccess implements DataInterface {
 		case MENTOR:
 
 			Statement stm2 = c.createStatement();
-			stm2.executeQuery("selectMentor");
+			stm2.executeQuery(selectMentor);
 			ResultSet r2 = stm2.getResultSet();
 			while (r2.next()) {
 				u = new Mentor(r2.getInt(1), r2.getString(3), r2.getString(4), r2.getString(5), r2.getString(6),
@@ -338,7 +338,7 @@ public class DataAccess implements DataInterface {
 		case MENTEE:
 
 			Statement stm3 = c.createStatement();
-			stm3.executeQuery("selectMentee");
+			stm3.executeQuery(selectMentee);
 			ResultSet r3 = stm3.getResultSet();
 			while (r3.next()) {
 				u = new Mentee(r3.getInt(DataContract.UsersTable.COL_ID),
@@ -451,7 +451,7 @@ public class DataAccess implements DataInterface {
 		Pair p = new Pair();
 		ArrayList<Pair> pair = new ArrayList<Pair>();
 		Statement stm = c.createStatement();
-		stm.executeQuery("selectAllPairs");
+		stm.executeQuery(selectAllPairs);
 		ResultSet r = stm.getResultSet();
 
 		while (r.next()) {
@@ -817,10 +817,11 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId,
-			meetingStatus status, int count, int page) throws SQLException {
+	public ArrayList<Meeting> getMeetingByStatus(int userId, int status,
+			int count, int page) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
