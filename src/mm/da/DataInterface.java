@@ -51,7 +51,7 @@ public interface DataInterface{
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException;
 
 	public boolean startUserSession(Session session) throws SQLException;
-	public ArrayList<AcadimicIn> getAllAcademiclnstitution();
+	//public ArrayList<AcadimicIn> getAllAcademiclnstitution();
 
 
 		

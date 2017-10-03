@@ -28,7 +28,7 @@ public class DBUtil {
 	//	 DEBUG VALUES
 		 String url = "jdbc:mysql://localhost:3306/db";
 		 String username = "root";
-		 String password = "";
+		 String password = "1234";
 		try {
 			logger.log(Level.INFO,"Attempting to connection to: " + url + " with user: " + username + " password: " +password);
 			conn = DriverManager.getConnection(url, username, password);

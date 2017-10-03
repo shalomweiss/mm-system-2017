@@ -43,25 +43,22 @@ public class GetAllMentees extends HttpServlet {
 		ArrayList<User> ArrMentees = new ArrayList<User>();
 	//	ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
-//		 try {
-//		 ArrMentees = da.getUsers(userType.MENTEE);
-//		 } catch (SQLException e) {
-//		 // TODO Auto-generated catch block
-//		 e.printStackTrace();
-//		 }
-		ArrMentees=getAllUsers();
+		 try {
+		 ArrMentees = da.getUsers(userType.MENTEE);
+		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
+//		ArrMentees=getAllUsers();
 		request.setAttribute("Mentees", ArrMentees);
 		//TODO : getAllAcadimicIns;
 	//	request.setAttribute("AcadimicIn", AcadimicIn); 
-		//just for testing:
-		//System.out.println("Mentees: " + ArrMentees);
-		PrintWriter writer = response.getWriter();
-		writer.println(ArrMentees);
-		//end test
-		response.setContentType("text/html");
+	
+		System.out.println("Mentees: " + ArrMentees);
+	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
 		req.forward(request, response);
-		writer.close();
+		
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -70,6 +67,7 @@ public class GetAllMentees extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doGet(request,response);
 	}
 
 	public ArrayList<User> getAllUsers() {
