@@ -62,7 +62,8 @@ public class DataAccess implements DataInterface {
 	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 
 	final String getMeetings2 = "Select * From activites where menteeId=?AND status=? ORDER BY date DESC LIMIT ?, ? ";
-
+    final String  selectAcademicInstitute ="Select * From academicinstitute";
+	
 	public DataAccess() {
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
@@ -672,7 +673,7 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException {
-		ArrayList<Meeting> m = null;
+		ArrayList<Meeting> m = new ArrayList<Meeting>();
 		Meeting meeting = null;
 		PreparedStatement stm = c.prepareStatement(selectMeetingByPair);
 		stm.setInt(1, pairId);
@@ -748,11 +749,7 @@ public class DataAccess implements DataInterface {
 		return false;
 	}
 
-//	@Override
-//	public List<Meeting> getUserMeetingsOfStatus(int id,meetingStatus meetingStatus) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
 
 	@Override
 	public ArrayList<Meeting> getMeetingByStatus(int userId,int status,int count,int page)throws SQLException
@@ -830,10 +827,19 @@ public class DataAccess implements DataInterface {
 		return true;
 	}
 
+
 	@Override
-	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() throws SQLException {
+		ArrayList<AcademicInstitute>a= new ArrayList<>();
+		AcademicInstitute academic =null;
+		PreparedStatement stm = c.prepareStatement(selectAcademicInstitute);
+		ResultSet rs = stm.executeQuery();
+		if (rs.next()) 
+		{
+			academic = new AcademicInstitute(rs.getInt(DataContract.AcademicInstituteTable.COL_ID), rs.getString(DataContract.AcademicInstituteTable.COL_NAME), rs.getString(DataContract.AcademicInstituteTable.COL_AREA), rs.getString(DataContract.AcademicInstituteTable.COL_CITY));
+			a.add(academic);
+		}
+		return a;
 	}
 
 
