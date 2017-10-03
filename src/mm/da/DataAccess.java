@@ -61,7 +61,7 @@ public class DataAccess implements DataInterface {
 
 	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 
-	final String getMeetings2 = "Select * From activites where menteeId=?AND status=? ORDER BY date DESC LIMIT ?, ? ";
+	final String getMeetings2 = "Select * From activites where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
 	
 	public DataAccess() {
@@ -744,12 +744,10 @@ public class DataAccess implements DataInterface {
 		return false;
 	}
 
-
-
 	@Override
 	public ArrayList<Meeting> getMeetingByStatus(int userId,meetingStatus status,int count,int page) throws SQLException{
-		ArrayList<Meeting>m=null;
-		PreparedStatement stm =null; 
+		ArrayList<Meeting> m =  new ArrayList<Meeting>();
+		PreparedStatement stm = null; 
 
 		userType type = getUser(userId).getType();
 
@@ -802,7 +800,7 @@ public class DataAccess implements DataInterface {
 		AcademicInstitute academic = null;
 		PreparedStatement stm = c.prepareStatement(selectAcademicInstitute);
 		ResultSet rs = stm.executeQuery();
-		if (rs.next()) 
+		while (rs.next()) 
 		{
 			academic = new AcademicInstitute(rs.getInt(DataContract.AcademicInstituteTable.COL_ID), rs.getString(DataContract.AcademicInstituteTable.COL_NAME), rs.getString(DataContract.AcademicInstituteTable.COL_AREA), rs.getString(DataContract.AcademicInstituteTable.COL_CITY));
 			a.add(academic);
@@ -815,13 +813,5 @@ public class DataAccess implements DataInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId, int status,
-			int count, int page) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 }
