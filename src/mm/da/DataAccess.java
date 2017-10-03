@@ -103,7 +103,8 @@ public class DataAccess implements DataInterface {
 				PreparedStatement stm2 = c.prepareStatement(selectLogin1);
 				stm2.setInt(1, rs.getInt(1));
 
-				ResultSet rs2 = stm.executeQuery();
+				ResultSet rs2 = stm2.executeQuery();
+				if(rs2.next())
 				u = new Mentor(rs.getInt(1), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
 						rs.getString(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getString(11),
 						rs.getBoolean(12), userType.MENTOR, rs2.getString(2), rs2.getString(3), rs2.getInt(4),
@@ -116,7 +117,7 @@ public class DataAccess implements DataInterface {
 				PreparedStatement stm3 = c.prepareStatement(selectLogin2);
 				stm3.setInt(1, rs.getInt(1));
 
-				ResultSet rs3 = stm.executeQuery();
+				ResultSet rs3 = stm3.executeQuery();
 				if(rs3.next())
 				u = new Mentee(rs.getInt(DataContract.UsersTable.COL_ID),
 						rs.getString(DataContract.UsersTable.COL_FIRSTNAME),
@@ -822,6 +823,25 @@ public class DataAccess implements DataInterface {
 	public boolean addAcademicInstitute(AcademicInstitute a) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Mentee> getMenteesWithOutMentor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Meeting> getMeetingByStatus(int userId,
+			meetingStatus status, int count, int page) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
