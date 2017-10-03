@@ -45,7 +45,7 @@ public final class DataContract {
 	public static class SessionsTable{
 		public static final String TABLE_NAME = "sessions";
 		public static final String COL_USERID = "userId";
-		public static final String COL_TOEKN = "token";
+		public static final String COL_TOKEN = "token";
 		public static final String COL_CREATIONDATE = "creationDate";
 		public static final String COL_EXPIRATIONDATE = "expirationDate";
 		public static final String COL_DEVICEID = "deviceId";
