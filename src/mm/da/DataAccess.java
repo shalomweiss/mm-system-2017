@@ -32,6 +32,9 @@ public class DataAccess implements DataInterface {
 	final String selectLogin1 = "Select * From mentors where id=?"; 
 	final String selectLogin2 = "Select * From mentees where id=?";
 	final String selectByType = "Select * from users where type=?";
+	final String selectCorrespondingMentors = "Select * From mentors where address=?, gender=?, company=?,  ";
+	final String selectCorrespondingMentees = "Select * From mentees where  =?";
+	final String selectCorrespondingPairs = "Select * From pairs where id=?";
 	final String selectByID = "Select * From users where id=?";
 	final String selectMentor = "Select * from users RIGHT JOIN mentors ON users.id = mentors.id";
 	final String selectMentee = "Select * from users RIGHT JOIN mentees ON users.id = mentees.id";
@@ -51,7 +54,7 @@ public class DataAccess implements DataInterface {
 	final String updateActiveStatus = "UPDATE pairs SET activeStatus=0 WHERE pairId=?";
 	final String selectMeeting = "Select * From activities where mentorId=? ";
 	final String selectMeeting2 = "Select * From activites where menteeId=? ";
-	final String addUserSession = "INSERT INTO session (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
+	final String addUserSession = "INSERT INTO sessions (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
 	final String selectMeetingById = "Select * From activities where activityId=?";
 	final String selectMeetingByPair = "Select * From activities where pairId=?";
 	final String addMeeting = "INSERT INTO activities (pairId,mentorId,menteeId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -63,7 +66,7 @@ public class DataAccess implements DataInterface {
 
 	final String getMeetings2 = "Select * From activites where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
-	
+	final String selectWorkingPlace ="Select * From workplaces";
 	public DataAccess() {
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
@@ -940,6 +943,46 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
+		// TODO Auto-generated method stub
+		ArrayList<WorkPlace> workplace = new ArrayList<>();
+		WorkPlace w =null;
+		PreparedStatement stm = c.prepareStatement(selectWorkingPlace);
+		ResultSet rs = stm.executeQuery();
+		while(rs.next())
+		{
+			w= new WorkPlace(rs.getInt(DataContract.WorkplacesTable.COL_ID), rs.getString(DataContract.WorkplacesTable.COL_NAME), rs.getString(DataContract.WorkplacesTable.COL_AREA), rs.getString(DataContract.WorkplacesTable.COL_CITY), rs.getString(DataContract.WorkplacesTable.COL_ADDRESS));
+		   workplace.add(w);
+		}
+		return workplace;
+	}
+
+	@Override
+	public ArrayList<Mentee> getMenteesWithOutMentor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
+			boolean inPair, String academicDicipline1, String academicDicipline2){
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> getAllCorrespondingMentors(String address, String gender, String workPlace, boolean inPair) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName, String menteeName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
