@@ -675,15 +675,10 @@ public class DataAccess implements DataInterface {
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
 			meeting = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
-
 					rs.getInt(4), rs.getString(5), meetingStatus.valueOf(rs.getInt(6)), rs.getString(7),
-
 					rs.getString(8), rs.getString(9), rs.getString(10),
-
 					meetingType.getByValue(rs.getInt(11)), rs.getString(12),
-
 					rs.getString(13), rs.getLong(14), rs.getTime(15),
-
 					rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
  m.add(meeting);
 		}
@@ -744,11 +739,6 @@ public class DataAccess implements DataInterface {
 		return false;
 	}
 
-//	@Override
-//	public List<Meeting> getUserMeetingsOfStatus(int id,meetingStatus meetingStatus) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	@Override
 	public ArrayList<Meeting> getMeetingByStatus(int userId,int status,int count,int page)throws SQLException
@@ -829,14 +819,7 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public ArrayList<Mentee> getMenteesWithOutMentor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId,
-			meetingStatus status, int count, int page) throws SQLException {
+	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
