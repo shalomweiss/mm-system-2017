@@ -58,7 +58,7 @@ public class DataAccess implements DataInterface {
 	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u LEFT JOIN mentees as m ON u.id = m.id where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
 	final String getAllMentorsWithoutMentees = "select u.*,m.* from users as u LEFT JOIN mentors as m ON u.id = m.id  where m.id  in (select mentorId from pairs where mentorId = m.id  and activeStatus = 0	) or NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
 	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
-
+	final String insertWorkPlace = "INSERT INTO workplaces (name,area,city,address) VALUES (?,?,?,?)";
 	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 
 	final String getMeetings2 = "Select * From activites where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
@@ -739,9 +739,15 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public boolean addWorkPlace(WorkPlace workplace) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addWorkPlace(WorkPlace workplace) throws SQLException {
+		
+		PreparedStatement stm = c.prepareStatement(insertWorkPlace);
+		stm.setString(1, workplace.getCompany());
+		stm.setString(2, workplace.getArea());
+		stm.setString(3, workplace.getCity());
+		stm.setString(4, workplace.getAddress());
+		stm.executeUpdate();
+		return true;
 	}
 
 	@Override
@@ -821,6 +827,31 @@ public class DataAccess implements DataInterface {
 		   workplace.add(w);
 		}
 		return workplace;
+	}
+
+	@Override
+	public ArrayList<Mentee> getMenteesWithOutMentor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
+			boolean inPair, String academicDicipline1, String academicDicipline2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> getAllCorrespondingMentors(String address, String gender, String workPlace, boolean inPair) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

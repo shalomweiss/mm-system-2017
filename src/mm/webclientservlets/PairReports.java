@@ -36,7 +36,7 @@ public class PairReports extends HttpServlet {
 		String menteeName = request.getParameter("MenteeName");
 
 
-		ArrayList<User> allMentors=new ArrayList<User>();
+		ArrayList<User> allPairs=new ArrayList<User>();
 		try {
 			 allPairs = da.getAllCorrespondingPairs(mentorId,menteeId);
 		} catch (SQLException e) {

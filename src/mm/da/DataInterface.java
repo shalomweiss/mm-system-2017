@@ -98,7 +98,7 @@ public interface DataInterface {
 
 	public ArrayList<Mentee> getMenteesOfMentor(int mentorId) throws SQLException;
 
-	public boolean addWorkPlace(WorkPlace workplace);
+	public boolean addWorkPlace(WorkPlace workplace) throws SQLException;
 	
 	public boolean addAcademicInstitute(AcademicInstitute a) throws SQLException;
 
@@ -111,7 +111,6 @@ public interface DataInterface {
 	
 		
 
-}
 
 	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException;
 
