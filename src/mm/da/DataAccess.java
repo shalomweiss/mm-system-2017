@@ -63,7 +63,7 @@ public class DataAccess implements DataInterface {
 
 	final String getMeetings2 = "Select * From activites where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
-	
+	final String selectWorkingPlace ="Select * From workplaces";
 	public DataAccess() {
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
@@ -811,7 +811,16 @@ public class DataAccess implements DataInterface {
 	@Override
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<WorkPlace> workplace = new ArrayList<>();
+		WorkPlace w =null;
+		PreparedStatement stm = c.prepareStatement(selectWorkingPlace);
+		ResultSet rs = stm.executeQuery();
+		while(rs.next())
+		{
+			w= new WorkPlace(rs.getInt(DataContract.WorkplacesTable.COL_ID), rs.getString(DataContract.WorkplacesTable.COL_NAME), rs.getString(DataContract.WorkplacesTable.COL_AREA), rs.getString(DataContract.WorkplacesTable.COL_CITY), rs.getString(DataContract.WorkplacesTable.COL_ADDRESS));
+		   workplace.add(w);
+		}
+		return workplace;
 	}
 
 }
