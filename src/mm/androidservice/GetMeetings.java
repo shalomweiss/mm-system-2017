@@ -51,7 +51,7 @@ public class GetMeetings extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request, response);
+
 		
 	}
 
@@ -84,7 +84,12 @@ public class GetMeetings extends HttpServlet {
 		
 		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 			
-			meetings=iom.getDataAccess().getUserMeetingsOfStatus(id,meetingStatus);
+			try {
+				meetings=iom.getDataAccess().getMeetingByStatus(id, status, count, page);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if(meetings==null) {
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 			}

@@ -534,7 +534,7 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public ArrayList<Meeting> getUserMeetings(int id) throws SQLException {
-		ArrayList<Meeting> meeting = null;
+		ArrayList<Meeting> meeting = new ArrayList<Meeting>();
 		Meeting meet = null;
 		PreparedStatement stm = c.prepareStatement(selectMeeting);
 		stm.setInt(1, id);
@@ -542,74 +542,22 @@ public class DataAccess implements DataInterface {
 		if (rs.next()) {
 
 			meet = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
-					mm.model.Meeting.meetingStatus.APPROVED, rs.getString(7), rs.getString(8), rs.getString(9),
+					meetingStatus.valueOf(rs.getInt(6)), rs.getString(7), rs.getString(8), rs.getString(9),
 					rs.getString(10), mm.model.Meeting.meetingType.SMS, rs.getString(12), rs.getString(13),
 					rs.getLong(14), rs.getTime(15), rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
-			switch (rs.getInt(6)/* meetingStatus */) {
-			case 0: // PENDING
-				meet.setStatus(meetingStatus.PENDING);
-				break;
-			case 1: // APPRVED
-				meet.setStatus(meetingStatus.APPROVED);
-				break;
-			case 2: // COMPLETE
-				meet.setStatus(meetingStatus.COMPLETE);
-				break;
-			default: // ERROR
-				break;
-			}
-
-			switch (rs.getInt(11)/* meetingType */) {
-			case 0: // PHONE
-				meet.setMeetingType(meetingType.PHONE);
-				break;
-			case 1: // FACE_TO_FACE
-				meet.setMeetingType(meetingType.FACE_TO_FACE);
-				break;
-			case 2: // SMS
-				meet.setMeetingType(meetingType.SMS);
-				break;
-			default: // ERROR
-				break;
-			}
+			
 		} else {
 			PreparedStatement stm1 = c.prepareStatement(selectMeeting2);
 			stm1.setInt(1, id);
 			ResultSet rs1 = stm.executeQuery();
 			if (rs1.next()) {
 				meet = new Meeting(rs1.getInt(1), rs1.getInt(2), rs1.getInt(3), rs1.getInt(4), rs1.getString(5),
-						mm.model.Meeting.meetingStatus.APPROVED, rs1.getString(7), rs1.getString(8), rs1.getString(9),
+						meetingStatus.valueOf(rs.getInt(6)), rs1.getString(7), rs1.getString(8), rs1.getString(9),
 						rs1.getString(10), mm.model.Meeting.meetingType.SMS, rs1.getString(12), rs1.getString(13),
 						rs1.getLong(14), rs1.getTime(15), rs1.getTime(16), rs1.getBoolean(17), rs1.getBoolean(18));
-				switch (rs1.getInt(6)/* meetingStatus */) {
-				case 0: // PENDING
-					meet.setStatus(meetingStatus.PENDING);
-					break;
-				case 1: // APPRVED
-					meet.setStatus(meetingStatus.APPROVED);
-					break;
-				case 2: // COMPLETE
-					meet.setStatus(meetingStatus.COMPLETE);
-					break;
-				default: // ERROR
-					break;
-				}
-
-				switch (rs.getInt(11)/* meetingType */) {
-				case 0: // PHONE
-					meet.setMeetingType(meetingType.PHONE);
-					break;
-				case 1: // FACE_TO_FACE
-					meet.setMeetingType(meetingType.FACE_TO_FACE);
-					break;
-				case 2: // SMS
-					meet.setMeetingType(meetingType.SMS);
-					break;
-				default: // ERROR
-					break;
-				}
-			}
-		}
+				meeting.add(meet);
+		
+		}}
 
 		return meeting;
 	}
@@ -644,38 +592,19 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, meetingId);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
-			m = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
-					mm.model.Meeting.meetingStatus.APPROVED, rs.getString(7), rs.getString(8), rs.getString(9),
-					rs.getString(10), mm.model.Meeting.meetingType.SMS, rs.getString(12), rs.getString(13),
-					rs.getLong(14), rs.getTime(15), rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
+			m = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
 
-			switch (rs.getInt(6)/* meetingStatus */) {
-			case 0: // PENDING
-				m.setStatus(meetingStatus.PENDING);
-				break;
-			case 1: // APPRVED
-				m.setStatus(meetingStatus.APPROVED);
-				break;
-			case 2: // COMPLETE
-				m.setStatus(meetingStatus.COMPLETE);
-				break;
-			default: // ERROR
-				break;
-			}
+					rs.getInt(4), rs.getString(5), meetingStatus.valueOf(rs.getInt(6)), rs.getString(7),
 
-			switch (rs.getInt(11)/* meetingType */) {
-			case 0: // PHONE
-				m.setMeetingType(meetingType.PHONE);
-				break;
-			case 1: // FACE_TO_FACE
-				m.setMeetingType(meetingType.FACE_TO_FACE);
-				break;
-			case 2: // SMS
-				m.setMeetingType(meetingType.SMS);
-				break;
-			default: // ERROR
-				break;
-			}
+					rs.getString(8), rs.getString(9), rs.getString(10),
+
+					meetingType.getByValue(rs.getInt(11)), rs.getString(12),
+
+					rs.getString(13), rs.getLong(14), rs.getTime(15),
+
+					rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
+
+			
 
 		}
 		return m;
@@ -746,38 +675,18 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
-			meeting = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5),
-					mm.model.Meeting.meetingStatus.APPROVED, rs.getString(7), rs.getString(8), rs.getString(9),
-					rs.getString(10), mm.model.Meeting.meetingType.SMS, rs.getString(12), rs.getString(13),
-					rs.getLong(14), rs.getTime(15), rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
+			meeting = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
 
-			switch (rs.getInt(6)/* meetingStatus */) {
-			case 0: // PENDING
-				meeting.setStatus(meetingStatus.PENDING);
-				break;
-			case 1: // APPRVED
-				meeting.setStatus(meetingStatus.APPROVED);
-				break;
-			case 2: // COMPLETE
-				meeting.setStatus(meetingStatus.COMPLETE);
-				break;
-			default: // ERROR
-				break;
-			}
+					rs.getInt(4), rs.getString(5), meetingStatus.valueOf(rs.getInt(6)), rs.getString(7),
 
-			switch (rs.getInt(11)/* meetingType */) {
-			case 0: // PHONE
-				meeting.setMeetingType(meetingType.PHONE);
-				break;
-			case 1: // FACE_TO_FACE
-				meeting.setMeetingType(meetingType.FACE_TO_FACE);
-				break;
-			case 2: // SMS
-				meeting.setMeetingType(meetingType.SMS);
-				break;
-			default: // ERROR
-				break;
-			}
+					rs.getString(8), rs.getString(9), rs.getString(10),
+
+					meetingType.getByValue(rs.getInt(11)), rs.getString(12),
+
+					rs.getString(13), rs.getLong(14), rs.getTime(15),
+
+					rs.getTime(16), rs.getBoolean(17), rs.getBoolean(18));
+ m.add(meeting);
 		}
 		return m;
 	}
@@ -842,6 +751,9 @@ public class DataAccess implements DataInterface {
 //		return null;
 //	}
 
+	@Override
+	public ArrayList<Meeting> getMeetingByStatus(int userId,int status,int count,int page)throws SQLException
+
 	{
 
 		ArrayList<Meeting> m = null;
@@ -874,7 +786,7 @@ public class DataAccess implements DataInterface {
 
 			stm.setInt(1, userId);
 
-			stm.setInt(2, status.getValue());
+			stm.setInt(2, status);
 
 			stm.setInt(3, (page - 1) * (count));
 
@@ -888,7 +800,7 @@ public class DataAccess implements DataInterface {
 
 				Meeting meet = new Meeting(rs.getInt(1), rs.getInt(2), rs.getInt(3),
 
-						rs.getInt(4), rs.getString(5), status, rs.getString(7),
+						rs.getInt(4), rs.getString(5), meetingStatus.valueOf(rs.getInt(6)), rs.getString(7),
 
 						rs.getString(8), rs.getString(9), rs.getString(10),
 
@@ -901,9 +813,7 @@ public class DataAccess implements DataInterface {
 				m.add(meet);
 
 			}
-
 		}
-
 		return m;
 	}
 
