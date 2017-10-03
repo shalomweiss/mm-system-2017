@@ -117,6 +117,7 @@ public class DataAccess implements DataInterface {
 				stm3.setInt(1, rs.getInt(1));
 
 				ResultSet rs3 = stm.executeQuery();
+				if(rs3.next())
 				u = new Mentee(rs.getInt(DataContract.UsersTable.COL_ID),
 						rs.getString(DataContract.UsersTable.COL_FIRSTNAME),
 						rs.getString(DataContract.UsersTable.COL_LASTNAME),

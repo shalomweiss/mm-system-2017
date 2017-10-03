@@ -28,7 +28,7 @@
 			          mentorID: mentorId
 			        },
 			        function(data,status){
-			            alert("Big Love");
+			            alert(data);
 			        });
 	});
 	});
