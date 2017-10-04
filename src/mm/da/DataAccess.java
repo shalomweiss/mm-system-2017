@@ -942,8 +942,11 @@ public class DataAccess implements DataInterface {
 		return a;
 	}
 
+
+
 	@Override
-	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
+	public ArrayList<Meeting> getMeetingByStatus(int userId,
+			meetingStatus status, int count, int page) throws SQLException {
 		// TODO Auto-generated method stub
 		ArrayList<WorkPlace> workplace = new ArrayList<>();
 		WorkPlace w =null;
@@ -964,7 +967,7 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException {
+	public ArrayList<Mentee> getMenteesWithOutMentor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
