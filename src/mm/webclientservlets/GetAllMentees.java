@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,7 +54,12 @@ public class GetAllMentees extends HttpServlet {
 		request.setAttribute("Mentees", ArrMentees);
 		//TODO : getAllAcadimicIns;
 	//	request.setAttribute("AcadimicIn", AcadimicIn); 
-	
+		List<Integer> l2 =new ArrayList<Integer>();
+		l2.add(1);
+		l2.add(2);
+		l2.add(3);
+		
+		request.setAttribute("AcadimicIn",l2);
 		System.out.println("Mentees: " + ArrMentees);
 	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");

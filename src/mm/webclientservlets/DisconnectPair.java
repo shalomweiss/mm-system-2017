@@ -46,7 +46,7 @@ public class DisconnectPair extends HttpServlet {
 		int id=Integer.parseInt(pairId);
 		
 		DataAccess da = new DataAccess();
-	    boolean res=true;
+	    boolean res=false;
 	    RequestDispatcher req = null;
 	    response.setContentType("text/html");
 	    
@@ -54,8 +54,7 @@ public class DisconnectPair extends HttpServlet {
 		if(res){
 		//	response.getWriter().append("Disconnect Pair Successfull");
 			
-			response.getWriter().append(""+id);
-			//req = request.getRequestDispatcher(nextPage);
+			response.getWriter().append(""+id);			
 		}
 		else 
 			//response.getWriter().append("Disconnect Pair Is Failure");
