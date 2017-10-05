@@ -80,24 +80,24 @@ public class GetMeetings extends HttpServlet {
 		List<Meeting> meetings =new ArrayList<Meeting>();
 
 		///////////////TEST////////////////
-		Time time =new Time(12, 12, 2017);
-		Meeting[] arr = {new Meeting(111,5,4,16,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017, time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
-				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false)};
+//		Time time =new Time(12, 12, 2017);
+//		Meeting[] arr = {new Meeting(111,5,4,16,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017, time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false),
+//				new Meeting(1131,4,6,17,"note",meetingStatus.PENDING,"report1","report2","report3","report4",meetingType.FACE_TO_FACE,"subject","location",(long) 12122017,time,time,false,false)};
 
 
 
@@ -105,28 +105,28 @@ public class GetMeetings extends HttpServlet {
 
 
 	
-		iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+//		iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 		////////////END OF TEST/////////////////////////
 
 		//DataInterface da = new DataAccess();
 
 
 
-		//		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
-		//			
-		//			try {
-		//				meetings=iom.getDataAccess().getMeetingByStatus(id, meetingStatus, count, page);
-		//			} catch (SQLException e) {
-		//				// TODO Auto-generated catch block
-		//				e.printStackTrace();
-		//			}
-		//			if(meetings==null) {
-		//				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-		//			}
-		//			else {
-		//				///each meeting must not contain pairId, all reports,complete...
-		//				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-		//				
+				if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+					
+					try {
+						meetings=iom.getDataAccess().getMeetingByStatus(id, meetingStatus, count, page);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if(meetings==null) {
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+					}
+					else {
+						///each meeting must not contain pairId, all reports,complete...
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+						
 		for(int i=0;i<meetings.size();i++) {
 			meetings.get(i).setPairId(0);
 			meetings.get(i).setMenteePrivateReport(null);
@@ -139,11 +139,11 @@ public class GetMeetings extends HttpServlet {
 		//					
 		//					
 		//				}
-		iom.addResponseParameter("meetings", arr);
-		//			}
-		//				}else {
-		//					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
-		//				}
+		iom.addResponseParameter("meetings", meetings);
+					}
+						}else {
+							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+						}
 
 
 		iom.SendJsonResponse();

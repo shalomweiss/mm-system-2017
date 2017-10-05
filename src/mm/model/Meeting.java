@@ -283,6 +283,27 @@ public int getPairId() {
 public void setPairId(int pairId) {
 	this.pairId = pairId;
 }
+
+
+public void setMentorComplete(boolean mentorComplete) {
+	this.mentorComplete = mentorComplete;
+}
+
+
+public void setMenteeComplete(boolean menteeComplete) {
+	this.menteeComplete = menteeComplete;
+}
+
+
+@Override
+public String toString() {
+	return "Meeting [meetingId=" + meetingId + ", pairId=" + pairId + ", mentorId=" + mentorId + ", menteeId="
+			+ menteeId + ", note=" + note + ", status=" + status + ", menteeReport=" + menteeReport + ", mentorReport="
+			+ mentorReport + ", menteePrivateReport=" + menteePrivateReport + ", mentorPrivateReport="
+			+ mentorPrivateReport + ", meetingType=" + meetingType + ", subject=" + subject + ", location=" + location
+			+ ", date=" + date + ", startingDate=" + startingDate + ", endingDate=" + endingDate + ", mentorComplete="
+			+ mentorComplete + ", menteeComplete=" + menteeComplete + "]";
+}
 	
  
  
