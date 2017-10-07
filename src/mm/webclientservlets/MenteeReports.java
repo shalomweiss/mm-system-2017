@@ -40,12 +40,8 @@ public class MenteeReports extends HttpServlet {
 		String academicDicipline1 = request.getParameter("uAcademicDicipline1");
 		String academicDicipline2 = request.getParameter("uAcademicDicipline2");
 		ArrayList<User> allMentees=new ArrayList<User>();
-		try {
-			 allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
-					academicDicipline1, academicDicipline2);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
+				academicDicipline1, academicDicipline2);
 
 		Gson gson = new Gson();
 	   // System.out.println("USER with not json " +getUsers);

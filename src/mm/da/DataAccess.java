@@ -590,7 +590,7 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
-			s = new Session(id, rs.getString(DataContract.SessionsTable.COL_TOEKN),
+			s = new Session(id, rs.getString(DataContract.SessionsTable.COL_TOKEN),
 					rs.getLong(DataContract.SessionsTable.COL_CREATIONDATE), 
 					rs.getLong(DataContract.SessionsTable.COL_EXPIRATIONDATE),
 					rs.getString(DataContract.SessionsTable.COL_DEVICEID));
@@ -1012,29 +1012,11 @@ System.out.println(meeting.toString());
 		return null;
 	}
 
-	@Override
-	public ArrayList<Mentee> getMenteesWithOutMentor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
-			boolean inPair, String academicDicipline1, String academicDicipline2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public ArrayList<User> getAllCorrespondingMentors(String address, String gender, String workPlace, boolean inPair) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
+
 
 }
