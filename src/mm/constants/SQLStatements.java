@@ -153,7 +153,7 @@ public class SQLStatements {
 			+ DataContract.MeetingTable.TABLE_NAME+ " Where "+DataContract.MeetingTable.COL_PAIRID+"=?";
 	
 
-	public final static String insertPair = "INSERT INTO "
+	public final static String insertMeeting = "INSERT INTO "
 			+ DataContract.MeetingTable.TABLE_NAME + " ("
 			+ DataContract.MeetingTable.COL_PAIRID + ", "
 			+ DataContract.MeetingTable.COL_MENTORID + ", "
