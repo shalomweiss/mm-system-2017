@@ -64,9 +64,9 @@ public class DataAccess implements DataInterface {
 	final String getAllMentorsWithoutMentees = "select u.*,m.* from users as u LEFT JOIN mentors as m ON u.id = m.id  where m.id  in (select mentorId from pairs where mentorId = m.id  and activeStatus = 0	) or NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
 	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
 	
-	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
+	final String getMeetings1 = "Select * From activities where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 
-	final String getMeetings2 = "Select * From activites where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
+	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
 	final String selectWorkingPlace ="Select * From workplaces";
 	public DataAccess() {
@@ -664,7 +664,10 @@ public class DataAccess implements DataInterface {
 		
 		stm.setInt(2, 1);
 		ResultSet rs = stm.executeQuery();
+		if(rs.next()) {
 		return (Mentor) getUser(rs.getInt(2));
+		}
+		return null;
 
 	}
 
@@ -995,7 +998,7 @@ System.out.println(meeting.toString());
 
 	@Override
 	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
-			boolean inPair, String academicDicipline1, String academicDicipline2){
+			boolean inPair, String academicDicipline1, String academicDicipline2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
