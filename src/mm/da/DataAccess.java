@@ -65,7 +65,7 @@ public class DataAccess implements DataInterface {
 	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
 	
 	final String getMeetings1 = "Select * From activities where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
-
+	final String insertWorkPlace = "INSERT INTO workplaces (name,area,city,address ) VALUES (?,?,?,?)";
 	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
 	final String selectWorkingPlace ="Select * From workplaces";
