@@ -18,7 +18,7 @@ import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.User;
 
-@WebServlet("/MenteeReports")
+@WebServlet("/MentorReports")
 public class MentorReports extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

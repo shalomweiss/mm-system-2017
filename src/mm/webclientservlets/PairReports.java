@@ -19,7 +19,7 @@ import mm.da.DataAccess;
 import mm.model.Pair;
 import mm.model.User;
 
-@WebServlet("/MenteeReports")
+@WebServlet("/PairReports")
 public class PairReports extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

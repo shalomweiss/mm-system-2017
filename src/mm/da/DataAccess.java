@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import mm.constants.SQLStatements;
@@ -58,14 +59,14 @@ public class DataAccess implements DataInterface {
 	final String addUserSession = "INSERT INTO sessions (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
 	final String selectMeetingById = "Select * From activities where activityId=?";
 	final String selectMeetingByPair = "Select * From activities where pairId=?";
-	final String addMeeting = "INSERT INTO activities (pairId,mentorId,menteeId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	final String addMeeting = "INSERT INTO activities (mentorId,menteeId,pairId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u LEFT JOIN mentees as m ON u.id = m.id where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
 	final String getAllMentorsWithoutMentees = "select u.*,m.* from users as u LEFT JOIN mentors as m ON u.id = m.id  where m.id  in (select mentorId from pairs where mentorId = m.id  and activeStatus = 0	) or NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
 	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
 	
-	final String getMeetings1 = "Select * From activites where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
+	final String getMeetings1 = "Select * From activities where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 
-	final String getMeetings2 = "Select * From activites where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
+	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
 	final String selectWorkingPlace ="Select * From workplaces";
 	public DataAccess() {
@@ -588,13 +589,15 @@ public class DataAccess implements DataInterface {
 
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
-		if (rs.next()) {
+		while (rs.next()) {
 			s = new Session(id, rs.getString(DataContract.SessionsTable.COL_TOKEN),
 					rs.getLong(DataContract.SessionsTable.COL_CREATIONDATE), 
 					rs.getLong(DataContract.SessionsTable.COL_EXPIRATIONDATE),
 					rs.getString(DataContract.SessionsTable.COL_DEVICEID));
 			session.add(s);
+			
 		}
+		
 		return session;
 	}
 
@@ -660,9 +663,13 @@ public class DataAccess implements DataInterface {
 	public Mentor getMentorOfMentee(int menteeId) throws SQLException {
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectPairsByMenteeIdAndActiveStats);
 		stm.setInt(1, menteeId);
+		
 		stm.setInt(2, 1);
 		ResultSet rs = stm.executeQuery();
+		if(rs.next()) {
 		return (Mentor) getUser(rs.getInt(2));
+		}
+		return null;
 
 	}
 
@@ -673,7 +680,9 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, mentorId);
 		stm.setInt(2, 1);
 		ResultSet rs = stm.executeQuery();
-		while (!rs.next()) {
+		System.out.println(rs.toString());
+		while (rs.next()) {
+			System.out.println("in " +rs.getInt(3));
 			mentees.add((Mentee) getUser(rs.getInt(3)));
 		}
 		return mentees;
@@ -729,20 +738,41 @@ public class DataAccess implements DataInterface {
 	public boolean addMeeting(Meeting meeting) {
 		try
 		{
+			 String d=null;
 			PreparedStatement stm = c.prepareStatement(addMeeting);
-			stm.setInt(1, meeting.getPairId());
-			stm.setInt(2,meeting.getMentorId());
-			stm.setInt(3, meeting.getMenteeId());
+			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+			     d= f.format(new Date(meeting.getDate()));
+			
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+//			mentorId,menteeId,pairId,note,status,menteeReport,
+//			mentorReport,menteePrivateReport,mentorPrivateReport,
+//			meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete
+//			
+System.out.println(meeting.toString());
+			stm.setInt(3, meeting.getPairId());
+			System.out.println(meeting.getPairId());
+			stm.setInt(1,meeting.getMentorId());
+			System.out.println(meeting.getMentorId());
+			stm.setInt(2, meeting.getMenteeId());
+			System.out.println( meeting.getMenteeId());
 			stm.setString(4, meeting.getNote());
-			stm.setInt(5, Integer.valueOf(meeting.getStatus().ordinal()));
+			
+			stm.setInt(5, meeting.getStatus().ordinal());
+			System.out.println(meeting.getStatus().ordinal());
 			stm.setString(6, meeting.getMenteeReport());
 			stm.setString(7, meeting.getMentorReport());
 			stm.setString(8, meeting.getMenteePrivateReport());
 			stm.setString(9, meeting.getMentorPrivateReport());
-			stm.setInt(10, Integer.valueOf(meeting.getMeetingType().ordinal()));
+			stm.setInt(10, meeting.getMeetingType().ordinal());
 			stm.setString(11,meeting.getSubject());
 			stm.setString(12,meeting.getLocation());
-			stm.setLong(13,meeting.getDate());
+		
+
+			stm.setString(13, d.toString());
+			System.out.println(d.toString());
 			stm.setString(14,meeting.getStartingDate().toString());
 			stm.setString(15,meeting.getEndingDate().toString());
 			stm.setBoolean(16,meeting.getMentorComplete());
@@ -751,6 +781,7 @@ public class DataAccess implements DataInterface {
 		} 
 		catch (SQLException e) 
 		{
+			e.printStackTrace();
 			return false;
 		}
 		return true;	
@@ -974,7 +1005,7 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
-			boolean inPair, String academicDicipline1, String academicDicipline2){
+			boolean inPair, String academicDicipline1, String academicDicipline2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
