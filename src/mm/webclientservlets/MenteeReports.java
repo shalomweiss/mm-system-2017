@@ -31,7 +31,7 @@ public class MenteeReports extends HttpServlet {
 			throws ServletException, IOException {
 
 		DataAccess da = new DataAccess();
-		
+		String nextPage = request.getParameter("jsp");
 		String address = request.getParameter("uAddress");
 		String gender = request.getParameter("uGender");
 		String academicInstitution = request.getParameter("uAcademicInstitution");

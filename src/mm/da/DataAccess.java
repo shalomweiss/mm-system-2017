@@ -1024,6 +1024,12 @@ System.out.println(meeting.toString());
 		return null;
 	}
 
+	@Override
+	public ArrayList<Mentee> getMenteesWithOutMentor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 
