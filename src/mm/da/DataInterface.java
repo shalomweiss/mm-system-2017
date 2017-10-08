@@ -108,15 +108,13 @@ public interface DataInterface {
 	
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException;
 	
-	
-		
-
-
 	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException;
 
 	public ArrayList<User> getAllCorrespondingMentees(String address,String gender,String academicInstitution, boolean inPair,
 					 String academicDicipline1,String academicDicipline2);
 	
 	public ArrayList<User> getAllCorrespondingMentors(String address,String gender,String workPlace, boolean inPair);
+
+	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,String menteeName);
 
 }

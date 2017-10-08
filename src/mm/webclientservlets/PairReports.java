@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.model.Pair;
 import mm.model.User;
 
 @WebServlet("/MenteeReports")
@@ -36,9 +37,9 @@ public class PairReports extends HttpServlet {
 		String menteeName = request.getParameter("MenteeName");
 
 
-		ArrayList<User> allPairs=new ArrayList<User>();
+		ArrayList<Pair> allPairs=new ArrayList<Pair>();
 		try {
-			 allPairs = da.getAllCorrespondingPairs(mentorId,menteeId);
+			 allPairs = da.getAllCorrespondingPairs(mentorName,menteeName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
