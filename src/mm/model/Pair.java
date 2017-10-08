@@ -145,8 +145,8 @@ public class Pair {
 	}
 
 
-	public void setMentor(Mentor mentor) {
-		this.mentor = mentor;
+	public void setMentor(User user) {
+		this.mentor = user;
 	}
 
 
@@ -155,8 +155,8 @@ public class Pair {
 	}
 
 
-	public void setMentee(Mentee mentee) {
-		this.mentee = mentee;
+	public void setMentee(User user) {
+		this.mentee = user;
 	}
 
 }
