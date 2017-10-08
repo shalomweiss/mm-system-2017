@@ -52,16 +52,16 @@ public class GetMentorsAndMentees extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
 		
-		ArrayList<Mentee> arrMentees = new ArrayList<Mentee>();
+		ArrayList<User> ArrMentees = new ArrayList<User>();
 		 try {
-		// ArrMentees = da.getUsers(User.userType.MENTEE);
-			 arrMentees = da.getAllMenteesWithoutMentor();
+		 ArrMentees = da.getUsers(userType.MENTEE);
+		//	 arrMentees = da.getAllMenteesWithoutMentor();
 		 } catch (SQLException e) {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
 		
-		request.setAttribute("Mentees", arrMentees);
+		request.setAttribute("Mentees", ArrMentees);
 		response.setContentType("text/html");
 	
 		RequestDispatcher req = request.getRequestDispatcher("addPair.jsp");

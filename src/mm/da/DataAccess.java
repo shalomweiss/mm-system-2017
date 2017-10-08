@@ -1054,12 +1054,12 @@ System.out.println(meeting.toString());
 		return null;
 	}
 
-	@Override
-	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
-			boolean inPair, String academicDicipline1, String academicDicipline2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
+//			boolean inPair, String academicDicipline1, String academicDicipline2) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 
 
@@ -1071,6 +1071,13 @@ System.out.println(meeting.toString());
 
 	@Override
 	public ArrayList<Mentee> getMenteesWithOutMentor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,
+			String menteeName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
