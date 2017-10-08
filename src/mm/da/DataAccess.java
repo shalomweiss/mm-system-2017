@@ -34,9 +34,9 @@ public class DataAccess implements DataInterface {
 	final String selectLogin1 = "Select * From mentors where id=?"; 
 	final String selectLogin2 = "Select * From mentees where id=?";
 	final String selectByType = "Select * from users where type=?";
-	final String selectCorrespondingMentors = "Select * From mentors where address=?, gender=?, company=?,  ";
-	final String selectCorrespondingMentees = "Select * From mentees where  =?";
-	final String selectCorrespondingPairs = "Select * From pairs where id=?";
+//	final String selectCorrespondingMentors = "Select * From mentors where address=?, gender=?, company=?,  ";
+//	final String selectCorrespondingMentees = "Select * From mentees where  =?";
+//	final String selectCorrespondingPairs = "Select * From pairs where id=?";
 	final String selectByID = "Select * From users where id=?";
 	final String selectMentor = "Select * from users RIGHT JOIN mentors ON users.id = mentors.id";
 	final String selectMentee = "Select * from users RIGHT JOIN mentees ON users.id = mentees.id";

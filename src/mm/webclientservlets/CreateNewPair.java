@@ -41,7 +41,7 @@ public class CreateNewPair extends HttpServlet {
 			throws ServletException, IOException {
 		int MentorId =Integer.parseInt( request.getParameter("mentorID"));
 		int MenteeId =Integer.parseInt( request.getParameter("menteeID"));
-		//String nextPage = request.getParameter("jsp");
+		String nextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
 		boolean res = true;
 		RequestDispatcher req = null;
@@ -53,12 +53,14 @@ public class CreateNewPair extends HttpServlet {
 		 }
 		if (res) {
 			response.getWriter().append("Success");
+			req = request.getRequestDispatcher(nextPage);
+
 		}
 		else
 			response.getWriter().append("Failure");
 		
 			
-//		req.forward(request, response);
+		req.forward(request, response);
 
 	}
 }
