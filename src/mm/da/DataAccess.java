@@ -81,6 +81,7 @@ public class DataAccess implements DataInterface {
 
 	public User login(String email) throws SQLException {
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		if (c == null) {
 			logger.log(Level.SEVERE, "Connection Failed");
 			return null;

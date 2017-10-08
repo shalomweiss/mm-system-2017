@@ -19,7 +19,7 @@ import mm.da.DataAccess;
 import mm.model.Pair;
 import mm.model.User;
 
-@WebServlet("/MenteeReports")
+@WebServlet("/PairReports")
 public class PairReports extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,11 +38,7 @@ public class PairReports extends HttpServlet {
 
 
 		ArrayList<Pair> allPairs=new ArrayList<Pair>();
-		try {
-			 allPairs = da.getAllCorrespondingPairs(mentorName,menteeName);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		allPairs = da.getAllCorrespondingPairs(mentorName,menteeName);
 
 		Gson gson = new Gson();
 	   // System.out.println("USER with not json " +getUsers);
