@@ -589,13 +589,15 @@ public class DataAccess implements DataInterface {
 
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
-		if (rs.next()) {
+		while (rs.next()) {
 			s = new Session(id, rs.getString(DataContract.SessionsTable.COL_TOKEN),
 					rs.getLong(DataContract.SessionsTable.COL_CREATIONDATE), 
 					rs.getLong(DataContract.SessionsTable.COL_EXPIRATIONDATE),
 					rs.getString(DataContract.SessionsTable.COL_DEVICEID));
 			session.add(s);
+			
 		}
+		
 		return session;
 	}
 
@@ -678,7 +680,9 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, mentorId);
 		stm.setInt(2, 1);
 		ResultSet rs = stm.executeQuery();
-		while (!rs.next()) {
+		System.out.println(rs.toString());
+		while (rs.next()) {
+			System.out.println("in " +rs.getInt(3));
 			mentees.add((Mentee) getUser(rs.getInt(3)));
 		}
 		return mentees;

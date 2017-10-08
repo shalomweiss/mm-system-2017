@@ -47,35 +47,40 @@ public class AddMeeting extends HttpServlet {
 	Meeting meeting = new Gson().fromJson(iom.getJsonRequest().get("meeting").toString(), Meeting.class);
 
 	meeting.setDate((long)meeting.getDate());
-	if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
-		if(meeting!=null ) {
-			try {
-				System.out.println(meeting.toString());
-				if(iom.getDataAccess().addMeeting(meeting)) {
+	try {
+		if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
+			if(meeting!=null ) {
+				try {
+					System.out.println(meeting.toString());
+					if(iom.getDataAccess().addMeeting(meeting)) {
+						
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+						
+						
+					}else {
+						
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 					
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-					
-					
-				}else {
-					
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-				
-					
+						
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else {
-			//todo
-			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
-			
-	
-		}
-	
-	}else {
-		iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			}else {
+				//todo
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+				
 		
+			}
+		
+		}else {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
 	iom.addResponseParameter("meeting", meeting);
 	iom.SendJsonResponse();

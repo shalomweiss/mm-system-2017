@@ -120,12 +120,12 @@ public class SQLStatements {
 			+ DataContract.MentorsTable.COL_VOLUNTEERING + ", "
 			+ DataContract.MentorsTable.COL_WORKHISTORY
 			+ ") VALUES (?,?,?,?,?,?)";
-//	public final static String insertPair = "INSERT INTO "
-//			+ DataContract.PairsTable.TABLE_NAME + " ("
-//			+ DataContract.PairsTable.COL_MENTORID + ", "
-//			+ DataContract.PairsTable.COL_MENTEEID + ", "
-//			+ DataContract.PairsTable.COL_ACTIVESTATUS + ", "
-//			+ DataContract.PairsTable.COL_STARTDATE + ") VALUES (?,?,?,?)";
+	public final static String insertPair = "INSERT INTO "
+			+ DataContract.PairsTable.TABLE_NAME + " ("
+			+ DataContract.PairsTable.COL_MENTORID + ", "
+			+ DataContract.PairsTable.COL_MENTEEID + ", "
+			+ DataContract.PairsTable.COL_ACTIVESTATUS + ", "
+			+ DataContract.PairsTable.COL_STARTDATE + ") VALUES (?,?,?,?)";
 
 	public final static String selectPairs = "Select * From "
 			+ DataContract.PairsTable.TABLE_NAME;
