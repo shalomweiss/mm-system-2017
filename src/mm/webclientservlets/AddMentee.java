@@ -54,6 +54,7 @@ public class AddMentee extends HttpServlet {
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
 		String uEmail = request.getParameter("uEmail");
+		System.out.println("uuuuuuuuuuuuuuuuuu"+request.getParameter("uGender"));
 		int uGender = Integer.parseInt(request.getParameter("uGender"));
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
@@ -78,27 +79,26 @@ public class AddMentee extends HttpServlet {
 		boolean isGradute=Boolean.parseBoolean(isGraduate);
 		String uPass= GeneratePass.getSaltString();	 
 		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,isGradute,resume,gradeSheet );
-		
+		System.out.println("here to stay111");
 		
 		DataAccess da = new DataAccess();
 		RequestDispatcher req=null;
 	    boolean res=true;
 	
-//		try {
-//			res = da.addUser(newMentee);
-//		} catch (SQLException e) {
-////			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			res = da.addUser(newMentee);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		if(res){
 			request.setAttribute("AddedSuc", 1);
 			System.out.println("USER IS ADDED SUCSSESS");
 		}
 		if (!res){
 			request.setAttribute("AddedSuc", 0);
-			response.getWriter().append("Fails to add a mentee");
+			response.getWriter().append("Failed to add a mentee");
 		}
-		
+		request.setAttribute("NewMentee", newMentee);
 		req=request.getRequestDispatcher("GetAllMentees");
 		req.forward(request, response);
 	}

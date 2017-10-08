@@ -39,6 +39,9 @@ public interface DataInterface {
 	public ArrayList<Pair> getAllPairs() throws SQLException;
 
 	public boolean addPair(int mentorId, int menteeId) throws SQLException;
+	
+	public Pair addPair1(int mentorId, int menteeId) throws SQLException;
+
 
 	public boolean disconnectPair(int pairId) throws SQLException;
 
