@@ -60,7 +60,9 @@ public class AddNewMentor extends HttpServlet {
 		RequestDispatcher req = null;
 
 		try {
+			
 			res = da.addUser(newMentor);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

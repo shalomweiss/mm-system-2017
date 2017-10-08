@@ -2,6 +2,7 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +16,7 @@ import mm.da.DataAccess;
 import mm.model.Mentee;
 import mm.model.User;
 import mm.model.User.userType;
+import mm.webclientservlets.SendingMail;
 
 /**
  * Servlet implementation class AddMentee
@@ -92,6 +94,10 @@ public class AddMentee extends HttpServlet {
 		}
 		if(res){
 			request.setAttribute("AddedSuc", 1);
+			 String subject = "Java send mail example";
+		        String body = "Welcome to JavaMail!   ";
+		        String[] to = { "2131995m@gmail.com" };
+			SendingMail.sendFromGMail("Mail.test135791","mailtest",to,subject,body);
 			System.out.println("USER IS ADDED SUCSSESS");
 		}
 		if (!res){
