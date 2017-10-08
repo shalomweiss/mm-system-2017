@@ -44,21 +44,20 @@ public class CreateNewPair extends HttpServlet {
 		int MenteeId =Integer.parseInt( request.getParameter("menteeID"));
 		//String nextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
-		Pair p = null;
-		RequestDispatcher req = null;
+		Pair p = new Pair();
+		
 		 try {
 		 p = da.addPair1(MentorId,MenteeId);
 		 } catch (SQLException e) {
 		 e.printStackTrace();
 		 }
 		if (p==null) {
-			response.getWriter().append("Success");
-		}
-		else
 			response.getWriter().append("Failure");
-		
+		}
+		else{
+		response.getWriter().append("Success");
 		request.setAttribute("NewPair", p);	
-		req.forward(request, response);
+		}
 
 	}
 }
