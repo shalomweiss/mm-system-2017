@@ -21,16 +21,16 @@ public class SQLStatements {
 	public final static String selectUserByMentorId = "Select * from " 
 			+ DataContract.UsersTable.TABLE_NAME + " RIGHT JOIN "
 			+ DataContract.MentorsTable.TABLE_NAME + " ON "
-			+ DataContract.UsersTable.TABLE_NAME + DataContract.UsersTable.COL_ID 
+			+ DataContract.UsersTable.TABLE_NAME + "." + DataContract.UsersTable.COL_ID 
 			+ " = " 
-			+ DataContract.MentorsTable.TABLE_NAME + DataContract.MentorsTable.COL_ID
+			+ DataContract.MentorsTable.TABLE_NAME + "." + DataContract.MentorsTable.COL_ID
 			;
 	public final static String selectUserByMenteeId = "Select * from " 
 			+ DataContract.UsersTable.TABLE_NAME + " RIGHT JOIN "
 			+ DataContract.MenteeTable.TABLE_NAME + " ON "
-			+ DataContract.UsersTable.TABLE_NAME + DataContract.UsersTable.COL_ID 
+			+ DataContract.UsersTable.TABLE_NAME + "." + DataContract.UsersTable.COL_ID 
 			+ " = " 
-			+ DataContract.MenteeTable.TABLE_NAME + DataContract.MenteeTable.COL_ID
+			+ DataContract.MenteeTable.TABLE_NAME + "." + DataContract.MenteeTable.COL_ID
 			;
 	public final static String selectSessionByUserId = "Select * From "
 			+ DataContract.SessionsTable.TABLE_NAME + " where "
