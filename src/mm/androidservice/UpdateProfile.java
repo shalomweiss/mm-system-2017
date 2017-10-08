@@ -57,34 +57,39 @@ public class UpdateProfile extends HttpServlet {
 			User updatedUser = new Gson().fromJson(myJson.get("user").getAsJsonObject(), User.class);
 					//new User(myJson.get("user"));//TODO CHECK VARIABLES
 
-			if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())&&updatedUser!=null) {
-				try {	
-					//Sending user updated info to database
-					
-					if(
-							iom.getDataAccess().editUser(updatedUser)
-					) {
-						//success
-						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-				
+			try {
+				if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())&&updatedUser!=null) {
+					try {	
+						//Sending user updated info to database
 						
-					}else {
-						//failed
-						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+						if(
+								iom.getDataAccess().editUser(updatedUser)
+						) {
+							//success
+							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+					
+							
+						}else {
+							//failed
+							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+						}
+						
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+							
 					
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-						
-				
-			}else {
-				//TODO
-				//session error
+				}else {
+					//TODO
+					//session error
 
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			if(updatedUser!=null) {
 			iom.addResponseParameter("user", updatedUser);

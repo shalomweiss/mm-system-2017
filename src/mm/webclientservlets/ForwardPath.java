@@ -30,12 +30,12 @@ public class ForwardPath extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 String path = request.getParameter("jsp");
-		 String switchPath="LogIn.jsp";
-		 switch(path) {
-		 case ("welcome.jsp"): switchPath=path;
-		 case (""):
-			 
-		 }
+		 String switchPath="Welcome.jsp";
+//		 switch(path) {
+//		 case ("welcome.jsp"): switchPath=path;
+//		
+//			 
+//		 }
 		 RequestDispatcher req=request.getRequestDispatcher(switchPath);
 		 req.forward(request, response);	   
 	}

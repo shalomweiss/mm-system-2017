@@ -46,6 +46,27 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/yasson-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/aopalliance-repackaged-2.5.0-b42.jar"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/annotations-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/catalina.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/catalina-ant.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/catalina-ha.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/catalina-tribes.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/ecj-4.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/el-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/jasper.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/jasper-el.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/tomcat7-websocket.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/tomcat-api.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/tomcat-coyote.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/tomcat-i18n-es.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/tomcat-i18n-fr.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/tomcat-i18n-ja.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/tomcat-jdbc.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/tomcat-util.jar"/>
+	<classpathentry kind="lib" path="C:/apache-tomcat-7.0.79/lib/websocket-api.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

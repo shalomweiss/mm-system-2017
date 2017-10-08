@@ -46,43 +46,51 @@ public class GetProfile extends HttpServlet {
 		
 		//JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
 		
-	
+		int flag=0;
 		AndroidIOManager iom = new AndroidIOManager(request,response);
 		JsonObject myJson = iom.getJsonRequest();
-		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
-		String token = myJson.get("token").getAsString();
+		int id = (myJson.get("id").isJsonNull() ? flag=1 : myJson.get("id").getAsInt());
+		String token = (String) (myJson.get("token").isJsonNull()? flag=1 :myJson.get("token").getAsString());
 	
-			
+		if(flag==1) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+		}else {
 			
 			User user=null;
 			
-			if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
-			
-			
-			
 			try {
-				user=iom.getDataAccess().getUser(id);
-				System.out.println(user.toString());
+				if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+				
+				
+				
+				try {
+					user=iom.getDataAccess().getUser(id);
+					System.out.println(user.toString());
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if (user == null) {
+					System.out.println("");
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+					
+				} else {
+					iom.addResponseParameter("user", user);
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+					
+					
+					
+					}
+				}
+				else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			if (user == null) {
-				System.out.println("");
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-				
-			} else {
-				iom.addResponseParameter("user", user);
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-				
-				
-				
-				}
-			}
-			else {
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
-			}
+		}
 
 			
 			iom.SendJsonResponse();
