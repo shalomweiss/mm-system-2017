@@ -1016,11 +1016,7 @@ System.out.println(meeting.toString());
 		return null;
 	}
 
-	@Override
-	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException {
