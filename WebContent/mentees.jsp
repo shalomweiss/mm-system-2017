@@ -33,14 +33,14 @@
 <script type="text/javascript">
 	
 	function goToEdit(firstName, lastName, phone, email, academicInstitution,
-			notes, courseOfStudy, remainingSemesters, average, id) {
+			note, courseOfStudy, remainingSemesters, average, id) {
 		document.getElementById("fname").value = firstName;
 		document.getElementById("lname").value = lastName;
 		document.getElementById("phone").value = phone;
 		document.getElementById("email").value = email;
 
 		document.getElementById("academic").value = academicInstitution;
-		document.getElementById("notes").value = notes;
+		document.getElementById("note").value = note;
 		document.getElementById("course").value = courseOfStudy;
 		document.getElementById("semesters").value = remainingSemesters;
 		document.getElementById("average").value = average;
@@ -76,10 +76,50 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script type="text/javascript">
-	function show_hide_row(row) {
+
+var prevRow;
+
+	function show_hide_row(row,mentId,def) {
+		$("#" + prevRow).toggle();
 		$("#" + row).toggle();
+		document.getElementById(def).click();
+		prevRow=row;
+		
+		for(var i=1;i<=13;i++)  //length of inputs
+		{
+		showStuff("input"+i+mentId,"div"+i+mentId);
+		}
+	backUpInputs(mentId);
 
 	}
+	function closeRow(row,mentId) {
+		//hide the row
+		$("#" + row).toggle();
+		prevRow=null;
+		
+		for(var i=1;i<=13;i++)  //length of inputs
+			{
+			showStuff("input"+i+mentId,"div"+i+mentId);
+			}
+		backUpInputs(mentId);
+		
+	}
+	function backUpInputs(mentId){
+		
+		for(var i=1;i<=13;i++)  //length of inputs
+		{
+			document.getElementById("input"+i+mentId).value =document.getElementById("div"+i+mentId).innerHTML;
+		}
+		
+		
+	}
+	function showStuff(hide, show) {
+		
+	     document.getElementById(show).style.display  = 'block';
+	    document.getElementById(hide).style.display  = 'none';
+	    
+	}
+	
 </script>
 
 <script>
@@ -104,6 +144,8 @@
 	    document.getElementById(hide).style.display  = 'none';
 	    
 	}
+	
+	
 </script>
 
 
@@ -513,6 +555,7 @@ button {
 tr.stam:hover {
 	background-color: #f5f5f5;
 	opacity: 0.9;
+	cursor: pointer;
 }
 
 td {
@@ -528,21 +571,36 @@ td {
 }
 </style>
 <body>
-	<nav class="icon-bar">
-	<div class="icon-bar">
-		  <a class="active" href="welcome"><i class="fa fa-home"></i></a> 
-		  <a href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
-		  <a href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
-		  <a href="GetAllPairs"><i class="fa fa-group"></i></a>
 
-		  <a href="#"><i class="fa fa-bell"></i></a>
-		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
-	</div>
-</nav>
+
+	<!-- add successfully alert -->
+	<c:if test="${AddedSuc =='1'}">
+		<script>
+        alert("Mentee added successfully");
+        //alert("${AddedSuc}");
+       
+    </script>
+		<c:set var="AddedSuc" value="0" scope="request" />
+
+	</c:if>
+
+	<!-- welcome bar -->
+	<nav class="icon-bar">
+		<div class="icon-bar">
+			<a href="#"><i class="fa fa-home"></i></a> <a href="#"><i
+				class="fa fa-black-tie"></i></a> <a class="active" href="#"><i
+				class="fa fa-graduation-cap"></i></a> <a href="#"><i
+				class="fa fa-group"></i></a> <a href="#"><i class="fa fa-bell"></i></a>
+			<a href="#"><i class="fa fa-clipboard"></i></a>
+		</div>
+	</nav>
 	<h1>Mentees</h1>
+
+
 	<section>
 		<!--for demo wrap-->
 		<div class="tbl-header">
+
 			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
 				<thead>
 					<tr>
@@ -553,171 +611,205 @@ td {
 					</tr>
 
 				</thead>
-				</div>
+		</div>
 
-				<div class="tbl-content" style="height: 100%">
-					<tbody>
-						<c:forEach items="${Mentees}" var="ment">
-							<tr class="stam" onclick="show_hide_row('hidden_row${ment.id}');">
-								<td style="display: none">${ment.id}</td>
-								<td>${ment.firstName}</td>
+			<div class="tbl-content" style="height: 100%">
+				<tbody>
+					<c:forEach items="${Mentees}" var="ment">
+						<tr class="stam"
+							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+							    <td style="display: none">${ment.id}</td>
+						    	<td>${ment.firstName}</td>
 								<td>${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
 								<td>${ment.email}</td>
-							</tr>
+						</tr>
 
-							<tr id="hidden_row${ment.id}" class="hidden_row"
-								onclick="fun(this)">
-								<td colspan=4>
-									<div class="tab" >
-								
-										<button class="tablinks" 
-											onclick="showDetails(event, 'info${ment.id}')">Info</button>
-										<button class="tablinks"
-											onclick="showDetails(event, 'Academic${ment.id}')">Academic</button>
+						<tr id="hidden_row${ment.id}" class="hidden_row" onclick="fun(this)">
+							    <td colspan=4>
+								<div class="tab">
+
+								<button class="tablinks" id="defultOpen${ment.id}" onclick="showDetails(event, 'info${ment.id}')">Info</button>
+								<button class="tablinks" onclick="showDetails(event, 'Academic${ment.id}')">Academic</button>
 										<button class="tablinks"
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks"
-											onclick="showDetails(event, 'Tsofen${ment.id}')">Tsofen</button>
-										<button class="tablinks"
 											onclick="showDetails(event, 'Mentor${ment.id}')">Mentor</button>
-										<button class="tablinks" style=" float: right;"
-											onclick="show_hide_row('hidden_row${ment.id}');">close</button>	
-											
-									</div>
+										<button class="tablinks" style="float: right;"
+											onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
 
-									<div id="info${ment.id}" class="tabcontent" style="background-color: #f1f1f1;">
-									
-										<table class="w3-table-all w3-card-4">
-									
-											<tr>
-												<th>First name</th>
-												<th>Last name</th>
-												<th>Gender</th>
-												<th>Address</th>
-												<th>Phone</th>
-												<th>Email</th>
-											</tr>
-											<tr>
-												<td >
-												<div id="div1${ment.id}" ondblclick="showStuff('div1${ment.id}','input1${ment.id}');">${ment.firstName}</div>
-												 <input id="input1${ment.id}" type="text" value="${ment.firstName}" style="display :none;">
-												</td>
-												
-												<td>
-												<div id="div2${ment.id}" ondblclick="showStuff('div2${ment.id}','input2${ment.id}');">${ment.lastName}</div>
-												<input id="input2${ment.id}" type="text" value="${ment.lastName}"   style="display :none;">
-												</td>
-												<td>
-												<div id="div3${ment.id}" ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">${ment.gender}</div>
-												<input id="input3${ment.id}" type="text" value="${ment.gender}"   style="display :none;">
-												
-												</td>
-												<td>
-												<div id="div4${ment.id}" ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
-												<input id="input4${ment.id}" type="text" value="${ment.address}"   style="display :none;">
-												</td>
-												<td>
-												<div id="div5${ment.id}" ondblclick="showStuff('div5${ment.id}','input5${ment.id}');">${ment.phoneNumber}</div>
-												<input id="input5${ment.id}" type="text" value="${ment.phoneNumber}"   style="display :none;">
-												</td>
-												<td>
-												<div id="div6${ment.id}" ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
-												<input id="input6${ment.id}" type="text" value="${ment.email}"   style="display :none;">
-												</td>
-												<td><button>save</button></td>
-											</tr>
-										</table>
-										
+								</div>
+								<form id="form${ment.id}" action="UpdateMentee" method="post">
+								<div id="info${ment.id}" class="tabcontent"style="background-color: #f1f1f1;">
 
-									</div>
 
-									<div id="Academic${ment.id}" class="tabcontent" style="background-color: #f1f1f1;">
 
-										<table class="w3-table-all w3-card-4">
-											<tr>
-												<th>Remaining semesters</th>
-												<th>Graduation status</th>
-												<th>Academic institution</th>
-												<th>average</th>
-												<th>Major</th>
-												<th>Second major</th>
-											</tr>
-											<tr>
-												<td>
-										<div id="div7${ment.id}" ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.remainingSemesters}</div>
-										<input id="input7${ment.id}" type="text" value="${ment.remainingSemesters}"   style="display :none;">
-												</td>
-												<td>
-												<div id="div8${ment.id}" ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.graduationStatus}</div>
-										<input id="input8${ment.id}" type="text" value="${ment.graduationStatus}"   style="display :none;">
-												</td>
-												<td><div id="div9${ment.id}" ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.academiclnstitution}</div>
-												<input id="input9${ment.id}" type="text" value="${ment.academiclnstitution}"   style="display :none;">
-												</td>
-												<td>
-												<div id="div10${ment.id}" ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.average}></div>
-												<input id="input10${ment.id}" type="text" value="${ment.average}"   style="display :none;">
-												</td>
-												<td>
-												<div id="div11${ment.id}" ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">${ment.academicDicipline}</div>
-												<input id="input11${ment.id}" type="text" value="${ment.academicDicipline}"   style="display :none;">
-												</td>
-												<td>
-												<div id="div12${ment.id}" ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.academicDicipline2}</div>
-												<input id="input12${ment.id}" type="text" value="${ment.academicDicipline2}"   style="display :none;">
-												</td>
-												<td><button>save</button></td>
-											</tr>
-										</table>
+											<table class="w3-table-all w3-card-4">
 
-									</div>
+												<tr>
+													<th>First name</th>
+													<th>Last name</th>
+													<th>Gender</th>
+													<th>Address</th>
+													<th>Phone</th>
+													<th>Email</th>
+												</tr>
+												<tr>
+													<td>
+														<div id="div1${ment.id}"
+															ondblclick="showStuff('div1${ment.id}','input1${ment.id}');">${ment.firstName}</div>
+														<input id="input1${ment.id}" name="uFirstName" type="text"
+														value="${ment.firstName}" style="display: none;">
+													</td>
 
-									<div id="Notes${ment.id}" class="tabcontent" style="background-color: #f1f1f1;">
-									<table>
-									<tr>
-									<div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.note}</div>
-									
-									 <textarea id="input13${ment.id}" value="${ment.note}" style="display :none; height: 100px;">${ment.note}</textarea>
-									</tr>
-									<tr>
-									 <button style=" float: right;">save</button>
-									 </tr>
-									</table>
-									</div>
+													<td>
+														<div id="div2${ment.id}"
+															ondblclick="showStuff('div2${ment.id}','input2${ment.id}');">${ment.lastName}</div>
+														<input id="input2${ment.id}" name="uLastName" type="text"
+														value="${ment.lastName}" style="display: none;">
+													</td>
+													<td>
+														<div id="div3${ment.id}"
+															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">${ment.gender}</div>
+														<input id="input3${ment.id}" name="uGender" type="text"
+														value="${ment.gender}" style="display: none;">
 
-										<div id="Tsofen${ment.id}" class="tabcontent" style="background-color: #f1f1f1;">
-										<table>
-										<tr>
-										 ${ment.note}
-										</tr>
-										<tr>
-										<button style=" float: right;">save</button>
-										</tr>
-										
-										
-										</table>
-										
-										
-										
-									</div>
-									<div id="Mentor${ment.id}" class="tabcontent" style="background-color: #f1f1f1;">
-										<table>
-										<tr>
-										 ${ment.note}
-										</tr>
-										<tr>
-											
-										<button style=" float: right;">save</button>
-										</tr>
-										
-										
-										</table>
-									</div>
+													</td>
+													<td>
+														<div id="div4${ment.id}"
+															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
+														<input id="input4${ment.id}" name="uAddres" type="text"
+														value="${ment.address}" style="display: none;">
+													</td>
+													<td>
+														<div id="div5${ment.id}"
+															ondblclick="showStuff('div5${ment.id}','input5${ment.id}');">${ment.phoneNumber}</div>
+														<input id="input5${ment.id}" name="uPhoneNumber"
+														type="text" value="${ment.phoneNumber}"
+														style="display: none;">
+													</td>
+													<td>
+														<div id="div6${ment.id}"
+															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
+														<input id="input6${ment.id}" name="uEmail" type="text"
+														value="${ment.email}" style="display: none;">
+													</td>
+													<td><input id="submit${ment.id}" type="submit"
+														value="Done"></td>
+												</tr>
+											</table>
 
+
+										</div>
+
+										<div id="Academic${ment.id}" class="tabcontent"
+											style="background-color: #f1f1f1;">
+
+											<table class="w3-table-all w3-card-4">
+												<tr>
+													<th>Remaining semesters</th>
+													<th>Graduation status</th>
+													<th>Academic institution</th>
+													<th>average</th>
+													<th>Major</th>
+													<th>Second major</th>
+												</tr>
+												<tr>
+													<td>
+														<div id="div7${ment.id}"
+															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.remainingSemesters}</div>
+														<input id="input7${ment.id}" name="uRemSemesters"
+														type="text" value="${ment.remainingSemesters}"
+														style="display: none;">
+													</td>
+													<td>
+														<div id="div8${ment.id}"
+															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.graduationStatus}</div>
+														<input id="input8${ment.id}" name="uGraduationStatus"
+														type="text" value="${ment.graduationStatus}"
+														style="display: none;">
+													</td>
+													<td>
+														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitution}</div>
+												 <input name="uAcademicInstitution" id="input13${ment.id}" type="text" value="${ment.academiclnstitution}"   style="display :none;">
+
+
+									<!--					<select name="roleName">
+															<c:forEach items="${AcadimicIn}" var="role">
+																<option id="option${ment.id}"
+																	name="uAcademicInstitution" value="${role}"
+																	${role == ment.academiclnstitution ? 'selected' : ''}>${role}</option>
+															</c:forEach>
+
+													</select>-->
+
+													</td>
+													<td>
+														<div id="div9${ment.id}"
+															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.average}</div>
+														<input id="input9${ment.id}" name="uAverage" type="text"
+														value="${ment.average}" style="display: none;">
+													</td>
+													<td>
+														<div id="div10${ment.id}"
+															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.academicDicipline}</div>
+														<input id="input10${ment.id}" name="uAcademicDicipline"
+														type="text" value="${ment.academicDicipline}"
+														style="display: none;">
+													</td>
+													<td>
+														<div id="div11${ment.id}"
+															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">${ment.academicDicipline2}</div>
+														<input id="input11${ment.id}" name="uAcademicDicipline2"
+														type="text" value="${ment.academicDicipline2}"
+														style="display: none;">
+													</td>
+													<td><input type="submit" value="Done"></td>
+												</tr>
+											</table>
+
+										</div>
+
+										<div id="Notes${ment.id}" class="tabcontent"
+											style="background-color: #f1f1f1;">
+											<table>
+												<tr>
+
+													<div id="div12${ment.id}"
+														ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.note}</div>
+
+													<textarea id="input12${ment.id}" name="uNotes"
+														value="${ment.note}"
+														style="display: none; height: 100px;">${ment.note}</textarea>
+												</tr>
+												<tr>
+
+													<input id="id:${ment.id}" name="uId" type="text"
+														value="${ment.id}" style="display: none;">
+													<input type="submit" style="float: right;" value="Done">
+												</tr>
+
+											</table>
+										</div>
+
+
+										<div id="Mentor${ment.id}" class="tabcontent"
+											style="background-color: #f1f1f1;">
+											<table>
+												<tr>${ment.note}
+												</tr>
+												<tr>
+
+													<input type="submit" style="float: right;" value="Done">
+												</tr>
+
+
+
+											</table>
+										</div>
 								</td>
 							</tr>
-
+							</form>
 						</c:forEach>
 
 					</tbody>
@@ -761,8 +853,11 @@ td {
 								<td>Graduation status</td>
 								<td><input type="text" name="uGraduationStatus"></td>
 								<td>Academic institution</td>
-								<td><input type="text" name="uAcademicInstitution">
-								</td>
+								<td><select name="department">
+										<c:forEach var="item" items="${AcadimicIn}">
+											<option value="${item}">${item}</option>
+										</c:forEach>
+								</select> <!--  <input type="text" name="uAcademicInstitution">--></td>
 							<tr>
 								<td>Average</td>
 								<td><input type="text" name="uAverage"></td>
@@ -799,7 +894,12 @@ td {
 
 			</div>
 		</div>
+
+
+
+
 	</section>
+
 </body>
 </html>
 
