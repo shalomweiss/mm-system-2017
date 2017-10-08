@@ -59,7 +59,9 @@ public class AddNewMentor extends HttpServlet {
 	    RequestDispatcher req = null;
 	
 		try {
+			
 			res = da.addUser(newMentor);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,7 +72,7 @@ public class AddNewMentor extends HttpServlet {
 		}
 		if(!res)
 			response.getWriter().append("Failed in added Mentor");	
-		
+
 		req.forward(request, response);
 	}
 }

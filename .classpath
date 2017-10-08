@@ -47,5 +47,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/yasson-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/aopalliance-repackaged-2.5.0-b42.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/moham/Downloads/javax.mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
