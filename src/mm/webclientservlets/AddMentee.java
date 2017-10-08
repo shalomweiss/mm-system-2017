@@ -57,7 +57,7 @@ public class AddMentee extends HttpServlet {
 		int uGender = Integer.parseInt(request.getParameter("uGender"));
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
-		String uCourseOfStudy = request.getParameter("uCourseOfStudy");
+	//	String uCourseOfStudy = request.getParameter("uCourseOfStudy");
 		int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		String uRemSemesters = request.getParameter("uRemSemesters");
 		String uAverage = request.getParameter("uAverage");
@@ -87,7 +87,7 @@ public class AddMentee extends HttpServlet {
 		try {
 			res = da.addUser(newMentee);
 		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(res){
