@@ -311,7 +311,7 @@ outline: none !important;
           <td ><c:out value="${pair.mentorName}"></c:out></td>
 			<td><c:out value="${pair.menteeName}"></c:out></td>
 			<td><c:out value="${pair.activeStatus}"></c:out></td>
-			 <td>   <a class="Meetings" href="GetMentorsAndMentees?pageName=meetings&id=${pair.pairId}" >
+			 <td>   <a class="Meetings" href="GetMeetingByPairId?pageName=meetings&id=${pair.pairId}" >
   <div class="button-fill grey">
     <div class="button-text">Meetings</div>
     <div class="button-inside">

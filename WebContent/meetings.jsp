@@ -38,7 +38,52 @@ function  getId(note1,note2,note3,note4) {
 	document.getElementById("note4").innerHTML=note4;
 	
 }
+
+$(document).ready(function(){
+	$(".stam").click(function() {
+	    $(this).addClass('selected').siblings().removeClass("selected");
+	});
+});
 </script>
+<script type="text/javascript">
+
+var prevRow;
+
+	function show_hide_row(row,mentId,def) {
+		$("#" + prevRow).toggle();
+		$("#" + row).toggle();
+		document.getElementById(def).click();
+		prevRow=row;
+		
+		for(var i=1;i<=13;i++)  //length of inputs
+		{
+		showStuff("input"+i+mentId,"div"+i+mentId);
+		}
+	backUpInputs(mentId);
+
+	}
+	function closeRow(row,mentId) {
+		//hide the row
+		$("#" + row).toggle();
+		prevRow=null;
+		
+		for(var i=1;i<=13;i++)  //length of inputs
+			{
+			showStuff("input"+i+mentId,"div"+i+mentId);
+			}
+		backUpInputs(mentId);
+		
+	}
+	function backUpInputs(mentId){
+		
+		for(var i=1;i<=13;i++)  //length of inputs
+		{
+			document.getElementById("input"+i+mentId).value =document.getElementById("div"+i+mentId).innerHTML;
+		}
+		
+		
+	}
+	</script>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
 <style>
@@ -85,7 +130,7 @@ th{
   text-align: center;
   font-weight: 500;
   font-size: 14px;
-  color: #fff;
+  color: black;
   text-transform: uppercase;
   word-wrap: break-word;
 }
@@ -95,7 +140,7 @@ td{
   vertical-align:middle;
   font-weight: 300;
   font-size: 14px;
-  color: #fff;
+  color: #black;
   border-bottom: solid 1px rgba(255,255,255,0.1);
   border-right: solid 1px rgba(255,255,255,0.3);
   word-wrap: break-word;
@@ -228,9 +273,6 @@ outline: none !important;
 	cursor: pointer !important;
 }
 
-* {
-  font-family: 'Open Sans', sans-serif;
-}
 .button-fill {
   text-align: center;
   background: #ccc;
@@ -310,7 +352,27 @@ outline: none !important;
 	margin-right:10px;
 	margin-top:10px;
 }
+tr:hover td.inf{
+	background-color:#f5f5f5;
+	color: #69A489;
+}
 
+tr.selected td.inf{
+	background-color:#f5f5f5;
+	color: #69A489;
+}
+.hidden_row{
+	display: none;
+}
+
+.tab {
+ 
+  background: #fff;
+  border-radius: 5px;
+
+  position: relative;
+  transition: all 2s ease-in-out;
+}
 
 </style>
 <body>
@@ -330,14 +392,14 @@ outline: none !important;
 	
 <h1>
 Mentor: 
- <c:out value="${Mentor.firstName}"></c:out>
-		 <c:out value="${Mentor.lastName}"></c:out>, 
-	 <c:out value="${Mentor.phoneNumber}"></c:out>
+ <c:out value="${Pair.getMentor().firstName}"></c:out>
+		 <c:out value="${Pair.getMentor().lastName}"></c:out>, 
+	 <c:out value="${Pair.getMentor().phoneNumber}"></c:out>
 <br>
 Mentee: 
-		 <c:out value="${Mentee.firstName}"></c:out>
-		  <c:out value="${Mentee.lastName}"></c:out>, 
-	 <c:out  value="${Mentee.phoneNumber}"></c:out>
+		 <c:out value="${Pair.getMentee().firstName}"></c:out>
+		  <c:out value="${Pair.getMentee().lastName}"></c:out>, 
+	 <c:out  value="${Pair.getMentee().phoneNumber}"></c:out>
 </h1>
 
 <section>
@@ -351,7 +413,6 @@ Mentee:
           <th>Location</th>
           <th>Meeting Type</th>
           <th>Meeting subject</th>
-          <th>Reviews </th>
         </tr>
       </thead>
     </table>
@@ -359,44 +420,36 @@ Mentee:
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
-      <c:forEach var="meeting" items="${Meetings}" >
-        <tr>
-          <td ><c:out value="${meeting.date}"></c:out></td>
-			<td><c:out value="${meeting.location}"></c:out></td>
-			<td><c:out value="${meeting.type}"></c:out></td>
-			<td><c:out value="${meeting.subject}"></c:out></td>
-			 <td>   <a class="cd-popup-trigger" href="#" data-toggle="modal" data-target="#myModal" onclick="getId('${meeting.note1}','${meeting.note2}','${meeting.note3}','${meeting.note4}');">
-  <div class="button-fill grey">
-    <div class="button-text">Reviews</div>
-    <div class="button-inside">
-      <div class="inside-text">Reviews</div>
-    </div>
-    </div>
-    </a>
-    </td>
-    <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
-        </div>
+      <c:forEach var="meeting" items="${meetings}" >
+        <tr class="stam" onclick="show_hide_row('hidden_row${meeting.meetingId}',${meeting.meetingId},'defultOpen${meeting.meetingId}');">
+          <td class="inf"><c:out value="${meeting.date}"></c:out></td>
+			<td class="inf"><c:out value="${meeting.location}"></c:out></td>
+			<td class="inf"><c:out value="${meeting.meetingType}"></c:out></td>
+			<td class="inf"><c:out value="${meeting.subject}"></c:out></td>	 
+        </tr>
         
-        <div class="modal-body">
-      
-        <b>Mentor's Review:</b>  <p id="note1"></p>
-        <b>Mentee's Review:</b>  <p id="note2"> </p>
-        <b>Mentor's Review to Tsofen member:</b>  <p id="note3"></p>
-        <b>Mentee's Review to Tsofen member:</b>  <p id="note4"></p>
-         
+	    <tr id="hidden_row${meeting.meetingId}" class="hidden_row">
+	    <td colspan=4>
+	    
+        	<div class="tab">
+      <button class="tablinks" style="float: right;"
+											onclick="closeRow('hidden_row${meeting.meetingId}',${meeting.meetingId});">X</button>
+		<table>
+		<tr>									
+        <th>Mentor's Review:</th> 
+        <th>Mentee's Review:</th>  
+        <th>Mentor's Review to Tsofen member:</th>  
+        <th>Mentee's Review to Tsofen member:</th>
+         </tr>
+         <tr>
+         <td><c:out value="${meeting.mentorReport}"></c:out></td>
+         <td><c:out value="${meeting.menteeReport}"></c:out></td>
+         <td><c:out value="${meeting.mentorPrivateReport}"></c:out></td>
+         <td><c:out value="${meeting.menteePrivateReport}"></c:out></td>
+         </tr>
+   </table>
         </div>
-        <div class="modal-footer">
-          
-        </div>
-      </div>
-    </div>
-  </div>
-
+        </td>
         </tr>
         
         </c:forEach>
@@ -404,9 +457,3 @@ Mentee:
       </tbody>
     </table>
   </div>
-
-
-
-</section>
-</body>
-</html> 

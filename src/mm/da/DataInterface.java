@@ -28,7 +28,7 @@ public interface DataInterface {
 
 	public User getUser(int id) throws SQLException;
 
-	public boolean addUser(User u) throws SQLException;
+	public int addUser(User u) throws SQLException;
 
 	public boolean editUser(User u) throws SQLException;
 

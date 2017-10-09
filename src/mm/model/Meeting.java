@@ -105,6 +105,9 @@ public Meeting(int meetingId, int pairId, int mentorId, int menteeId, String not
 }
 
 
+public Meeting() {}
+
+
 public int getMentorId() {
 	return mentorId;
 }
@@ -282,6 +285,21 @@ public int getPairId() {
 
 public void setPairId(int pairId) {
 	this.pairId = pairId;
+}
+
+
+@Override
+public String toString() {
+	return "Meeting [meetingId=" + meetingId + ", pairId=" + pairId
+			+ ", mentorId=" + mentorId + ", menteeId=" + menteeId + ", note="
+			+ note + ", status=" + status + ", menteeReport=" + menteeReport
+			+ ", mentorReport=" + mentorReport + ", menteePrivateReport="
+			+ menteePrivateReport + ", mentorPrivateReport="
+			+ mentorPrivateReport + ", meetingType=" + meetingType
+			+ ", subject=" + subject + ", location=" + location + ", date="
+			+ date + ", startingDate=" + startingDate + ", endingDate="
+			+ endingDate + ", mentorComplete=" + mentorComplete
+			+ ", menteeComplete=" + menteeComplete + "]";
 }
 	
  

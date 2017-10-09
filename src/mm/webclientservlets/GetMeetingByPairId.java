@@ -21,14 +21,14 @@ import mm.model.PairDetails;
  * Servlet implementation class GetPairById
  * Get Pair Object By sending Pais's ID 
  */
-@WebServlet("/GetPairDetails")
-public class GetPairDetails extends HttpServlet {
+@WebServlet("/GetMeetingByPairId")
+public class GetMeetingByPairId extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetPairDetails() {
+    public GetMeetingByPairId() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,9 +39,8 @@ public class GetPairDetails extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("GetPairDetails Servlet");
-		int pairId =Integer.parseInt( request.getParameter("pairId"));
-        String nextPage = request.getParameter("jsp");
+		System.out.println("Meeting Servlet");
+		int pairId =Integer.parseInt( request.getParameter("id"));
         DataAccess da = new DataAccess();
             Pair pair = null;
           try {
@@ -50,23 +49,38 @@ public class GetPairDetails extends HttpServlet {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-          ArrayList<Meeting> allMeetings = null;
+          ArrayList<Meeting> allMeetings = new ArrayList<Meeting>();
           try {
             allMeetings= da.getMeetingsByPairId(pairId);
+            System.out.println(pairId+"Meetings"+allMeetings);
            } catch (SQLException e) {
                // TODO Auto-generated catch block
                e.printStackTrace();
            }
+          System.out.println("Meetings"+allMeetings);
+        //  allMeetings=getAllMeeting();
           PairDetails pairDetails=new PairDetails();
           pairDetails.setPair(pair);
           pairDetails.setMeetings(allMeetings);
-          
-        request.setAttribute("Pairs", pairDetails);	
-        
-
-        response.setContentType("text/html");
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
-		req.forward(request, response);	
+          System.out.println("Meetings"+allMeetings);
+          request.setAttribute("Pairs", pairDetails);
+          request.setAttribute("meetings", allMeetings);	
+          RequestDispatcher req = null;
+		  req=request.getRequestDispatcher("meetings.jsp");
+	    	req.forward(request, response);	
+	}
+	
+	public ArrayList<Meeting> getAllMeeting(){
+		ArrayList<Meeting> arr=new ArrayList<Meeting>();
+		Meeting m=new Meeting(0, 0, 0, 0, "String",null,null,null,null,null,null,null, null, null, null, null, false, false);
+		m.setLocation("LOCATION");
+		
+		
+		m.setMenteePrivateReport("REPORTING");
+		m.setMenteeReport("PPPPP");
+		
+		arr.add(m);
+		return arr;
 	}
 
 }

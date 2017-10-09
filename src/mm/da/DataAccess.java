@@ -262,7 +262,7 @@ public class DataAccess implements DataInterface {
 	 */
 
 	@Override
-	public boolean addUser(User u) throws SQLException {
+	public int addUser(User u) throws SQLException {
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectUserByEmail);
 		stm.setString(1, u.getEmail());
 		ResultSet rs = stm.executeQuery();
@@ -270,7 +270,7 @@ public class DataAccess implements DataInterface {
 		{
 			System.out.println("rs.next(): " + rs.getString(3));
 			System.out.println("BAD, USER ALREADY EXISTS");
-			return false;
+			return -1;
 		}
 		PreparedStatement stm2 = c.prepareStatement(SQLStatements.insertUser);
 		stm2.setInt(1, u.getType().getValue());
@@ -294,11 +294,11 @@ public class DataAccess implements DataInterface {
 		{
 			id = rs.getInt(1);
 		} else {
-			return false;
+			return -1;
 		}
 
 		if (u.getType() == userType.TSOFEN || u.getType() == userType.ADMIN)
-			return true;
+			return id;
 
 		if (u.getType() == userType.MENTOR) {
 			PreparedStatement stm3 = c.prepareStatement(SQLStatements.insertMentor);
@@ -310,7 +310,7 @@ public class DataAccess implements DataInterface {
 			stm3.setString(6, ((Mentor) u).getWorkHistory());
 
 			stm3.executeUpdate();
-			return true;
+			return id;
 		}
 
 		if (u.getType() == userType.MENTEE) {
@@ -326,9 +326,9 @@ public class DataAccess implements DataInterface {
 			stm4.setString(9, ((Mentee) u).getResume());
 			stm4.setString(10, ((Mentee) u).getGradeSheet());
 			stm4.executeUpdate();
-			return true;
+			return id;
 		}
-		return false;
+		return -1;
 	}
 
 	@Override
@@ -842,18 +842,49 @@ System.out.println(meeting.toString());
 		return false;
 	}
 
-	@Override
+//	@Override
+//	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException {
+//		ArrayList<Meeting> m = new ArrayList<Meeting>();
+//		Meeting meeting = null;
+//		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMeetingByPairId);
+//		stm.setInt(1, pairId);
+//		ResultSet rs = stm.executeQuery();
+//		if (rs.next()) {
+//			meeting = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
+//					rs.getInt(DataContract.MeetingTable.COL_PAIRID),
+//					rs.getInt(DataContract.MeetingTable.COL_MENTORID),
+//					rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
+//				
+//					rs.getString(DataContract.MeetingTable.COL_NOTE),
+//					meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
+//					rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
+//					rs.getString(DataContract.MeetingTable.COL_MENTORREPORT),
+//					rs.getString(DataContract.MeetingTable.COL_MENTEEPRIVREPORT),
+//					rs.getString(DataContract.MeetingTable.COL_MENTORPRIVREPORT),
+//					meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
+//					rs.getString(DataContract.MeetingTable.COL_SUBJECT),
+//					rs.getString(DataContract.MeetingTable.COL_LOCATION),
+//					rs.getLong(DataContract.MeetingTable.COL_DATE), 
+//					rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
+//					rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
+//					rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
+//					rs.getBoolean(DataContract.MeetingTable.COL_MENTEECOMPLETE));
+// m.add(meeting);
+//		}
+//		return m;
+//	}
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException {
+		System.out.println("MEEEEEEEEEEEEEEEEEEEEEEETINGGG");
 		ArrayList<Meeting> m = new ArrayList<Meeting>();
 		Meeting meeting = null;
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMeetingByPairId);
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
-			meeting = new Meeting(rs.getInt(DataContract.MeetingTable.COL_MENTORID),
-					rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
-					rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
+			meeting = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 					rs.getInt(DataContract.MeetingTable.COL_PAIRID),
+					rs.getInt(DataContract.MeetingTable.COL_MENTORID),
+					rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
 					rs.getString(DataContract.MeetingTable.COL_NOTE),
 					meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
 					rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
