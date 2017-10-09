@@ -92,9 +92,9 @@ public interface DataInterface {
 	
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException;
 	
-	public WorkPlace getWorkPlaceById(int id);
+	public WorkPlace getWorkPlaceById(int id) throws SQLException;
 	
-	public AcademicInstitute getAcademicInstituteById(int id);
+	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException;
 	
 	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException;
 

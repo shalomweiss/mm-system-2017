@@ -47,6 +47,11 @@ public class WorkPlace {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	@Override
+	public String toString() {
+		return "WorkPlace [id=" + id + ", company=" + company + ", area=" + area + ", city=" + city + ", address="
+				+ address + "]";
+	}
 
 	
 }

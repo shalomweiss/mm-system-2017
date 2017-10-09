@@ -74,7 +74,10 @@ public class DataAccess implements DataInterface {
 	final String insertWorkPlace = "INSERT INTO workplaces (name,area,city,address ) VALUES (?,?,?,?)";
 	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
-	final String selectWorkingPlace ="Select * From workplaces";
+	final String selectWorkPlace ="Select * From workplaces";
+	final String selectWorkPlaceId="Select * From workplaces where id=? ";
+	final String selectAcademicInstituteId = "Select * From academicinstitute where id =?";
+	
 	public DataAccess() {
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
@@ -422,6 +425,28 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
+	public ArrayList<Pair> getAllPairs() throws SQLException {
+		Pair p = new Pair();
+		ArrayList<Pair> pair = new ArrayList<Pair>();
+		Statement stm = c.createStatement();
+		stm.executeQuery(SQLStatements.selectPairs);
+		ResultSet r = stm.getResultSet();
+
+		while (r.next()) {
+			p = new Pair(r.getInt(DataContract.PairsTable.COL_PAIRID),
+					r.getInt(DataContract.PairsTable.COL_MENTORID),
+					r.getInt(DataContract.PairsTable.COL_MENTEEID),
+					r.getInt(DataContract.PairsTable.COL_ACTIVESTATUS),
+					r.getLong(DataContract.PairsTable.COL_STARTDATE), 
+					r.getLong(DataContract.PairsTable.COL_ENDDATE),
+					r.getString(DataContract.PairsTable.COL_JOINTMESSAGE),
+					r.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
+			pair.add(p);
+		}
+		return pair;
+	}
+
+	@Override
 	public User getUser(int id) throws SQLException {
 		User user = null;
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectUserById);
@@ -430,7 +455,7 @@ public class DataAccess implements DataInterface {
 		if (rs.next()) {
 			int type = rs.getInt(2);
 			switch (type) {
-
+	
 			case 0:
 				break;
 			case 1:
@@ -450,7 +475,7 @@ public class DataAccess implements DataInterface {
 			case 2:
 				PreparedStatement stm2 = c.prepareStatement(SQLStatements.selectMentorById);
 				stm2.setInt(1, rs.getInt(DataContract.UsersTable.COL_ID));
-
+	
 				ResultSet rs2 = stm2.executeQuery();
 				if (rs2.next())
 					user = new Mentor(rs.getInt(DataContract.UsersTable.COL_ID),
@@ -473,7 +498,7 @@ public class DataAccess implements DataInterface {
 			case 3:
 				PreparedStatement stm3 = c.prepareStatement(SQLStatements.selectMenteeById);
 				stm3.setInt(1, rs.getInt(1));
-
+	
 				ResultSet rs3 = stm3.executeQuery();
 				if (rs3.next())
 					user = new Mentee(rs.getInt(DataContract.UsersTable.COL_ID),
@@ -500,31 +525,9 @@ public class DataAccess implements DataInterface {
 			default:
 				break;
 			}
-
+	
 		}
 		return user;
-	}
-
-	@Override
-	public ArrayList<Pair> getAllPairs() throws SQLException {
-		Pair p = new Pair();
-		ArrayList<Pair> pair = new ArrayList<Pair>();
-		Statement stm = c.createStatement();
-		stm.executeQuery(SQLStatements.selectPairs);
-		ResultSet r = stm.getResultSet();
-
-		while (r.next()) {
-			p = new Pair(r.getInt(DataContract.PairsTable.COL_PAIRID),
-					r.getInt(DataContract.PairsTable.COL_MENTORID),
-					r.getInt(DataContract.PairsTable.COL_MENTEEID),
-					r.getInt(DataContract.PairsTable.COL_ACTIVESTATUS),
-					r.getLong(DataContract.PairsTable.COL_STARTDATE), 
-					r.getLong(DataContract.PairsTable.COL_ENDDATE),
-					r.getString(DataContract.PairsTable.COL_JOINTMESSAGE),
-					r.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
-			pair.add(p);
-		}
-		return pair;
 	}
 
 	@Override
@@ -729,10 +732,11 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, mentorId);
 		stm.setInt(2, 1);
 		ResultSet rs = stm.executeQuery();
-		while (rs.next()) {
-			System.out.println("in " +rs.getInt(3));
+		while (rs.next()) {	
+			
 			mentees.add((Mentee) getUser(rs.getInt(3)));
 		}
+	
 		return mentees;
 	}
 
@@ -1020,7 +1024,7 @@ System.out.println(meeting.toString());
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
 		ArrayList<WorkPlace> workplace = new ArrayList<>();
 		WorkPlace w = null;
-		PreparedStatement stm = c.prepareStatement(selectWorkingPlace);
+		PreparedStatement stm = c.prepareStatement(selectWorkPlace);
 		ResultSet rs = stm.executeQuery();
 		while (rs.next()) {
 			w = new WorkPlace(rs.getInt(DataContract.WorkplacesTable.COL_ID),
@@ -1063,15 +1067,32 @@ System.out.println(meeting.toString());
 	}
 
 	@Override
-	public WorkPlace getWorkPlaceById(int id) {
+	public WorkPlace getWorkPlaceById(int id) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		WorkPlace work= null;
+		PreparedStatement stm = c.prepareStatement(selectWorkPlaceId);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();
+		if(rs.next())
+		{
+			work = new WorkPlace(id, rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5));
+		}
+		
+		return work;
 	}
 
 	@Override
-	public AcademicInstitute getAcademicInstituteById(int id) {
+	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		AcademicInstitute a = null;
+		PreparedStatement stm = c.prepareStatement(selectAcademicInstituteId);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();
+		if(rs.next())
+		{
+			a= new AcademicInstitute(id, rs.getString(2), rs.getString(3), rs.getString(4));
+		}
+		return a;
 	}
 
 	@Override

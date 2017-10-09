@@ -18,15 +18,15 @@ public class AddMentorTest {
 
 	public static void main(String[] args) throws SQLException {
 		da=new DataAccess();
-		Mentor m1 = new Mentor(0, "yara", "rohana", "yara.rohana@gmail.com",
+		Mentor m1 = new Mentor(0, "yara", "rohana", "yara.rohana14@gmail.com",
 				"125", "blabla", 1, "Haifa", "okay", "pic", true,
 				userType.MENTOR, "none", "Student", 2, "yes", "none");
 
-		Mentor m2 = new Mentor(0, "ghada", "awady", "ghada.rohana@gmail.com",
+		Mentor m2 = new Mentor(0, "ghada", "awady", "ghada.rohana33@gmail.com",
 				"125", "blabla", 1, "Haifa", "okay", "pic", true,
 				userType.MENTOR, "none", "Student", 2, "yes", "none");
 		
-		Mentor m3 = new Mentor(0, "jimmy", "keth", "jimmy.keth@gmail.com",
+		Mentor m3 = new Mentor(0, "jimmy", "keth", "jimmy.keth11@gmail.com",
 				"125", "blabla", 1, "Haifa", "okay", "pic", true,
 				userType.MENTOR, "none", "Student", 2, "yes", "none");
 		

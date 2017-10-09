@@ -57,11 +57,11 @@ public class GetPairDetails extends HttpServlet {
                // TODO Auto-generated catch block
                e.printStackTrace();
            }
-          PairDetails pairDetails=new PairDetails();
-          pairDetails.setPair(pair);
-          pairDetails.setMeetings(allMeetings);
-          
-        request.setAttribute("Pairs", pairDetails);	
+//          PairDetails pairDetails=new PairDetails();
+//          pairDetails.setPair(pair);
+//          pairDetails.setMeetings(allMeetings);
+//          
+    //    request.setAttribute("Pairs", pairDetails);	
         
 
         response.setContentType("text/html");
