@@ -74,7 +74,10 @@ public class DataAccess implements DataInterface {
 	final String insertWorkPlace = "INSERT INTO workplaces (name,area,city,address ) VALUES (?,?,?,?)";
 	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
-	final String selectWorkingPlace ="Select * From workplaces";
+	final String selectWorkPlace ="Select * From workplaces";
+	final String selectWorkPlaceId="Select * From workplaces where id=? ";
+	final String selectAcademicInstituteId = "Select * From academicinstitute where id =?";
+	
 	public DataAccess() {
 
 		Logger logger = Logger.getLogger(DataAccess.class.getName());
@@ -1021,7 +1024,7 @@ System.out.println(meeting.toString());
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
 		ArrayList<WorkPlace> workplace = new ArrayList<>();
 		WorkPlace w = null;
-		PreparedStatement stm = c.prepareStatement(selectWorkingPlace);
+		PreparedStatement stm = c.prepareStatement(selectWorkPlace);
 		ResultSet rs = stm.executeQuery();
 		while (rs.next()) {
 			w = new WorkPlace(rs.getInt(DataContract.WorkplacesTable.COL_ID),
@@ -1064,15 +1067,32 @@ System.out.println(meeting.toString());
 	}
 
 	@Override
-	public WorkPlace getWorkPlaceById(int id) {
+	public WorkPlace getWorkPlaceById(int id) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		WorkPlace work= null;
+		PreparedStatement stm = c.prepareStatement(selectWorkPlaceId);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();
+		if(rs.next())
+		{
+			work = new WorkPlace(id, rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5));
+		}
+		
+		return work;
 	}
 
 	@Override
-	public AcademicInstitute getAcademicInstituteById(int id) {
+	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		AcademicInstitute a = null;
+		PreparedStatement stm = c.prepareStatement(selectAcademicInstituteId);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();
+		if(rs.next())
+		{
+			a= new AcademicInstitute(id, rs.getString(2), rs.getString(3), rs.getString(4));
+		}
+		return a;
 	}
 
 	@Override
