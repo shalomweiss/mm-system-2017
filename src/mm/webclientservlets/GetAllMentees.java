@@ -44,7 +44,7 @@ public class GetAllMentees extends HttpServlet {
 	//	ArrMentees=getAllUsers();
 		DataAccess da = new DataAccess();
 		 try {
-		 ArrMentees = da.getUsers(userType.TSOFEN);
+		 ArrMentees = da.getUsers(userType.MENTEE);
 		 } catch (SQLException e) {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
