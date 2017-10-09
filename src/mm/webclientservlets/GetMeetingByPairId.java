@@ -41,6 +41,10 @@ public class GetMeetingByPairId extends HttpServlet {
 		
 		System.out.println("Meeting Servlet");
 		int pairId =Integer.parseInt( request.getParameter("id"));
+		
+		
+		
+		
         DataAccess da = new DataAccess();
             Pair pair = null;
           try {

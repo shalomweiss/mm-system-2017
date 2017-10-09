@@ -568,13 +568,15 @@ tr.selected td{
 
 	<!-- welcome bar -->
 	<nav class="icon-bar">
-		<div class="icon-bar">
-			<a href="#"><i class="fa fa-home"></i></a> <a href="#"><i
-				class="fa fa-black-tie"></i></a> <a class="active" href="#"><i
-				class="fa fa-graduation-cap"></i></a> <a href="#"><i
-				class="fa fa-group"></i></a> <a href="#"><i class="fa fa-bell"></i></a>
-			<a href="#"><i class="fa fa-clipboard"></i></a>
-		</div>
+			<div class="icon-bar">
+		  <a  href="welcome"><i class="fa fa-home"></i></a> 
+		  <a class="active" href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
+		  <a   href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
+		  <a href="GetAllPairs"><i class="fa fa-group"></i></a>
+
+		  <a href="#"><i class="fa fa-bell"></i></a>
+		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
+	</div>
 	</nav>
 	<h1>Mentors</h1>
 
@@ -716,7 +718,7 @@ tr.selected td{
 													<td>
 														<div id="div12${ment.id}"
 															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.company}</div>
-														<input name="uWorkingPlace" id="input12${ment.id}" type="text"
+														<input name="uCompany" id="input12${ment.id}" type="text"
 														value="${ment.company}" style="display: none;">
 
 

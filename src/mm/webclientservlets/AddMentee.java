@@ -65,7 +65,7 @@ public class AddMentee extends HttpServlet {
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
 		
-		int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
+	//	int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		String uRemSemesters = request.getParameter("uRemSemesters");
 		String uAverage = request.getParameter("uAverage");
 		String uNotes = request.getParameter("uNotes");
@@ -75,6 +75,7 @@ public class AddMentee extends HttpServlet {
 		String resume=request.getParameter("uResume");
 		String gradeSheet=request.getParameter("uGradeSheet");
 		String profilePicture=request.getParameter("profilePicture");
+		int uAcademicInstitution = 1;
 
 
 	

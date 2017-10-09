@@ -30,12 +30,19 @@ public class UpdateMentee extends HttpServlet {
 	public UpdateMentee() {
 		super();
 	}
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	
 	}
-
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("UPDATE MENTEE DETAILDS");
@@ -85,7 +92,9 @@ public class UpdateMentee extends HttpServlet {
 		
 		System.out.println("STATUSSS"+status);
 		request.setAttribute("status", status);
-		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
+		
+	    RequestDispatcher req;
+		req=request.getRequestDispatcher("GetAllMentees");
 		req.forward(request, response);
 	}
 
