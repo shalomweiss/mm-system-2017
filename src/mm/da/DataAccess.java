@@ -539,7 +539,11 @@ public class DataAccess implements DataInterface {
 		ResultSet rs1 = stm.executeQuery();
 		if (!rs1.next()) // user does not exist
 			return false;
-		//TODO: Add check that mentee is not in a pair already
+		stm = c.prepareStatement(SQLStatements.selectMenteeInPair);
+		stm.setInt(1, menteeId);
+		ResultSet rs2 = stm.executeQuery();
+		if (!rs2.next()) // user does not exist
+			return false;
 		stm = c.prepareStatement(SQLStatements.insertPair);
 		// checking witch user is the mentor and witch is the mentee
 		stm.setInt(1, mentorId);
@@ -790,7 +794,7 @@ public class DataAccess implements DataInterface {
 			     d= f.format(new Date(meeting.getDate()));
 			
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 //			mentorId,menteeId,pairId,note,status,menteeReport,
 //			mentorReport,menteePrivateReport,mentorPrivateReport,
@@ -830,18 +834,6 @@ System.out.println(meeting.toString());
 			return false;
 		}
 		return true;
-	}
-
-	@Override
-	public boolean approveMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -1065,12 +1057,6 @@ System.out.println(meeting.toString());
 	}
 
 	@Override
-	public ArrayList<Mentee> getMenteesWithOutMentor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,
 			String menteeName) {
 		// TODO Auto-generated method stub
@@ -1087,6 +1073,39 @@ System.out.println(meeting.toString());
 	public AcademicInstitute getAcademicInstituteById(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void changeMeetingStatus(int meetingId, int userId, meetingStatus status) throws SQLException {
+		PreparedStatement stm1 = c.prepareStatement(SQLStatements.updateStatus);
+		stm1.setInt(1, status.ordinal());
+		stm1.setInt(2, meetingId);
+		stm1.executeUpdate();
+		
+		if(status.ordinal() == 2) {	//in case of confirm meeting
+			PreparedStatement stm2 = c.prepareStatement(SQLStatements.completeMentor);
+			stm2.setInt(1, meetingId);
+			stm2.setInt(2, userId);
+			stm2.executeUpdate();
+			PreparedStatement stm3 = c.prepareStatement(SQLStatements.completeMentee);
+			stm3.setInt(1, meetingId);
+			stm3.setInt(2, userId);
+			stm3.executeUpdate();
+			
+			PreparedStatement stm4 = c.prepareStatement(SQLStatements.checkIfComplete);
+			stm4.setInt(1, meetingId);
+			ResultSet rs = stm4.executeQuery();
+			if (rs.next()) {
+				if(rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE) == true &&
+						rs.getBoolean(DataContract.MeetingTable.COL_MENTEECOMPLETE) == true);
+				//both Mentor and Mentee confirmed meeting, change meeting status to CONFIRM
+				PreparedStatement stm5 = c.prepareStatement(SQLStatements.updateStatus);
+				stm5.setInt(1, status.ordinal());
+				stm5.setInt(2, meetingId);
+				stm5.executeUpdate();
+			}
+			
+		}
 	}
 
 

@@ -1,5 +1,7 @@
 package mm.constants;
 
+import com.mysql.fabric.xmlrpc.base.Data;
+
 import mm.da.DataContract;
 
 public class SQLStatements {
@@ -14,37 +16,41 @@ public class SQLStatements {
 			+ DataContract.MenteeTable.COL_ID + "=?";
 	public final static String selectUserByType = "Select * From "
 			+ DataContract.UsersTable.TABLE_NAME + " where "
-			+ DataContract.UsersTable.COL_TYPE + "=?";	
+			+ DataContract.UsersTable.COL_TYPE + "=?";
 	public final static String selectUserById = "Select * From "
 			+ DataContract.UsersTable.TABLE_NAME + " where "
 			+ DataContract.UsersTable.COL_ID + "=?";
-	public final static String selectMentor = "Select * from " 
+	public final static String selectMentor = "Select * from "
 			+ DataContract.UsersTable.TABLE_NAME + " RIGHT JOIN "
 			+ DataContract.MentorsTable.TABLE_NAME + " ON "
-			+ DataContract.UsersTable.TABLE_NAME + "." + DataContract.UsersTable.COL_ID 
-			+ " = " 
-			+ DataContract.MentorsTable.TABLE_NAME + "." + DataContract.MentorsTable.COL_ID
-			;
-	public final static String selectMentee = "Select * from " 
+			+ DataContract.UsersTable.TABLE_NAME + "."
+			+ DataContract.UsersTable.COL_ID + " = "
+			+ DataContract.MentorsTable.TABLE_NAME + "."
+			+ DataContract.MentorsTable.COL_ID;
+	public final static String selectMentee = "Select * from "
 			+ DataContract.UsersTable.TABLE_NAME + " RIGHT JOIN "
 			+ DataContract.MenteeTable.TABLE_NAME + " ON "
-			+ DataContract.UsersTable.TABLE_NAME + "." + DataContract.UsersTable.COL_ID 
-			+ " = " 
-			+ DataContract.MenteeTable.TABLE_NAME + "." + DataContract.MenteeTable.COL_ID
-			;
+			+ DataContract.UsersTable.TABLE_NAME + "."
+			+ DataContract.UsersTable.COL_ID + " = "
+			+ DataContract.MenteeTable.TABLE_NAME + "."
+			+ DataContract.MenteeTable.COL_ID;
 	public final static String selectSessionByUserId = "Select * From "
 			+ DataContract.SessionsTable.TABLE_NAME + " where "
 			+ DataContract.SessionsTable.COL_USERID + "=?";
-	
+
 	public final static String selectPairsByMenteeIdAndActiveStats = "Select * From "
-			+ DataContract.PairsTable.TABLE_NAME + " where "
-			+ DataContract.PairsTable.COL_MENTEEID + "=? and "
+			+ DataContract.PairsTable.TABLE_NAME
+			+ " where "
+			+ DataContract.PairsTable.COL_MENTEEID
+			+ "=? and "
 			+ DataContract.PairsTable.COL_ACTIVESTATUS + "=?";
 	public final static String selectPairsByMentorIdAndActiveStats = "Select * From "
-			+ DataContract.PairsTable.TABLE_NAME + " where "
-			+ DataContract.PairsTable.COL_MENTORID + "=? and "
+			+ DataContract.PairsTable.TABLE_NAME
+			+ " where "
+			+ DataContract.PairsTable.COL_MENTORID
+			+ "=? and "
 			+ DataContract.PairsTable.COL_ACTIVESTATUS + "=?";
-	public final static String insertSession = "INSERT INTO " 
+	public final static String insertSession = "INSERT INTO "
 			+ DataContract.SessionsTable.TABLE_NAME + " ("
 			+ DataContract.SessionsTable.COL_USERID + ", "
 			+ DataContract.SessionsTable.COL_TOKEN + ", "
@@ -52,7 +58,7 @@ public class SQLStatements {
 			+ DataContract.SessionsTable.COL_EXPIRATIONDATE + ", "
 			+ DataContract.SessionsTable.COL_DEVICEID + ") "
 			+ "VALUES (?,?,?,?,?)";
-	
+
 	public final static String updateUserById = "UPDATE "
 			+ DataContract.UsersTable.TABLE_NAME + " SET "
 			+ DataContract.UsersTable.COL_FIRSTNAME + "=?, "
@@ -134,13 +140,14 @@ public class SQLStatements {
 	public final static String selectPairs = "Select * From "
 			+ DataContract.PairsTable.TABLE_NAME;
 
-	public final static String selectPairById  = "Select * From "
-			+ DataContract.PairsTable.TABLE_NAME + " Where "+DataContract.PairsTable.COL_PAIRID+"=?";
-	
-	public final static String setPairDeactiveById = "UPDATE " 
+	public final static String selectPairById = "Select * From "
+			+ DataContract.PairsTable.TABLE_NAME + " Where "
+			+ DataContract.PairsTable.COL_PAIRID + "=?";
+
+	public final static String setPairDeactiveById = "UPDATE "
 			+ DataContract.PairsTable.TABLE_NAME + " SET "
 			+ DataContract.PairsTable.COL_ACTIVESTATUS + "=0 WHERE "
-			+ DataContract.PairsTable.COL_PAIRID+ "=?";
+			+ DataContract.PairsTable.COL_PAIRID + "=?";
 
 	public final static String addMeeting = "INSERT INTO "
 			+ DataContract.MeetingTable.TABLE_NAME + " ("
@@ -160,21 +167,24 @@ public class SQLStatements {
 			+ DataContract.MeetingTable.COL_STARTINGTIME + ","
 			+ DataContract.MeetingTable.COL_ENDINGTIME + ","
 			+ DataContract.MeetingTable.COL_MENTORCOMPLETE + ","
-			+ DataContract.MeetingTable.COL_MENTEECOMPLETE + ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	
+			+ DataContract.MeetingTable.COL_MENTEECOMPLETE
+			+ ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
 	public final static String selectMeetingsByMentorId = "Select * From "
-			+ DataContract.MeetingTable.TABLE_NAME+ " Where "+DataContract.MeetingTable.COL_MENTORID+"=?";
-	
+			+ DataContract.MeetingTable.TABLE_NAME + " Where "
+			+ DataContract.MeetingTable.COL_MENTORID + "=?";
+
 	public final static String selectMeetingsByMenteeId = "Select * From "
-			+ DataContract.MeetingTable.TABLE_NAME+ " Where "+DataContract.MeetingTable.COL_MENTEEID+"=?";
-	
+			+ DataContract.MeetingTable.TABLE_NAME + " Where "
+			+ DataContract.MeetingTable.COL_MENTEEID + "=?";
 
 	public final static String selectMeetingById = "Select * From "
-			+ DataContract.MeetingTable.TABLE_NAME+ " Where "+DataContract.MeetingTable.COL_ACTIVITYID+"=?";
-	
+			+ DataContract.MeetingTable.TABLE_NAME + " Where "
+			+ DataContract.MeetingTable.COL_ACTIVITYID + "=?";
+
 	public final static String selectMeetingByPairId = "Select * From "
-			+ DataContract.MeetingTable.TABLE_NAME+ " Where "+DataContract.MeetingTable.COL_PAIRID+"=?";
-	
+			+ DataContract.MeetingTable.TABLE_NAME + " Where "
+			+ DataContract.MeetingTable.COL_PAIRID + "=?";
 
 	public final static String insertMeeting = "INSERT INTO "
 			+ DataContract.MeetingTable.TABLE_NAME + " ("
@@ -183,7 +193,7 @@ public class SQLStatements {
 			+ DataContract.MeetingTable.COL_MENTEEID + ", "
 			+ DataContract.MeetingTable.COL_NOTE + ", "
 			+ DataContract.MeetingTable.COL_STATUS + ", "
-			+ DataContract.MeetingTable.COL_MENTEEREPORT + ", "			
+			+ DataContract.MeetingTable.COL_MENTEEREPORT + ", "
 			+ DataContract.MeetingTable.COL_MENTORREPORT + ", "
 			+ DataContract.MeetingTable.COL_MENTEEPRIVREPORT + ", "
 			+ DataContract.MeetingTable.COL_MENTORPRIVREPORT + ", "
@@ -194,7 +204,30 @@ public class SQLStatements {
 			+ DataContract.MeetingTable.COL_STARTINGTIME + ", "
 			+ DataContract.MeetingTable.COL_ENDINGTIME + ", "
 			+ DataContract.MeetingTable.COL_MENTORCOMPLETE + ", "
-			+ DataContract.MeetingTable.COL_MENTEECOMPLETE + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			+ DataContract.MeetingTable.COL_MENTEECOMPLETE
+			+ ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+	public final static String selectMenteeInPair = "SELECT * FROM "
+			+ DataContract.PairsTable.TABLE_NAME + " where "
+			+ DataContract.PairsTable.COL_MENTEEID + " = ? AND "
+			+ DataContract.PairsTable.COL_ACTIVESTATUS + " = 1";
+	
+	public final static String updateStatus = "UPDATE "
+			+ DataContract.MeetingTable.TABLE_NAME + " SET "
+			+ DataContract.MeetingTable.COL_STATUS + "=? WHERE "
+			+ DataContract.MeetingTable.COL_ACTIVITYID + "=?";
+	
+	public final static String checkIfComplete = "SELECT * from "
+			+ DataContract.MeetingTable.TABLE_NAME + " WHERE "
+			+ DataContract.MeetingTable.COL_ACTIVITYID + "=?";
+	
+	public final static String completeMentor = "UPDATE "
+			+ DataContract.MeetingTable.TABLE_NAME + " SET "
+			+ DataContract.MeetingTable.COL_ACTIVITYID + "=? AND "
+			+ DataContract.MeetingTable.COL_MENTORID + "=?";
+	
+	public final static String completeMentee = "UPDATE "
+			+ DataContract.MeetingTable.TABLE_NAME + " SET "
+			+ DataContract.MeetingTable.COL_ACTIVITYID + "=? AND "
+			+ DataContract.MeetingTable.COL_MENTEEID + "=?";
 }
-

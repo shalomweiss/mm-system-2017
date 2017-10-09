@@ -57,8 +57,6 @@ public interface DataInterface {
 
 	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() throws SQLException;
 
-	public ArrayList<Mentee> getMenteesWithOutMentor();
-
 	/*
 	 * Activities (Meetings) db Requests
 	 */
@@ -69,24 +67,7 @@ public interface DataInterface {
 
 	public Meeting getMeetingById(int meetingId) throws SQLException;
 
-	/**
-	 * before meeting , if the mentee approves
-	 * 
-	 * @param approvedMeeting
-	 * @return
-	 * @throws SQLException
-	 */
-	public boolean approveMeeting(int meetingId, boolean status) throws SQLException;
-
-	/**
-	 * if the meeting already passed - could be confirmed - not confirmed - did
-	 * not happen
-	 * 
-	 * @param confirmedMeeting
-	 * @return
-	 * @throws SQLException
-	 */
-	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException;
+	public void changeMeetingStatus(int meetingId, int userId, meetingStatus status) throws SQLException;
 
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException;
 
