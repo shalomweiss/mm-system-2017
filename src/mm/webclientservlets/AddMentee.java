@@ -61,13 +61,16 @@ public class AddMentee extends HttpServlet {
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
 		String uEmail = request.getParameter("uEmail");
-		int uGender = Integer.parseInt(request.getParameter("uGender"));
+		String gender=request.getParameter("uGender");
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
-		
-	//	int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
+		Float avg= null;
+		if(!request.getParameter("uAverage").isEmpty()){
+			avg=Float.valueOf(request.getParameter("uAverage"));
+		}
+        //int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		String uRemSemesters = request.getParameter("uRemSemesters");
-		String uAverage = request.getParameter("uAverage");
+		//String uAverage = request.getParameter("uAverage");
 		String uNotes = request.getParameter("uNotes");
 		String academicDicipline =request.getParameter("uAcademicDicipline");
 		String academicDicipline2=request.getParameter("uAcademicDicipline2");
@@ -76,13 +79,21 @@ public class AddMentee extends HttpServlet {
 		String gradeSheet=request.getParameter("uGradeSheet");
 		String profilePicture=request.getParameter("profilePicture");
 		int uAcademicInstitution = 1;
-
-
-	
-		float remSemesters=Float.valueOf(uRemSemesters);
-		float avg=Float.valueOf(uAverage);
+		Float remSemesters= null;
 		
-			String uPass= GeneratePass.getSaltString();	 
+		int uGender=1;
+		if(!gender.isEmpty()){
+			uGender = Integer.parseInt(gender);
+		}
+		if(!uRemSemesters.isEmpty()){
+		remSemesters=Float.valueOf(uRemSemesters);
+		}
+//		if(!uAverage.isEmpty()){
+//		avg=Float.valueOf(uAverage);
+//		}
+		
+		String uPass= GeneratePass.getSaltString();	 
+		System.out.println("AVERAGE: "+avg);
 		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
 		System.out.println("here to stay111");
 		
