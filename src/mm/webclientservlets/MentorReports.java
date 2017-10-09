@@ -49,8 +49,6 @@ public class MentorReports extends HttpServlet {
 	    PrintWriter writer = response.getWriter();
 		writer.println(userResult);
 		writer.close();
-		
-		
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
 

@@ -59,13 +59,13 @@ public class AddNewMentor extends HttpServlet {
 		boolean res = false;
 		RequestDispatcher req = null;
 
-		try {
-			
-			res = da.addUser(newMentor);
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			
+//		//	res = da.addUser(newMentor);
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		if (res) {
 			response.getWriter().append("Mentor Added");
 			req = request.getRequestDispatcher(nextPage);

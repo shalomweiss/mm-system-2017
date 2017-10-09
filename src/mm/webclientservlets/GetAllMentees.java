@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
+import mm.model.AcademicInstitute;
 import mm.model.Mentee;
 import mm.model.User;
 import mm.model.User.userType;
@@ -39,9 +40,8 @@ public class GetAllMentees extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 
 		HttpServletResponse response) throws ServletException, IOException {
-	//	String NextPage = request.getParameter("jsp");
 		ArrayList<User> ArrMentees = new ArrayList<User>();
-	//	ArrMentees=getAllUsers();
+	    
 		DataAccess da = new DataAccess();
 		 try {
 		 ArrMentees = da.getUsers(userType.MENTEE);
@@ -49,11 +49,16 @@ public class GetAllMentees extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-//		ArrMentees=getAllUsers();
+
 		request.setAttribute("Mentees", ArrMentees);
-		//TODO : getAllAcadimicIns;
+		ArrayList<AcademicInstitute> AcadimicIn =new ArrayList<AcademicInstitute>();
+//		 try {
+//			 AcadimicIn = da.getAllAcademiclnstitution();
+//			 } catch (SQLException e) {
+//			 // TODO Auto-generated catch block
+//			 e.printStackTrace();
+//			 }
 	//	request.setAttribute("AcadimicIn", AcadimicIn); 
-	
 		System.out.println("Mentees: " + ArrMentees);
 	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
