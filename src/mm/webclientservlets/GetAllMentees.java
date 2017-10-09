@@ -52,13 +52,13 @@ public class GetAllMentees extends HttpServlet {
 
 		request.setAttribute("Mentees", ArrMentees);
 		ArrayList<AcademicInstitute> AcadimicIn =new ArrayList<AcademicInstitute>();
-		 try {
-			 AcadimicIn = da.getAllAcademiclnstitution();
-			 } catch (SQLException e) {
-			 // TODO Auto-generated catch block
-			 e.printStackTrace();
-			 }
-		request.setAttribute("AcadimicIn", AcadimicIn); 
+//		 try {
+//			 AcadimicIn = da.getAllAcademiclnstitution();
+//			 } catch (SQLException e) {
+//			 // TODO Auto-generated catch block
+//			 e.printStackTrace();
+//			 }
+	//	request.setAttribute("AcadimicIn", AcadimicIn); 
 		System.out.println("Mentees: " + ArrMentees);
 	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
