@@ -1025,7 +1025,6 @@ System.out.println(meeting.toString());
 
 	@Override
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
-		// TODO Auto-generated method stub
 		ArrayList<WorkPlace> workplace = new ArrayList<>();
 		WorkPlace w = null;
 		PreparedStatement stm = c.prepareStatement(selectWorkingPlace);
