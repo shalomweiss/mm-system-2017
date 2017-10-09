@@ -422,6 +422,28 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
+	public ArrayList<Pair> getAllPairs() throws SQLException {
+		Pair p = new Pair();
+		ArrayList<Pair> pair = new ArrayList<Pair>();
+		Statement stm = c.createStatement();
+		stm.executeQuery(SQLStatements.selectPairs);
+		ResultSet r = stm.getResultSet();
+
+		while (r.next()) {
+			p = new Pair(r.getInt(DataContract.PairsTable.COL_PAIRID),
+					r.getInt(DataContract.PairsTable.COL_MENTORID),
+					r.getInt(DataContract.PairsTable.COL_MENTEEID),
+					r.getInt(DataContract.PairsTable.COL_ACTIVESTATUS),
+					r.getLong(DataContract.PairsTable.COL_STARTDATE), 
+					r.getLong(DataContract.PairsTable.COL_ENDDATE),
+					r.getString(DataContract.PairsTable.COL_JOINTMESSAGE),
+					r.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
+			pair.add(p);
+		}
+		return pair;
+	}
+
+	@Override
 	public User getUser(int id) throws SQLException {
 		User user = null;
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectUserById);
@@ -430,7 +452,7 @@ public class DataAccess implements DataInterface {
 		if (rs.next()) {
 			int type = rs.getInt(2);
 			switch (type) {
-
+	
 			case 0:
 				break;
 			case 1:
@@ -450,7 +472,7 @@ public class DataAccess implements DataInterface {
 			case 2:
 				PreparedStatement stm2 = c.prepareStatement(SQLStatements.selectMentorById);
 				stm2.setInt(1, rs.getInt(DataContract.UsersTable.COL_ID));
-
+	
 				ResultSet rs2 = stm2.executeQuery();
 				if (rs2.next())
 					user = new Mentor(rs.getInt(DataContract.UsersTable.COL_ID),
@@ -473,7 +495,7 @@ public class DataAccess implements DataInterface {
 			case 3:
 				PreparedStatement stm3 = c.prepareStatement(SQLStatements.selectMenteeById);
 				stm3.setInt(1, rs.getInt(1));
-
+	
 				ResultSet rs3 = stm3.executeQuery();
 				if (rs3.next())
 					user = new Mentee(rs.getInt(DataContract.UsersTable.COL_ID),
@@ -500,31 +522,9 @@ public class DataAccess implements DataInterface {
 			default:
 				break;
 			}
-
+	
 		}
 		return user;
-	}
-
-	@Override
-	public ArrayList<Pair> getAllPairs() throws SQLException {
-		Pair p = new Pair();
-		ArrayList<Pair> pair = new ArrayList<Pair>();
-		Statement stm = c.createStatement();
-		stm.executeQuery(SQLStatements.selectPairs);
-		ResultSet r = stm.getResultSet();
-
-		while (r.next()) {
-			p = new Pair(r.getInt(DataContract.PairsTable.COL_PAIRID),
-					r.getInt(DataContract.PairsTable.COL_MENTORID),
-					r.getInt(DataContract.PairsTable.COL_MENTEEID),
-					r.getInt(DataContract.PairsTable.COL_ACTIVESTATUS),
-					r.getLong(DataContract.PairsTable.COL_STARTDATE), 
-					r.getLong(DataContract.PairsTable.COL_ENDDATE),
-					r.getString(DataContract.PairsTable.COL_JOINTMESSAGE),
-					r.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
-			pair.add(p);
-		}
-		return pair;
 	}
 
 	@Override
@@ -725,10 +725,11 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, mentorId);
 		stm.setInt(2, 1);
 		ResultSet rs = stm.executeQuery();
-		while (rs.next()) {
-			System.out.println("in " +rs.getInt(3));
+		while (rs.next()) {	
+			
 			mentees.add((Mentee) getUser(rs.getInt(3)));
 		}
+	
 		return mentees;
 	}
 
