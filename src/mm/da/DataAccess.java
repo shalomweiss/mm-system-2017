@@ -836,18 +836,6 @@ System.out.println(meeting.toString());
 	}
 
 	@Override
-	public boolean approveMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException {
 		ArrayList<Meeting> m = new ArrayList<Meeting>();
 		Meeting meeting = null;
@@ -1090,6 +1078,26 @@ System.out.println(meeting.toString());
 	public AcademicInstitute getAcademicInstituteById(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean changeStatus(int meetingId, int userId, meetingStatus status) throws SQLException {
+		PreparedStatement stm1 = c.prepareStatement(SQLStatements.updateStatus);
+		stm1.setInt(1, status.ordinal());
+		stm1.setInt(2, meetingId);
+		stm1.executeUpdate();
+		
+		if(status.ordinal() == 2) {	//confirm meeting
+			PreparedStatement stm2 = c.prepareStatement(SQLStatements.completeMentor);
+			stm2.setInt(1, meetingId);
+			stm2.setInt(2, userId);
+			stm2.executeUpdate();
+			PreparedStatement stm3 = c.prepareStatement(SQLStatements.completeMentee);
+			stm3.setInt(1, meetingId);
+			stm3.setInt(2, userId);
+			stm3.executeUpdate();
+		}
+		return false;
 	}
 
 
