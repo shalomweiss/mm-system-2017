@@ -654,10 +654,10 @@ public class DataAccess implements DataInterface {
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
 
-			meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_MENTORID),
-					rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
-					rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
+			meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 					rs.getInt(DataContract.MeetingTable.COL_PAIRID),
+					rs.getInt(DataContract.MeetingTable.COL_MENTORID),
+					rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
 					rs.getString(DataContract.MeetingTable.COL_NOTE),
 					meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
 					rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
@@ -678,10 +678,10 @@ public class DataAccess implements DataInterface {
 			stm1.setInt(1, id);
 			ResultSet rs1 = stm.executeQuery();
 			if (rs1.next()) {
-				meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_MENTORID),
-						rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
-						rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
+				meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 						rs.getInt(DataContract.MeetingTable.COL_PAIRID),
+						rs.getInt(DataContract.MeetingTable.COL_MENTORID),
+						rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
 						rs.getString(DataContract.MeetingTable.COL_NOTE),
 						meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
 						rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
@@ -739,10 +739,10 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, meetingId);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
-			m = new Meeting(rs.getInt(DataContract.MeetingTable.COL_MENTORID),
-					rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
-					rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
+			m = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 					rs.getInt(DataContract.MeetingTable.COL_PAIRID),
+					rs.getInt(DataContract.MeetingTable.COL_MENTORID),
+					rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
 					rs.getString(DataContract.MeetingTable.COL_NOTE),
 					meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
 					rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
@@ -851,10 +851,10 @@ System.out.println(meeting.toString());
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
-			meeting = new Meeting(rs.getInt(DataContract.MeetingTable.COL_MENTORID),
-					rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
-					rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
+			meeting = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 					rs.getInt(DataContract.MeetingTable.COL_PAIRID),
+					rs.getInt(DataContract.MeetingTable.COL_MENTORID),
+					rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
 					rs.getString(DataContract.MeetingTable.COL_NOTE),
 					meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
 					rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
