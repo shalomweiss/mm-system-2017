@@ -39,12 +39,14 @@ public class CreateNewPair extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("CreateNewPair");
 		int MentorId =Integer.parseInt( request.getParameter("mentorID"));
 		int MenteeId =Integer.parseInt( request.getParameter("menteeID"));
 		DataAccess da = new DataAccess();
 		boolean res = false;
 		System.out.println(MentorId +"  "+ MenteeId);
 		 try {
+			 System.out.println("pairrrrrrrrrrrrr");
 		 res = da.addPair(MentorId,MenteeId);
 		 } catch (SQLException e) {
 		 // TODO Auto-generated catch block
