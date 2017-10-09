@@ -217,15 +217,17 @@ public class SQLStatements {
 			+ DataContract.MeetingTable.COL_STATUS + "=? WHERE "
 			+ DataContract.MeetingTable.COL_ACTIVITYID + "=?";
 	
+	public final static String checkIfComplete = "SELECT * from "
+			+ DataContract.MeetingTable.TABLE_NAME + " WHERE "
+			+ DataContract.MeetingTable.COL_ACTIVITYID + "=?";
+	
 	public final static String completeMentor = "UPDATE "
 			+ DataContract.MeetingTable.TABLE_NAME + " SET "
-			+ DataContract.MeetingTable.COL_MENTORCOMPLETE + "=1 WHERE "
-			+ DataContract.MeetingTable.COL_ACTIVITYID + "=? AND"
+			+ DataContract.MeetingTable.COL_ACTIVITYID + "=? AND "
 			+ DataContract.MeetingTable.COL_MENTORID + "=?";
 	
 	public final static String completeMentee = "UPDATE "
 			+ DataContract.MeetingTable.TABLE_NAME + " SET "
-			+ DataContract.MeetingTable.COL_MENTEECOMPLETE + "=1 WHERE "
-			+ DataContract.MeetingTable.COL_ACTIVITYID + "=? AND"
+			+ DataContract.MeetingTable.COL_ACTIVITYID + "=? AND "
 			+ DataContract.MeetingTable.COL_MENTEEID + "=?";
 }

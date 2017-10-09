@@ -67,7 +67,7 @@ public interface DataInterface {
 
 	public Meeting getMeetingById(int meetingId) throws SQLException;
 
-	public boolean changeStatus(int meetingId, int userId, meetingStatus status) throws SQLException;
+	public void changeMeetingStatus(int meetingId, int userId, meetingStatus status) throws SQLException;
 
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException;
 
