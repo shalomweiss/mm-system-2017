@@ -537,6 +537,7 @@ public class DataAccess implements DataInterface {
 		ResultSet rs1 = stm.executeQuery();
 		if (!rs1.next()) // user does not exist
 			return false;
+		//TODO: Add check that mentee is not in a pair already
 		stm = c.prepareStatement(SQLStatements.insertPair);
 		// checking witch user is the mentor and witch is the mentee
 		stm.setInt(1, mentorId);
@@ -1054,13 +1055,6 @@ System.out.println(meeting.toString());
 		return null;
 	}
 
-//	@Override
-//	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
-//			boolean inPair, String academicDicipline1, String academicDicipline2) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
 
 
 	@Override
@@ -1078,6 +1072,18 @@ System.out.println(meeting.toString());
 	@Override
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,
 			String menteeName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public WorkPlace getWorkPlaceById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AcademicInstitute getAcademicInstituteById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
