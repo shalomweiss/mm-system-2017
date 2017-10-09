@@ -269,8 +269,8 @@ public class DataAccess implements DataInterface {
 		if (rs.next()) // user exists
 		{
 			System.out.println("rs.next(): " + rs.getString(3));
-
-			// return false;
+			System.out.println("BAD, USER ALREADY EXISTS");
+			return false;
 		}
 		PreparedStatement stm2 = c.prepareStatement(SQLStatements.insertUser);
 		stm2.setInt(1, u.getType().getValue());
