@@ -269,8 +269,8 @@ public class DataAccess implements DataInterface {
 		if (rs.next()) // user exists
 		{
 			System.out.println("rs.next(): " + rs.getString(3));
-
-			// return false;
+			System.out.println("BAD, USER ALREADY EXISTS");
+			return false;
 		}
 		PreparedStatement stm2 = c.prepareStatement(SQLStatements.insertUser);
 		stm2.setInt(1, u.getType().getValue());
@@ -360,7 +360,7 @@ public class DataAccess implements DataInterface {
 		case MENTOR:
 
 			Statement stm2 = c.createStatement();
-			stm2.executeQuery(SQLStatements.selectUserByMentorId);
+			stm2.executeQuery(SQLStatements.selectMentor);
 			ResultSet r2 = stm2.getResultSet();
 			while (r2.next()) {
 				u = new Mentor(r2.getInt(DataContract.UsersTable.COL_ID),
@@ -386,7 +386,7 @@ public class DataAccess implements DataInterface {
 		case MENTEE:
 
 			Statement stm3 = c.createStatement();
-			stm3.executeQuery(SQLStatements.selectUserByMenteeId);
+			stm3.executeQuery(SQLStatements.selectMentee);
 			ResultSet r3 = stm3.getResultSet();
 			while (r3.next()) {
 				u = new Mentee(r3.getInt(DataContract.UsersTable.COL_ID),
@@ -537,6 +537,7 @@ public class DataAccess implements DataInterface {
 		ResultSet rs1 = stm.executeQuery();
 		if (!rs1.next()) // user does not exist
 			return false;
+		//TODO: Add check that mentee is not in a pair already
 		stm = c.prepareStatement(SQLStatements.insertPair);
 		// checking witch user is the mentor and witch is the mentee
 		stm.setInt(1, mentorId);
@@ -1054,13 +1055,6 @@ System.out.println(meeting.toString());
 		return null;
 	}
 
-//	@Override
-//	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
-//			boolean inPair, String academicDicipline1, String academicDicipline2) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
 
 
 	@Override
@@ -1078,6 +1072,18 @@ System.out.println(meeting.toString());
 	@Override
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,
 			String menteeName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public WorkPlace getWorkPlaceById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AcademicInstitute getAcademicInstituteById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

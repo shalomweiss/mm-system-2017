@@ -18,14 +18,14 @@ public class SQLStatements {
 	public final static String selectUserById = "Select * From "
 			+ DataContract.UsersTable.TABLE_NAME + " where "
 			+ DataContract.UsersTable.COL_ID + "=?";
-	public final static String selectUserByMentorId = "Select * from " 
+	public final static String selectMentor = "Select * from " 
 			+ DataContract.UsersTable.TABLE_NAME + " RIGHT JOIN "
 			+ DataContract.MentorsTable.TABLE_NAME + " ON "
 			+ DataContract.UsersTable.TABLE_NAME + "." + DataContract.UsersTable.COL_ID 
 			+ " = " 
 			+ DataContract.MentorsTable.TABLE_NAME + "." + DataContract.MentorsTable.COL_ID
 			;
-	public final static String selectUserByMenteeId = "Select * from " 
+	public final static String selectMentee = "Select * from " 
 			+ DataContract.UsersTable.TABLE_NAME + " RIGHT JOIN "
 			+ DataContract.MenteeTable.TABLE_NAME + " ON "
 			+ DataContract.UsersTable.TABLE_NAME + "." + DataContract.UsersTable.COL_ID 
@@ -52,13 +52,17 @@ public class SQLStatements {
 			+ DataContract.SessionsTable.COL_EXPIRATIONDATE + ", "
 			+ DataContract.SessionsTable.COL_DEVICEID + ") "
 			+ "VALUES (?,?,?,?,?)";
+	
 	public final static String updateUserById = "UPDATE "
 			+ DataContract.UsersTable.TABLE_NAME + " SET "
 			+ DataContract.UsersTable.COL_FIRSTNAME + "=?, "
 			+ DataContract.UsersTable.COL_LASTNAME + "=?, "
-			+ DataContract.UsersTable.COL_EMAIL + "=?, "
-			+ DataContract.UsersTable.COL_PASSWORD + "=?, "
-			+ DataContract.UsersTable.COL_ADDRESS + "=? WHERE "
+			+ DataContract.UsersTable.COL_PHONENUMBER + "=?, "
+			+ DataContract.UsersTable.COL_GENDER + "=?, "
+			+ DataContract.UsersTable.COL_ADDRESS + "=?, "
+			+ DataContract.UsersTable.COL_NOTES + "=?, "
+			+ DataContract.UsersTable.COL_PROFILEPICTURE + "=?, "
+			+ DataContract.UsersTable.COL_ACTIVE + "=? WHERE "
 			+ DataContract.UsersTable.COL_ID + "=?";
 	public final static String updateMentorById = "UPDATE "
 			+ DataContract.MentorsTable.TABLE_NAME + " SET "
