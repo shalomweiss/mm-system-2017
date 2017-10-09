@@ -70,12 +70,13 @@ public class GetAllPairs extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
+				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentee().getFirstName(), pair.getMentor().getFirstName(),
 						pair.getPairId(), pair.getActiveStatus());
 				pairsMainInfo.add(tmpPairInfo);
 				
 			}
 		}
+		System.out.println("pairsMAIN INFOOOOOOO" + pairsMainInfo);
 	//	 PairsInfo tmpPairInfo = new PairsInfo("firstname","lastname",3,0);
 	//	 pairsMainInfo.add(tmpPairInfo);
 		request.setAttribute("pairs", pairsMainInfo);
