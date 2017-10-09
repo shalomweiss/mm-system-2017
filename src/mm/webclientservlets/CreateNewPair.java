@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
-import mm.model.Pair;
 
 /**
  * Servlet implementation class CreateNewPair req: mentorId,menteeId-->
@@ -42,22 +41,23 @@ public class CreateNewPair extends HttpServlet {
 			throws ServletException, IOException {
 		int MentorId =Integer.parseInt( request.getParameter("mentorID"));
 		int MenteeId =Integer.parseInt( request.getParameter("menteeID"));
-		//String nextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
-		Pair p = new Pair();
-		
+		boolean res = false;
+		System.out.println(MentorId +"  "+ MenteeId);
 		 try {
-		 p = da.addPair1(MentorId,MenteeId);
+		 res = da.addPair(MentorId,MenteeId);
 		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-		if (p==null) {
+		if (res) {
+			response.getWriter().append("Success");
+		}
+		else
 			response.getWriter().append("Failure");
-		}
-		else{
-		response.getWriter().append("Success");
-		request.setAttribute("NewPair", p);	
-		}
+		
+			
+		
 
 	}
 }

@@ -56,12 +56,11 @@ public class AddMentee extends HttpServlet {
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
 		String uEmail = request.getParameter("uEmail");
-		System.out.println("uuuuuuuuuuuuuuuuuu"+request.getParameter("uGender"));
 		int uGender = Integer.parseInt(request.getParameter("uGender"));
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
 		String uCourseOfStudy = request.getParameter("uCourseOfStudy");
-		int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
+		//int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		String uRemSemesters = request.getParameter("uRemSemesters");
 		String uAverage = request.getParameter("uAverage");
 		String uNotes = request.getParameter("uNotes");
@@ -75,6 +74,7 @@ public class AddMentee extends HttpServlet {
 		String resume=null;
 		String gradeSheet=null;
 		String profilePicture=null;
+		int uAcademicInstitution=1;
 		float remSemesters=Float.valueOf(uRemSemesters);
 		float avg=Float.valueOf(uAverage);
 		
