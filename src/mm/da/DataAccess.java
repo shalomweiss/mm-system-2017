@@ -360,7 +360,7 @@ public class DataAccess implements DataInterface {
 		case MENTOR:
 
 			Statement stm2 = c.createStatement();
-			stm2.executeQuery(SQLStatements.selectUserByMentorId);
+			stm2.executeQuery(SQLStatements.selectMentor);
 			ResultSet r2 = stm2.getResultSet();
 			while (r2.next()) {
 				u = new Mentor(r2.getInt(DataContract.UsersTable.COL_ID),
@@ -386,7 +386,7 @@ public class DataAccess implements DataInterface {
 		case MENTEE:
 
 			Statement stm3 = c.createStatement();
-			stm3.executeQuery(SQLStatements.selectUserByMenteeId);
+			stm3.executeQuery(SQLStatements.selectMentee);
 			ResultSet r3 = stm3.getResultSet();
 			while (r3.next()) {
 				u = new Mentee(r3.getInt(DataContract.UsersTable.COL_ID),

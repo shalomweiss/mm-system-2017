@@ -18,14 +18,14 @@ public class SQLStatements {
 	public final static String selectUserById = "Select * From "
 			+ DataContract.UsersTable.TABLE_NAME + " where "
 			+ DataContract.UsersTable.COL_ID + "=?";
-	public final static String selectUserByMentorId = "Select * from " 
+	public final static String selectMentor = "Select * from " 
 			+ DataContract.UsersTable.TABLE_NAME + " RIGHT JOIN "
 			+ DataContract.MentorsTable.TABLE_NAME + " ON "
 			+ DataContract.UsersTable.TABLE_NAME + "." + DataContract.UsersTable.COL_ID 
 			+ " = " 
 			+ DataContract.MentorsTable.TABLE_NAME + "." + DataContract.MentorsTable.COL_ID
 			;
-	public final static String selectUserByMenteeId = "Select * from " 
+	public final static String selectMentee = "Select * from " 
 			+ DataContract.UsersTable.TABLE_NAME + " RIGHT JOIN "
 			+ DataContract.MenteeTable.TABLE_NAME + " ON "
 			+ DataContract.UsersTable.TABLE_NAME + "." + DataContract.UsersTable.COL_ID 
