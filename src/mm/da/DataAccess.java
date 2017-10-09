@@ -64,8 +64,9 @@ public class DataAccess implements DataInterface {
 	final String selectMeetingById = "Select * From activities where activityId=?";
 	final String selectMeetingByPair = "Select * From activities where pairId=?";
 	final String addMeeting = "INSERT INTO activities (mentorId,menteeId,pairId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u LEFT JOIN mentees as m ON u.id = m.id where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
-	final String getAllMentorsWithoutMentees = "select u.*,m.* from users as u LEFT JOIN mentors as m ON u.id = m.id  where m.id  in (select mentorId from pairs where mentorId = m.id  and activeStatus = 0	) or NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
+	
+	final String getAllMentorsWithoutMentees = "select u.*,m.* from users as u right JOIN mentors as m ON u.id = m.id where (m.id  in (select mentorId from pairs where mentorId = m.id  and activeStatus = 0	) and NOT EXISTS(select mentorId	from pairs where mentorId = m.id  and activeStatus = 1)) or not exists(select * from pairs where mentorId=m.id)";
+	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u right JOIN mentees as m ON u.id = m.id  where (m.id  in (select menteeId from pairs where menteeId = m.id  and activeStatus = 0	)and NOT EXISTS(select menteeId	from pairs	where menteeId = m.id  and activeStatus = 1)) or not exists(select * from pairs where menteeId=m.id)";
 	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
 	
 	final String getMeetings1 = "Select * From activities where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
