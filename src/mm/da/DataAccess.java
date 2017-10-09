@@ -793,7 +793,7 @@ public class DataAccess implements DataInterface {
 			     d= f.format(new Date(meeting.getDate()));
 			
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 //			mentorId,menteeId,pairId,note,status,menteeReport,
 //			mentorReport,menteePrivateReport,mentorPrivateReport,
