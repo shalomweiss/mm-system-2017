@@ -1068,12 +1068,6 @@ System.out.println(meeting.toString());
 	}
 
 	@Override
-	public ArrayList<Mentee> getMenteesWithOutMentor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,
 			String menteeName) {
 		// TODO Auto-generated method stub

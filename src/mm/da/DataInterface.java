@@ -57,8 +57,6 @@ public interface DataInterface {
 
 	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() throws SQLException;
 
-	public ArrayList<Mentee> getMenteesWithOutMentor();
-
 	/*
 	 * Activities (Meetings) db Requests
 	 */
