@@ -724,7 +724,6 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, mentorId);
 		stm.setInt(2, 1);
 		ResultSet rs = stm.executeQuery();
-		System.out.println(rs.toString());
 		while (rs.next()) {
 			System.out.println("in " +rs.getInt(3));
 			mentees.add((Mentee) getUser(rs.getInt(3)));
