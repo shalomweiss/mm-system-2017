@@ -142,6 +142,25 @@ public class SQLStatements {
 			+ DataContract.PairsTable.COL_ACTIVESTATUS + "=0 WHERE "
 			+ DataContract.PairsTable.COL_PAIRID+ "=?";
 
+	public final static String addMeeting = "INSERT INTO "
+			+ DataContract.MeetingTable.TABLE_NAME + " ("
+			+ DataContract.MeetingTable.COL_MENTORID + ","
+			+ DataContract.MeetingTable.COL_MENTEEID + ","
+			+ DataContract.MeetingTable.COL_PAIRID + ","
+			+ DataContract.MeetingTable.COL_NOTE + ","
+			+ DataContract.MeetingTable.COL_STATUS + ","
+			+ DataContract.MeetingTable.COL_MENTEEREPORT + ","
+			+ DataContract.MeetingTable.COL_MENTORREPORT + ","
+			+ DataContract.MeetingTable.COL_MENTEEPRIVREPORT + ","
+			+ DataContract.MeetingTable.COL_MENTORPRIVREPORT + ","
+			+ DataContract.MeetingTable.COL_MEETINGTYPE + ","
+			+ DataContract.MeetingTable.COL_SUBJECT + ","
+			+ DataContract.MeetingTable.COL_LOCATION + ","
+			+ DataContract.MeetingTable.COL_DATE + ","
+			+ DataContract.MeetingTable.COL_STARTINGTIME + ","
+			+ DataContract.MeetingTable.COL_ENDINGTIME + ","
+			+ DataContract.MeetingTable.COL_MENTORCOMPLETE + ","
+			+ DataContract.MeetingTable.COL_MENTEECOMPLETE + ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
 	public final static String selectMeetingsByMentorId = "Select * From "
 			+ DataContract.MeetingTable.TABLE_NAME+ " Where "+DataContract.MeetingTable.COL_MENTORID+"=?";

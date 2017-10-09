@@ -781,8 +781,8 @@ public class DataAccess implements DataInterface {
 	public boolean addMeeting(Meeting meeting) {
 		try
 		{
-			 String d=null;
-			PreparedStatement stm = c.prepareStatement(addMeeting);
+			String d=null;
+			PreparedStatement stm = c.prepareStatement(SQLStatements.addMeeting);
 			SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 			try {
 			     d= f.format(new Date(meeting.getDate()));
