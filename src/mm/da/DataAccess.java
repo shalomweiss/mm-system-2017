@@ -545,7 +545,7 @@ public class DataAccess implements DataInterface {
 		stm = c.prepareStatement(SQLStatements.selectMenteeInPair);
 		stm.setInt(1, menteeId);
 		ResultSet rs2 = stm.executeQuery();
-		if (!rs2.next()) // user does not exist
+		if (rs2.next()) // mentee already in pair
 			return false;
 		stm = c.prepareStatement(SQLStatements.insertPair);
 		// checking witch user is the mentor and witch is the mentee
