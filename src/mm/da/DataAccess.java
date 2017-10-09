@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.enterprise.event.Observes;
 
 import java.sql.Statement;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
@@ -969,11 +970,11 @@ System.out.println(meeting.toString());
 			ResultSet rs=stm.executeQuery();
 			m=new ArrayList<Meeting>();
 			while (rs.next())
-			{
-				Meeting meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_MENTORID),
-						rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
-						rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
+			{				
+				Meeting meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 						rs.getInt(DataContract.MeetingTable.COL_PAIRID),
+						rs.getInt(DataContract.MeetingTable.COL_MENTORID),
+						rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
 						rs.getString(DataContract.MeetingTable.COL_NOTE),
 						meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
 						rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
