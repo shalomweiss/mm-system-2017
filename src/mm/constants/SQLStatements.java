@@ -211,23 +211,27 @@ public class SQLStatements {
 			+ DataContract.PairsTable.TABLE_NAME + " where "
 			+ DataContract.PairsTable.COL_MENTEEID + " = ? AND "
 			+ DataContract.PairsTable.COL_ACTIVESTATUS + " = 1";
-	
+
 	public final static String updateStatus = "UPDATE "
 			+ DataContract.MeetingTable.TABLE_NAME + " SET "
 			+ DataContract.MeetingTable.COL_STATUS + "=? WHERE "
 			+ DataContract.MeetingTable.COL_ACTIVITYID + "=?";
-	
+
 	public final static String checkIfComplete = "SELECT * from "
 			+ DataContract.MeetingTable.TABLE_NAME + " WHERE "
-			+ DataContract.MeetingTable.COL_ACTIVITYID + "=?";
-	
+			+ DataContract.MeetingTable.COL_ACTIVITYID + "=? AND "
+			+ DataContract.MeetingTable.COL_MENTEECOMPLETE + "=true AND "
+			+ DataContract.MeetingTable.COL_MENTORCOMPLETE + "=true";
+
 	public final static String completeMentor = "UPDATE "
 			+ DataContract.MeetingTable.TABLE_NAME + " SET "
+			+ DataContract.MeetingTable.COL_MENTORCOMPLETE + "=true WHERE "
 			+ DataContract.MeetingTable.COL_ACTIVITYID + "=? AND "
 			+ DataContract.MeetingTable.COL_MENTORID + "=?";
-	
+
 	public final static String completeMentee = "UPDATE "
 			+ DataContract.MeetingTable.TABLE_NAME + " SET "
+			+ DataContract.MeetingTable.COL_MENTEECOMPLETE + "=true WHERE "
 			+ DataContract.MeetingTable.COL_ACTIVITYID + "=? AND "
 			+ DataContract.MeetingTable.COL_MENTEEID + "=?";
 }

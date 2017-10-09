@@ -1075,18 +1075,26 @@ System.out.println(meeting.toString());
 	}
 
 	@Override
-	public void changeMeetingStatus(int meetingId, int userId, meetingStatus status) throws SQLException {
-		PreparedStatement stm1 = c.prepareStatement(SQLStatements.updateStatus);
-		stm1.setInt(1, status.ordinal());
-		stm1.setInt(2, meetingId);
-		stm1.executeUpdate();
+	public boolean changeMeetingStatus(int meetingId, int userId, meetingStatus status) throws SQLException {
+		
+		Meeting m = getMeetingById(meetingId);
+		if(m==null)	//no meeting with this ID
+			return false;
+		if(status.ordinal() == 1){
+			PreparedStatement stm1 = c.prepareStatement(SQLStatements.updateStatus);
+			stm1.setInt(1, status.ordinal());
+			stm1.setInt(2, meetingId);
+			stm1.executeUpdate();
+			return true;
+		}
+		
 		
 		if(status.ordinal() == 2) {	//in case of confirm meeting
-			PreparedStatement stm2 = c.prepareStatement(SQLStatements.completeMentor);
+			PreparedStatement stm2 = c.prepareStatement(SQLStatements.completeMentor); //only one will work
 			stm2.setInt(1, meetingId);
 			stm2.setInt(2, userId);
 			stm2.executeUpdate();
-			PreparedStatement stm3 = c.prepareStatement(SQLStatements.completeMentee);
+			PreparedStatement stm3 = c.prepareStatement(SQLStatements.completeMentee); //only one will work
 			stm3.setInt(1, meetingId);
 			stm3.setInt(2, userId);
 			stm3.executeUpdate();
@@ -1095,16 +1103,15 @@ System.out.println(meeting.toString());
 			stm4.setInt(1, meetingId);
 			ResultSet rs = stm4.executeQuery();
 			if (rs.next()) {
-				if(rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE) == true &&
-						rs.getBoolean(DataContract.MeetingTable.COL_MENTEECOMPLETE) == true);
-				//both Mentor and Mentee confirmed meeting, change meeting status to CONFIRM
 				PreparedStatement stm5 = c.prepareStatement(SQLStatements.updateStatus);
 				stm5.setInt(1, status.ordinal());
 				stm5.setInt(2, meetingId);
 				stm5.executeUpdate();
 			}
-			
+			return false;
 		}
+		
+		return true;
 	}
 
 

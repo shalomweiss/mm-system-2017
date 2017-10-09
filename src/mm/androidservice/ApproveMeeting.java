@@ -18,6 +18,7 @@ import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.da.DataInterface;
 import mm.model.Meeting;
+import mm.model.Meeting.meetingStatus;
 import util.ServerUtils;
 
 /**
@@ -47,12 +48,14 @@ public class ApproveMeeting extends HttpServlet {
 		int id = jsonMeetingToApprove.get("id").getAsInt();
 		String token = jsonMeetingToApprove.get("token").getAsString();
 		String meetingId = jsonMeetingToApprove.get("meeting_id").getAsString();
-		Boolean action = jsonMeetingToApprove.get("action").getAsBoolean();
+		String userId = jsonMeetingToApprove.get("user_id").getAsString();
+		String action = jsonMeetingToApprove.get("action").getAsString();
 		
+		Meeting.meetingStatus status = meetingStatus.valueOf(Integer.parseInt(action));
 		if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
 			if(meetingId!=null && action!=null) {
 				try {
-					if(iom.getDataAccess().approveMeeting(Integer.parseInt(meetingId), action)){
+					if(iom.getDataAccess().changeMeetingStatus(Integer.parseInt(meetingId), Integer.parseInt(userId), status)){
 						
 						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 						
