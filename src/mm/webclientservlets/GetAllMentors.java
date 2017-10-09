@@ -37,6 +37,7 @@ public class GetAllMentors extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("GET ALL MENTORS");
 		ArrayList<User> ArrMentors = new ArrayList<User>();
 		DataAccess da = new DataAccess();
 		ArrMentors=getAllUsers();
@@ -50,8 +51,8 @@ public class GetAllMentors extends HttpServlet {
 		System.out.println("MENTORS: " + ArrMentors);
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
-		
-		RequestDispatcher req = request.getRequestDispatcher("mentors.jsp");
+		RequestDispatcher req ;
+		req = request.getRequestDispatcher("mentors.jsp");
 		req.forward(request, response);
 		writer.close();
 	}
@@ -63,6 +64,7 @@ public class GetAllMentors extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doGet(request,response);
 	}
 
 	public ArrayList<User> getAllUsers() {

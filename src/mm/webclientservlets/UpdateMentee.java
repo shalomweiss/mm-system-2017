@@ -92,7 +92,6 @@ public class UpdateMentee extends HttpServlet {
 		
 		System.out.println("STATUSSS"+status);
 		request.setAttribute("status", status);
-		
 	    RequestDispatcher req;
 		req=request.getRequestDispatcher("GetAllMentees");
 		req.forward(request, response);
