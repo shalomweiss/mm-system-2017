@@ -58,7 +58,8 @@ public class GetAllMentees extends HttpServlet {
 //			 // TODO Auto-generated catch block
 //			 e.printStackTrace();
 //			 }
-	//	request.setAttribute("AcadimicIn", AcadimicIn); 
+//		AcadimicIn = getAllAcademiclnstitution();
+//		request.setAttribute("AcadimicIn", AcadimicIn); 
 		System.out.println("Mentees: " + ArrMentees);
 	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
@@ -82,9 +83,15 @@ public class GetAllMentees extends HttpServlet {
 		m.setFirstName("hseen");
 		m.setLastName("SSSS");
 		getUsers.add(m);
-		
-		
-        
 		return getUsers;
+	}
+	public ArrayList<AcademicInstitute> getAllAcademiclnstitution(){
+		ArrayList<AcademicInstitute> arr=new ArrayList<AcademicInstitute>();
+		AcademicInstitute a=new AcademicInstitute(0, "University Of Haifa", "nesher", "Haifa");
+		AcademicInstitute a1=new AcademicInstitute(0, "technion", "Haifa", "Haifa");
+
+		arr.add(a);
+		arr.add(a1);
+	    return arr;
 	}
 }

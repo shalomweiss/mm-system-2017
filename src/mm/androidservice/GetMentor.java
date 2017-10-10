@@ -8,15 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.google.gson.JsonObject;
-
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.da.DataInterface;
-import mm.jsonModel.JsonUser;
 import mm.model.User;
-import mm.webclientservlets.GetMentorById;
 import util.ServerUtils;
 
 /**
@@ -49,19 +42,19 @@ public class GetMentor extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
+		int flag=0;
 		AndroidIOManager iom = new AndroidIOManager(request,response);
 		JsonObject myJson = iom.getJsonRequest();
 	//	JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
 		
-		int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
-		String token = myJson.get("token").getAsString();
+		int id = (myJson.get("id").isJsonNull() ? flag=1 : myJson.get("id").getAsInt());
+		String token = (String) (myJson.get("token").isJsonNull()? flag=1 :myJson.get("token").getAsString());
 		
+		if(flag==1) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+		}else {
 		User mentor=null;
-		JsonUser jsonUser=null;
-	
 		
-		DataInterface da = new DataAccess();
 		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 			
 
@@ -85,7 +78,7 @@ public class GetMentor extends HttpServlet {
 		else {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 		}
-
+		}
 		
 		iom.SendJsonResponse();
 		

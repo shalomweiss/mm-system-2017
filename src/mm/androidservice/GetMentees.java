@@ -11,14 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
-
-import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.da.DataInterface;
-import mm.jsonModel.JsonUser;
-import mm.jsonModel.JsonUsers;
 import mm.model.Mentee;
-import mm.model.User;
 import util.ServerUtils;
 
 /**
@@ -56,7 +51,6 @@ public class GetMentees extends HttpServlet {
 		String token = myJson.get("token").getAsString();
 
 		DataInterface da = new DataAccess();
-		JsonUsers jsonUsers=null;
 		List<Mentee> mentees=null;
 		
 		
