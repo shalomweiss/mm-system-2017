@@ -587,7 +587,7 @@ td {
 	<!-- welcome bar -->
 	<nav class="icon-bar">
 			<div class="icon-bar">
-		  <a  href="welcome"><i class="fa fa-home"></i></a> 
+		  <a  href="ForwardPath"><i class="fa fa-home"></i></a> 
 		  <a href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
 		  <a class="active"  href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs"><i class="fa fa-group"></i></a>

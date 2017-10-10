@@ -39,6 +39,7 @@ public class UpdateMentor extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doPost(request,response);
 	
 	}
 	/**
@@ -79,6 +80,7 @@ public class UpdateMentor extends HttpServlet {
 		RequestDispatcher req ;
 		System.out.println("UUUUUUUUUPDATE");
 		req=request.getRequestDispatcher("GetAllMentors");
+		//req = request.getRequestDispatcher("mentors.jsp");
 		req.forward(request, response);
 
 	}

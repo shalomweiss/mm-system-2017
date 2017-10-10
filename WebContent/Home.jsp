@@ -194,7 +194,6 @@ outline: none !important;
 		  <a href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs"><i class="fa fa-group"></i></a>
-
 		  <a href="#"><i class="fa fa-bell"></i></a>
 		  <a href="#"><i class="fa fa-clipboard"></i></a>			  
 	</div>
