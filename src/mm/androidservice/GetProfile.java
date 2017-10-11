@@ -1,9 +1,5 @@
 package mm.androidservice;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -13,11 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
-
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.da.DataInterface;
-import mm.jsonModel.JsonUser;
 import mm.model.User;
 import util.ServerUtils;
 

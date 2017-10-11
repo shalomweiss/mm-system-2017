@@ -2,9 +2,6 @@ package mm.androidservice;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -81,3 +78,4 @@ public class AddMeeting extends HttpServlet {
 	}
 
 }
+

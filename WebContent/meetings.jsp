@@ -392,14 +392,14 @@ tr.selected td.inf{
 	
 <h1>
 Mentor: 
- <c:out value="${Pair.getMentor().firstName}"></c:out>
-		 <c:out value="${Pair.getMentor().lastName}"></c:out>, 
-	 <c:out value="${Pair.getMentor().phoneNumber}"></c:out>
+ <c:out value="${Pairs.getPair().getMentor().firstName}"></c:out>
+		 <c:out value="${Pairs.getPair().getMentor().lastName}"></c:out>, 
+	 <c:out value="${Pairs.getPair().getMentor().phoneNumber}"></c:out>
 <br>
 Mentee: 
-		 <c:out value="${Pair.getMentee().firstName}"></c:out>
-		  <c:out value="${Pair.getMentee().lastName}"></c:out>, 
-	 <c:out  value="${Pair.getMentee().phoneNumber}"></c:out>
+		 <c:out value="${Pairs.getPair().getMentee().firstName}"></c:out>
+		  <c:out value="${Pairs.getPair().getMentee().lastName}"></c:out>, 
+	 <c:out  value="${Pairs.getPair().getMentee().phoneNumber}"></c:out>
 </h1>
 
 <section>
@@ -451,9 +451,7 @@ Mentee:
         </div>
         </td>
         </tr>
-        
         </c:forEach>
-        
       </tbody>
     </table>
   </div>

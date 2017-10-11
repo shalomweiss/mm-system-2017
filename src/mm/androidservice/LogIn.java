@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonObject;
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.jsonModel.JsonUser;
 import mm.model.Session;
 import mm.model.User;
 import util.ServerUtils;
@@ -44,8 +41,10 @@ public class LogIn extends HttpServlet {
 		String email = myJson.get("email").getAsString();
 		String password = myJson.get("password").getAsString();
 		//TODO deviceID storage
-		String deviceId = myJson.get("deviceId").getAsString();
-
+		String deviceId="0";
+		if(myJson.has("deviceId")) {
+		 deviceId = myJson.get("deviceId").getAsString();
+		}
 			User user = null;
 			try {
 				user = iom.getDataAccess().login(email);

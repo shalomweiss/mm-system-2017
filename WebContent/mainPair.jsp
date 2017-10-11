@@ -21,7 +21,6 @@ $(document).ready(function(){
 		        	//if data is -1 something is wrong
 		            $("#"+data).parent().parent().remove();
 		        });
-		
 	});
 	 $(".button-fill").hover(
    		  function() {
@@ -67,24 +66,34 @@ table{
 th{
   padding: 20px 15px;
   text-align: center;
-  font-weight: 500;
-  font-size: 14px;
+  font-weight: bold;
+  font-size: 16px;
   color: #fff;
   text-transform: uppercase;
   word-wrap: break-word;
 }
 td{
   padding: 15px;
-  text-align: center;
+  text-align: left;
   vertical-align:middle;
-  font-weight: 300;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 16px;
   color: #fff;
   border-bottom: solid 1px rgba(255,255,255,0.1);
   border-right: solid 1px rgba(255,255,255,0.3);
   word-wrap: break-word;
 }
+#colorMentee, #mentee{
+	color: #B93A32;
+}
+#colorMentor, #mentor{
+	color: #005960;
+}
 
+
+td.but{
+	text-align: center;
+}
 
 /* demo styles */
 
@@ -212,9 +221,7 @@ outline: none !important;
 	cursor: pointer !important;
 }
 
-* {
-  font-family: 'Open Sans', sans-serif;
-}
+
 .button-fill {
   text-align: center;
   background: #ccc;
@@ -226,13 +233,13 @@ outline: none !important;
 .button-fill.grey {
   background: #445561;
   color: white;
-  border-radius: 5px;
+  border-radius: 12px;
 }
 
 .button-text {
   padding: 0 25px;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
   line-height: 56px;
   letter-spacing: .1em;
 }
@@ -260,7 +267,7 @@ outline: none !important;
   top: 0;
   margin-right: -50px;
   border: 1px solid #445561;
-  border-radius: 5px;
+  border-radius: 12px;
 }
 .inside-text {
   text-align: center;
@@ -278,11 +285,10 @@ outline: none !important;
 
 <nav class="icon-bar">
 	<div class="icon-bar">
-		  <a  href="ForwardPath"><i class="fa fa-home"></i></a> 
-		  <a href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
-		  <a href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
-		  <a class="active" href="GetAllPairs"><i class="fa fa-group"></i></a>
-
+		  <a href="#"><i class="fa fa-home"></i></a> 
+		  <a href="#"><i class="fa fa-black-tie"></i></a> 
+		  <a  href="#"><i class="fa fa-graduation-cap"></i></a> 
+		  <a class="active" href="#"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell"></i></a>
 		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
 	</div>
@@ -308,10 +314,10 @@ outline: none !important;
       <tbody>
       <c:forEach var="pair" items="${pairs}" >
         <tr>
-          <td ><c:out value="${pair.mentorName}"></c:out></td>
-			<td><c:out value="${pair.menteeName}"></c:out></td>
+          <td id="mentor"><c:out value="${pair.menteeName}"></c:out></td>
+			<td id="mentee"><c:out value="${pair.mentorName}"></c:out></td>
 			<td><c:out value="${pair.activeStatus}"></c:out></td>
-			 <td>   <a class="Meetings" href="GetMeetingByPairId?pageName=meetings&id=${pair.pairId}" >
+			 <td class="but">   <a class="Meetings" href="GetMeetingByPairId?id=${pair.pairId}" >
   <div class="button-fill grey">
     <div class="button-text">Meetings</div>
     <div class="button-inside">
@@ -320,7 +326,7 @@ outline: none !important;
     </div>
     </a>
     </td>
-          <td>   <a class="disB" href="#" id="${pair.pairId}">
+          <td class="but">   <a class="disB" href="#" id="${pair.pairId}">
   <div class="button-fill grey">
     <div class="button-text">Disconnect</div>
     <div class="button-inside">
@@ -335,7 +341,7 @@ outline: none !important;
     </table>
   </div>
 
- <a class="btn btn-block btn-primary" href="GetMentorsAndMentees?pageName=addPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
+ <a class="btn btn-block btn-primary" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
 
 </section>
 </body>

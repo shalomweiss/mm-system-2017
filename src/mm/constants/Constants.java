@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class Constants {
 	public final static Type USER_CLASS = new TypeToken<List<User>>() {}.getType();	
+	public static final Type USER_Class = User.class;
 	
 	
 	

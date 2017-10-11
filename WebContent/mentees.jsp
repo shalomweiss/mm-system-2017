@@ -838,17 +838,17 @@ td {
 
 							<tr>
 								<td>First name</td>
-								<td><input type="text" name="uFirstName"></td>
+								<td><input type="text" name="uFirstName" required></td>
 								<td>Last name</td>
-								<td><input type="text" name="uLastName"></td>
+								<td><input type="text" name="uLastName" required></td>
 							<tr>
 								<td>Phone number</td>
-								<td><input type="text" name="uPhoneNumber"></td>
+								<td><input type="text" name="uPhoneNumber" required></td>
 								<td>Email</td>
-								<td><input type="text" name="uEmail"></td>
+								<td><input type="text" name="uEmail" required></td>
 							<tr>
 								<td>Gender</td>
-								<td><input type="text" name="uGender"></td>
+								<td><input type="text" name="uGender" required></td>
 								<td>Address</td>
 								<td><input type="text" name="uAddress">
 							<tr>
@@ -859,10 +859,14 @@ td {
 										<c:forEach var="item" items="${AcadimicIn}">
 											<option value="${item}">${item}</option>
 										</c:forEach>
-								</select> <!--  <input type="text" name="uAcademicInstitution">--></td>
+								</select> <!--  <input type="text" name="uAcademicInstitution" required>--></td>
 							<tr>
-								<td>Average</td>
-								<td><input type="text" name="uAverage"></td>
+								<td>Average</td>			
+								<td><input type="text" name="uAverage" 
+							  	value="-1" onblur="if(this.value==''){
+									this.value='-1'; this.style.color='#BBB';}" onfocus="if(this.value=='-1'){
+										this.value=''; this.style.color='#000';}" style="color:#BBB;" ></td>	
+															
 								<td>Remaining semesters</td>
 								<td><input type="text" name="uRemSemesters"></td>
 							<tr>
@@ -875,8 +879,8 @@ td {
 							<tr>
 
 
-								<td>Is Guarantee</td>
-								<td><input type="text" name="uIsGraduate"></td>
+								<td>Signed</td>
+								<td><input type="text" name="uSignedEULA"></td>
 							<tr>
 
 

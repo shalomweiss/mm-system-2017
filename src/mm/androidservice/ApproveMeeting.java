@@ -2,21 +2,12 @@ package mm.androidservice;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.da.DataInterface;
 import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
 import util.ServerUtils;
