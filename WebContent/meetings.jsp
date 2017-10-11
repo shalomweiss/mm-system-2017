@@ -10,44 +10,35 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
 <head>
-<script>
 
+<script type="text/javascript">
 $(document).ready(function(){
 
 	 $(".button-fill").hover(
-   		  function() {
-   			    $(this).children(".button-inside").addClass("full");
-   			  },
-   			  function() {
-   			    $(this).children(".button-inside").removeClass("full");
-   			  }
-   			);
+  		  function() {
+  			    $(this).children(".button-inside").addClass("full");
+  			  },
+  			  function() {
+  			    $(this).children(".button-inside").removeClass("full");
+  			  }
+  			);
 	
 });
-
 function goBack() {
-    window.history.back();
+   window.history.back();
 }
-</script>
-<script>
-
 function  getId(note1,note2,note3,note4) {
 
 	document.getElementById("note1").innerHTML=note1;
 	document.getElementById("note2").innerHTML=note2;
 	document.getElementById("note3").innerHTML=note3;
 	document.getElementById("note4").innerHTML=note4;
-	
 }
-
 $(document).ready(function(){
 	$(".stam").click(function() {
 	    $(this).addClass('selected').siblings().removeClass("selected");
 	});
 });
-</script>
-<script type="text/javascript">
-
 var prevRow;
 
 	function show_hide_row(row,mentId,def) {
@@ -88,12 +79,7 @@ var prevRow;
 	</script>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
-<style>
-
-</style>
 <body>
-
-
 <nav class="icon-bar">
 <div class="icon-bar">
 		  <a  href="ForwardPath"><i class="fa fa-home"></i></a> 
