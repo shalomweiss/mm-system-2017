@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -574,7 +575,8 @@ li a:hover:not(.active) {
 		  <a  href="#"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="#"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell"></i></a>
-		  <a class="active" href="#"><i class="fa fa-clipboard"></i></a>		  
+		  <a class="active" href="#"><i class="fa fa-clipboard"></i></a>
+		  <a href="#"><i class="fa glyphicon">&#xe163;</i></a>  
 	</div>
 </nav>
 	
