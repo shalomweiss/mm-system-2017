@@ -190,12 +190,12 @@ outline: none !important;
 <body>
 <nav class="icon-bar">
 	<div class="icon-bar">
-		  <a class="active" href="#"><i class="fa fa-home"></i></a> 
-		  <a href="#"><i class="fa fa-black-tie"></i></a> 
-		  <a href="#"><i class="fa fa-graduation-cap"></i></a> 
-		  <a href="pairs.jsp"><i class="fa fa-group"></i></a>
+		  <a class="active"  href="ForwardPath"><i class="fa fa-home"></i></a> 
+		  <a href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
+		  <a href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
+		  <a href="GetAllPairs"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell"></i></a>
-		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
+		  <a href="#"><i class="fa fa-clipboard"></i></a>			  
 	</div>
 </nav>
 	<h1 class="tsofen">TSOFEN</h1>

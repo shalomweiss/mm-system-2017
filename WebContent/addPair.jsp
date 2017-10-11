@@ -20,16 +20,19 @@
 		});
 		$("#createPair").click(function(){
 			var trs= document.getElementsByClassName("selected");
-			var menteeId=trs[0].childNodes[10].innerHTML;
-			var mentorId=trs[1].childNodes[10].innerHTML;
-			$.post("CreateNewPair",
-			        {
-			          menteeID: menteeId,
-			          mentorID: mentorId
-			        },
-			        function(data,status){
-			            alert(data);
-			        });
+			if(trs.length>1)
+			{
+				var menteeId=trs[0].childNodes[10].innerHTML;
+				var mentorId=trs[1].childNodes[10].innerHTML;
+				$.post("CreateNewPair",
+				        {
+				          menteeID: menteeId,
+				          mentorID: mentorId
+				        },
+				        function(data,status){
+				            alert(data);
+				        });
+			}
 	});
 	});
 	</script>
@@ -338,7 +341,7 @@ li:hover{
 }
 
 
-#goBack{
+.goBack{
 	font-size: 50px;
 	color: #555;
 	margin-bottom: 20px;
@@ -361,7 +364,7 @@ li:hover{
 
 	<h1>New Pairs</h1>
 	<section>
-<i class="fa fa-arrow-left" aria-hidden="true" onclick="goBack()" id="goBack"></i>	
+<i class="fa fa-arrow-left goBack" aria-hidden="true" onclick="window.location='GetAllPairs';"></i>	
 
 	
 
@@ -393,6 +396,12 @@ li:hover{
                                 <a href="#">
                                 <span class="glyphicon glyphicon-book"></span>
                                 <span class="label-icon" id="drop">University</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                <span class="glyphicon glyphicon-book"></span>
+                                <span class="label-icon" id="drop1">Search</span>
                                 </a>
                             </li>
                         </ul>
@@ -480,6 +489,12 @@ $(function(){
                                 <a href="#">
                                 <span class="glyphicon glyphicon-book"></span>
                                 <span class="label-icon" id="drop1">Company</span>
+                                </a>
+                            </li>
+                             <li>
+                                <a href="#">
+                                <span class="glyphicon glyphicon-book"></span>
+                                <span class="label-icon" id="drop1">Search</span>
                                 </a>
                             </li>
                         </ul>
