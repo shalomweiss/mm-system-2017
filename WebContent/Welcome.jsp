@@ -9,6 +9,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
 <style>
@@ -194,7 +196,8 @@ outline: none !important;
 		  <a href="GetAllPairs"><i class="fa fa-group"></i></a>
 
 		  <a href="#"><i class="fa fa-bell"></i></a>
-		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
+		  <a href="#"><i class="fa fa-clipboard"></i></a>
+		  <a href="#"><i class="fa glyphicon">&#xe163;</i></a>	  
 	</div>
 </nav>
 	<h1 class="tsofen">TSOFEN</h1>

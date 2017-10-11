@@ -9,6 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
@@ -195,7 +196,8 @@ outline: none !important;
 		  <a href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell"></i></a>
-		  <a href="#"><i class="fa fa-clipboard"></i></a>			  
+		  <a href="#"><i class="fa fa-clipboard"></i></a>
+		  <a href="#"><i class="fa glyphicon">&#xe163;</i></a>	  
 	</div>
 </nav>
 	<h1 class="tsofen">TSOFEN</h1>
