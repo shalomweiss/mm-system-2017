@@ -29,7 +29,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
+<style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
 <script type="text/javascript">
 	
 	function goToEdit(firstName, lastName, phone, email, academicInstitution,
@@ -178,13 +178,6 @@ input[type=submit] {
 input[type=submit]:hover {
 	background-color: #45a049;
 }
-
-/* Add a background color and some padding around the form */
-.container {
-	border-radius: 5px;
-	background-color: #f2f2f2;
-	padding: 20px;
-}
 /* Style the tab */
 div.tab {
 	overflow: hidden;
@@ -295,6 +288,10 @@ table {
 }
 
 .tbl-header {
+    background-color: rgba(255, 255, 255, 0.3);
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -323,23 +320,7 @@ td {
 	border-bottom: solid 1px rgba(255, 255, 255, 0.1);
 }
 
-/* demo styles */
-@import
-	url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 
-body {
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-	background: linear-gradient(to right, #25c481, #25b7c4);
-	font-family: 'Roboto', sans-serif;
-}
-
-section {
-	top: 0;
-	margin-top: 90px;
-	margin-bottom: 50px;
-	margin-left: 100px;
-	margin-right: 10px;
-}
 
 /* follow me template */
 .made-with-love {
@@ -382,10 +363,6 @@ section {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-body {
-	top: 0;
-	margin: 0
-}
 
 .icon-bar {
 	top: 30vh;
@@ -414,10 +391,6 @@ i {
 	margin-right: 2px;
 }
 
-body {
-	background-color: #cfd9df;
-	height: 100%;
-}
 
 html {
 	overflow-y: hidden;
@@ -467,25 +440,26 @@ button {
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited,
 	.btn-primary:focus {
-	background-color: #67d2bc !important;
-	border-color: #67d2bc !important;
+	margin-top:20px;
+    background-color: rgba(255,255,255,0.3);
 	outline: none !important;
 	color: white !important;
 	cursor: pointer !important;
+	border-color: rgba(255,255,255,0.1);}
+.btn-primary:hover{
+	margin-top:20px;
+    background-color: rgba(255,255,255,0.5);
+	outline: none !important;
+	color: white !important;
+	cursor: pointer !important;
+	border-color: rgba(255,255,255,0.1);
 }
 
 button {
 	outline: none !important;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited,
-	.btn-primary:focus {
-	background-color: #67d2bc !important;
-	border-color: #67d2bc !important;
-	outline: none !important;
-	color: white !important;
-	cursor: pointer !important;
-}
+
 
 * {
 	font-family: 'Open Sans', sans-serif;
@@ -599,12 +573,10 @@ td {
 	<h1>Mentees</h1>
 
 
-	<section>
+	<section class="Pairs">
 		<!--for demo wrap-->
-		<div class="tbl-header">
-
-			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
-				<thead>
+		<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+		<thead class="tbl-header-mentee">
 					<tr>
 						<th>Name</th>
 						<th>Last Name</th>
@@ -613,10 +585,15 @@ td {
 					</tr>
 
 				</thead>
+				</table>
+		<div class="tbl-header">
+
+			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+				
 		</div>
 
 			<div class="tbl-content" style="height: 100%">
-				<tbody>
+				<tbody class="mentee" >
 					<c:forEach items="${Mentees}" var="ment">
 						<tr class="stam"
 							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
