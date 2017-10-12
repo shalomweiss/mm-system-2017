@@ -56,23 +56,27 @@ public class AddNewMentor extends HttpServlet {
 		User newMentor = new Mentor(0, firstName, lastName, email, phoneNumber, pass, gender, address, notes,
 				ProfilePicture, true, userType.MENTOR, experience, role, company, volunteering, workHistory);
 		DataAccess da = new DataAccess();
-		boolean res = false;
+		int res = -1;
 		RequestDispatcher req = null;
 
-//		try {
-//			
-//		//	res = da.addUser(newMentor);
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-		if (res) {
+		try {
+			
+			res = da.addUser(newMentor);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (res>0) {
 			response.getWriter().append("Mentor Added");
 			req = request.getRequestDispatcher(nextPage);
 		}
-		if (!res)
-			response.getWriter().append("Failed in added Mentor");
+		if (res==-1)
+		response.getWriter().append("Failed in added Mentor");
+	
+		
+		newMentor.setId(res);	
 		request.setAttribute("NewMentor", newMentor);
+		req=request.getRequestDispatcher("GetAllMentors");
 		req.forward(request, response);
 	}
 }

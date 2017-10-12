@@ -845,31 +845,31 @@ td {
 
 							<tr>
 								<td>First name</td>
-								<td><input type="text" name="uFirstName" required 
+								<td><input type="text" name="uFirstName" 
 								onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}"></td>
+							  	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}" required></td>
 								<td>Last name</td>
-								<td><input type="text" name="uLastName" required
+								<td><input type="text" name="uLastName" 
 								onblur="if(this.value==''){ this.value='lastname'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='lastname'){this.value=''; this.style.color='#000';}"></td>
+							  	onfocus="if(this.value=='lastname'){this.value=''; this.style.color='#000';}" required></td>
 							<tr>
 								<td>Phone number</td>
-								<td><input type="text" name="uPhoneNumber" required
+								<td><input type="text" name="uPhoneNumber" 
 								onblur="if(this.value==''){ this.value='number'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='number'){this.value=''; this.style.color='#000';}"></td>
+							  	onfocus="if(this.value=='number'){this.value=''; this.style.color='#000';}" required></td>
 								<td>Email</td>
-								<td><input type="text" name="uEmail" required
+								<td><input type="text" name="uEmail" 
 								onblur="if(this.value==''){ this.value='example@example.com'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}"></td>
+							  	onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}" required></td>
 							<tr>
 								<td>Gender</td>
-								<td><input type="text" name="uGender" required
+								<td><input type="text" name="uGender"
 								onblur="if(this.value==''){ this.value='gender'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='gender'){this.value=''; this.style.color='#000';}"></td>
+							  	onfocus="if(this.value=='gender'){this.value=''; this.style.color='#000';}" required></td>
 								<td>Address</td>
 								<td><input type="text" name="uAddress"
 								onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
+							  	onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}" required>
 							<tr>
 								<td>Graduation status</td>
 								<td><input type="text" name="uGraduationStatus"
@@ -885,12 +885,12 @@ td {
 								<td>Average</td>			
 								<td><input type="text" name="uAverage" value="-1"
 								onblur="if(this.value==''){this.value='-1'; this.style.color='#BBB';}"
-								onfocus="if(this.value=='-1'){this.value=''; this.style.color='#000';}" style="color:#BBB;" ></td>	
+								onfocus="if(this.value=='-1'){this.value=''; this.style.color='#000';}" style="color:#BBB;" required></td>	
 															
 								<td>Remaining semesters</td>
-								<td><input type="text" name="uRemSemesters"
+								<td><input type="text" name="uRemSemesters" 
 								onblur="if(this.value==''){ this.value='-1'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='-1'){this.value=''; this.style.color='#000';}"></td>
+							  	onfocus="if(this.value=='-1'){this.value=''; this.style.color='#000';}" required></td>
 							<tr>
 								<td>Dicipline</td>
 								<td><input type="text" name="uAcademicDicipline"

@@ -307,6 +307,7 @@ public class DataAccess implements DataInterface {
 			return id;
 
 		if (u.getType() == userType.MENTOR) {
+			System.out.println("MENTOR DATABASE");
 			PreparedStatement stm3 = c.prepareStatement(SQLStatements.insertMentor);
 			stm3.setInt(1, id);
 			stm3.setString(2, ((Mentor) u).getExperience());
