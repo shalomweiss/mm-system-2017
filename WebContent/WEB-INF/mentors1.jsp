@@ -33,19 +33,29 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <script> 
 
 $(document).ready(function(){
-	$("tr").click(function() {
+	$(".para").click(function() {
 	    $(this).addClass('selected').siblings().removeClass("selected");
 	});
+	
+	$(".female").click(function(){
+		var female=document.getElementsByClassName("female")[0];
+		female.id="clickedGender";
+		var male=document.getElementsByClassName("male")[0];
+		male.id="noclickedGender";
+	});
+	$(".male").click(function(){
+		var female=document.getElementsByClassName("female")[0];
+		female.id="noclickedGender";
+		var male=document.getElementsByClassName("male")[0];
+		male.id="clickedGender";
+	});
+	
+	
 });
-
-
-
-
 </script>
 <script type="text/javascript">
 
@@ -123,7 +133,6 @@ var prevRow;
 
 <style>
 /* Style inputs with type="text", select elements and textareas */
-
 input[type=text], select, textarea {
 	width: 100%; /* Full width */
 	padding: 12px; /* Some padding */
@@ -176,8 +185,6 @@ div.tab button {
 	transition: 0.3s;
 }
 
-
-
 /* Change background color of buttons on hover */
 div.tab button:hover {
 	background-color: #ddd;
@@ -227,6 +234,7 @@ div.tab button.active {
 
 .modalDialog>div {
 	width: 800px;
+	
 	margin: auto;
 	border-radius: 10px;
 	background: #fff;
@@ -258,13 +266,13 @@ div.tab button.active {
 
 h1 {
 	font-size: 40px;
-  letter-spacing: 8px;
-  text-shadow: 2px 4px 4px #CCCCCC;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 15px;
+	letter-spacing: 8px;
+	text-shadow: 2px 4px 4px #CCCCCC;
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 300;
+	text-align: center;
+	margin-bottom: 15px;
 }
 
 table {
@@ -289,20 +297,20 @@ th {
 	font-weight: 500;
 	font-size: 14px;
 	color: black;
-  text-transform: uppercase;
-  word-wrap: break-word;
+	text-transform: uppercase;
+	word-wrap: break-word;
 }
 
 td {
- padding: 15px;
+	padding: 5px;
 	text-align: center;
 	vertical-align: middle;
 	font-weight: 700;
 	font-size: 14px;
 	color: black;
-  border-bottom: solid 1px rgba(255,255,255,0.1);
-  border-right: solid 1px rgba(255,255,255,0.3);
-  word-wrap: break-word;
+	border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+	border-right: solid 1px rgba(255, 255, 255, 0.3);
+	word-wrap: break-word;
 }
 
 /* demo styles */
@@ -317,10 +325,10 @@ body {
 
 section {
 	top: 0;
-	  margin-top: 150px; 
-  margin-bottom: 50px;
-  margin-left: 100px;
-  margin-right: 10px;
+	margin-top: 150px;
+	margin-bottom: 50px;
+	margin-left: 100px;
+	margin-right: 10px;
 }
 
 /* follow me template */
@@ -389,7 +397,7 @@ body {
 }
 
 .active {
-	 background-color: #25c481 !important;
+	background-color: #25c481 !important;
 }
 
 i {
@@ -486,14 +494,15 @@ button {
 	background: #445561;
 	color: white;
 	text-align: center;
-	 border-radius: 5px;
+	border-radius: 5px;
 }
 
-.button-text {padding: 0 25px;
-  padding-right: 20px;
-  padding-left: 20px;
-  line-height: 56px;
-  letter-spacing: .1em;
+.button-text {
+	padding: 0 25px;
+	padding-right: 20px;
+	padding-left: 20px;
+	line-height: 56px;
+	letter-spacing: .1em;
 }
 
 .button-inside {
@@ -553,14 +562,12 @@ td {
 	display: none;
 }
 
-
 .para.selected {
-    background-color:#f5f5f5;
-	color: #69A489;
+	background-color: #f5f5f5;
+	color: black;
 }
-tr.selected td{
-	color: #69A489;
-}
+
+
 </style>
 
 <body>
@@ -569,15 +576,14 @@ tr.selected td{
 
 	<!-- welcome bar -->
 	<nav class="icon-bar">
-			<div class="icon-bar">
+		<div class="icon-bar">
 		  <a  href="ForwardPath"><i class="fa fa-home"></i></a> 
-		  <a class="active" href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
-		  <a   href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
+		  <a href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
+		  <a class="active"  href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs"><i class="fa fa-group"></i></a>
 
 		  <a href="#"><i class="fa fa-bell"></i></a>
-		  <a href="#"><i class="fa fa-clipboard"></i></a>
-		  <a href="#"><i class="fa glyphicon">&#xe163;</i></a>		  
+		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
 	</div>
 	</nav>
 	<h1>Mentors</h1>
@@ -625,7 +631,7 @@ tr.selected td{
 										<button class="tablinks"
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks" style="float: right;"
-											onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
+											onclick="closeRow('hidden_row${ment.id}',${ment.id});">X</button>
 
 									</div>
 									<form id="form${ment.id}" action="UpdateMentor" method="post">
@@ -649,52 +655,40 @@ tr.selected td{
 														<div id="div1${ment.id}"
 															ondblclick="showStuff('div1${ment.id}','input1${ment.id}');">${ment.firstName}</div>
 														<input id="input1${ment.id}" name="uFirstName" type="text"
-														value="${ment.firstName}" style="display: none;"
-														onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
+														value="${ment.firstName}" style="display: none;">
 													</td>
 
 													<td>
 														<div id="div2${ment.id}"
 															ondblclick="showStuff('div2${ment.id}','input2${ment.id}');">${ment.lastName}</div>
 														<input id="input2${ment.id}" name="uLastName" type="text"
-														value="${ment.lastName}" style="display: none;"
-														onblur="if(this.value==''){ this.value='lastname'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='lastname'){this.value=''; this.style.color='#000';}">
+														value="${ment.lastName}" style="display: none;">
 													</td>
 													<td>
 														<div id="div3${ment.id}"
 															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">${ment.gender}</div>
 														<input id="input3${ment.id}" name="uGender" type="text"
-														value="${ment.gender}" style="display: none;"
-														onblur="if(this.value==''){ this.value='gender'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='gender'){this.value=''; this.style.color='#000';}">
+														value="${ment.gender}" style="display: none;">
 
 													</td>
 													<td>
 														<div id="div4${ment.id}"
 															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
 														<input id="input4${ment.id}" name="uAddress" type="text"
-														value="${ment.address}" style="display: none;"
-														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
+														value="${ment.address}" style="display: none;">
 													</td>
 													<td>
 														<div id="div5${ment.id}"
 															ondblclick="showStuff('div5${ment.id}','input5${ment.id}');">${ment.phoneNumber}</div>
 														<input id="input5${ment.id}" name="uPhoneNumber"
 														type="text" value="${ment.phoneNumber}"
-														style="display: none;"
-														onblur="if(this.value==''){ this.value='number'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='number'){this.value=''; this.style.color='#000';}">
+														style="display: none;">
 													</td>
 													<td>
 														<div id="div6${ment.id}"
 															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
 														<input id="input6${ment.id}" name="uEmail" type="text"
-														value="${ment.email}" style="display: none;"
-														onblur="if(this.value==''){ this.value='example@example.com'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}">
+														value="${ment.email}" style="display: none;">
 													</td>
 													<td><input id="submit${ment.id}" type="submit"
 														value="Done"></td>
@@ -721,25 +715,19 @@ tr.selected td{
 															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.experience}</div>
 														<input id="input7${ment.id}" name="uExperience"
 														type="text" value="${ment.experience}"
-														style="display: none;"
-														onblur="if(this.value==''){ this.value='exp'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='exp'){this.value=''; this.style.color='#000';}">
+														style="display: none;">
 													</td>
 													<td>
 														<div id="div8${ment.id}"
 															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.role}</div>
 														<input id="input8${ment.id}" name="uRole" type="text"
-														value="${ment.role}" style="display: none;"
-														onblur="if(this.value==''){ this.value='role'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='role'){this.value=''; this.style.color='#000';}">
+														value="${ment.role}" style="display: none;">
 													</td>
 													<td>
 														<div id="div12${ment.id}"
 															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.company}</div>
-														<input name="uCompany" id="input12${ment.id}" type="text"
-														value="${ment.company}" style="display: none;"
-														onblur="if(this.value==''){ this.value='company'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='company'){this.value=''; this.style.color='#000';}">
+														<input name="uWorkingPlace" id="input12${ment.id}"
+														type="text" value="${ment.company}" style="display: none;">
 
 
 
@@ -750,13 +738,11 @@ tr.selected td{
 															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.workHistory}</div>
 														<input id="input9${ment.id}" name="uWorkHistory"
 														type="text" value="${ment.workHistory}"
-														style="display: none;"
-														onblur="if(this.value==''){ this.value='workHis'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='workHis'){this.value=''; this.style.color='#000';}">
+														style="display: none;">
 													</td>
 
 
-													<td><input type="submit${ment.id}" value="Done"></td>
+													<td><input id="submit${ment.id}" type="submit" value="Done"></td>
 												</tr>
 											</table>
 
@@ -777,14 +763,12 @@ tr.selected td{
 															value="${ment.note}"
 															style="display: none; height: 100px;">${ment.note}</textarea>
 													</td>
-													</tr>
-													
-													<tr>
+												</tr>
+
+												<tr>
 													<td><input id="id:${ment.id}" name="uId" type="text"
-														value="${ment.id}" style="display: none;"
-														onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}"> 
-														<input type="submit${ment.id}" style="float: right;" value="Done">
+														value="${ment.id}" style="display: none;"> <input type="submit"
+														id="submit${ment.id}" style="float: right;" value="Done">
 
 													</td>
 												</tr>
@@ -810,20 +794,19 @@ tr.selected td{
 															value="${ment.volunteering}"
 															style="display: none; height: 100px;">${ment.volunteering}</textarea>
 													</td>
-</tr><tr>
-													<td>
-													<input type="submit${ment.id}" style="float: right;"
-														value="Done">
-													
-													</td>
+												</tr>
+												<tr>
+													<td><input type="submit" id="submit${ment.id}"
+														style="float: right;" value="Done"></td>
 											</table>
 										</div>
+										</form>
 								</td>
 							</tr>
 
 
 
-							</form>
+							
 						</c:forEach>
 
 					</tbody>
@@ -837,9 +820,8 @@ tr.selected td{
 			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
 			Mentor
 		</a>
-		</div>
+		
 
-		<%-- 
 
 		<div id="openModal3" class="modalDialog">
 			<div>
@@ -848,71 +830,75 @@ tr.selected td{
 				<div class="container">
 					<a href="#close" title="Close" class="close"
 						style="position: absolute;">X</a>
-					<form action="AddMentee" method="post">
-						<table>
 
+					<form action="AddNewMentor" method="post">
+						<table>
 							<tr>
-								<td>First name</td>
-								<td><input type="text" name="uFirstName"></td>
-								<td>Last name</td>
-								<td><input type="text" name="uLastName"></td>
+								<td>First Name:</td>
+								<td><input type="text" name="firstName"></td>
+								<td>Last Name:</td>
+								<td><input type="text" name="lastName"></td>
+							</tr>
 							<tr>
-								<td>Phone number</td>
-								<td><input type="text" name="uPhoneNumber"></td>
 								<td>Email</td>
-								<td><input type="text" name="uEmail"></td>
+								<td><input type="text" name="email"></td>
+								<td>Phone number</td>
+								<td><input type="text" name="phoneNumber"></td>
+							</tr>
 							<tr>
 								<td>Gender</td>
-								<td><input type="text" name="uGender"></td>
+								<td><input id="clickedGender" class="male" type="radio"
+									name="gender" value="1" checked> Male <input
+									id="noclickedGender" class="female" type="radio" name="gender"
+									value="0"> Female</td>
 								<td>Address</td>
-								<td><input type="text" name="uAddress">
-							<tr>
-								<td>Graduation status</td>
-								<td><input type="text" name="uGraduationStatus"></td>
-								<td>Academic institution</td>
-								<td><select name="department">
-										<c:forEach var="item" items="${AcadimicIn}">
-											<option value="${item}">${item}</option>
-										</c:forEach>
-								</select> <!--  <input type="text" name="uAcademicInstitution">--></td>
-							<tr>
-								<td>Average</td>
-								<td><input type="text" name="uAverage"></td>
-								<td>Remaining semesters</td>
-								<td><input type="text" name="uRemSemesters"></td>
-							<tr>
-								<td>Dicipline</td>
-								<td><input type="text" name="uAcademicDicipline"></td>
+								<td><input type="text" name="address"></td>
+							</tr>
 
-								<td>Dicipline 2</td>
-								<td><input type="text" name="uAcademicDicipline2">
-								</td>
 							<tr>
+								<td>Company</td>
+								<td><input type="text" name="company"></td>
+								<td>Role</td>
+								<td><input type="text" name="role"></td>
+							</tr>
 
-
-								<td>Is Guarantee</td>
-								<td><input type="text" name="uIsGraduate"></td>
 							<tr>
+								<td>Experience</td>
+								<td colspan="3"><textarea name="experience"
+										style="height: 50px"></textarea></td>
 
-
-								<td>note</td>
-								<td colspan="3"><textarea name="uNotes"
+							</tr>
+							<tr>
+								<td>volunteering</td>
+								<td colspan="3"><textarea name="volunteering"
 										style="height: 50px"></textarea></td>
 							</tr>
-							<input type="text" name="id" style="display: none">
-							</tr>
-							</td>
-						</table>
-						<input type="submit" value="Done">
+							<tr>
+								<td>Work History</td>
+								<td colspan="3"><textarea name="history"
+										style="height: 50px"></textarea></td>
 
+							</tr>
+							<tr>
+								<td>note</td>
+								<td colspan="3"><textarea name="notes"
+										style="height: 50px"></textarea></td>
+							</tr>
+							<tr>
+								<td colspan="3"><input type="submit" value="Done"></td>
+							</tr>
+
+						</table>
 					</form>
+
+
 				</div>
 
 
 			</div>
 		</div>
 
---%>
+
 
 
 	</section>
