@@ -13,6 +13,7 @@ import javax.enterprise.event.Observes;
 
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
@@ -799,21 +800,31 @@ public class DataAccess implements DataInterface {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-//			mentorId,menteeId,pairId,note,status,menteeReport,
-//			mentorReport,menteePrivateReport,mentorPrivateReport,
-//			meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete
-//			
-System.out.println(meeting.toString());
+			
+			java.util.Date date = null;
+			try {
+				date = f.parse(d);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			   java.sql.Date sqlStartDate = new Date(date.getTime()); 
+			   
+			//			mentorId,menteeId,pairId,note,status,menteeReport,
+			//			mentorReport,menteePrivateReport,mentorPrivateReport,
+			//			meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete
+			//			
+		
 			stm.setInt(3, meeting.getPairId());
-			System.out.println(meeting.getPairId());
+		
 			stm.setInt(1,meeting.getMentorId());
-			System.out.println(meeting.getMentorId());
+		
 			stm.setInt(2, meeting.getMenteeId());
-			System.out.println( meeting.getMenteeId());
+		
 			stm.setString(4, meeting.getNote());
 			
 			stm.setInt(5, meeting.getStatus().ordinal());
-			System.out.println(meeting.getStatus().ordinal());
+	
 			stm.setString(6, meeting.getMenteeReport());
 			stm.setString(7, meeting.getMentorReport());
 			stm.setString(8, meeting.getMenteePrivateReport());
@@ -823,10 +834,10 @@ System.out.println(meeting.toString());
 			stm.setString(12,meeting.getLocation());
 		
 
-			stm.setString(13, d.toString());
-			System.out.println(d.toString());
-			stm.setString(14,meeting.getStartingDate().toString());
-			stm.setString(15,meeting.getEndingDate().toString());
+			stm.setDate(13, sqlStartDate);
+
+			stm.setTime(14,meeting.getStartingDate());
+			stm.setTime(15,meeting.getEndingDate());
 			stm.setBoolean(16,meeting.getMentorComplete());
 			stm.setBoolean(17,meeting.getMenteeComplete());
 			stm.executeUpdate();

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import mm.jsonModel.MeetingModel;
 import mm.model.Meeting;
 import util.ServerUtils;
 
@@ -41,8 +42,8 @@ public class AddMeeting extends HttpServlet {
 
 	int id = iom.getJsonRequest().get("id").getAsInt();
 	String token = iom.getJsonRequest().get("token").getAsString();
-	Meeting meeting = new Gson().fromJson(iom.getJsonRequest().get("meeting"), Meeting.class);
-	
+	Meeting meeting = new Gson().fromJson(iom.getJsonRequest().get("meeting"), MeetingModel.class).toMeeting();
+	System.out.println(meeting.getStartingDate());
 	if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
 		if(meeting!=null ) {
 			try {
