@@ -137,7 +137,7 @@ td.but{
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 body{
-  background-color: #232334;
+  background-color: #232334 !important;
   font-family: 'Century Gothic', sans-serif;
   height:100%;
   overflow: hidden;
