@@ -7,9 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.google.gson.JsonObject;
+
 import mm.model.Session;
 import mm.model.User;
+import mm.model.User.userType;
 import util.ServerUtils;
 
 
@@ -59,7 +62,7 @@ public class LogIn extends HttpServlet {
 			if(user==null) {
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 			} 
-			else if(user.getPassword().equals(password)){
+			else if(user.getPassword().equals(password) &&(user.getType()==userType.MENTEE || user.getType()==userType.MENTOR)){
 				 
 				String token=ServerUtils.generateToken();
 				//TODO

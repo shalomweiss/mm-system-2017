@@ -41,10 +41,6 @@ public class GetMeetingByPairId extends HttpServlet {
 		
 		System.out.println("Meeting Servlet");
 		int pairId =Integer.parseInt( request.getParameter("id"));
-		
-		
-		
-		
         DataAccess da = new DataAccess();
             Pair pair = null;
           try {
@@ -78,8 +74,6 @@ public class GetMeetingByPairId extends HttpServlet {
 		ArrayList<Meeting> arr=new ArrayList<Meeting>();
 		Meeting m=new Meeting(0, 0, 0, 0, "String",null,null,null,null,null,null,null, null, null, null, null, false, false);
 		m.setLocation("LOCATION");
-		
-		
 		m.setMenteePrivateReport("REPORTING");
 		m.setMenteeReport("PPPPP");
 		

@@ -11,6 +11,8 @@ import com.google.gson.JsonObject;
 import util.ServerUtils;
 import java.util.ArrayList;
 import java.util.List;
+
+import mm.jsonModel.MeetingModel;
 import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
 
@@ -62,7 +64,7 @@ public class GetMeetings extends HttpServlet {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 		}else {
 		List<Meeting> meetings = new ArrayList<Meeting>();
-
+		List<MeetingModel> meetingsToReturn = new ArrayList<MeetingModel>();
 		/////////////// TEST////////////////
 		// Time time =new Time(12, 12, 2017);
 		// Meeting[] arr = {new
@@ -144,7 +146,11 @@ public class GetMeetings extends HttpServlet {
 					meetings.get(i).setMenteeReport(null);
 				}
 				
-				iom.addResponseParameter("meetings", meetings);
+				for(Meeting e:meetings) {
+					meetingsToReturn.add(MeetingModel.fromMeeting(e));
+				}
+				
+				iom.addResponseParameter("meetings", meetingsToReturn);
 			}
 		} else {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));

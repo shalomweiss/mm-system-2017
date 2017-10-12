@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonObject;
 import mm.model.Meeting;
 import mm.androidservice.AndroidIOManager;
+import mm.jsonModel.MeetingModel;
 import util.ServerUtils;
 
 /**
@@ -61,7 +62,7 @@ public class GetMeetingByID extends HttpServlet {
 				} 
 				else {
 					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-					iom.addResponseParameter("meeting", meetingFromDB);
+					iom.addResponseParameter("meeting", MeetingModel.fromMeeting(meetingFromDB));
 				}
 				
 
