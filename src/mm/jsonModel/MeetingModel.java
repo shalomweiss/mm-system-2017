@@ -67,7 +67,7 @@ public MeetingModel(int meetingId, int pairId, int mentorId, int menteeId, Strin
 
 public static MeetingModel fromMeeting(Meeting meeting) {
 
-	return new MeetingModel(meeting.getMeetingId(),meeting.getPairId(),meeting.getMentorId(),meeting.getMenteeId(),meeting.getNote(),meeting.getStatus(),meeting.getMenteeReport(),meeting.getMentorReport(),meeting.getMenteePrivateReport(),meeting.getMentorPrivateReport(),meeting.getMeetingType(),meeting.getSubject(),meeting.getLocation(),meeting.getDate(),meeting.getStartingDate().getTime(),meeting.getEndingDate().getTime(),meeting.getMentorComplete(),meeting.getMentorComplete());
+	return new MeetingModel(meeting.getMeetingId(),meeting.getPairId(),meeting.getMentorId(),meeting.getMenteeId(),meeting.getNote(),meeting.getStatus(),meeting.getMenteeReport(),meeting.getMentorReport(),meeting.getMenteePrivateReport(),meeting.getMentorPrivateReport(),meeting.getMeetingType(),meeting.getSubject(),meeting.getLocation(),meeting.getDate(),meeting.getStartingDate().getTime()+meeting.getDate(),meeting.getEndingDate().getTime()+meeting.getDate(),meeting.getMentorComplete(),meeting.getMentorComplete());
 	
 }
 
