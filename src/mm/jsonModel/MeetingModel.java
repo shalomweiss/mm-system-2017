@@ -31,8 +31,8 @@ public class MeetingModel
  private String subject;
  private String location;
  private Long date;
- private String startingDate;
- private String endingDate;
+ private Long startingDate;
+ private Long endingDate;
  private boolean mentorComplete;
  private boolean menteeComplete;
  
@@ -41,8 +41,8 @@ public class MeetingModel
  
 public MeetingModel(int meetingId, int pairId, int mentorId, int menteeId, String note, meetingStatus status,
 		String menteeReport, String mentorReport, String menteePrivateReport, String mentorPrivateReport,
-		meetingType meetingType, String subject, String location, Long date, String startingDate,
-		String endingDate, boolean mentorComplete, boolean menteeComplete) {
+		meetingType meetingType, String subject, String location, Long date, Long startingDate,
+		Long endingDate, boolean mentorComplete, boolean menteeComplete) {
 	super();
 	this.meetingId = meetingId;
 	this.pairId = pairId;
@@ -65,17 +65,21 @@ public MeetingModel(int meetingId, int pairId, int mentorId, int menteeId, Strin
 }
 
 
+public static MeetingModel fromMeeting(Meeting meeting) {
+
+	return new MeetingModel(meeting.getMeetingId(),meeting.getPairId(),meeting.getMentorId(),meeting.getMenteeId(),meeting.getNote(),meeting.getStatus(),meeting.getMenteeReport(),meeting.getMentorReport(),meeting.getMenteePrivateReport(),meeting.getMentorPrivateReport(),meeting.getMeetingType(),meeting.getSubject(),meeting.getLocation(),meeting.getDate(),meeting.getStartingDate().getTime(),meeting.getEndingDate().getTime(),meeting.getMentorComplete(),meeting.getMentorComplete());
+	
+}
+
 public Meeting toMeeting() {
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+
 	java.util.Date startingDate = null;
     java.util.Date endingDate = null;
-    try {
-    	startingDate = sdf.parse(this.startingDate);
-    	endingDate = sdf.parse(this.endingDate);
-    } catch (ParseException e) {
-        e.printStackTrace();
-    }
+
+    	startingDate = new Date(this.startingDate);
+    	endingDate = new Date(this.endingDate);
+ 
     Time timeStart = new Time(startingDate.getTime());
     Time timeEnd = new Time(endingDate.getTime());
 	
@@ -218,22 +222,22 @@ public void setDate(Long date) {
 }
 
 
-public String getStartingDate() {
+public Long getStartingDate() {
 	return startingDate;
 }
 
 
-public void setStartingDate(String startingDate) {
+public void setStartingDate(Long startingDate) {
 	this.startingDate = startingDate;
 }
 
 
-public String getEndingDate() {
+public Long getEndingDate() {
 	return endingDate;
 }
 
 
-public void setEndingDate(String endingDate) {
+public void setEndingDate(Long endingDate) {
 	this.endingDate = endingDate;
 }
 
