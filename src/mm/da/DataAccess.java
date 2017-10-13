@@ -13,6 +13,7 @@ import javax.enterprise.event.Observes;
 
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -34,7 +35,6 @@ import mm.model.WorkPlace;
 public class DataAccess implements DataInterface {
 
 	private Connection c;
-
 	final String selectLogin = "Select * From users where email=?";
 	final String selectLogin1 = "Select * From mentors where id=?";
 	final String selectLogin2 = "Select * From mentees where id=?";
@@ -71,9 +71,9 @@ public class DataAccess implements DataInterface {
 	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u right JOIN mentees as m ON u.id = m.id  where (m.id  in (select menteeId from pairs where menteeId = m.id  and activeStatus = 0	)and NOT EXISTS(select menteeId	from pairs	where menteeId = m.id  and activeStatus = 1)) or not exists(select * from pairs where menteeId=m.id)";
 	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
 	
-	final String getMeetings1 = "Select * From activities where mentorId=? AND status=? ORDER BY startingTime, date DESC LIMIT ?, ?";
+	final String getMeetings1 = "Select * From activities where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
 	final String insertWorkPlace = "INSERT INTO workplaces (name,area,city,address ) VALUES (?,?,?,?)";
-	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY startingTime, date DESC LIMIT ?, ? ";
+	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
 	final String selectWorkPlace ="Select * From workplaces";
 	final String selectWorkPlaceId="Select * From workplaces where id=? ";
@@ -661,8 +661,9 @@ public class DataAccess implements DataInterface {
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMeetingsByMentorId);
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
+		
 		if (rs.next()) {
-
+			java.sql.Date SDate1 = rs.getDate(DataContract.MeetingTable.COL_DATE);
 			meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 					rs.getInt(DataContract.MeetingTable.COL_PAIRID),
 					rs.getInt(DataContract.MeetingTable.COL_MENTORID),
@@ -676,7 +677,7 @@ public class DataAccess implements DataInterface {
 					meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
 					rs.getString(DataContract.MeetingTable.COL_SUBJECT),
 					rs.getString(DataContract.MeetingTable.COL_LOCATION),
-					rs.getLong(DataContract.MeetingTable.COL_DATE), 
+					SDate1.getTime(), 
 					rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
 					rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
 					rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
@@ -687,6 +688,7 @@ public class DataAccess implements DataInterface {
 			stm1.setInt(1, id);
 			ResultSet rs1 = stm.executeQuery();
 			if (rs1.next()) {
+				java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
 				meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 						rs.getInt(DataContract.MeetingTable.COL_PAIRID),
 						rs.getInt(DataContract.MeetingTable.COL_MENTORID),
@@ -700,7 +702,7 @@ public class DataAccess implements DataInterface {
 						meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
 						rs.getString(DataContract.MeetingTable.COL_SUBJECT),
 						rs.getString(DataContract.MeetingTable.COL_LOCATION),
-						rs.getLong(DataContract.MeetingTable.COL_DATE), 
+					    SDate.getTime(), 
 						rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
 						rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
 						rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
@@ -749,6 +751,9 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, meetingId);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
+			
+			java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
+			
 			m = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 					rs.getInt(DataContract.MeetingTable.COL_PAIRID),
 					rs.getInt(DataContract.MeetingTable.COL_MENTORID),
@@ -762,7 +767,7 @@ public class DataAccess implements DataInterface {
 					meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
 					rs.getString(DataContract.MeetingTable.COL_SUBJECT),
 					rs.getString(DataContract.MeetingTable.COL_LOCATION),
-					rs.getLong(DataContract.MeetingTable.COL_DATE), 
+					SDate.getTime(), 
 					rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
 					rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
 					rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
@@ -898,10 +903,16 @@ public class DataAccess implements DataInterface {
 		System.out.println("MEEEEEEEEEEEEEEEEEEEEEEETINGGG");
 		ArrayList<Meeting> m = new ArrayList<Meeting>();
 		Meeting meeting = null;
+	
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMeetingByPairId);
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
+
+		
+		
 		if (rs.next()) {
+			java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
+			
 			meeting = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 					rs.getInt(DataContract.MeetingTable.COL_PAIRID),
 					rs.getInt(DataContract.MeetingTable.COL_MENTORID),
@@ -915,7 +926,7 @@ public class DataAccess implements DataInterface {
 					meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
 					rs.getString(DataContract.MeetingTable.COL_SUBJECT),
 					rs.getString(DataContract.MeetingTable.COL_LOCATION),
-					rs.getLong(DataContract.MeetingTable.COL_DATE), 
+					SDate.getTime(), 
 					rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
 					rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
 					rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
@@ -1022,6 +1033,8 @@ public class DataAccess implements DataInterface {
 			m=new ArrayList<Meeting>();
 			while (rs.next())
 			{				
+				java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
+				
 				Meeting meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 						rs.getInt(DataContract.MeetingTable.COL_PAIRID),
 						rs.getInt(DataContract.MeetingTable.COL_MENTORID),
@@ -1035,7 +1048,7 @@ public class DataAccess implements DataInterface {
 						meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
 						rs.getString(DataContract.MeetingTable.COL_SUBJECT),
 						rs.getString(DataContract.MeetingTable.COL_LOCATION),
-						rs.getLong(DataContract.MeetingTable.COL_DATE), 
+						SDate.getTime(), 
 						rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
 						rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
 						rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
@@ -1191,7 +1204,7 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public int PairId(int mentorId, int menteeId) {
+	public int getPairId(int menteeid, int MentorId) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

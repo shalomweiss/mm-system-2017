@@ -105,9 +105,7 @@ public interface DataInterface {
 
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,String menteeName);
 	
-	
-	//return pairId 
-	public int PairId(int mentorId,int menteeId);
+	public int getPairId(int menteeid,int MentorId);
 
 
 }
