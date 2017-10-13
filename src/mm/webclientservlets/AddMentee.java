@@ -64,7 +64,6 @@ public class AddMentee extends HttpServlet {
 		String gender=request.getParameter("uGender");
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
-		
 		String uAcademicIn=request.getParameter("uAcademicInstitution");
 		String uRemSemesters = request.getParameter("uRemSemesters");
 		String uAverage = request.getParameter("uAverage");
@@ -75,46 +74,44 @@ public class AddMentee extends HttpServlet {
 		String resume=request.getParameter("uResume");
 		String gradeSheet=request.getParameter("uGradeSheet");
 		String profilePicture=request.getParameter("profilePicture");
-	//	int uAcademicInstitution = (Integer) null;
-		Float avg = null;
-		Float remSemesters= null;
-	//	int uGender=(Integer) null;
-		int uGender=1;
-		int uAcademicInstitution=1;
-		boolean SignedEULA=false;
-		 try {
-			 uGender = Integer.parseInt(gender);
-		    } catch (NumberFormatException | NullPointerException e) {
-		        // handle the error here
-		    	e.printStackTrace();
-		    }
+		Float avg = Float.valueOf(uAverage);
+		Float remSemesters= Float.valueOf(uRemSemesters);
+		int uGender= Integer.parseInt(gender);
+		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
+		boolean SignedEULA=Boolean.parseBoolean(Signed);
+//		 try {
+//			 uGender = Integer.parseInt(gender);
+//		    } catch (NumberFormatException | NullPointerException e) {
+//		        // handle the error here
+//		    	e.printStackTrace();
+//		    }
+//		
+//		 try {
+//			 SignedEULA = Boolean.parseBoolean(Signed);
+//		    } catch (NumberFormatException | NullPointerException e) {
+//		        // handle the error here
+//		    	e.printStackTrace();
+//		    }
+//		
+//	 try {
+//		 remSemesters= Float.valueOf(uRemSemesters);
+//	    } catch (NumberFormatException | NullPointerException e) {
+//	        // handle the error here
+//	    	e.printStackTrace();
+//	    }
+//	    try {
+//		      avg = Float.valueOf(uAverage);
+//		    } catch (NumberFormatException | NullPointerException e) {
+//		        // handle the error here
+//		    	e.printStackTrace();
+//		    }
 		
-		 try {
-			 SignedEULA = Boolean.parseBoolean(Signed);
-		    } catch (NumberFormatException | NullPointerException e) {
-		        // handle the error here
-		    	e.printStackTrace();
-		    }
-		
-	 try {
-		 remSemesters= Float.valueOf(uRemSemesters);
-	    } catch (NumberFormatException | NullPointerException e) {
-	        // handle the error here
-	    	e.printStackTrace();
-	    }
-	    try {
-		      avg = Float.valueOf(uAverage);
-		    } catch (NumberFormatException | NullPointerException e) {
-		        // handle the error here
-		    	e.printStackTrace();
-		    }
-		
-	    try {
-	    	 uAcademicInstitution = Integer.parseInt(uAcademicIn);
-		    } catch (NumberFormatException | NullPointerException e) {
-		        // handle the error here
-		    	e.printStackTrace();
-		    }
+//	    try {
+//	    	 uAcademicInstitution = Integer.parseInt(uAcademicIn);
+//		    } catch (NumberFormatException | NullPointerException e) {
+//		        // handle the error here
+//		    	e.printStackTrace();
+//		    }
 	    
 
 		String uPass= GeneratePass.getSaltString();	 

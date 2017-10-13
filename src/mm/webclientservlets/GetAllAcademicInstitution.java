@@ -36,7 +36,7 @@ public class GetAllAcademicInstitution extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String NextPage = request.getParameter("jsp");
+		//String NextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
 		ArrayList<AcademicInstitute> allAcademicInstitutes = new ArrayList<AcademicInstitute>();
 		try {
@@ -44,9 +44,10 @@ public class GetAllAcademicInstitution extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("All Academic institutes", allAcademicInstitutes);
-		RequestDispatcher req = request.getRequestDispatcher(NextPage);
-		req.forward(request, response);
+		request.setAttribute("AllAcademicInstitutes", allAcademicInstitutes);
+		System.out.println("ACADEMIC"+allAcademicInstitutes);
+		//RequestDispatcher req = request.getRequestDispatcher(NextPage);
+		//req.forward(request, response);
 	}
 
 	/**
