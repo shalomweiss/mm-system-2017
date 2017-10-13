@@ -37,7 +37,9 @@ public class LogIn extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 		// TODO Auto-generated method stub
-	
+	   
+		
+		
 		AndroidIOManager iom = new AndroidIOManager(request,response);			
 		JsonObject myJson = iom.getJsonRequest();
 
@@ -45,10 +47,11 @@ public class LogIn extends HttpServlet {
 		String password = myJson.get("password").getAsString();
 		//TODO deviceID storage
 		String deviceId="0";
+		System.out.println("EMAIL IS:  "+email);
 		if(myJson.has("deviceId")) {
 		 deviceId = myJson.get("deviceId").getAsString();
 		}
-			User user = null;
+			User user = new User();
 			try {
 				user = iom.getDataAccess().login(email);
 			} catch (SQLException e) {

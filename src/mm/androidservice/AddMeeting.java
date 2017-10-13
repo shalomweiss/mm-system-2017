@@ -38,7 +38,8 @@ public class AddMeeting extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//int id,String token,Meeting meeting
-		AndroidIOManager iom = new AndroidIOManager(request,response);
+	System.out.println("ADD MEETING");
+	AndroidIOManager iom = new AndroidIOManager(request,response);
 
 	int id = iom.getJsonRequest().get("id").getAsInt();
 	String token = iom.getJsonRequest().get("token").getAsString();
@@ -79,5 +80,14 @@ public class AddMeeting extends HttpServlet {
 	
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doPost(request,response);
 }
+
+}
+
 
