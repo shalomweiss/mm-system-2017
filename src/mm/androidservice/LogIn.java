@@ -37,9 +37,7 @@ public class LogIn extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 		// TODO Auto-generated method stub
-	   
-		
-		
+	
 		AndroidIOManager iom = new AndroidIOManager(request,response);			
 		JsonObject myJson = iom.getJsonRequest();
 
@@ -47,13 +45,38 @@ public class LogIn extends HttpServlet {
 		String password = myJson.get("password").getAsString();
 		//TODO deviceID storage
 		String deviceId="0";
-		System.out.println("EMAIL IS:  "+email);
 		if(myJson.has("deviceId")) {
 		 deviceId = myJson.get("deviceId").getAsString();
 		}
-			User user = new User();
+			User user = null;
 			try {
 				user = iom.getDataAccess().login(email);
+				
+
+				if(user==null) {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+				} 
+				else if(user.getPassword().equals(password) &&(user.getType()==userType.MENTEE || user.getType()==userType.MENTOR)){
+					 
+					String token=ServerUtils.generateToken();
+					//TODO
+					try {
+						iom.getDataAccess().startUserSession(new Session(user.getId(),token,deviceId));
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+						iom.addResponseParameter("user", user);
+						iom.addResponseParameter("token", token);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}			
+				else {
+					iom.addResponseParameter("user", user);
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PASSWORD_ERROR));
+				}
+				
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -62,28 +85,6 @@ public class LogIn extends HttpServlet {
 			
 			//JsonUser jsonUser=null;
 
-			if(user==null) {
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-			} 
-			else if(user.getPassword().equals(password) &&(user.getType()==userType.MENTEE || user.getType()==userType.MENTOR)){
-				 
-				String token=ServerUtils.generateToken();
-				//TODO
-				try {
-					iom.getDataAccess().startUserSession(new Session(user.getId(),token,deviceId));
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-					iom.addResponseParameter("user", user);
-					iom.addResponseParameter("token", token);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}			
-			else {
-				iom.addResponseParameter("user", user);
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PASSWORD_ERROR));
-			}
 				
 			
 			iom.SendJsonResponse();

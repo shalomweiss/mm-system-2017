@@ -38,13 +38,15 @@ public class AddMeeting extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//int id,String token,Meeting meeting
-	System.out.println("ADD MEETING");
-	AndroidIOManager iom = new AndroidIOManager(request,response);
+		AndroidIOManager iom = new AndroidIOManager(request,response);
 
 	int id = iom.getJsonRequest().get("id").getAsInt();
 	String token = iom.getJsonRequest().get("token").getAsString();
 	MeetingModel meetingModel = new Gson().fromJson(iom.getJsonRequest().get("meeting"), MeetingModel.class);
-	Meeting meeting = meetingModel.toMeeting();
+	Meeting meeting = meetingModel.toMeeting(id,iom.getDataAccess().getPairId(meetingModel.getMenteeId(), id));
+
+	
+	
 	//System.out.println(meeting.getStartingDate());
 	if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
 		if(meeting!=null ) {
@@ -80,14 +82,5 @@ public class AddMeeting extends HttpServlet {
 	
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request,response);
 }
-
-}
-
 

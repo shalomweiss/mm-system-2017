@@ -71,7 +71,7 @@ public static MeetingModel fromMeeting(Meeting meeting) {
 	
 }
 
-public Meeting toMeeting() {
+public Meeting toMeeting(int mentorIdToSend,int pairIdToSend) {
 	
 
 	java.util.Date startingDate = null;
@@ -94,7 +94,7 @@ public Meeting toMeeting() {
 //    -mentorPrivateReport
 //    -location
 //    -note
-    
+    meetingStatus statusToSend = meetingStatus.PENDING;
     String menteeReportToSend = "";
     String mentorReportToSend = "";
     String menteePrivateReportToSend = "";
@@ -102,6 +102,10 @@ public Meeting toMeeting() {
     String locationToSend = "";
     String noteToSend = "";
     
+    
+    if(this.status==null) {
+    	this.status=statusToSend;
+    }
     if(this.getMenteeReport()!=null){
     	menteeReportToSend=this.getMenteeReport();
     }
@@ -120,7 +124,7 @@ public Meeting toMeeting() {
     if(this.getNote()!=null){
     	noteToSend=this.getNote();
     }
-	return new Meeting( meetingId,  pairId,  mentorId,  menteeId,  noteToSend,  status,
+	return new Meeting( meetingId,  pairIdToSend,  mentorIdToSend,  menteeId,  noteToSend,  status,
 			menteeReportToSend,  mentorReportToSend,  menteePrivateReportToSend,  mentorPrivateReportToSend,
 			 meetingType,  subject,  locationToSend,  date,  timeStart,
 			 timeEnd,  mentorComplete,  menteeComplete);
