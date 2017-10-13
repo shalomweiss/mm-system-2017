@@ -71,9 +71,9 @@ public class DataAccess implements DataInterface {
 	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u right JOIN mentees as m ON u.id = m.id  where (m.id  in (select menteeId from pairs where menteeId = m.id  and activeStatus = 0	)and NOT EXISTS(select menteeId	from pairs	where menteeId = m.id  and activeStatus = 1)) or not exists(select * from pairs where menteeId=m.id)";
 	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
 	
-	final String getMeetings1 = "Select * From activities where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
+	final String getMeetings1 = "Select * From activities where mentorId=? AND status=? ORDER BY startingTime, date DESC LIMIT ?, ?";
 	final String insertWorkPlace = "INSERT INTO workplaces (name,area,city,address ) VALUES (?,?,?,?)";
-	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
+	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY startingTime, date DESC LIMIT ?, ? ";
     final String  selectAcademicInstitute ="Select * From academicinstitute";
 	final String selectWorkPlace ="Select * From workplaces";
 	final String selectWorkPlaceId="Select * From workplaces where id=? ";

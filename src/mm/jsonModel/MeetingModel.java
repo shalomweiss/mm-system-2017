@@ -80,12 +80,49 @@ public Meeting toMeeting() {
     	startingDate = new Date(this.startingDate);
     	endingDate = new Date(this.endingDate);
  
-    Time timeStart = new Time(startingDate.getTime());
-    Time timeEnd = new Time(endingDate.getTime());
-	
-	return new Meeting( meetingId,  pairId,  mentorId,  menteeId,  note,  status,
-					 menteeReport,  mentorReport,  menteePrivateReport,  mentorPrivateReport,
-			 meetingType,  subject,  location,  date,  timeStart,
+    Time timeStart = new Time(startingDate.getTime()+date);
+    Time timeEnd = new Time(endingDate.getTime()+date);
+    
+    /**
+     * optional parameters
+     */
+//    -mentorComplete - boolean
+//    -menteeComplete - boolean
+//    -menteeReport
+//    -mentorReport
+//    -menteePrivateReport
+//    -mentorPrivateReport
+//    -location
+//    -note
+    
+    String menteeReportToSend = "";
+    String mentorReportToSend = "";
+    String menteePrivateReportToSend = "";
+    String mentorPrivateReportToSend = "";
+    String locationToSend = "";
+    String noteToSend = "";
+    
+    if(this.getMenteeReport()!=null){
+    	menteeReportToSend=this.getMenteeReport();
+    }
+    if(this.getMentorReport()!=null){
+    	mentorReportToSend=this.getMenteeReport();
+    }
+    if(this.getMenteeReport()!=null){
+    	menteePrivateReportToSend=this.getMenteePrivateReport();
+    }
+    if(this.getMenteeReport()!=null){
+    	mentorPrivateReportToSend=this.getMenteePrivateReport();
+    }
+    if(this.getLocation()!=null){
+    	locationToSend=this.getLocation();
+    }
+    if(this.getNote()!=null){
+    	noteToSend=this.getNote();
+    }
+	return new Meeting( meetingId,  pairId,  mentorId,  menteeId,  noteToSend,  status,
+			menteeReportToSend,  mentorReportToSend,  menteePrivateReportToSend,  mentorPrivateReportToSend,
+			 meetingType,  subject,  locationToSend,  date,  timeStart,
 			 timeEnd,  mentorComplete,  menteeComplete);
 }
 
