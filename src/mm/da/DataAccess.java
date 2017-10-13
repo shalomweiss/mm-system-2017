@@ -908,9 +908,11 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
 
-		java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
+		
 		
 		if (rs.next()) {
+			java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
+			
 			meeting = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 					rs.getInt(DataContract.MeetingTable.COL_PAIRID),
 					rs.getInt(DataContract.MeetingTable.COL_MENTORID),
