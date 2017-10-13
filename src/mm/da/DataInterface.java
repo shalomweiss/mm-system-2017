@@ -104,5 +104,10 @@ public interface DataInterface {
 	public ArrayList<User> getAllCorrespondingMentors(String address,String gender,String workPlace, boolean inPair);
 
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,String menteeName);
+	
+	
+	//return pairId 
+	public int PairId(int mentorId,int menteeId);
+
 
 }
