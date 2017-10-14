@@ -38,6 +38,8 @@ public class GetMeetingByID extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		AndroidIOManager iom = new AndroidIOManager(request,response);
+		
+		try {
 		JsonObject myJson = iom.getJsonRequest();
 		//int id,String token,int meetingId
 		int id = myJson.get("id").getAsInt();
@@ -75,7 +77,13 @@ public class GetMeetingByID extends HttpServlet {
 		}
 	
 	
-		iom.SendJsonResponse();
+		  }catch(NullPointerException ex){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+	     }catch(Exception e){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+	     }finally{
+	             iom.SendJsonResponse();
+	     }
 
 		
 	}

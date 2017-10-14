@@ -40,6 +40,7 @@ public class AddMeeting extends HttpServlet {
 		//int id,String token,Meeting meeting
 		AndroidIOManager iom = new AndroidIOManager(request,response);
 
+		try {
 	int id = iom.getJsonRequest().get("id").getAsInt();
 	String token = iom.getJsonRequest().get("token").getAsString();
 	MeetingModel meetingModel = new Gson().fromJson(iom.getJsonRequest().get("meeting"), MeetingModel.class);
@@ -77,8 +78,16 @@ public class AddMeeting extends HttpServlet {
 		iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 		
 	}
+	
+		  }catch(NullPointerException ex){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+	     }catch(Exception e){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+	     }finally{
+	             iom.SendJsonResponse();
+	     }
 
-	iom.SendJsonResponse();
+
 	
 	}
 

@@ -34,6 +34,8 @@ public class ApproveMeeting extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		AndroidIOManager iom = new AndroidIOManager(request,response);
+		try {
+		
 		JsonObject jsonMeetingToApprove = iom.getJsonRequest();
 		//int id,String token,String meeting_id,boolean action
 		int id = jsonMeetingToApprove.get("id").getAsInt();
@@ -76,7 +78,13 @@ public class ApproveMeeting extends HttpServlet {
 			
 		}
 		
-		iom.SendJsonResponse();
+		  }catch(NullPointerException ex){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+	     }catch(Exception e){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+	     }finally{
+	             iom.SendJsonResponse();
+	     }
 		
 	}
 
