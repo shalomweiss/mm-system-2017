@@ -105,7 +105,7 @@ public interface DataInterface {
 
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,String menteeName);
 	
-	public int getPairId(int menteeid,int MentorId);
+	public int getPairId(int menteeid,int MentorId) throws SQLException;
 
 
 }
