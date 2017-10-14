@@ -19,7 +19,9 @@ import mm.da.DataInterface;
 import mm.jsonModel.JsonUser;
 import mm.model.Mentee;
 import mm.model.Mentor;
+import mm.model.Session;
 import mm.model.User;
+import mm.model.User.userType;
 import util.ServerUtils;
 
 
@@ -46,7 +48,10 @@ public class UpdateProfile extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		AndroidIOManager iom = new AndroidIOManager(request,response);			
+		AndroidIOManager iom = new AndroidIOManager(request,response);	
+		
+
+		try{
 			JsonObject myJson = iom.getJsonRequest();
 			
 			int id =  (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
@@ -166,8 +171,15 @@ public class UpdateProfile extends HttpServlet {
 	
 					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 				}
-				
-				iom.SendJsonResponse();
+				}catch(NullPointerException ex){
+             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+     }catch(Exception e){
+             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+     }finally{
+             iom.SendJsonResponse();
+     }
+		
+		
 			
 			}
 			

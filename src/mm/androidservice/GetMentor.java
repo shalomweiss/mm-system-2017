@@ -55,48 +55,59 @@ public class GetMentor extends HttpServlet {
 		
 		int flag=0;
 		AndroidIOManager iom = new AndroidIOManager(request,response);
-		JsonObject myJson = iom.getJsonRequest();
-		List<Mentor> mentors=new ArrayList<Mentor>();
 		
-		int id = (myJson.get("id").isJsonNull() ? flag=1 : myJson.get("id").getAsInt());
-		String token = (String) (myJson.get("token").isJsonNull()? flag=1 :myJson.get("token").getAsString());
-		
-		if(flag==1) {
-			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
-		}else {
-		Mentor mentor=null;
+		 try{
+	           
+			 JsonObject myJson = iom.getJsonRequest();
+				List<Mentor> mentors=new ArrayList<Mentor>();
+				
+				int id = (myJson.get("id").isJsonNull() ? flag=1 : myJson.get("id").getAsInt());
+				String token = (String) (myJson.get("token").isJsonNull()? flag=1 :myJson.get("token").getAsString());
+				
+				if(flag==1) {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+				}else {
+				Mentor mentor=null;
+				
+			
+				
+				DataInterface da = new DataAccess();
+				if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+					
+
+					try {
+						mentor=iom.getDataAccess().getMentorOfMentee(id);
+						mentors.add(mentor);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				
+				if (mentor == null) {
+
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+					} else {
+		 
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+						iom.addResponseParameter("users", mentors);
+								
+					}
+				}
+				else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+				}
+				}
+				
+
+	     }catch(NullPointerException ex){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+	     }catch(Exception e){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+	     }finally{
+	             iom.SendJsonResponse();
+	     }
 		
 	
-		
-		DataInterface da = new DataAccess();
-		if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
-			
-
-			try {
-				mentor=iom.getDataAccess().getMentorOfMentee(id);
-				mentors.add(mentor);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		if (mentor == null) {
-
-			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-			} else {
- 
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-				iom.addResponseParameter("users", mentors);
-						
-			}
-		}
-		else {
-			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
-		}
-		}
-		
-		iom.SendJsonResponse();
-		
 	}
 
 }
