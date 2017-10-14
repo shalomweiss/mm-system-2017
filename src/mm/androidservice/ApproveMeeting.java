@@ -40,15 +40,14 @@ public class ApproveMeeting extends HttpServlet {
 		//int id,String token,String meeting_id,boolean action
 		int id = jsonMeetingToApprove.get("id").getAsInt();
 		String token = jsonMeetingToApprove.get("token").getAsString();
-		String meetingId = jsonMeetingToApprove.get("meeting_id").getAsString();
-		String userId = jsonMeetingToApprove.get("user_id").getAsString();
-		String action = jsonMeetingToApprove.get("action").getAsString();
+		String meetingId = jsonMeetingToApprove.get("meetingId").getAsString();		
+		boolean action = jsonMeetingToApprove.get("action").getAsBoolean();
 		
-		Meeting.meetingStatus status = meetingStatus.valueOf(Integer.parseInt(action));
+	
 		if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
-			if(meetingId!=null && action!=null) {
+			if(meetingId!=null && action) {
 				try {
-					if(iom.getDataAccess().changeMeetingStatus(Integer.parseInt(meetingId), Integer.parseInt(userId), status)){
+					if(iom.getDataAccess().changeMeetingStatus(Integer.parseInt(meetingId),id, meetingStatus.APPROVED)){
 						
 						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 						
