@@ -120,14 +120,13 @@
 
 <nav class="icon-bar">
 	<div class="icon-bar">
-		  <a  href="ForwardPath"><i class="fa fa-home"></i></a> 
-		  <a href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
-		  <a href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
-		  <a class="active" href="GetAllPairs"><i class="fa fa-group"></i></a>
-
-		  <a href="#"><i class="fa fa-bell"></i></a>
-		  <a href="#"><i class="fa fa-clipboard"></i></a>
-		  <a href="#"><i class="fa glyphicon">&#xe163;</i></a>  
+		 <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
+		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
+		  <a href="GetAllMentees"title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
+		  <a class="active" href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
+		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
+		  <a href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  
 	</div>
 </nav>
 

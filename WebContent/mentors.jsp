@@ -33,6 +33,7 @@
 <script type="text/javascript" src="jquery.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <script> 
 
@@ -583,13 +584,13 @@ td {
 	<!-- welcome bar -->
 	<nav class="icon-bar">
 		<div class="icon-bar">
-		  <a  href="ForwardPath"><i class="fa fa-home"></i></a> 
-		  <a href="GetAllMentors"><i class="fa fa-black-tie"></i></a> 
-		  <a class="active"  href="GetAllMentees"><i class="fa fa-graduation-cap"></i></a> 
-		  <a href="GetAllPairs"><i class="fa fa-group"></i></a>
-
-		  <a href="#"><i class="fa fa-bell"></i></a>
-		  <a href="#"><i class="fa fa-clipboard"></i></a>		  
+		  	  <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
+		  <a class="active" href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
+		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
+		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
+		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
+		  <a href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  		  
 	</div>
 	</nav>
 	<h1>Mentors</h1>
