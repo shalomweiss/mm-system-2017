@@ -68,10 +68,6 @@ public class GetMentor extends HttpServlet {
 					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 				}else {
 				Mentor mentor=null;
-				
-			
-				
-				DataInterface da = new DataAccess();
 				if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
 					
 
@@ -79,8 +75,7 @@ public class GetMentor extends HttpServlet {
 						mentor=iom.getDataAccess().getMentorOfMentee(id);
 						mentors.add(mentor);
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					     iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 					}
 				
 				if (mentor == null) {
