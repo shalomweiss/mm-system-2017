@@ -63,8 +63,7 @@ public class GetProfile extends HttpServlet {
 						user=iom.getDataAccess().getUser(id);
 						System.out.println(user.toString());
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					     iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 					}
 					
 					if (user == null) {

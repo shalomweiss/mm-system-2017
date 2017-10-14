@@ -1,4 +1,5 @@
 package mm.androidservice;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -15,97 +16,89 @@ import mm.model.User;
 import mm.model.User.userType;
 import util.ServerUtils;
 
-
 /**
  * Servlet implementation class LogInTest
  */
 @WebServlet("/LogIn")
 public class LogIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LogIn() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+	public LogIn() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	
-		AndroidIOManager iom = new AndroidIOManager(request,response);	
-		
-		try{
+
+		AndroidIOManager iom = new AndroidIOManager(request, response);
+
+		try {
 			JsonObject myJson = iom.getJsonRequest();
 
 			String email = myJson.get("email").getAsString();
 			String password = myJson.get("password").getAsString();
-			//TODO deviceID storage
-			String deviceId="0";
-			if(myJson.has("deviceId")) {
-			 deviceId = myJson.get("deviceId").getAsString();
+			// TODO deviceID storage
+			String deviceId = "0";
+			if (myJson.has("deviceId")) {
+				deviceId = myJson.get("deviceId").getAsString();
 			}
-				User user = null;
-				try {
-					user = iom.getDataAccess().login(email);
-					
+			User user = null;
+			try {
+				user = iom.getDataAccess().login(email);
 
-					if(user==null) {
-						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
-					} 
-					else if(user.getPassword().equals(password) &&(user.getType()==userType.MENTEE || user.getType()==userType.MENTOR)){
-						 
-						String token=ServerUtils.generateToken();
-						//TODO
-						try {
-							iom.getDataAccess().startUserSession(new Session(user.getId(),token,deviceId));
-							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-							iom.addResponseParameter("user", user);
-							iom.addResponseParameter("token", token);
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					}			
-					else {
+				if (user == null) {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+				} else if (user.getPassword().equals(password)
+						&& (user.getType() == userType.MENTEE || user.getType() == userType.MENTOR)) {
+
+					String token = ServerUtils.generateToken();
+					// TODO
+					try {
+						iom.getDataAccess().startUserSession(new Session(user.getId(), token, deviceId));
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 						iom.addResponseParameter("user", user);
-						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PASSWORD_ERROR));
+						iom.addResponseParameter("token", token);
+					} catch (SQLException e) {
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 					}
-					
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				//user = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);	
-				
-				//JsonUser jsonUser=null;
 
-					
-				}catch(NullPointerException ex){
-             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
-     }catch(Exception e){
-             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
-     }finally{
-             iom.SendJsonResponse();
-     }
-	
-		
-		
-			
+				} else {
+					iom.addResponseParameter("user", user);
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PASSWORD_ERROR));
+				}
+
+			} catch (SQLException e) {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 			}
+
+		} catch (NullPointerException ex) {
+
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+		} catch (Exception e) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+		} finally {
+			iom.SendJsonResponse();
+		}
+
+	}
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
-}
+		doPost(request, response);
+	}
 
 }

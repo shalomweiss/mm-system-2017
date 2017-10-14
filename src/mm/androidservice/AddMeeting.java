@@ -65,7 +65,7 @@ public class AddMeeting extends HttpServlet {
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 			}
 		}else {
 			//todo
