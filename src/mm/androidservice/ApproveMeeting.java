@@ -56,8 +56,7 @@ public class ApproveMeeting extends HttpServlet {
 							
 					}
 				} catch (NumberFormatException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 				}
 				
 							
