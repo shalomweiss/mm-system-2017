@@ -1090,15 +1090,18 @@ public class DataAccess implements DataInterface {
 		Meeting m = getMeetingById(meetingId);
 		if (m == null) // no meeting with this ID
 			return false;
-		if (status.ordinal() == 1) {
+		
+		int meetingStatus = status.ordinal();
+		switch (meetingStatus) {
+		case 1: //APPROVE
+		case 3: //DECLINE
+		case 4: //CANCELE
 			PreparedStatement stm1 = c.prepareStatement(SQLStatements.updateStatus);
 			stm1.setInt(1, status.ordinal());
 			stm1.setInt(2, meetingId);
 			stm1.executeUpdate();
 			return true;
-		}
-
-		if (status.ordinal() == 2) { // in case of confirm meeting
+		case 2:
 			//TODO: could be implemented better
 			PreparedStatement stm2 = c.prepareStatement(SQLStatements.completeMentor); // only one will work
 			stm2.setInt(1, meetingId);
@@ -1120,6 +1123,8 @@ public class DataAccess implements DataInterface {
 			}
 			return false;
 		}
+
+
 
 		return true;
 	}
