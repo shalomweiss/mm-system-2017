@@ -46,6 +46,8 @@ public interface DataInterface {
 	public boolean disconnectPair(int pairId) throws SQLException;
 
 	public Pair getPair(int pairId) throws SQLException;
+	
+	public int getPairId(int menteeid,int MentorId) throws SQLException;
 
 	/*
 	 * Sessions db Requests
@@ -73,6 +75,8 @@ public interface DataInterface {
 
 	public ArrayList<Meeting> getMeetingByStatus(int userId, meetingStatus status, int count, int page)
 			throws SQLException;
+	
+	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException;
 
 	/*
 	 * Util
@@ -96,7 +100,6 @@ public interface DataInterface {
 	
 	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException;
 	
-	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException;
 
 	public ArrayList<User> getAllCorrespondingMentees(String address,String gender,String academicInstitution, boolean inPair,
 					 String academicDicipline1,String academicDicipline2);
@@ -104,8 +107,7 @@ public interface DataInterface {
 	public ArrayList<User> getAllCorrespondingMentors(String address,String gender,String workPlace, boolean inPair);
 
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,String menteeName);
-	
-	public int getPairId(int menteeid,int MentorId) throws SQLException;
+
 
 
 }
