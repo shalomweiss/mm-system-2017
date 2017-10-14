@@ -77,7 +77,8 @@ public class AddMentee extends HttpServlet {
 		Float avg = Float.valueOf(uAverage);
 		Float remSemesters= Float.valueOf(uRemSemesters);
 		int uGender= Integer.parseInt(gender);
-		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
+//		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
+		int uAcademicInstitution= 1;
 		boolean SignedEULA=Boolean.parseBoolean(Signed);
 //		 try {
 //			 uGender = Integer.parseInt(gender);
@@ -136,11 +137,6 @@ public class AddMentee extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.setAttribute("AddedSuc", 1);
-//		    Gson gson=new Gson();
-//			String userResult = gson.toJson(user,Constants.USER_Class);
-//		    response.setContentType("application/json");
-//		    PrintWriter writer = response.getWriter().append(userResult);
-//			writer.close();  
 		}
 		if (resId==-1){
 			request.setAttribute("AddedSuc", 0);
