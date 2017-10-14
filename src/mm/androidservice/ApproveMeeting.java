@@ -50,10 +50,7 @@ public class ApproveMeeting extends HttpServlet {
 					if(iom.getDataAccess().changeMeetingStatus(Integer.parseInt(meetingId),id, meetingStatus.APPROVED)){
 						
 						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-						
-				
-
-						
+		
 					}else {
 						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 							
