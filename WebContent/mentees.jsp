@@ -732,19 +732,7 @@ td {
 														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.firstName}</div>
 												 		<input name="uAcademicInstitution" id="input13${ment.id}" type="text" value="${ment.academiclnstitution}"   style="display :none;"
 													 	onblur="if(this.value==''){ this.value='institution'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">
-
-
-									<!--					<select name="roleName">
-															<c:forEach items="${AcadimicIn}" var="role">
-																<option id="option${ment.id}"
-																	name="uAcademicInstitution" value="${role}"
-																	${role == ment.academiclnstitution ? 'selected' : ''}>${role}</option>
-															</c:forEach>
-
-													</select>-->
-
-													</td>
+							  							onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">													</td>
 													<td>
 														<div id="div9${ment.id}"
 															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.average}</div>
@@ -876,11 +864,14 @@ td {
 								onblur="if(this.value==''){ this.value='gradStatus'; this.style.color='#BBB';}" 
 							  	onfocus="if(this.value=='gradStatus'){this.value=''; this.style.color='#000';}"></td>
 								<td>Academic institution</td>
-								<td><select name="department">
+								<td>
+								
+								<select>
 										<c:forEach var="item" items="${AcadimicIn}">
 											<option value="${item.name}">${item.name}</option>
 										</c:forEach>
-								</select> <!--  <input type="text" name="uAcademicInstitution" required>--></td>
+								</select>   
+								</td>
 							<tr>
 								<td>Average</td>			
 								<td><input type="text" name="uAverage" value="-1"

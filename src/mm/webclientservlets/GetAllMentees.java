@@ -63,8 +63,8 @@ public class GetAllMentees extends HttpServlet {
 	//	AcadimicIn = getAllAcademiclnstitution();
 		 AcadimicIn1.add("ss");
 		 AcadimicIn1.add("DDDDDDDD");
-		request.setAttribute("AcadimicIn", AcadimicIn1); 
-		System.out.println("AcadimicInnn "+ AcadimicIn);
+		request.setAttribute("AcadimicIn", AcadimicIn); 
+		System.out.println("AcadimicInnn "+ AcadimicIn1);
 	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
 		req.forward(request, response);
