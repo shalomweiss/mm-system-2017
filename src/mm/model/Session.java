@@ -21,7 +21,8 @@ public class Session {
 		this.userId = userId;
 		this.token = token;
 		this.deviceId = deviceId;	
-		this.creationDate=new Date().getDate();
+		this.creationDate=new Date().getTime();
+		this.expirationDate=this.creationDate +86400000*3;
 			
 	}
 	
