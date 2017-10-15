@@ -729,7 +729,7 @@ td {
 							  							onfocus="if(this.value=='gradStatus'){this.value=''; this.style.color='#000';}">
 													</td>
 													<td>
-														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitution}</div>
+														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitution.name}</div>
 												 		<input name="uAcademicInstitution" id="input13${ment.id}" type="text" value="${ment.academiclnstitution}"   style="display :none;"
 													 	onblur="if(this.value==''){ this.value='institution'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">
@@ -878,7 +878,7 @@ td {
 								<td>Academic institution</td>
 								<td><select name="department">
 										<c:forEach var="item" items="${AcadimicIn}">
-											<option value="${item}">${item}</option>
+											<option value="${item.AcadimicIn.name}">${item.AcadimicIn.name}</option>
 										</c:forEach>
 								</select> <!--  <input type="text" name="uAcademicInstitution" required>--></td>
 							<tr>

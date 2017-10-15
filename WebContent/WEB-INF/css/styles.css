@@ -109,7 +109,7 @@ table{
   border: 1px solid rgba(255,255,255,0.3);
 }
 th{
-  padding: 20px 15px;
+  padding: 20px 15px !important;
   text-align: left;
   font-weight: 500;
   font-size: 14px;
@@ -118,7 +118,7 @@ th{
   word-wrap: break-word;
 }
 td{
-  padding: 15px;
+  padding: 15px !important;
   text-align: left;
   vertical-align:middle;
   font-weight: 300;
@@ -141,6 +141,7 @@ body{
   font-family: 'Century Gothic', sans-serif;
   height:100%;
   overflow: hidden;
+  color:white !important;
 }
 section{
   top:0;
@@ -258,11 +259,11 @@ outline: none !important;
 }
 .btn-primary, .btn-primary:active, .btn-primary:visited,.btn-primary:focus {
 	margin-top:20px;
-    background-color: rgba(255,255,255,0.3);
+    /*background-color: rgba(255,255,255,0.3);*/
 	outline: none !important;
 	color: white !important;
 	cursor: pointer !important;
-	border-color: rgba(255,255,255,0.1);
+	/*border-color: rgba(255,255,255,0.1);*/
 }
 .btn-primary:hover{
 margin-top:20px;
