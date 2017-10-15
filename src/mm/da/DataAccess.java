@@ -797,24 +797,14 @@ public class DataAccess implements DataInterface {
 			try {
 				date = f.parse(d);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			java.sql.Date sqlStartDate = new Date(date.getTime());
 
-			// mentorId,menteeId,pairId,note,status,menteeReport,
-			// mentorReport,menteePrivateReport,mentorPrivateReport,
-			// meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete
-			//
-
 			stm.setInt(3, meeting.getPairId());
-
 			stm.setInt(1, meeting.getMentorId());
-
 			stm.setInt(2, meeting.getMenteeId());
-
 			stm.setString(4, meeting.getNote());
-
 			stm.setInt(5, meeting.getStatus().ordinal());
 
 			stm.setString(6, meeting.getMenteeReport());
@@ -1032,14 +1022,14 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
+	public ArrayList<Mentee> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
 			boolean inPair, String academicDicipline1, String academicDicipline2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<User> getAllCorrespondingMentors(String address, String gender, String workPlace, boolean inPair) {
+	public ArrayList<Mentor> getAllCorrespondingMentors(String address, String gender, String workPlace, boolean inPair) {
 		// TODO Auto-generated method stub
 		return null;
 	}
