@@ -1015,6 +1015,8 @@ public class DataAccess implements DataInterface {
 		return a;
 	}
 
+
+
 	@Override
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
 		ArrayList<WorkPlace> workplace = new ArrayList<>();
@@ -1031,6 +1033,7 @@ public class DataAccess implements DataInterface {
 		}
 		return workplace;
 	}
+
 
 	@Override
 	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
@@ -1050,6 +1053,8 @@ public class DataAccess implements DataInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 	@Override
 	public WorkPlace getWorkPlaceById(int id) throws SQLException {

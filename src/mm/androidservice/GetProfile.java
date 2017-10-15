@@ -43,7 +43,7 @@ public class GetProfile extends HttpServlet {
 		
 		//JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
 		
-	
+		int flag=0;
 		AndroidIOManager iom = new AndroidIOManager(request,response);
 		
 		 try{

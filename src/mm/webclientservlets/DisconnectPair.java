@@ -49,15 +49,17 @@ public class DisconnectPair extends HttpServlet {
 	    boolean res=false;
 	    RequestDispatcher req = null;
 	    response.setContentType("text/html");
+		String nextPage = request.getParameter("jsp");
+
 	    
 		res = da.disconnectPair(id);
 		if(res){
-		//	response.getWriter().append("Disconnect Pair Successfull");
+		//	response.getWriter().append("Disconnect Pair Successfully");
 			
 			response.getWriter().append(""+id);			
 		}
 		else 
-			//response.getWriter().append("Disconnect Pair Is Failure");
+			response.getWriter().append("Disconnect Pair Is Failure");
 		
 		req.forward(request, response);
 		
