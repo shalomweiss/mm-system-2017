@@ -841,7 +841,6 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException {
-		System.out.println("MEEEEEEEEEEEEEEEEEEEEEEETINGGG");
 		ArrayList<Meeting> m = new ArrayList<Meeting>();
 		Meeting meeting = null;
 
@@ -849,7 +848,7 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
 
-		if (rs.next()) {
+		while (rs.next()) {
 			java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
 
 			meeting = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
@@ -1134,6 +1133,15 @@ public class DataAccess implements DataInterface {
 		}
 		
 		return -1;//default error value
+	}
+
+	@Override
+	public boolean editMeetingNote(int meetingId, String message) throws SQLException {
+		PreparedStatement stm = c.prepareStatement(SQLStatements.updateMeetingNote);
+		stm.setString(1, message);
+		stm.setInt(2, meetingId);
+		stm.executeUpdate();
+		return true;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
@@ -67,7 +68,7 @@ public MeetingModel(int meetingId, int pairId, int mentorId, int menteeId, Strin
 
 public static MeetingModel fromMeeting(Meeting meeting) {
 
-	return new MeetingModel(meeting.getMeetingId(),meeting.getPairId(),meeting.getMentorId(),meeting.getMenteeId(),meeting.getNote(),meeting.getStatus(),meeting.getMenteeReport(),meeting.getMentorReport(),meeting.getMenteePrivateReport(),meeting.getMentorPrivateReport(),meeting.getMeetingType(),meeting.getSubject(),meeting.getLocation(),meeting.getDate(),meeting.getStartingDate().getTime()+meeting.getDate(),meeting.getEndingDate().getTime()+meeting.getDate(),meeting.getMentorComplete(),meeting.getMentorComplete());
+	return new MeetingModel(meeting.getMeetingId(),meeting.getPairId(),meeting.getMentorId(),meeting.getMenteeId(),meeting.getNote(),meeting.getStatus(),meeting.getMenteeReport(),meeting.getMentorReport(),meeting.getMenteePrivateReport(),meeting.getMentorPrivateReport(),meeting.getMeetingType(),meeting.getSubject(),meeting.getLocation(),meeting.getStartingDate().getTime(),meeting.getStartingDate().getTime(),meeting.getEndingDate().getTime(),meeting.getMentorComplete(),meeting.getMentorComplete());
 	
 }
 
@@ -80,9 +81,13 @@ public Meeting toMeeting(int mentorIdToSend,int pairIdToSend) {
     	startingDate = new Date(this.startingDate);
     	endingDate = new Date(this.endingDate);
  
-    Time timeStart = new Time(startingDate.getTime()+date);
-    Time timeEnd = new Time(endingDate.getTime()+date);
+    Time timeStart = new Time(startingDate.getTime());
+    Time timeEnd = new Time(endingDate.getTime());
     
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(timeStart.getTime());
+
+
     /**
      * optional parameters
      */
@@ -94,6 +99,9 @@ public Meeting toMeeting(int mentorIdToSend,int pairIdToSend) {
 //    -mentorPrivateReport
 //    -location
 //    -note
+    //date
+    
+    
     meetingStatus statusToSend = meetingStatus.PENDING;
     String menteeReportToSend = "";
     String mentorReportToSend = "";
@@ -101,6 +109,7 @@ public Meeting toMeeting(int mentorIdToSend,int pairIdToSend) {
     String mentorPrivateReportToSend = "";
     String locationToSend = "";
     String noteToSend = "";
+
     
     
     if(this.status==null) {
@@ -126,7 +135,7 @@ public Meeting toMeeting(int mentorIdToSend,int pairIdToSend) {
     }
 	return new Meeting( meetingId,  pairIdToSend,  mentorIdToSend,  menteeId,  noteToSend,  status,
 			menteeReportToSend,  mentorReportToSend,  menteePrivateReportToSend,  mentorPrivateReportToSend,
-			 meetingType,  subject,  locationToSend,  date,  timeStart,
+			 meetingType,  subject,  locationToSend,  timeStart.getTime(),  timeStart,
 			 timeEnd,  mentorComplete,  menteeComplete);
 }
 
