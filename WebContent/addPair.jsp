@@ -26,6 +26,7 @@
 			var trs= document.getElementsByClassName("selected");
 			if(trs.length>1)
 			{
+				
 				var menteeId=trs[0].childNodes[10].innerHTML;
 				var mentorId=trs[1].childNodes[10].innerHTML;
 				$.post("CreateNewPair",
@@ -34,6 +35,7 @@
 				          mentorID: mentorId
 				        },
 				        function(data,status){
+				        	
 				            alert(data);
 				        });
 			}
@@ -133,8 +135,8 @@
 <div class="container-fluid" >
 
   <div class="row">
-    <div class="col-md-4" style= "background-color:white;padding-left: 0px;">
-    <h5 id="mentee">MENTEE</h5>
+    <div class="col-md-4" style= " margin-top: 70px;background-color:white;padding-left: 0px;">
+    <h3 id="mentee">MENTEES</h3>
 <nav class="navbar navbar-default">
         <div class="">
  
@@ -212,7 +214,7 @@ $(function(){
     <table cellpadding="0" cellspacing="0" border="0" id="myTable">
       <tbody class="mentee">
       <c:forEach var="mentee" items="${Mentees}" >
-			<tr class="para" id="tabletest"><td><c:out value="${mentee.firstName}"></c:out></td>
+			<tr class="para AllMent" id="tabletest"><td><c:out value="${mentee.firstName}"></c:out></td>
 			<td ><c:out value="${mentee.lastName}"></c:out></td>
 			<td><c:out value="${mentee.phoneNumber}"></c:out></td>
 			<td><c:out value="${mentee.email}"></c:out></td>
@@ -226,19 +228,24 @@ $(function(){
   </div>
 	</div>
 	
-	 <div class="col-md-2" style= "padding-left: 0px;">
+	 <div class="col-md-2" style= "margin-top: 250px;">
+	 
+	 
+	 <a id="createPair" class="btn btn-block btn-primary">
+	 <i  class="fa fa-handshake-o" style="color:white;font-size:100px;text-align: center;"></i><br>
+	 <h5>Create Pair</h5>
+	 </a>
+	 
 	</div>
 	
 	
-    <div class="col-md-4"  style= " background-color:white;padding-right: 0px;" >
+    <div class="col-md-4" style="margin-top:70px;background-color:white;padding-right:0px;">
 	<!--for demo wrap-->
-	<h5>MENTOR</h5>
+	<h3>MENTORS</h3>
 	 <nav class="navbar navbar-default">
         <div class="nav nav-justified navbar-nav">
- 
             <form class="navbar-form navbar-search" role="search">
                 <div class="input-group">
-                
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search"></span>
@@ -294,7 +301,7 @@ $(function(){
   
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
-        <tr class="MentoR">
+        <tr class="MentorTR">
           <th>Name</th>
           <th>Last Name</th>
           <th>Phone</th>
@@ -306,9 +313,9 @@ $(function(){
   </div>
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable1">
-      <tbody class="mentor">
+      <tbody class="mentoR">
        <c:forEach items="${Mentors}" var="mentor">
-			<tr class="para"><td><c:out value="${mentor.firstName}"></c:out></td>
+			<tr class="para mentor AllMent"><td><c:out value="${mentor.firstName}"></c:out></td>
 			<td><c:out value="${mentor.lastName}"></c:out></td>
 			<td><c:out value="${mentor.phoneNumber}"></c:out></td>
 			<td><c:out value="${mentor.email}"></c:out></td>
@@ -323,7 +330,8 @@ $(function(){
 	</div>
   </div>
 </div>
-     <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
+<!--  
+     <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>-->
 </section>
 </body>
 
