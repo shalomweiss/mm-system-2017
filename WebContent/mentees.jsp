@@ -868,7 +868,7 @@ td {
 								
 								<select>
 										<c:forEach var="item" items="${AcadimicIn}">
-											<option value="${item.name}">${item.name}</option>
+											<option value="${item.id}">${item.name}</option>
 										</c:forEach>
 								</select>   
 								</td>
