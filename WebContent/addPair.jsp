@@ -130,10 +130,6 @@
 
 	<h1>New Pairs</h1>
 	<section class="Pairs">
-
-
-	
-
 <div class="container-fluid" >
 
   <div class="row">
