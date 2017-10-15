@@ -241,6 +241,6 @@ public class SQLStatements {
 
 	public final static String updateMeetingNote = "UPDATE "
 			+ DataContract.MeetingTable.TABLE_NAME + " SET "
-			+ DataContract.MeetingTable.COL_NOTE + " WHERE "
+			+ DataContract.MeetingTable.COL_NOTE + "=? WHERE "
 			+ DataContract.MeetingTable.COL_ACTIVITYID + " = ? ";
 }

@@ -1138,11 +1138,10 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public boolean editMeetingNote(int meetingId, String message) throws SQLException {
-		
-		PreparedStatement stm = c.prepareStatement(SQLStatements.selectPairByMentorAndMenteeId);
-		stm.setInt(1, meetingId);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.updateMeetingNote);
+		stm.setString(1, message);
+		stm.setInt(2, meetingId);
 		stm.executeUpdate();
-		
 		return true;
 	}
 
