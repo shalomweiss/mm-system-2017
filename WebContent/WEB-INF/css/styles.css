@@ -142,6 +142,8 @@ body{
   height:100%;
   overflow: hidden;
   color:white !important;
+  overflow-y: scroll;
+  
 }
 section{
   top:0;
@@ -277,7 +279,12 @@ tr.para:hover td{
 	background-color:#f5f5f5;
 	color: #69A489;
 }
-
+.MenteeTR{
+	background-color:rgb(154,89,183);'
+}
+.MentorTR{
+	background-color:rgb(45,204,112);'
+}
 h5{
 	color: #fff;;
 }
@@ -303,7 +310,10 @@ tr.selected td{
 	padding-right: 0px ; 
 	padding-left: 0px;
 }
-
+.navbar-default {
+	 background-color: transparent;
+     border-color: transparent;
+}
 #searchB{
 	background-color: rgba(255,255,255,0.3);
 	color: #fff;	

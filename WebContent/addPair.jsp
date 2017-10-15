@@ -112,9 +112,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
 
-<style>
 
-</style>
 <body>
 
 
@@ -139,7 +137,7 @@
 <div class="container-fluid" >
 
   <div class="row">
-    <div class="col-md-6" style= "padding-left: 0px;">
+    <div class="col-md-4" style= "background-color:white;padding-left: 0px;">
     <h5 id="mentee">MENTEE</h5>
 <nav class="navbar navbar-default">
         <div class="">
@@ -151,25 +149,25 @@
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search" ></span>
                             <span class="label-icon" id="drop">Search</span>
-                            <span class="caret"></span>
+                          
                         </button>
                         <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    <span class="label-icon" id="drop"  >Location</span>
+                                    
+                                    <span class="label-icon" id="drop"  style="color:black;" >Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
-                                <span class="label-icon" id="drop">University</span>
+                                
+                                <span class="label-icon" id="drop" style="color:black;">University</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
-                                <span class="label-icon" id="drop1">Search</span>
+                                
+                                <span class="label-icon" id="drop1" style="color:black;">Name</span>
                                 </a>
                             </li>
                         </ul>
@@ -204,7 +202,7 @@ $(function(){
 		 
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
-        <tr>
+        <tr class="MenteeTR">
           <th>Name</th>
           <th>Last Name</th>
           <th>Phone</th>
@@ -231,7 +229,12 @@ $(function(){
     </table>
   </div>
 	</div>
-    <div class="col-md-6" style= "padding-right: 0px;" >
+	
+	 <div class="col-md-2" style= "padding-left: 0px;">
+	</div>
+	
+	
+    <div class="col-md-4"  style= " background-color:white;padding-right: 0px;" >
 	<!--for demo wrap-->
 	<h5>MENTOR</h5>
 	 <nav class="navbar navbar-default">
@@ -243,26 +246,24 @@ $(function(){
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search"></span>
-                            <span class="label-icon" id="drop1">Search</span>
-                            <span class="caret"></span>
+                            <span class="label-icon" id="drop1">Search</span>   
                         </button>
                         <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    <span class="label-icon" id="drop1">Location</span>
+                                    <span class="label-icon" id="drop1" style="color:black;">Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
-                                <span class="label-icon" id="drop1">Company</span>
+                               
+                                <span class="label-icon " id="drop1"   style="color:black;">Company</span>
                                 </a>
                             </li>
                              <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
-                                <span class="label-icon" id="drop1">Search</span>
+                                
+                                <span class="label-icon" id="drop1" style="color:black;">Name</span>
                                 </a>
                             </li>
                         </ul>
@@ -297,7 +298,7 @@ $(function(){
   
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
-        <tr>
+        <tr class="MentoR">
           <th>Name</th>
           <th>Last Name</th>
           <th>Phone</th>
