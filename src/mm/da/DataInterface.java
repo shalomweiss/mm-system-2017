@@ -105,5 +105,6 @@ public interface DataInterface {
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,String menteeName);
 
 
+	public boolean editMeetingNote(String meetingId, String message);
 
 }

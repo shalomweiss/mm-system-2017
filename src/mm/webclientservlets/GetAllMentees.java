@@ -58,8 +58,12 @@ public class GetAllMentees extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
+			ArrayList<String> AcadimicIn1 =new ArrayList<String>();
+
 	//	AcadimicIn = getAllAcademiclnstitution();
-		request.setAttribute("AcadimicIn", AcadimicIn); 
+		 AcadimicIn1.add("ss");
+		 AcadimicIn1.add("DDDDDDDD");
+		request.setAttribute("AcadimicIn", AcadimicIn1); 
 		System.out.println("AcadimicInnn "+ AcadimicIn);
 	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
