@@ -1136,4 +1136,10 @@ public class DataAccess implements DataInterface {
 		return -1;//default error value
 	}
 
+	@Override
+	public boolean editMeetingNote(String meetingId, String message) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
