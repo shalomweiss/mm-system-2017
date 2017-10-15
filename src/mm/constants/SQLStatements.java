@@ -142,4 +142,3 @@ public class SQLStatements {
 			+ " WHERE " + DataContract.PairsTable.COL_MENTORID + " = ? AND " + DataContract.PairsTable.COL_MENTEEID
 			+ " = ? AND " + DataContract.PairsTable.COL_ACTIVESTATUS + " = 1";
 }
-

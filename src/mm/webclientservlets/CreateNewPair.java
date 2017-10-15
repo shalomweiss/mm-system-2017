@@ -54,8 +54,6 @@ public class CreateNewPair extends HttpServlet {
 		 }
 		if (res) {
 			response.getWriter().append("Success");
-			req = request.getRequestDispatcher(nextPage);
-
 		}
 		else
 			response.getWriter().append("Failure");

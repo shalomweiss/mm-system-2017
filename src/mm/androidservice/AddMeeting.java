@@ -54,15 +54,12 @@ public class AddMeeting extends HttpServlet {
 			try {
 				if(iom.getDataAccess().addMeeting(meeting)) {
 					
-						
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}else {
-				//todo
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+					
+					
+				}else {
+					
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 				
 					
 				}
@@ -70,14 +67,16 @@ public class AddMeeting extends HttpServlet {
 				// TODO Auto-generated catch block
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 			}
-		
 		}else {
-			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			//todo
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 			
+	
 		}
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	
+	}else {
+		iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+		
 	}
 	
 		  }catch(NullPointerException ex){

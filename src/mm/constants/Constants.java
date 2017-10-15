@@ -26,7 +26,7 @@ public class Constants {
 
 
 	public final static String DB_ERROR="error in db query";
-	public final static String ERROR="parameter error";
+	public final static String ERROR="error";
 	public final static String MEETING_NOT_FOUND="meeting not found";
 	public static final String INVALID_SESSION_TOKEN = "Invalid session token";
 	public static final String FAILED_TO_ADD_MEETING = "failed to add meeting";

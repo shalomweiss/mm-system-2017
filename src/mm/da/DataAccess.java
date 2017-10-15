@@ -59,7 +59,7 @@ public class DataAccess implements DataInterface {
 	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
 	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
 	final String selectAllPairs = "Select * from pairs";
-	final String selectPairId = "Select * From pairs Where pairId=?"; 
+	final String selectPairId = "Select * From pairs Where pairId=?";
 	final String updateActiveStatus = "UPDATE pairs SET activeStatus=0 WHERE pairId=?";
 	final String selectMeeting = "Select * From activities where mentorId=? ";
 	final String selectMeeting2 = "Select * From activites where menteeId=? ";
@@ -1015,8 +1015,6 @@ public class DataAccess implements DataInterface {
 		return a;
 	}
 
-
-
 	@Override
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
 		ArrayList<WorkPlace> workplace = new ArrayList<>();
@@ -1033,7 +1031,6 @@ public class DataAccess implements DataInterface {
 		}
 		return workplace;
 	}
-
 
 	@Override
 	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
@@ -1053,8 +1050,6 @@ public class DataAccess implements DataInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 	@Override
 	public WorkPlace getWorkPlaceById(int id) throws SQLException {
@@ -1140,8 +1135,5 @@ public class DataAccess implements DataInterface {
 		
 		return -1;//default error value
 	}
-
-
-
 
 }

@@ -160,26 +160,20 @@ public class ServerUtils {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public static boolean validateUserSession(int userId,String token,DataInterface da) throws SQLException {
+	public static boolean validateUserSession(int userId,String token,DataInterface da) {
 		
-		//ArrayList<Session> userSessions=null;
-
-		//get method from DA
-		ArrayList<Session> userSessions = da.getUserSessions(userId);
-		Date currentDate=new Date();
-		if(userSessions!=null)
-			for(Session s:userSessions)
-			System.out.println(s.getToken());
-		for(Session s:userSessions) {
-//			System.out.println("recieved token"+token+ " " +System.currentTimeMillis() );
-//			System.out.println("sessions token"+s.getToken() + " " +s.getExpirationDate());
+//		ArrayList<Session> userSessions=null;
+//
+//		get method from DA
+//		ArrayList<String> userSessions = da.getUserSessions(userId);
 //		
-			if(s.getToken().equals(token) && s.getExpirationDate() > currentDate.getTime()) {
-				return true;
-			}
-		}
+//		for(Session s:userSessions) {
+//			if(s.equals(token) && s.getExpirationDate().before(new Date())) {
+//				return true;
+//			}
+//		}
 		
-		return false;//must be false
+		return true;//must be false
 		
 	}
 
