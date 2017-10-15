@@ -1,7 +1,6 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -11,23 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.model.Mentor;
 
 /**
- * Servlet implementation class EditMentorButton
+ * Servlet implementation class DeactivUser
+ * param: id
+ * da.deactiveUser(userId)
  */
-@WebServlet("/EditMentorDetails")
-public class EditMentorDetails extends HttpServlet {
+@WebServlet("/DeactivateUser")
+public class DeactivateUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditMentorDetails() {
+    public DeactivateUser() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,9 +34,6 @@ public class EditMentorDetails extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String jsp = request.getParameter("jsp");
-		RequestDispatcher req = request.getRequestDispatcher(jsp);
-		req.forward(request, response);
 	}
 
 	/**
@@ -47,24 +41,26 @@ public class EditMentorDetails extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String email = request.getParameter("uEmail");
-		String firstName = request.getParameter("uFirstName");
-		String lastName = request.getParameter("uLastName");
-		String workingPlace = request.getParameter("uWorkingPlace");
-		String address = request.getParameter("uAddress");
-		String notes = request.getParameter("uNotes");
-		String experience = request.getParameter("uExperience");
-		String volunteering = request.getParameter("uVolunteering");
+		String userId=request.getParameter("userId");
+		String nextPage=request.getParameter("jsp");
+		int id=Integer.parseInt(userId);
 		DataAccess da = new DataAccess();
-		
-	/*	try {
-			 da.updateMentor(email,firstName,lastName,workingPlace,address,notes,experience,volunteering);
+	    boolean res=false;
+	    RequestDispatcher req = null;
+	    response.setContentType("text/html");
+	    
+		try {
+			res = da.deactivateUser(id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-
+		}
+		if(res){
+		req = request.getRequestDispatcher(nextPage);			
+		}
+		else
+		response.getWriter().append("User is not deactivate-Failure");
+		
+		req.forward(request, response);	
 	}
-
 }

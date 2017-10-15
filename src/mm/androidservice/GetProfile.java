@@ -1,13 +1,8 @@
 package mm.androidservice;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.time.Instant;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,40 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.jsonModel.*;
+
+import mm.jsonModel.MeetingModel;
+import mm.model.Meeting;
 import mm.model.User;
+import mm.model.Meeting.meetingStatus;
+import util.ServerUtils;
 
 /**
  * Servlet implementation class LogInTest
  */
-@WebServlet("/getProfile")
+@WebServlet("/GetProfile")
 public class GetProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	private class UserSession {
-		
-		private String id;
-		private String token;
-	
-		public UserSession(String email, String session) {
-			super();
-			this.id = email;
-			this.token=session;
-		}
-		@Override
-		public String toString() {
-			return "UserSession [email=" + id + ", session=" + token +"]";
-		}
-		
-		
-		
-
-	}
 	
        
     /**
@@ -60,67 +35,78 @@ public class GetProfile extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	//	response.getWriter().append("Served at: ").append(request.getContextPath());
+
 		
-		doGet(request, response);
+		//JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
+		
+	
+		AndroidIOManager iom = new AndroidIOManager(request,response);
+		
+		 try{
+				JsonObject myJson = iom.getJsonRequest();
+				int id = (myJson.get("id").isJsonNull() ? 0 : myJson.get("id").getAsInt());
+				String token = myJson.get("token").getAsString();
+			
+					
+					
+					User user=null;
+					
+					if(ServerUtils.validateUserSession(id,token,iom.getDataAccess())) {
+					
+					
+					
+					try {
+						user=iom.getDataAccess().getUser(id);
+						System.out.println(user.toString());
+					} catch (SQLException e) {
+					     iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+					}
+					
+					if (user == null) {
+						System.out.println("");
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+						
+					} else {
+						iom.addResponseParameter("user", user);
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+						
+						
+						
+						}
+					}
+					else {
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+					}
+
+					}catch(NullPointerException ex){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+	     }catch(Exception e){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+	     }finally{
+	             iom.SendJsonResponse();
+	     }
+		
+		
+		
+			
+			
 		
 		    
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		BufferedReader br = new BufferedReader(
-		        new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
-
-		    StringBuilder sb = new StringBuilder();
-		    String s;
-		    while ((s = br.readLine()) != null) {
-		         sb.append(s).append("\n");
-		    }
-
-		    String jsonString = sb.toString();
-		    Gson gson = new Gson();
-		    UserSession myUser = gson.fromJson( jsonString, UserSession.class ); 
+		doPost(request, response);
+		
 			
-			
-		    response.getWriter().append(jsonString);
-		    
-
-			
-		//	PrintWriter writer = 
-
-			
-			DataAccess da = new DataAccess();
-			User user = null;
-			JsonUser jsonUser=null;
-
-			if (user == null) {
-				//TODO: request parameters to json user..
-
-
-				jsonUser = new JsonUser(user, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
-			} else {
-				
-				jsonUser=new JsonUser(user,Constants.STATUS_SUCCESS,Constants.SUCCESS,myUser.token);
-				
-				}
-
-			
-			response.setContentType("application/json");
-			// Get the printwriter object from response to write the required json object to the output stream      
-			PrintWriter out = response.getWriter();
-			// Assuming your json object is **jsonObject**, perform the following, it will return your json object  
-			out.print(jsonUser);
-			out.flush();
-			out.close();
 		
 	}
 

@@ -2,9 +2,11 @@ package mm.webclientservlets;
 
 import mm.da.*;
 import mm.model.*;
+import mm.model.User.userType;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
 
 
 import javax.servlet.*;
@@ -52,13 +54,11 @@ public class LoginWeb extends HttpServlet {
 
 		String email = request.getParameter("uName");
 		String pass = request.getParameter("uPass");
-		
-		int isNotEntered = 0;
 		DataAccess da = new DataAccess();
-		//UserDA da = new UserDA();
 		User temp = null;
 		try {
 			temp = da.login(email);
+			//System.out.println(temp.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -70,7 +70,7 @@ public class LoginWeb extends HttpServlet {
 			response.setContentType("text/html");
 			req.include(request, response);
 		} 
-			if (temp.getPassword().matches(pass)){
+			if (temp.getPassword().matches(pass) && temp.getType()==userType.TSOFEN){
 			request.setAttribute("isNotEntered", 1);
 			RequestDispatcher req = request.getRequestDispatcher("Welcome.jsp");
 			response.setContentType("text/html");
@@ -79,10 +79,8 @@ public class LoginWeb extends HttpServlet {
 			else{
 				request.setAttribute("isNotEntered", 0);
 				RequestDispatcher req = request.getRequestDispatcher("LogIn.jsp");
-
 				response.setContentType("text/html");
 				req.include(request, response);
 			}  
-				
 	}
 }

@@ -1,4 +1,4 @@
-package mm.webclientservlets;
+package mm.androidservice;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,18 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class DeactivUser
- * param: id
- * da.deactiveUser(userId)
+ * Servlet implementation class ConfirmMeeting
  */
-@WebServlet("/DeactivUser")
-public class DeactivUser extends HttpServlet {
+@WebServlet("/ConfirmMeeting")
+public class ConfirmMeeting extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeactivUser() {
+    public ConfirmMeeting() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,6 +27,7 @@ public class DeactivUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request, response);
 	}
 
 	/**
@@ -36,6 +35,18 @@ public class DeactivUser extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//confirmMeeting(id,token,meeting_id,action)
+		
+
+//		JSONObject myJson = ServerUtils.getJsonObjcetFromRequest(request);
+//		
+//		int id = myJson.toString().get("id");
+//		String token = myJson.get("token").getAsString();
+//		int meetingId = (myJson.get("meeting_id").isJsonNull() ? 0 : myJson.get("meeting_id").getAsInt());
+//		String action = myJson.get("action").getAsString();
+//		
+		
+		
 	}
 
 }

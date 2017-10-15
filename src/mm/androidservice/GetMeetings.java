@@ -1,24 +1,20 @@
 package mm.androidservice;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.jsonModel.JsonMeeting;
-import mm.jsonModel.JsonUser;
-import mm.model.User;
+import com.google.gson.JsonObject;
 import util.ServerUtils;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import mm.jsonModel.MeetingModel;
 import mm.model.Meeting;
+import mm.model.Meeting.meetingStatus;
 
 /**
  * Servlet implementation class GetMeetings
@@ -26,32 +22,6 @@ import mm.model.Meeting;
 @WebServlet("/GetMeetings")
 public class GetMeetings extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private class MeetingSession {
-
-		private int id;
-		private String token;
-		
-		private int meetingStatus;
-		private int count;
-		private int page;
-
-		@Override
-		public String toString() {
-			return "MeetingSession [id=" + id + ", token=" + token + ", meetingStatus="
-					+ meetingStatus + ", count=" + count + ", page=" + page + "]";
-		}
-
-		public MeetingSession(int id, String token, int meetingId, int meetingStatus, int count, int page) {
-			super();
-			this.id = id;
-			this.token = token;
-			this.meetingStatus = meetingStatus;
-			this.count = count;
-			this.page = page;
-		}
-
-	}
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -68,8 +38,7 @@ public class GetMeetings extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-		
+
 	}
 
 	/**
@@ -79,22 +48,72 @@ public class GetMeetings extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		AndroidIOManager iom = new AndroidIOManager(request, response);
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8));
+		 try{
+	           
+			 JsonObject myJson = iom.getJsonRequest();
+				int flag=0;
+				
+				int id = (myJson.get("id").isJsonNull() ? flag=1 : myJson.get("id").getAsInt());
+				String token = (String) (myJson.get("token").isJsonNull()? flag=1 :myJson.get("token").getAsString());
+				int status = (myJson.get("meetingStatus").isJsonNull() ? flag=1 : myJson.get("meetingStatus").getAsInt());
+				meetingStatus meetingStatus = mm.model.Meeting.meetingStatus.values()[status];
+				int count = (myJson.get("count").isJsonNull() ? flag=1 : myJson.get("count").getAsInt());
+				int page = (myJson.get("page").isJsonNull() ? flag=1 : myJson.get("page").getAsInt());
 
-		MeetingSession myMeeting = ServerUtils.getJsonFromRequest(request, MeetingSession.class);
-		JsonMeeting jsonMeeting = null;
-		List<Meeting> meetings =null;
-		DataAccess da = new DataAccess();
-		//TODO: make sure the function name is right
-		//meetings= da.getAllMeetings(myMeeting);
-		if(meetings==null) {
-			jsonMeeting = new JsonMeeting (Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null,meetings);
-		}
-		else {
-			jsonMeeting = new JsonMeeting (Constants.STATUS_SUCCESS, Constants.SUCCESS, myMeeting.token,meetings);
-		}
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+				if(flag==1) {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+				}else {
+				List<Meeting> meetings = new ArrayList<Meeting>();
+				List<MeetingModel> meetingsToReturn = new ArrayList<MeetingModel>();
+				
+				if (ServerUtils.validateUserSession(id, token, iom.getDataAccess())) {
+
+					try {
+						meetings = iom.getDataAccess().getMeetingByStatus(id, meetingStatus, count, page);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (meetings == null) {
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+					} else {
+						/// each meeting must not contain pairId, all reports,complete...
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+
+						for (int i = 0; i < meetings.size(); i++) {
+							meetings.get(i).setPairId(0);
+							meetings.get(i).setMenteePrivateReport(null);
+							meetings.get(i).setMentorPrivateReport(null);
+							meetings.get(i).setMentorReport(null);
+							meetings.get(i).setMenteeReport(null);
+						}
+						
+						for(Meeting e:meetings) {
+							meetingsToReturn.add(MeetingModel.fromMeeting(e));
+						}
+						
+						iom.addResponseParameter("meetings", meetingsToReturn);
+					}
+				} else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+				}
+				}
+
+	     }catch(NullPointerException ex){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+	     }catch(Exception e){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+	     }finally{
+	             iom.SendJsonResponse();
+	     }
+		
+		
+		
+
+		
 	}
-
+		
 }

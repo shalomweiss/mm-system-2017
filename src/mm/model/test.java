@@ -1,5 +1,5 @@
 package mm.model;
 
-public class Activity {
+public enum test {
 
 }

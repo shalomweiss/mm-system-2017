@@ -1,11 +1,16 @@
 package mm.model;
 
+import mm.model.User.userType;
+
 public class Mentor extends User {
 	private String experience;
 	private String role;
 	private int company;
 	private String volunteering;
 	private String workHistory;
+	
+	
+	public Mentor(){}
 
 	public Mentor(String firstName, String lastName, String experience) {
 		super(firstName, lastName);
@@ -16,25 +21,11 @@ public class Mentor extends User {
 		super(firstName, lastName);
 	}
 	
-	public Mentor(String firstName, String lastName, String email,
-			String phoneNumber, String gender, String address,
-			String note, boolean active, userType type, String experience,
-			String role, int company, String volunteering, String workHistory) {
-		super(firstName, lastName, email, phoneNumber, gender,
-				address, note, active, type);
-		this.experience = experience;
-		this.role = role;
-		this.company = company;
-		this.volunteering = volunteering;
-		this.workHistory = workHistory;
-	}
 
-	public Mentor(int id, String firstName, String lastName, String email,
-			String phoneNumber, String password, String gender, String address,
-			String note, boolean active, userType type, String experience,
+	public Mentor(int id, String firstName, String lastName, String email, String phoneNumber, String password,
+			int gender, String address, String note, String profilePicture, boolean active, userType type, String experience,
 			String role, int company, String volunteering, String workHistory) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender,
-				address, note, active, type);
+		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
 		this.experience = experience;
 		this.role = role;
 		this.company = company;
@@ -84,9 +75,16 @@ public class Mentor extends User {
 
 	@Override
 	public String toString() {
-		return "Mentor [experience=" + experience + ", role=" + role
-				+ ", company=" + company + ", volunteering=" + volunteering
-				+ ", workHistory=" + workHistory + "]";
+		return "Mentor [experience=" + experience + ", role=" + role + ", company=" + company + ", volunteering="
+				+ volunteering + ", workHistory=" + workHistory + ", Role=" + getRole() + ", Company="
+				+ getCompany() + ", Experience=" + getExperience() + ", WorkHistory=" + getWorkHistory()
+				+ ", Volunteering=" + getVolunteering() + ", Type=" + getType() + ", Id=" + getId()
+				+ ", FirstName=" + getFirstName() + ", LastName=" + getLastName() + ", Email="
+				+ getEmail() + ", PhoneNumber=" + getPhoneNumber() + ", Password=" + getPassword()
+				+ ",Gender=" + getGender() + ", Address=" + getAddress() + ", Note=" + getNote()
+				+ ", isActive=" + isActive() + ", ProfilePicture=" + getProfilePicture() 
+				+ super.toString() + ", Class=" + getClass() + "]";
 	}
 
+	
 }

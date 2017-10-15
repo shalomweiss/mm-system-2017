@@ -9,11 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.model.JsonMeeting;
+import com.google.gson.JsonObject;
 import mm.model.Meeting;
-import mm.model.User;
+import mm.androidservice.AndroidIOManager;
+import mm.jsonModel.MeetingModel;
 import util.ServerUtils;
 
 /**
@@ -23,26 +22,7 @@ import util.ServerUtils;
 public class GetMeetingByID extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	
-	private class MeetingToGet{
-		
-		
-		private int userId;
-		private String token;
-		private int meetingId;
-		 
-		public MeetingToGet(int id,String token,int meetingId) {
-			// TODO Auto-generated constructor stub
-			
-			this.userId=id;
-			this.token=token;
-			this.meetingId=meetingId;
-		}
-		
-		
-		
-		
-	}
+
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -52,36 +32,58 @@ public class GetMeetingByID extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		MeetingToGet myMeeting = ServerUtils.getJsonFromRequest(request, MeetingToGet.class);
+		AndroidIOManager iom = new AndroidIOManager(request,response);
 		
-		DataAccess da = new DataAccess();
+		try {
+		JsonObject myJson = iom.getJsonRequest();
+		//int id,String token,int meetingId
+		int id = myJson.get("id").getAsInt();
+		String token = myJson.get("token").getAsString();
+		int meetingId = myJson.get("meetingId").getAsInt();
+
 		Meeting meetingFromDB = null;
-//		try {
-//			//meetingFromDB = da.getMeetingById(myMeeting.userId,myMeeting.token,myMeeting.meetingId);
-//			 //user = new User(1,"testMan","ok","gmail.com","12345","abc","male","Antractica","good test",true,User.userType.MENTEE);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}	
-		
-		JsonMeeting jsonMeeting=null;
-		if(meetingFromDB==null) {
-			//TODO 
-			jsonMeeting = new JsonMeeting(meetingFromDB, Constants.STATUS_MISSINGPARA, Constants.USERNOTFOUND, null);
-		} 
-		else {
-			jsonMeeting = new JsonMeeting(meetingFromDB, Constants.STATUS_SUCCESS, Constants.SUCCESS, myMeeting.token);
+		try {
+			if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
+				try {
+					meetingFromDB = iom.getDataAccess().getMeetingById(Integer.valueOf(meetingId));
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
+				
+				
+				if(meetingFromDB==null) {
+					//TODO 
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+				} 
+				else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+					iom.addResponseParameter("meeting", MeetingModel.fromMeeting(meetingFromDB));
+				}
+				
+
+			}else {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+			}
+		} catch (NumberFormatException e) {
+		     iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 		}
-		
-		
-		ServerUtils.respondJsonObject(response,jsonMeeting);
+	
+	
+		  }catch(NullPointerException ex){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+	     }catch(Exception e){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+	     }finally{
+	             iom.SendJsonResponse();
+	     }
+
 		
 	}
 

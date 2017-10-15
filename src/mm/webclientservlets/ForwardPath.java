@@ -31,12 +31,12 @@ public class ForwardPath extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 String path = request.getParameter("jsp");
 		 String switchPath="LogIn.jsp";
-		 switch(path) {
+		/* switch(path) {
 		 case ("welcome.jsp"): switchPath=path;
 		 case (""):
-			 
-		 }
-		 RequestDispatcher req=request.getRequestDispatcher(switchPath);
+		//this change is done by Daniel, sorry if I ruined something, trying to increase security 
+		 }*/
+		 RequestDispatcher req=request.getRequestDispatcher("Home.jsp");
 		 req.forward(request, response);	   
 	}
 
