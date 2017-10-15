@@ -143,7 +143,7 @@
             <form class="navbar-form navbar-search" role="search">
                 <div class="input-group">
                 
-                    <div class="input-group-btn">
+                    <div class="input-group-btn" style="width: 30px;">
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search" ></span>
                             <span class="label-icon" id="drop">Search</span>
@@ -246,7 +246,7 @@ $(function(){
         <div class="nav nav-justified navbar-nav">
             <form class="navbar-form navbar-search" role="search">
                 <div class="input-group">
-                    <div class="input-group-btn">
+                    <div class="input-group-btn" style="width: 30px;">
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search"></span>
                             <span class="label-icon" id="drop1">Search</span>   
