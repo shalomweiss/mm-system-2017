@@ -39,7 +39,7 @@ public class GetMeetingByPairId extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("Meeting Servlet");
+		System.out.println("GetMeetingByPairId Servlet");
 		int pairId =Integer.parseInt( request.getParameter("id"));
         DataAccess da = new DataAccess();
             Pair pair = null;
@@ -51,12 +51,12 @@ public class GetMeetingByPairId extends HttpServlet {
             }
           ArrayList<Meeting> allMeetings = new ArrayList<Meeting>();
           try {
-            allMeetings= da.getMeetingsByPairId(pairId);
-            System.out.println(pairId+"Meetings"+allMeetings);
+            allMeetings= da.getMeetingsByPairId(pairId);       
            } catch (SQLException e) {
                // TODO Auto-generated catch block
                e.printStackTrace();
            }
+  
           System.out.println("Meetings"+allMeetings);
         //  allMeetings=getAllMeeting();
           PairDetails pairDetails=new PairDetails();
