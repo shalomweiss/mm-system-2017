@@ -64,7 +64,7 @@ public class CancelMeeting extends HttpServlet {
 
 			try {
 				if(iom.getDataAccess().changeMeetingStatus(Integer.parseInt(meetingId),id, meetingStatus.CANCELED)){
-					if(iom.getDataAccess().editMeetingNote(meetingId,message))
+					if(iom.getDataAccess().editMeetingNote(Integer.parseInt(meetingId),message))
 					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 	
 				}else {

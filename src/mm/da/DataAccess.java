@@ -1136,4 +1136,14 @@ public class DataAccess implements DataInterface {
 		return -1;//default error value
 	}
 
+	@Override
+	public boolean editMeetingNote(int meetingId, String message) throws SQLException {
+		
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectPairByMentorAndMenteeId);
+		stm.setInt(1, meetingId);
+		stm.executeUpdate();
+		
+		return true;
+	}
+
 }
