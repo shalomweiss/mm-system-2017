@@ -1136,9 +1136,12 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public boolean editMeetingNote(String meetingId, String message) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean editMeetingNote(int meetingId, String message) throws SQLException {
+		PreparedStatement stm = c.prepareStatement(SQLStatements.updateMeetingNote);
+		stm.setString(1, message);
+		stm.setInt(2, meetingId);
+		stm.executeUpdate();
+		return true;
 	}
 
 }
