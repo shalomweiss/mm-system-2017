@@ -2,8 +2,6 @@ package mm.androidservice;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,15 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
-
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.da.DataInterface;
-import mm.model.JsonMeeting;
 import mm.model.Meeting;
-import mm.model.Session;
-import mm.model.User;
 import mm.androidservice.AndroidIOManager;
+import mm.jsonModel.MeetingModel;
 import util.ServerUtils;
 
 /**
@@ -46,6 +38,8 @@ public class GetMeetingByID extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		AndroidIOManager iom = new AndroidIOManager(request,response);
+		
+		try {
 		JsonObject myJson = iom.getJsonRequest();
 		//int id,String token,int meetingId
 		int id = myJson.get("id").getAsInt();
@@ -70,7 +64,7 @@ public class GetMeetingByID extends HttpServlet {
 				} 
 				else {
 					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-					iom.addResponseParameter("meeting", meetingFromDB);
+					iom.addResponseParameter("meeting", MeetingModel.fromMeeting(meetingFromDB));
 				}
 				
 
@@ -78,15 +72,17 @@ public class GetMeetingByID extends HttpServlet {
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
 			}
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		     iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 		}
 	
 	
-		iom.SendJsonResponse();
+		  }catch(NullPointerException ex){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+	     }catch(Exception e){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+	     }finally{
+	             iom.SendJsonResponse();
+	     }
 
 		
 	}

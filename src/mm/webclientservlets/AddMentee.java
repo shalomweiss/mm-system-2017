@@ -1,7 +1,9 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,11 +12,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.omg.PortableInterceptor.USER_EXCEPTION;
+
+import com.google.gson.Gson;
+
 import util.GeneratePass;
+import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.Mentee;
 import mm.model.User;
 import mm.model.User.userType;
+//import mm.webclientservlets.SendingMail;
 
 /**
  * Servlet implementation class AddMentee
@@ -47,58 +55,93 @@ public class AddMentee extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		System.out.println("here to stay");
-	//	String nextPage=request.getParameter("jsp");
     	String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
 		String uEmail = request.getParameter("uEmail");
-		int uGender = Integer.parseInt(request.getParameter("uGender"));
+		String gender=request.getParameter("uGender");
 		String uAddress = request.getParameter("uAddress");
 		String uGraduationStatus = request.getParameter("uGraduationStatus");
-	//	String uCourseOfStudy = request.getParameter("uCourseOfStudy");
-		int uAcademicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
+		String uAcademicIn=request.getParameter("uAcademicInstitution");
 		String uRemSemesters = request.getParameter("uRemSemesters");
 		String uAverage = request.getParameter("uAverage");
 		String uNotes = request.getParameter("uNotes");
 		String academicDicipline =request.getParameter("uAcademicDicipline");
 		String academicDicipline2=request.getParameter("uAcademicDicipline2");
-	//	String isGraduate=request.getParameter("uIsGraduate");
-	//	String resume=request.getParameter("uResume");
-	//	String gradeSheet=request.getParameter("uGradeSheet");
-	//	String profilePicture=request.getParameter("profilePicture");
-		String isGraduate=null;
-		String resume=null;
-		String gradeSheet=null;
-		String profilePicture=null;
-		float remSemesters=Float.valueOf(uRemSemesters);
-		float avg=Float.valueOf(uAverage);
+		String Signed=request.getParameter("uSignedEULA");
+		String resume=request.getParameter("uResume");
+		String gradeSheet=request.getParameter("uGradeSheet");
+		String profilePicture=request.getParameter("profilePicture");
+		Float avg = Float.valueOf(uAverage);
+		Float remSemesters= Float.valueOf(uRemSemesters);
+		int uGender= Integer.parseInt(gender);
+		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
+//		int uAcademicInstitution= 1;
+		boolean SignedEULA=Boolean.parseBoolean(Signed);
+//		 try {
+//			 uGender = Integer.parseInt(gender);
+//		    } catch (NumberFormatException | NullPointerException e) {
+//		        // handle the error here
+//		    	e.printStackTrace();
+//		    }
+//		
+//		 try {
+//			 SignedEULA = Boolean.parseBoolean(Signed);
+//		    } catch (NumberFormatException | NullPointerException e) {
+//		        // handle the error here
+//		    	e.printStackTrace();
+//		    }
+//		
+//	 try {
+//		 remSemesters= Float.valueOf(uRemSemesters);
+//	    } catch (NumberFormatException | NullPointerException e) {
+//	        // handle the error here
+//	    	e.printStackTrace();
+//	    }
+//	    try {
+//		      avg = Float.valueOf(uAverage);
+//		    } catch (NumberFormatException | NullPointerException e) {
+//		        // handle the error here
+//		    	e.printStackTrace();
+//		    }
 		
-		boolean isGradute=Boolean.parseBoolean(isGraduate);
+//	    try {
+//	    	 uAcademicInstitution = Integer.parseInt(uAcademicIn);
+//		    } catch (NumberFormatException | NullPointerException e) {
+//		        // handle the error here
+//		    	e.printStackTrace();
+//		    }
+	    
+
 		String uPass= GeneratePass.getSaltString();	 
-		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,isGradute,resume,gradeSheet );
-		
-		
+		System.out.println("AVERAGE: "+avg);
+		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
+		System.out.println("here to stay111");
+		User user=new User();
 		DataAccess da = new DataAccess();
 		RequestDispatcher req=null;
-	    boolean res=false;
+	    int resId=-1;
 	
 		try {
-			res = da.addUser(newMentee);
+			resId = da.addUser(newMentee);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(res){
+		if(resId>0){
+			try {
+				user=da.getUser(resId);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			request.setAttribute("AddedSuc", 1);
-			System.out.println("USER IS ADDED SUCSSESS");
 		}
-		if (!res){
+		if (resId==-1){
 			request.setAttribute("AddedSuc", 0);
-			response.getWriter().append("Fails to add a mentee");
+			response.getWriter().append("Failed to add a mentee");
 		}
-		
 		req=request.getRequestDispatcher("GetAllMentees");
 		req.forward(request, response);
 	}

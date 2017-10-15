@@ -28,7 +28,7 @@ public interface DataInterface {
 
 	public User getUser(int id) throws SQLException;
 
-	public boolean addUser(User u) throws SQLException;
+	public int addUser(User u) throws SQLException;
 
 	public boolean editUser(User u) throws SQLException;
 
@@ -39,10 +39,15 @@ public interface DataInterface {
 	public ArrayList<Pair> getAllPairs() throws SQLException;
 
 	public boolean addPair(int mentorId, int menteeId) throws SQLException;
+	
+	public Pair addPair1(int mentorId, int menteeId) throws SQLException;
+
 
 	public boolean disconnectPair(int pairId) throws SQLException;
 
 	public Pair getPair(int pairId) throws SQLException;
+	
+	public int getPairId(int menteeid,int MentorId) throws SQLException;
 
 	/*
 	 * Sessions db Requests
@@ -54,8 +59,6 @@ public interface DataInterface {
 
 	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() throws SQLException;
 
-	public ArrayList<Mentee> getMenteesWithOutMentor();
-
 	/*
 	 * Activities (Meetings) db Requests
 	 */
@@ -66,33 +69,14 @@ public interface DataInterface {
 
 	public Meeting getMeetingById(int meetingId) throws SQLException;
 
-	/**
-	 * before meeting , if the mentee approves
-	 * 
-	 * @param approvedMeeting
-	 * @return
-	 * @throws SQLException
-	 */
-	public boolean approveMeeting(int meetingId, boolean status) throws SQLException;
-
-	/**
-	 * if the meeting already passed - could be confirmed - not confirmed - did
-	 * not happen
-	 * 
-	 * @param confirmedMeeting
-	 * @return
-	 * @throws SQLException
-	 */
-	public boolean confirmMeeting(int meetingId, boolean status) throws SQLException;
+	public boolean changeMeetingStatus(int meetingId, int userId, meetingStatus status) throws SQLException;
 
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException;
 
 	public ArrayList<Meeting> getMeetingByStatus(int userId, meetingStatus status, int count, int page)
 			throws SQLException;
+	
 
-	/*
-	 * Util
-	 */
 
 	public Mentor getMentorOfMentee(int menteeId) throws SQLException;
 
@@ -108,7 +92,10 @@ public interface DataInterface {
 	
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException;
 	
-	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException;
+	public WorkPlace getWorkPlaceById(int id) throws SQLException;
+	
+	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException;
+	
 
 	public ArrayList<User> getAllCorrespondingMentees(String address,String gender,String academicInstitution, boolean inPair,
 					 String academicDicipline1,String academicDicipline2);
@@ -116,5 +103,8 @@ public interface DataInterface {
 	public ArrayList<User> getAllCorrespondingMentors(String address,String gender,String workPlace, boolean inPair);
 
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,String menteeName);
+
+
+	public boolean editMeetingNote(int meetingId, String message) throws SQLException;
 
 }

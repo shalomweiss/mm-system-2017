@@ -27,12 +27,12 @@ public class EditUserTest {
 	//	mentor.setActive(false);
 		mentor.isActive();
 		mentor.setAddress("Yafa");
-		mentor.setLastName("Abu ");
+		mentor.setLastName("black ");
 		
 		mentee.setAcademicDicipline("Arts");
 		mentee.setAverage(80);
-		mentee.setFirstName("jack");
-		mentee.setAddress("Kfar Kanna");
+		mentee.setFirstName("leen");
+		mentee.setAddress("aco");
 		
 		
 		

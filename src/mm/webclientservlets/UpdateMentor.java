@@ -32,11 +32,20 @@ public class UpdateMentor extends HttpServlet {
 	public UpdateMentor() {
 		super();
 	}
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doPost(request,response);
 	
 	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -57,9 +66,6 @@ public class UpdateMentor extends HttpServlet {
 		String role = request.getParameter("uRole");
 		int company = Integer.parseInt(request.getParameter("uCompany"));
 		String workHistory = request.getParameter("uWorkHistory");
-
-		String nextPage = request.getParameter("jsp");
-
 		DataAccess da = new DataAccess();
 		Boolean status = false;
 		Mentor mentor = new Mentor(id,firstName, lastName, email, phoneNum, password, gender, address, notes, profilePic,
@@ -71,7 +77,10 @@ public class UpdateMentor extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("status", status);
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		RequestDispatcher req ;
+		System.out.println("UUUUUUUUUPDATE");
+		req=request.getRequestDispatcher("GetAllMentors");
+		//req = request.getRequestDispatcher("mentors.jsp");
 		req.forward(request, response);
 
 	}

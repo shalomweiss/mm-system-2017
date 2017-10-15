@@ -2,22 +2,14 @@ package mm.androidservice;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.da.DataInterface;
 import mm.model.Meeting;
+import mm.model.Meeting.meetingStatus;
 import util.ServerUtils;
 
 /**
@@ -42,52 +34,68 @@ public class ApproveMeeting extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		AndroidIOManager iom = new AndroidIOManager(request,response);
+		try {
+		
 		JsonObject jsonMeetingToApprove = iom.getJsonRequest();
 		//int id,String token,String meeting_id,boolean action
 		int id = jsonMeetingToApprove.get("id").getAsInt();
 		String token = jsonMeetingToApprove.get("token").getAsString();
-		String meetingId = jsonMeetingToApprove.get("meeting_id").getAsString();
-		Boolean action = jsonMeetingToApprove.get("action").getAsBoolean();
+		String meetingId = jsonMeetingToApprove.get("meetingId").getAsString();		
+		boolean action = jsonMeetingToApprove.get("action").getAsBoolean();
 		
-		try {
-			if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
-				if(meetingId!=null && action!=null) {
+	
+		if(ServerUtils.validateUserSession(id, token, iom.getDataAccess())){
+			if(meetingId!=null && action) {
+				try {
+					if(iom.getDataAccess().changeMeetingStatus(Integer.parseInt(meetingId),id, meetingStatus.APPROVED)){
+						
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+		
+					}else {
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
+							
+					}
+				} catch (NumberFormatException | SQLException e) {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+				}
+				
+							
+			}else {
+				if(!action) {
+					
 					try {
-						if(iom.getDataAccess().approveMeeting(Integer.parseInt(meetingId), action)){
+						if(iom.getDataAccess().changeMeetingStatus(Integer.parseInt(meetingId),id, meetingStatus.DECLINED)){
 							
 							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
-							
-					
-
-							
+			
 						}else {
 							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 								
 						}
 					} catch (NumberFormatException | SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 					}
-					
-								
-				}else {
-					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
-					
-					
-				}
-			
 				
-			}else {
-				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
-
+				}
+				
+				
 				
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+			
+		}else {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+
+			
 		}
 		
-		iom.SendJsonResponse();
+		  }catch(NullPointerException ex){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+	     }catch(Exception e){
+	             iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+	     }finally{
+	             iom.SendJsonResponse();
+	     }
 		
 	}
 

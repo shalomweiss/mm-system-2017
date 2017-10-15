@@ -29,9 +29,7 @@ public class MenteeReports extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		DataAccess da = new DataAccess();
-		String nextPage = request.getParameter("jsp");
 		String address = request.getParameter("uAddress");
 		String gender = request.getParameter("uGender");
 		String academicInstitution = request.getParameter("uAcademicInstitution");
@@ -53,8 +51,8 @@ public class MenteeReports extends HttpServlet {
 		writer.close();
 		
 		
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
-		req.forward(request, response);
+	//	RequestDispatcher req = request.getRequestDispatcher(nextPage);
+	//	req.forward(request, response);
 
 	}
 

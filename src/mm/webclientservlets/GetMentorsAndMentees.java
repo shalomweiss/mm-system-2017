@@ -54,7 +54,7 @@ public class GetMentorsAndMentees extends HttpServlet {
 		
 		ArrayList<Mentee> arrMentees = new ArrayList<Mentee>();
 		 try {
-		// ArrMentees = da.getUsers(User.userType.MENTEE);
+		// ArrMentees = da.getUsers(userType.MENTEE);
 			 arrMentees = da.getAllMenteesWithoutMentor();
 		 } catch (SQLException e) {
 		 // TODO Auto-generated catch block

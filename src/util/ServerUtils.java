@@ -166,15 +166,15 @@ public class ServerUtils {
 
 		//get method from DA
 		ArrayList<Session> userSessions = da.getUserSessions(userId);
-		Date currentDate=new Date();
-		if(userSessions!=null)
-			for(Session s:userSessions)
-			System.out.println(s.getToken());
-		for(Session s:userSessions) {
-//			System.out.println("recieved token"+token+ " " +System.currentTimeMillis() );
-//			System.out.println("sessions token"+s.getToken() + " " +s.getExpirationDate());
-//		
-			if(s.getToken().equals(token) && s.getExpirationDate() > currentDate.getTime()) {
+		
+		for(int i=0;i<userSessions.size();i++) {
+			Session s=userSessions.get(i);
+//			System.out.println(s.getCreationDate());
+//			System.out.println(s.getExpirationDate());
+//			System.out.println(s.getToken());
+
+
+			if(s.getToken().equals(token) && s.getExpirationDate()>new Date().getTime()) {
 				return true;
 			}
 		}

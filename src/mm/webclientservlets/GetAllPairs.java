@@ -63,19 +63,22 @@ public class GetAllPairs extends HttpServlet {
 		for (Pair pair : pairsArray) {
 			if (pair.getActiveStatus() == 1) {
 				try {
-					pair.setMentee((Mentee)da.getUser(pair.getMenteeId()));
-					pair.setMentor((Mentor)da.getUser(pair.getMentorId()));
+					pair.setMentee(da.getUser(pair.getMenteeId()));
+					pair.setMentor(da.getUser(pair.getMentorId()));
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentor().getFirstName(), pair.getMentee().getFirstName(),
+				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentee().getFirstName(), pair.getMentor().getFirstName(),
 						pair.getPairId(), pair.getActiveStatus());
 				pairsMainInfo.add(tmpPairInfo);
 				
 			}
 		}
+		System.out.println("pairsMAIN INFOOOOOOO" + pairsMainInfo);
+	//	 PairsInfo tmpPairInfo = new PairsInfo("firstname","lastname",3,0);
+	//	 pairsMainInfo.add(tmpPairInfo);
 		request.setAttribute("pairs", pairsMainInfo);
 		System.out.println("Pairs: " + pairsArray);
 		PrintWriter writer = response.getWriter();
@@ -84,7 +87,7 @@ public class GetAllPairs extends HttpServlet {
 	    req.forward(request, response);
 		writer.close();
 	}
-
+		
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
