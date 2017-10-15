@@ -76,11 +76,7 @@ public interface DataInterface {
 	public ArrayList<Meeting> getMeetingByStatus(int userId, meetingStatus status, int count, int page)
 			throws SQLException;
 	
-	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException;
 
-	/*
-	 * Util
-	 */
 
 	public Mentor getMentorOfMentee(int menteeId) throws SQLException;
 

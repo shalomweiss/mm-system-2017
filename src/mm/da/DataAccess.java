@@ -1046,12 +1046,6 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public ArrayList<Meeting> getMeetingByStatus(int userId, int status, int count, int page) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName, String menteeName) {
 		// TODO Auto-generated method stub
 		return null;
@@ -1059,7 +1053,6 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public WorkPlace getWorkPlaceById(int id) throws SQLException {
-		// TODO Auto-generated method stub
 		WorkPlace work = null;
 		PreparedStatement stm = c.prepareStatement(selectWorkPlaceId);
 		stm.setInt(1, id);
@@ -1073,7 +1066,6 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException {
-		// TODO Auto-generated method stub
 		AcademicInstitute a = null;
 		PreparedStatement stm = c.prepareStatement(selectAcademicInstituteId);
 		stm.setInt(1, id);
