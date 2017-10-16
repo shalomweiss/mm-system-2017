@@ -134,29 +134,10 @@
 </nav>
 <div class="topPart"> </div>
 	<div class="bottomPart"> </div>
-	<div class="inner">
-	
-	
-	
-	
-	
-	
-	</div>
-	<h1>New Pairs</h1>
-	<div class="topPart"> </div>
-	<div class="bottomPart"> </div>
-	<div class="inner">
-	
-	
-	
-	
-	
+	<div class="inner inner--left">
 	<section class="Pairs">
-
-<div class="container-fluid" >
-
-  <div class="row">
-    <div class="col-md-6" style= "padding-left: 0px;">
+		<div class="container-fluid" >
+			 <div style= "padding-left: 0px;">
     <h5 id="mentee">MENTEE</h5>
 <nav class="navbar navbar-default">
         <div class="">
@@ -231,7 +212,7 @@ $(function(){
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
+  <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable">
       <tbody class="mentee">
       <c:forEach var="mentee" items="${Mentees}" >
@@ -247,8 +228,25 @@ $(function(){
       </tbody>
     </table>
   </div>
+	</div>		
+		</div>
+	</section>
+	
+	
+	
+	
+	
 	</div>
-    <div class="col-md-6" style= "padding-right: 0px;" >
+	<h1>New Pairs</h1>
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner inner--right">
+	<section class="Pairs">
+
+<div class="container-fluid" >
+
+   
+    <div style= "padding-right: 0px;" >
 	<!--for demo wrap-->
 	<h5>MENTOR</h5>
 	 <nav class="navbar navbar-default">
@@ -324,7 +322,7 @@ $(function(){
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
+  <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable1">
       <tbody class="mentor">
        <c:forEach items="${Mentors}" var="mentor">
@@ -342,10 +340,10 @@ $(function(){
   </div>
 	</div>
   </div>
-</div>
-     <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
+    
 </section>
 </div>
+ <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
 </body>
 
 </html>

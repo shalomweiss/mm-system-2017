@@ -229,6 +229,7 @@ div.tab button.active {
 	text-align: center;
 	top: -10px;
 	width: 24px;
+	opacity:10 !important;
 	text-decoration: none;
 	font-weight: bold;
 	-webkit-border-radius: 12px;
