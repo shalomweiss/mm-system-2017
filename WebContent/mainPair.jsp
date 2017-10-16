@@ -54,10 +54,7 @@ $(document).ready(function(){
 	</div>
 </nav>
 	<h1>Pairs</h1>
-	<div class="topPart"> </div>
-	<div class="bottomPart"> </div>
-	<div class="inner">
-		<section>
+<section>
   <!--for demo wrap--> 
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
@@ -86,7 +83,7 @@ $(document).ready(function(){
     			</a>
     		</td>
           	<td class="but">   
-          		<a class="btn btn-block btn-primary disB" style="margin-top: 0px;" >
+          		<a class="btn btn-block btn-primary disB" style="margin-top: 0px;" id="${pair.pairId}">
   					Disconnect
    				</a>
     </td>
@@ -96,11 +93,9 @@ $(document).ready(function(){
     </table>
   </div>
 
- <a class="btn btn-block btn-primary .btn-click btn-addClick" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
+ <a class="btn btn-block btn-primary" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
 
 </section>
- </div>
-
 </body>
 </html> 
 
