@@ -219,6 +219,7 @@ div.tab button.active {
 	right: -12px;
 	text-align: center;
 	top: -10px;
+	opacity:10 !important;
 	width: 24px;
 	text-decoration: none;
 	font-weight: bold;
@@ -855,7 +856,7 @@ td {
 
 				<div class="container">
 					<a href="#close" title="Close" class="close"
-						style="position: absolute;">X</a>
+						style="position: absolute; background-color: red;">X</a>
 
 					<form action="AddNewMentor" method="post">
 						<table>

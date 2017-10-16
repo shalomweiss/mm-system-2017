@@ -229,6 +229,7 @@ div.tab button.active {
 	text-align: center;
 	top: -10px;
 	width: 24px;
+	opacity:10 !important;
 	text-decoration: none;
 	font-weight: bold;
 	-webkit-border-radius: 12px;
@@ -747,7 +748,7 @@ td {
 							  							onfocus="if(this.value=='gradStatus'){this.value=''; this.style.color='#000';}">
 													</td>
 													<td>
-														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.firstName}</div>
+														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitution}</div>
 												 		<input name="uAcademicInstitution" id="input13${ment.id}" type="text" value="${ment.academiclnstitution}"   style="display :none;"
 													 	onblur="if(this.value==''){ this.value='institution'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">													</td>
@@ -886,7 +887,7 @@ td {
 								
 								<select>
 										<c:forEach var="item" items="${AcadimicIn}">
-											<option value="${item.id}">${item.name}</option>
+											<option value="${item.id}">  ${item.name}</option>
 										</c:forEach>
 								</select>   
 								</td>
