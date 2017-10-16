@@ -96,7 +96,7 @@ $(document).ready(function(){
     </table>
   </div>
 
- <a class="btn btn-block btn-primary" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
+ <a class="btn btn-block btn-primary .btn-click btn-addClick" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
 
 </section>
  </div>
