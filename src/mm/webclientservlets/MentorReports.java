@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import mm.constants.Constants;
 import mm.da.DataAccess;
+import mm.model.Mentor;
 import mm.model.User;
 
 @WebServlet("/MentorReports")
@@ -37,7 +38,7 @@ public class MentorReports extends HttpServlet {
 		String workPlace = request.getParameter("uWorkPlace");
 		Boolean inPair = Boolean.parseBoolean(request.getParameter("inPair"));
 
-		ArrayList<User> allMentors=new ArrayList<User>();
+		ArrayList<Mentor> allMentors=new ArrayList<Mentor>();
 		allMentors = da.getAllCorrespondingMentors(address, gender, workPlace, inPair);
 
 		Gson gson = new Gson();
