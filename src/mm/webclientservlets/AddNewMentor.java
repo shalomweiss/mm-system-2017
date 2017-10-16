@@ -67,6 +67,11 @@ public class AddNewMentor extends HttpServlet {
 		if (res>0) {
 			response.getWriter().append("Mentor Added");
 			req = request.getRequestDispatcher(nextPage);
+			String to = email;
+			String subject = "Thank you for registering to Mentorem project";
+		    String body = "Hi "+firstName+" "+lastName+",\nWe appreciate your registeration for Mentorem project,\n" +"Here is your login username and passwod: \n\nUsername: "+email+"\nPassword: " +pass+"\n\nHave a good day,\nTsofen team";
+			SendingMail.sendFromGMail(to,subject,body);
+
 		}
 		if (res==-1)
 		response.getWriter().append("Failed in added Mentor");
