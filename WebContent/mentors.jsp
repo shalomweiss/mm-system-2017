@@ -845,9 +845,9 @@ td {
 								<td>Company</td>
 								<td>
 								
-								<select>
+								<select name="company">
 										<c:forEach var="item" items="${NewWorkPlace}">
-											<option name="company" value="${item.id}">  ${item.company}</option>
+											<option value="${item.id}">   ${item.company}</option>
 										</c:forEach>
 								</select>
 								

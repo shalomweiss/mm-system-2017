@@ -77,8 +77,8 @@ public class AddMentee extends HttpServlet {
 		Float avg = Float.valueOf(uAverage);
 		Float remSemesters= Float.valueOf(uRemSemesters);
 		int uGender= Integer.parseInt(gender);
-//		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
-		int uAcademicInstitution= 1;
+		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
+		//int uAcademicInstitution= 1;
 		boolean SignedEULA=Boolean.parseBoolean(Signed);
 //		 try {
 //			 uGender = Integer.parseInt(gender);

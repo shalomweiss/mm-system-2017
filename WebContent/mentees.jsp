@@ -898,8 +898,8 @@ td {
 								
 								
 								<input id="clickedGender" class="male" type="radio"
-									name="gender" value="1" checked> Male <input
-									id="noclickedGender" class="female" type="radio" name="gender"
+									name="uGender" value="1" checked> Male <input
+									id="noclickedGender" class="female" type="radio" name="uGender"
 									value="0"> Female
 						
 							  	
@@ -916,7 +916,7 @@ td {
 								<td>Academic institution</td>
 								<td>
 								
-								<select>
+								<select name="uAcademicInstitution">
 										<c:forEach var="item" items="${AcadimicIn}">
 											<option value="${item.id}">  ${item.name}</option>
 										</c:forEach>
