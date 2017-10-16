@@ -797,24 +797,14 @@ public class DataAccess implements DataInterface {
 			try {
 				date = f.parse(d);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			java.sql.Date sqlStartDate = new Date(date.getTime());
 
-			// mentorId,menteeId,pairId,note,status,menteeReport,
-			// mentorReport,menteePrivateReport,mentorPrivateReport,
-			// meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete
-			//
-
 			stm.setInt(3, meeting.getPairId());
-
 			stm.setInt(1, meeting.getMentorId());
-
 			stm.setInt(2, meeting.getMenteeId());
-
 			stm.setString(4, meeting.getNote());
-
 			stm.setInt(5, meeting.getStatus().ordinal());
 
 			stm.setString(6, meeting.getMenteeReport());
@@ -841,7 +831,6 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public ArrayList<Meeting> getMeetingsByPairId(int pairId) throws SQLException {
-		System.out.println("MEEEEEEEEEEEEEEEEEEEEEEETINGGG");
 		ArrayList<Meeting> m = new ArrayList<Meeting>();
 		Meeting meeting = null;
 
@@ -849,7 +838,7 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, pairId);
 		ResultSet rs = stm.executeQuery();
 
-		if (rs.next()) {
+		while (rs.next()) {
 			java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
 
 			meeting = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
@@ -1033,14 +1022,14 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public ArrayList<User> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
+	public ArrayList<Mentee> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
 			boolean inPair, String academicDicipline1, String academicDicipline2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<User> getAllCorrespondingMentors(String address, String gender, String workPlace, boolean inPair) {
+	public ArrayList<Mentor> getAllCorrespondingMentors(String address, String gender, String workPlace, boolean inPair) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -1134,6 +1123,15 @@ public class DataAccess implements DataInterface {
 		}
 		
 		return -1;//default error value
+	}
+
+	@Override
+	public boolean editMeetingNote(int meetingId, String message) throws SQLException {
+		PreparedStatement stm = c.prepareStatement(SQLStatements.updateMeetingNote);
+		stm.setString(1, message);
+		stm.setInt(2, meetingId);
+		stm.executeUpdate();
+		return true;
 	}
 
 }

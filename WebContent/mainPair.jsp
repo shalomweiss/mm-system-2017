@@ -57,48 +57,48 @@ $(document).ready(function(){
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
 	<div class="inner">
-				<section>
-		  <!--for demo wrap--> 
-		  <div class="tbl-header">
-		    <table cellpadding="0" cellspacing="0" border="0">
-		      <thead>
-		        <tr>
-		          <th>Mentor Name</th>
-		          <th>Mentee Name</th>
-		          <th>Notification</th>
-		          <th>Meetings </th>
-		          <th>Disconnect </th>
-		        </tr>
-		      </thead>
-		    </table>
-		  </div>
-		  <div class="tbl-content">
-		    <table cellpadding="0" cellspacing="0" border="0">
-		      <tbody>
-		      <c:forEach var="pair" items="${pairs}" >
-		        <tr>
-		        	<td id="mentor"><c:out value="${pair.menteeName}"></c:out></td>
-					<td id="mentee"><c:out value="${pair.mentorName}"></c:out></td>
-					<td><c:out value="${pair.activeStatus}"></c:out></td>
-					<td class="but">   
-					 	<a class="btn btn-block btn-primary" href="GetMeetingByPairId?id=${pair.pairId}" style="margin-top: 0px;" >
-					 		Meetings
-		    			</a>
-		    		</td>
-		          	<td class="but">   
-		          		<a class="btn btn-block btn-primary disB" style="margin-top: 0px;" >
-		  					Disconnect
-		   				</a>
-		    </td>
-		        </tr>
-		        </c:forEach>
-		      </tbody>
-		    </table>
-		  </div>
-		
-		 <a class="btn btn-block btn-primary" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
-		
-		</section>
+		<section>
+  <!--for demo wrap--> 
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Mentor Name</th>
+          <th>Mentee Name</th>
+          <th>Notification</th>
+          <th>Meetings </th>
+          <th>Disconnect </th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+      <c:forEach var="pair" items="${pairs}" >
+        <tr>
+        	<td id="mentor"><c:out value="${pair.menteeName}"></c:out></td>
+			<td id="mentee"><c:out value="${pair.mentorName}"></c:out></td>
+			<td><c:out value="${pair.activeStatus}"></c:out></td>
+			<td class="but">   
+			 	<a class="btn btn-block btn-primary" href="GetMeetingByPairId?id=${pair.pairId}" style="margin-top: 0px;" >
+			 		Meetings
+    			</a>
+    		</td>
+          	<td class="but">   
+          		<a class="btn btn-block btn-primary disB" style="margin-top: 0px;" >
+  					Disconnect
+   				</a>
+    </td>
+        </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+  </div>
+
+ <a class="btn btn-block btn-primary" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
+
+</section>
  </div>
 
 </body>

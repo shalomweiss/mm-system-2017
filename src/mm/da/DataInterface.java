@@ -97,13 +97,14 @@ public interface DataInterface {
 	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException;
 	
 
-	public ArrayList<User> getAllCorrespondingMentees(String address,String gender,String academicInstitution, boolean inPair,
+	public ArrayList<Mentee> getAllCorrespondingMentees(String address,String gender,String academicInstitution, boolean inPair,
 					 String academicDicipline1,String academicDicipline2);
 	
-	public ArrayList<User> getAllCorrespondingMentors(String address,String gender,String workPlace, boolean inPair);
+	public ArrayList<Mentor> getAllCorrespondingMentors(String address,String gender,String workPlace, boolean inPair);
 
 	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,String menteeName);
 
 
+	public boolean editMeetingNote(int meetingId, String message) throws SQLException;
 
 }
