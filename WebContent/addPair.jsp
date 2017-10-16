@@ -116,8 +116,6 @@
 
 </style>
 <body>
-
-
 <nav class="icon-bar">
 	<div class="icon-bar">
 		 <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
@@ -129,7 +127,6 @@
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  
 	</div>
 </nav>
-
 	<h1>New Pairs</h1>
 	<section class="Pairs">
 
