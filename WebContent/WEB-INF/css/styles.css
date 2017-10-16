@@ -16,6 +16,17 @@
   color: #fff;
   
 }
+.glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings' !important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 /* Style the submit button with a specific background color etc */
 input[type=submit] {
 	background-color: #4CAF50;
@@ -67,10 +78,15 @@ div::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 h1{
+  z-index: 2;
+  position: fixed;
+  top:5%;
+  right:0;
+  left:90px;
   font-size: 32px;
   letter-spacing: 8px;
   text-shadow: 2px 4px 4px #CCCCCC;
-  color: #fff;
+  color: #fff !important;
   text-transform: uppercase;
   font-weight: 300;
   text-align: center;
@@ -91,7 +107,7 @@ table{
 
 }
 .tbl-header{
-  background-color: rgba(0,191,154,0.9);
+  background-color: rgb(60,78,176);
  }
  .tbl-header-meeting{
   background-color: rgba(123,31,162,0.9);
@@ -104,9 +120,14 @@ table{
  }
 .tbl-content{
   height:300px;
-  overflow-x:auto;
+  overflow-y:auto;
+  overflow-x:hidden;
   margin-top: 0px;
   border: 1px solid rgba(255,255,255,0.3);
+}
+.tbl-content-pair
+{
+	height: 220px !important;
 }
 th{
   padding: 20px 15px !important;
@@ -117,6 +138,7 @@ th{
   text-transform: uppercase;
   word-wrap: break-word;
 }
+
 td{
   padding: 15px !important;
   text-align: left;
@@ -132,27 +154,71 @@ td{
 td.but{
 	text-align: center;
 }
-
 /* demo styles */
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 body{
-  background-color: #232334 !important;
-  font-family: 'Century Gothic', sans-serif;
-  height:100%;
-  overflow: hidden;
-  color:white !important;
+  font-family: Helvetica;
+    font-size: 14px;
+    line-height: 1.42857143;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    color: #333;
+    background-color: #fff;
+}
+div.topPart{
+	position: fixed;
+	z-index:1;
+	top:0;
+	height:30%;	
+	width:100%;
+	background-color: rgb(46,61,154);
+}
+div.bottomPart{
+	position: fixed;
+	z-index:1;
+	top: 30%;
+    height: 70%;
+	background-color: rgb(191,196,226);
+	width:100%;
+}
+div.inner{
+	border-radius:20px;
+	z-index: 4;
+    background-color: white;
+    position: fixed;
+    right: 5%;
+    width: 40%;
+    top: 25%;
+    bottom: 10%;
+    height: 70%;
+    background-color: white;
+    box-shadow: 5px 5px 5px #888888;
+}
+div.inner--left{
+    width: 40% !important;
+    left: 8% !important;
+}
+div.inner--right{
+    width: 40% !important;
+    left: 58% !important;
 }
 section{
-  top:0;
-  margin-top: 150px; 
-  margin-bottom: 50px;
-  margin-left: 100px;
-  margin-right: 10px;
-
+	width:90%;
+	margin-right:5%;
+	margin-left:5%;
+	margin-top:2%;
+  	z-index:2;
+  	top:0;
 }
 section.Pairs{
-	margin-top: 90px;
+	margin-top: 0;
+	width:100% !important;
+	margin-right:0 !important;
+	margin-left:0 !important;
+	margin-top:0 !important;
+	
 }
 .made-with-love {
   margin-top: 40px;
@@ -208,11 +274,12 @@ tbody.meeting{
 	top:30vh;
     width: 90px;
     background-color: #555;
+    
 }
 .icon-bar a {
     display: block;
     text-align: center;
-    padding: 16px;
+    padding: 8px;
     transition: all 0.3s ease;
     color: white;
     font-size: 36px;
@@ -234,44 +301,55 @@ html{
 	height:100%;
 }
 nav.icon-bar{
+	z-index: 2;
 	top:0;
 	position:fixed;
 	height:100%;
 	background-color: #555;
+	max-width:80px;
+	width:12%;
 }
 div.icon-bar{
     margin-left: auto;
-    margin-right: auto; 
-	display: table-cell;
+    margin-right: auto;
+    display: table-cell;
     vertical-align: middle;
-	position:fixed;
-	top: calc((100% - 490px) / 2);
-	bottom:0;
+    position: fixed;
+    top: calc((100% - 490px) / 2);
+    width: 12%;
+    bottom: 0;
+    max-width:80px;
 }
 h1{
-	position: absolute;
-	top:5%;
-	right:0;
-	left:90px;
+
 }
 button{
 outline: none !important;
 }
 .btn-primary, .btn-primary:active, .btn-primary:visited,.btn-primary:focus {
-	margin-top:20px;
-    /*background-color: rgba(255,255,255,0.3);*/
+
+    background-color: rgb(245,63,124) !important;
 	outline: none !important;
 	color: white !important;
 	cursor: pointer !important;
-	/*border-color: rgba(255,255,255,0.1);*/
+	border-color: rgb(245,63,124) !important;
+	border-radius: 20px !important;
+	right:0 !important;
+	float:right;
+	box-shadow: 2px 3px 4px #888888;
 }
 .btn-primary:hover{
-margin-top:20px;
-    background-color: rgba(255,255,255,0.5);
+	border-radius:20px;
+    background-color: rgb(210,0,124) !important;
 	outline: none !important;
 	color: white !important;
 	cursor: pointer !important;
-	border-color: rgba(255,255,255,0.1);
+	border-color: rgb(210,0,124) !important;
+}
+.btn-addClick{
+	margin-top:1.8% !important;
+	width:30% !important;
+	float:right;
 }
 tr.para:hover td{
 	background-color:#f5f5f5;
@@ -279,7 +357,7 @@ tr.para:hover td{
 }
 
 h5{
-	color: #fff;;
+	color: black;
 }
 .para.selected {
     background-color:#f5f5f5;
@@ -291,12 +369,11 @@ tr.selected td{
 
 .navbar .navbar-search .dropdown-menu { min-width: 25px; }
 .dropdown-menu .label-icon { margin-left: 5px;
-	color: #1AD79E;
+	color: black;
 	font-weight: bold;
  }
 .btn-outline {
     background-color: transparent;
-    color: inherit;
     transition: all .5s;
 }
 .navbar{
@@ -305,7 +382,7 @@ tr.selected td{
 }
 
 #searchB{
-	background-color: rgba(255,255,255,0.3);
+	background-color: black;
 	color: #fff;	
 }
 
@@ -317,8 +394,10 @@ tr.selected td{
 
 #myInput,#myInput1{
 	background-color: #fff;
-	opacity: 0.9;
-	
+	opacity: 0.9;	
+}
+.show {
+    display: table-cell !important;
 }
 li:hover{
 	background-color: #BDCFC9;

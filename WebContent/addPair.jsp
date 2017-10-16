@@ -12,9 +12,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<head>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<head>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css"><%@include file="WEB-INF/css/styles.css" %>
 </style>
 	<script>
@@ -34,7 +35,9 @@
 				          mentorID: mentorId
 				        },
 				        function(data,status){
-				            alert(data);
+				        	location.reload();
+				        	//window.location.href = window.location.pathname + window.location.search + window.location.hash;
+				            //alert(data);
 				        });
 			}
 	});
@@ -116,30 +119,25 @@
 
 </style>
 <body>
-
-
 <nav class="icon-bar">
 	<div class="icon-bar">
+			<a  href="GetAllPairs" title="Back"><i class="fa fa-arrow-circle-left"></i></a> 
 		 <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees"title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a class="active" href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
 		  <a href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
-		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  
+		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
+		   
 	</div>
 </nav>
-
-	<h1>New Pairs</h1>
+<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner inner--left">
 	<section class="Pairs">
-
-
-	
-
-<div class="container-fluid" >
-
-  <div class="row">
-    <div class="col-md-6" style= "padding-left: 0px;">
+		<div class="container-fluid" >
+			 <div style= "padding-left: 0px;">
     <h5 id="mentee">MENTEE</h5>
 <nav class="navbar navbar-default">
         <div class="">
@@ -151,24 +149,21 @@
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search" ></span>
                             <span class="label-icon" id="drop">Search</span>
-                            <span class="caret"></span>
+                            
                         </button>
                         <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
-                                    <span class="glyphicon glyphicon-user"></span>
                                     <span class="label-icon" id="drop"  >Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
-                                <span class="label-icon" id="drop">University</span>
+                                	<span class="label-icon" id="drop">University</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
                                 <span class="label-icon" id="drop1">Search</span>
                                 </a>
                             </li>
@@ -214,7 +209,7 @@ $(function(){
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
+  <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable">
       <tbody class="mentee">
       <c:forEach var="mentee" items="${Mentees}" >
@@ -230,8 +225,25 @@ $(function(){
       </tbody>
     </table>
   </div>
+	</div>		
+		</div>
+	</section>
+	
+	
+	
+	
+	
 	</div>
-    <div class="col-md-6" style= "padding-right: 0px;" >
+	<h1>New Pairs</h1>
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner inner--right">
+	<section class="Pairs">
+
+<div class="container-fluid" >
+
+   
+    <div style= "padding-right: 0px;" >
 	<!--for demo wrap-->
 	<h5>MENTOR</h5>
 	 <nav class="navbar navbar-default">
@@ -244,24 +256,22 @@ $(function(){
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search"></span>
                             <span class="label-icon" id="drop1">Search</span>
-                            <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
-                                    <span class="glyphicon glyphicon-user"></span>
+                                    
                                     <span class="label-icon" id="drop1">Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
+                                
                                 <span class="label-icon" id="drop1">Company</span>
                                 </a>
                             </li>
                              <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
                                 <span class="label-icon" id="drop1">Search</span>
                                 </a>
                             </li>
@@ -307,7 +317,7 @@ $(function(){
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
+  <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable1">
       <tbody class="mentor">
        <c:forEach items="${Mentors}" var="mentor">
@@ -325,9 +335,10 @@ $(function(){
   </div>
 	</div>
   </div>
-</div>
-     <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
+    
 </section>
+</div>
+ <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
 </body>
 
 </html>

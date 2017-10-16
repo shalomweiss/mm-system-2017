@@ -15,6 +15,7 @@ import mm.da.DataAccess;
 import mm.model.Mentor;
 import mm.model.User;
 import mm.model.User.userType;
+import mm.model.WorkPlace;
 
 /**
  * Servlet implementation class GetAllMentors
@@ -49,6 +50,24 @@ public class GetAllMentors extends HttpServlet {
 		 }
 		request.setAttribute("Mentors", ArrMentors);
 		System.out.println("MENTORS: " + ArrMentors);
+		
+		
+		ArrayList<WorkPlace> NewWorkPlace =new ArrayList<WorkPlace>();
+		 try {
+			 NewWorkPlace = da.getAllWorkingPlace();
+			 } catch (SQLException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 }
+			ArrayList<String> NewWorkPlace1 =new ArrayList<String>();
+
+	//	 NewWorkPlace = getAllWorkingPlace();
+		 NewWorkPlace1.add("sss");
+		 NewWorkPlace1.add("DDDDDDDDD");
+		request.setAttribute("NewWorkPlace", NewWorkPlace); 
+		System.out.println("AcadimicInnn "+  NewWorkPlace1);
+		
+		
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
 		RequestDispatcher req ;
@@ -76,5 +95,15 @@ public class GetAllMentors extends HttpServlet {
 		getUsers.add(new Mentor("ghada", "aaa"));
 		return getUsers;
 	}
+	
+	public ArrayList<WorkPlace> getAllCompanies(){
+		ArrayList<WorkPlace> arr=new ArrayList<WorkPlace>();
+		WorkPlace a=new WorkPlace(0, "Intel", "Haifa", "Haifa","matam");
+		WorkPlace a1=new WorkPlace(0, "Microsoft", "Haifa", "Haifa","matam");
 
+		arr.add(a);
+		arr.add(a1);
+	    return arr;
+	}
+	
 }

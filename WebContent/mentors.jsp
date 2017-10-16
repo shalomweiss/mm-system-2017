@@ -74,7 +74,7 @@ var prevRow;
 		document.getElementById(def).click();
 		prevRow=row;
 		
-		for(var i=1;i<=13;i++)  //length of inputs
+		for(var i=1;i<=12;i++)  //length of inputs
 		{
 		showStuff("input"+i+mentId,"div"+i+mentId);
 		}
@@ -86,7 +86,7 @@ var prevRow;
 		$("#" + row).toggle();
 		prevRow=null;
 		
-		for(var i=1;i<=13;i++)  //length of inputs
+		for(var i=1;i<=12;i++)  //length of inputs
 			{
 			showStuff("input"+i+mentId,"div"+i+mentId);
 			}
@@ -95,7 +95,7 @@ var prevRow;
 	}
 	function backUpInputs(mentId){
 		
-		for(var i=1;i<=13;i++)  //length of inputs
+		for(var i=1;i<=12;i++)  //length of inputs
 		{
 			document.getElementById("input"+i+mentId).value =document.getElementById("div"+i+mentId).innerHTML;
 		}
@@ -219,6 +219,7 @@ div.tab button.active {
 	right: -12px;
 	text-align: center;
 	top: -10px;
+	opacity:10 !important;
 	width: 24px;
 	text-decoration: none;
 	font-weight: bold;
@@ -625,7 +626,7 @@ td {
 							</tr>
 
 							<tr id="hidden_row${ment.id}" class="hidden_row"
-								onclick="fun(this)">
+								>
 								<td colspan=4>
 									<div class="tab">
 
@@ -855,7 +856,7 @@ td {
 
 				<div class="container">
 					<a href="#close" title="Close" class="close"
-						style="position: absolute;">X</a>
+						style="position: absolute; background-color: red;">X</a>
 
 					<form action="AddNewMentor" method="post">
 						<table>
@@ -873,17 +874,31 @@ td {
 							</tr>
 							<tr>
 								<td>Gender</td>
-								<td><input id="clickedGender" class="male" type="radio"
+								<td>
+								
+								<input id="clickedGender" class="male" type="radio"
 									name="gender" value="1" checked> Male <input
 									id="noclickedGender" class="female" type="radio" name="gender"
-									value="0"> Female</td>
+									value="0"> Female
+									
+									
+									</td>
 								<td>Address</td>
 								<td><input type="text" name="address"></td>
 							</tr>
 
 							<tr>
 								<td>Company</td>
-								<td><input type="text" name="company"></td>
+								<td>
+								
+								<select>
+										<c:forEach var="item" items="${NewWorkPlace}">
+											<option name="company" value="${item.id}">  ${item.company}</option>
+										</c:forEach>
+								</select>
+								
+								
+								</td>
 								<td>Role</td>
 								<td><input type="text" name="role"></td>
 							</tr>
@@ -916,17 +931,9 @@ td {
 
 						</table>
 					</form>
-
-
 				</div>
-
-
 			</div>
 		</div>
-
-
-
-
 	</section>
 
 
