@@ -74,7 +74,7 @@ var prevRow;
 		document.getElementById(def).click();
 		prevRow=row;
 		
-		for(var i=1;i<=13;i++)  //length of inputs
+		for(var i=1;i<=12;i++)  //length of inputs
 		{
 		showStuff("input"+i+mentId,"div"+i+mentId);
 		}
@@ -86,7 +86,7 @@ var prevRow;
 		$("#" + row).toggle();
 		prevRow=null;
 		
-		for(var i=1;i<=13;i++)  //length of inputs
+		for(var i=1;i<=12;i++)  //length of inputs
 			{
 			showStuff("input"+i+mentId,"div"+i+mentId);
 			}
@@ -95,7 +95,7 @@ var prevRow;
 	}
 	function backUpInputs(mentId){
 		
-		for(var i=1;i<=13;i++)  //length of inputs
+		for(var i=1;i<=12;i++)  //length of inputs
 		{
 			document.getElementById("input"+i+mentId).value =document.getElementById("div"+i+mentId).innerHTML;
 		}
@@ -625,7 +625,7 @@ td {
 							</tr>
 
 							<tr id="hidden_row${ment.id}" class="hidden_row"
-								onclick="fun(this)">
+								>
 								<td colspan=4>
 									<div class="tab">
 
@@ -916,17 +916,9 @@ td {
 
 						</table>
 					</form>
-
-
 				</div>
-
-
 			</div>
 		</div>
-
-
-
-
 	</section>
 
 
