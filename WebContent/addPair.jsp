@@ -149,24 +149,21 @@
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search" ></span>
                             <span class="label-icon" id="drop">Search</span>
-                            <span class="caret"></span>
+                            
                         </button>
                         <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
-                                    <span class="glyphicon glyphicon-user"></span>
                                     <span class="label-icon" id="drop"  >Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
-                                <span class="label-icon" id="drop">University</span>
+                                	<span class="label-icon" id="drop">University</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
                                 <span class="label-icon" id="drop1">Search</span>
                                 </a>
                             </li>
@@ -259,24 +256,22 @@ $(function(){
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search"></span>
                             <span class="label-icon" id="drop1">Search</span>
-                            <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
-                                    <span class="glyphicon glyphicon-user"></span>
+                                    
                                     <span class="label-icon" id="drop1">Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
+                                
                                 <span class="label-icon" id="drop1">Company</span>
                                 </a>
                             </li>
                              <li>
                                 <a href="#">
-                                <span class="glyphicon glyphicon-book"></span>
                                 <span class="label-icon" id="drop1">Search</span>
                                 </a>
                             </li>

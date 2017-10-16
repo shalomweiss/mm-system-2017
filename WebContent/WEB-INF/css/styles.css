@@ -369,12 +369,11 @@ tr.selected td{
 
 .navbar .navbar-search .dropdown-menu { min-width: 25px; }
 .dropdown-menu .label-icon { margin-left: 5px;
-	color: #1AD79E;
+	color: black;
 	font-weight: bold;
  }
 .btn-outline {
     background-color: transparent;
-    color: inherit;
     transition: all .5s;
 }
 .navbar{
@@ -383,7 +382,7 @@ tr.selected td{
 }
 
 #searchB{
-	background-color: rgba(255,255,255,0.3);
+	background-color: black;
 	color: #fff;	
 }
 
@@ -395,8 +394,10 @@ tr.selected td{
 
 #myInput,#myInput1{
 	background-color: #fff;
-	opacity: 0.9;
-	
+	opacity: 0.9;	
+}
+.show {
+    display: table-cell !important;
 }
 li:hover{
 	background-color: #BDCFC9;
