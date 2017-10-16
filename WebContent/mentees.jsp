@@ -36,6 +36,41 @@
 
 <script type="text/javascript">
 	
+$(document).ready(function(){
+	
+	$(".female").click(function(){
+		var female=document.getElementsByClassName("female")[0];
+		female.id="clickedGender";
+		var male=document.getElementsByClassName("male")[0];
+		male.id="noclickedGender";
+	});
+	$(".male").click(function(){
+		var female=document.getElementsByClassName("female")[0];
+		female.id="noclickedGender";
+		var male=document.getElementsByClassName("male")[0];
+		male.id="clickedGender";
+	});
+	
+	$(".Sign2").click(function(){
+		var sign2=document.getElementsByClassName("Sign1")[0];
+		sign2.id="clickedSign";
+		var sign1=document.getElementsByClassName("Sign2")[0];
+		sign1.id="noclickedclickedSign";
+	});
+	$(".Sign2").click(function(){
+		var sign2=document.getElementsByClassName("Sign1")[0];
+		sign2.id="noclickedclickedSign";
+		var sign1=document.getElementsByClassName("Sign2")[0];
+		sign1.id="clickedSign";
+	});
+	
+	
+	
+	
+	
+	
+	
+});
 	function goToEdit(firstName, lastName, phone, email, academicInstitution,
 			note, courseOfStudy, remainingSemesters, average, id) {
 		document.getElementById("fname").value = firstName;
@@ -870,9 +905,16 @@ td {
 							  	onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}" required></td>
 							<tr>
 								<td>Gender</td>
-								<td><input type="text" name="uGender"
-								onblur="if(this.value==''){ this.value='gender'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='gender'){this.value=''; this.style.color='#000';}" required></td>
+								<td>
+								
+								
+								<input id="clickedGender" class="male" type="radio"
+									name="gender" value="1" checked> Male <input
+									id="noclickedGender" class="female" type="radio" name="gender"
+									value="0"> Female
+						
+							  	
+							  	</td>
 								<td>Address</td>
 								<td><input type="text" name="uAddress"
 								onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
@@ -916,9 +958,16 @@ td {
 
 
 								<td>Signed</td>
-								<td><input type="text" name="uSignedEULA"
-								onblur="if(this.value==''){ this.value='signed'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='signed'){this.value=''; this.style.color='#000';}"></td>
+								<td>
+								
+								<input id="clickedSign" class="Sign1" type="radio"
+									name="uSignedEULA" value="true" checked> YES <input
+									id="noclickedclickedSign" class="Sign2" type="radio" name="uSignedEULA"
+									value="0"> NO
+									
+								
+							  	
+							  	</td>
 							
 							<td></td><td></td>
 							<tr>

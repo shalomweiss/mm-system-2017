@@ -874,17 +874,31 @@ td {
 							</tr>
 							<tr>
 								<td>Gender</td>
-								<td><input id="clickedGender" class="male" type="radio"
+								<td>
+								
+								<input id="clickedGender" class="male" type="radio"
 									name="gender" value="1" checked> Male <input
 									id="noclickedGender" class="female" type="radio" name="gender"
-									value="0"> Female</td>
+									value="0"> Female
+									
+									
+									</td>
 								<td>Address</td>
 								<td><input type="text" name="address"></td>
 							</tr>
 
 							<tr>
 								<td>Company</td>
-								<td><input type="text" name="company"></td>
+								<td>
+								
+								<select>
+										<c:forEach var="item" items="${NewWorkPlace}">
+											<option name="company" value="${item.id}">  ${item.company}</option>
+										</c:forEach>
+								</select>
+								
+								
+								</td>
 								<td>Role</td>
 								<td><input type="text" name="role"></td>
 							</tr>
