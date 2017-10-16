@@ -34,7 +34,9 @@
 				          mentorID: mentorId
 				        },
 				        function(data,status){
-				            alert(data);
+				        	location.reload();
+				        	//window.location.href = window.location.pathname + window.location.search + window.location.hash;
+				            //alert(data);
 				        });
 			}
 	});
