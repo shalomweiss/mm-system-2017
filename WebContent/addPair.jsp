@@ -14,7 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <head>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css"><%@include file="WEB-INF/css/styles.css" %>
 </style>
 	<script>
@@ -118,6 +118,7 @@
 <body>
 <nav class="icon-bar">
 	<div class="icon-bar">
+			<a  href="GetAllPairs" title="Back"><i class="fa fa-arrow-circle-left"></i></a> 
 		 <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees"title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
