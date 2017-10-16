@@ -13,7 +13,9 @@ public class Mentee extends User {
 	private String gradeSheet;
 	
 
-	public Mentee(){}
+	public Mentee(){
+		super();
+	}
 
 	
 

@@ -17,6 +17,9 @@ public class PairsInfo {
 		this.pairId = pairId;
 		this.activeStatus = activeStatus;
 	}
+	public PairsInfo() {
+		// TODO Auto-generated constructor stub
+	}
 	public String getMenteeName() {
 		return menteeName;
 	}
