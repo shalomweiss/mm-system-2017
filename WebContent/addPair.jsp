@@ -133,6 +133,14 @@
 	</div>
 </nav>
 	<h1>New Pairs</h1>
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner">
+	
+	
+	
+	
+	
 	<section class="Pairs">
 
 
@@ -330,6 +338,7 @@ $(function(){
 </div>
      <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
 </section>
+</div>
 </body>
 
 </html>
