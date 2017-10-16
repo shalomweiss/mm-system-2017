@@ -14,7 +14,6 @@
   font-size: 200px;
   font-family:AR DARLING;
   color: #fff;
-  
 }
 .glyphicon {
     position: relative;
@@ -152,7 +151,7 @@ td{
 }
 
 td.but{
-	text-align: center;
+	text-align: left;
 }
 /* demo styles */
 
@@ -189,7 +188,7 @@ div.inner{
     background-color: white;
     position: fixed;
     right: 5%;
-    width: 40%;
+    width: 80%;
     top: 25%;
     bottom: 10%;
     height: 70%;
@@ -198,7 +197,7 @@ div.inner{
 }
 div.inner--left{
     width: 40% !important;
-    left: 8% !important;
+        left: calc(80px + 2%) !important;
 }
 div.inner--right{
     width: 40% !important;
@@ -347,6 +346,11 @@ outline: none !important;
 	border-color: rgb(210,0,124) !important;
 }
 .btn-addClick{
+	margin-top:1.8% !important;
+	width:30% !important;
+	float:right;
+}
+.btn-pairClick{
 	margin-top:1.8% !important;
 	width:30% !important;
 	float:right;

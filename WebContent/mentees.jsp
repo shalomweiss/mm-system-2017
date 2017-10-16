@@ -30,10 +30,10 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
-<style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
 
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
 <script type="text/javascript">
 	
 $(document).ready(function(){
@@ -285,8 +285,7 @@ div.tab button.active {
 }
 
 .modalDialog>div {
-
-	width: 800px;
+	width: 80%;
 	margin: auto;
 	border-radius: 10px;
 	background: #fff;
@@ -317,13 +316,20 @@ div.tab button.active {
 	color: white;
 }
 
-h1 {
-	font-size: 30px;
-	color: #fff;
-	text-transform: uppercase;
-	font-weight: 300;
-	text-align: center;
-	margin-bottom: 15px;
+h1{
+  z-index: 2;
+  position: fixed;
+  top:5%;
+  right:0;
+  left:90px;
+  font-size: 32px;
+  letter-spacing: 8px;
+  text-shadow: 2px 4px 4px #CCCCCC;
+  color: #fff !important;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 table {
@@ -333,13 +339,23 @@ table {
 
 .tbl-header {
     background-color: rgba(255, 255, 255, 0.3);
-    max-height: 500px;
+    max-height: 48vh;
     overflow-y: scroll;
     overflow-x: hidden;
 	background-color: rgba(255, 255, 255, 0.3);
 	
 }
-
+.btn-addClick{
+	margin-top:1.8% !important;
+	width:30% !important;
+	float:right;
+}
+section.Pairs {
+   	width: 90% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    margin-top: 3vh !important;
+}
 .tbl-content {
 	height: 300px;
 	overflow-x: auto;
@@ -349,7 +365,6 @@ table {
 
 th {
 	padding: 20px 15px;
-	text-align: center;
 	font-weight: 500;
 	font-size: 12px;
 	color: #000;
@@ -357,7 +372,6 @@ th {
 }
 
 td {
-	text-align: center;
 	vertical-align: middle;
 	font-weight: 700;
 	font-size: 14px;
@@ -385,7 +399,6 @@ td {
 	position: relative;
 	top: 2px;
 }
-
 .made-with-love a {
 	color: #fff;
 	text-decoration: none;
@@ -399,42 +412,31 @@ td {
 ::-webkit-scrollbar {
 	width: 6px;
 }
-
 ::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
-
 ::-webkit-scrollbar-thumb {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
-
-
 .icon-bar {
 	top: 30vh;
 	width: 90px;
 	background-color: #555;
 }
-
 .icon-bar a {
 	display: block;
 	text-align: center;
-	padding: 16px;
+	    padding: 8px;
 	transition: all 0.3s ease;
 	color: white;
 	font-size: 36px;
 }
-
 .icon-bar a:hover {
 	background-color: #000;
 }
-
-
-
 i {
 	margin-right: 2px;
 }
-
-
 html {
 	overflow-y: hidden;
 	height: 100%;
@@ -456,14 +458,6 @@ div.icon-bar {
 	top: calc(( 100% - 490px)/2);
 	bottom: 0;
 }
-
-h1 {
-	position: absolute;
-	top: 5%;
-	right: 0;
-	left: 90px;
-}
-
 button {
 	outline: none !important;
 }
@@ -574,10 +568,8 @@ tr.stam:hover {
 	opacity: 0.9;
 	cursor: pointer;
 }
-
-
-
 td {
+    padding: 15px !important;
 	height: 20%;
 }
 
@@ -590,8 +582,6 @@ td {
 }
 </style>
 <body>
-
-
 	<!-- add successfully alert -->
 	<c:if test="${AddedSuc =='1'}">
 		<script>
@@ -616,8 +606,9 @@ td {
 	</div>
 	</nav>
 	<h1>Mentees</h1>
-
-
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner">
 	<section class="Pairs">
 		<!--for demo wrap-->
 		<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
@@ -630,13 +621,10 @@ td {
 					</tr>
 
 				</thead>
-				</table>
+		</table>
 		<div class="tbl-header" >
 
-			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
-				
-		</div>
-
+			<table id="table_detail" cellpadding="0" cellspacing="0"  border="0">
 			<div class="tbl-content" style="height: 100%">
 				<tbody class="mentee" >
 					<c:forEach items="${Mentees}" var="ment">
@@ -870,11 +858,12 @@ td {
 
 
 
-		<a href="#openModal3" class="btn btn-block btn-primary"> <i
+		<a href="#openModal3" class="btn btn-block btn-primary btn-addClick"> <i
 			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
 			Mentee
 		</a>
 		</div>
+		
 		<div id="openModal3" class="modalDialog">
 			<div>
 
@@ -996,7 +985,7 @@ td {
 
 
 	</section>
-
+</div>
 </body>
 </html>
 

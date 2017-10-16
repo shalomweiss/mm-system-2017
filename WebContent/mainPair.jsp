@@ -34,10 +34,7 @@ $(document).ready(function(){
    			    $(this).children(".button-inside").removeClass("full");
    			  }
    			);
-	
 });
-
-  
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
@@ -89,7 +86,7 @@ $(document).ready(function(){
           		<a class="btn btn-block btn-primary disB" style="margin-top: 0px;" >
   					Disconnect
    				</a>
-    </td>
+    		</td>
         </tr>
         </c:forEach>
       </tbody>
@@ -97,9 +94,7 @@ $(document).ready(function(){
   </div>
 
  <a class="btn btn-block btn-primary .btn-click btn-addClick" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
-
 </section>
  </div>
-
 </body>
 </html> 
