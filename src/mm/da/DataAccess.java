@@ -35,50 +35,6 @@ import mm.model.WorkPlace;
 public class DataAccess implements DataInterface {
 
 	private Connection c;
-	final String selectLogin = "Select * From users where email=?";
-	final String selectLogin1 = "Select * From mentors where id=?";
-	final String selectLogin2 = "Select * From mentees where id=?";
-	final String selectByType = "Select * from users where type=?";
-	// final String selectCorrespondingMentors = "Select * From mentors where
-	// address=?, gender=?, company=?, ";
-	// final String selectCorrespondingMentees = "Select * From mentees where =?";
-	// final String selectCorrespondingPairs = "Select * From pairs where id=?";
-	final String selectByID = "Select * From users where id=?";
-	final String selectMentor = "Select * from users RIGHT JOIN mentors ON users.id = mentors.id";
-	final String selectMentee = "Select * from users RIGHT JOIN mentees ON users.id = mentees.id";
-	final String sessionId = "Select * From sessions where userId=?"; // to
-																		// check
-	final String getMenteeofPair = "Select * From pairs where menteeId=?, activeStatus=?";
-	final String getMentorofPair = "Select * From pairs where mentorId=?, activeStatus=?";
-	final String updateUserBase = "UPDATE users SET firstName=?, lastName=?, phoneNumber=?, gender=?, address=?, notes=?, profilePicture=?, active=? WHERE id=?";
-	final String updateUserMentor = "UPDATE mentors SET experience=?, role=?, company=?, volunteering=?, workHistory=? WHERE id=?";
-	final String updateUserMentee = "UPDATE mentees SET remainingSemesters=?, graduationStatus=?, academicInstitute=?, average=?, academicDicipline1=?, academicDicipline2=?, signedEULA=?, resume=?, gradeSheet=? WHERE id=?";
-	final String deactivateUser = "UPDATE users SET active=0 WHERE id=?";
-	final String addBaseUser = "INSERT INTO users (type, firstName, lastName, email, phoneNumber, password, gender, address, notes, profilePicture, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDicipline2, signedEULA, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
-	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
-	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
-	final String selectAllPairs = "Select * from pairs";
-	final String selectPairId = "Select * From pairs Where pairId=?";
-	final String updateActiveStatus = "UPDATE pairs SET activeStatus=0 WHERE pairId=?";
-	final String selectMeeting = "Select * From activities where mentorId=? ";
-	final String selectMeeting2 = "Select * From activites where menteeId=? ";
-	final String addUserSession = "INSERT INTO sessions (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
-	final String selectMeetingById = "Select * From activities where activityId=?";
-	final String selectMeetingByPair = "Select * From activities where pairId=?";
-	final String addMeeting = "INSERT INTO activities (mentorId,menteeId,pairId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-	final String getAllMentorsWithoutMentees = "select u.*,m.* from users as u right JOIN mentors as m ON u.id = m.id where (m.id  in (select mentorId from pairs where mentorId = m.id  and activeStatus = 0	) and NOT EXISTS(select mentorId	from pairs where mentorId = m.id  and activeStatus = 1)) or not exists(select * from pairs where mentorId=m.id)";
-	final String getAllMenteesWithoutMentor = "select u.*,m.* from users as u right JOIN mentees as m ON u.id = m.id  where (m.id  in (select menteeId from pairs where menteeId = m.id  and activeStatus = 0	)and NOT EXISTS(select menteeId	from pairs	where menteeId = m.id  and activeStatus = 1)) or not exists(select * from pairs where menteeId=m.id)";
-	final String insertAcademicinstitute = "INSERT INTO academicinstitute (name, area, city) VALUES (?,?,?)";
-
-	final String getMeetings1 = "Select * From activities where mentorId=? AND status=? ORDER BY date DESC LIMIT ?, ?";
-	final String insertWorkPlace = "INSERT INTO workplaces (name,area,city,address ) VALUES (?,?,?,?)";
-	final String getMeetings2 = "Select * From activities where menteeId=? AND status=? ORDER BY date DESC LIMIT ?, ? ";
-	final String selectAcademicInstitute = "Select * From academicinstitute";
-	final String selectWorkPlace = "Select * From workplaces";
-	final String selectWorkPlaceId = "Select * From workplaces where id=? ";
-	final String selectAcademicInstituteId = "Select * From academicinstitute where id =?";
 
 	public DataAccess() {
 
@@ -292,7 +248,7 @@ public class DataAccess implements DataInterface {
 		stm2.setInt(11, u.isActive() ? 1 : 0);
 		stm2.executeUpdate();
 
-		stm = c.prepareStatement(selectLogin);
+		stm = c.prepareStatement(SQLStatements.selectUserByEmail);
 		stm.setString(1, u.getEmail());
 		rs = stm.executeQuery();
 		int id = 0;
@@ -559,17 +515,17 @@ public class DataAccess implements DataInterface {
 	@Override
 	public Pair addPair1(int mentorId, int menteeId) throws SQLException {
 		Pair p = null;
-		PreparedStatement stm = c.prepareStatement(selectLogin1);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMentorById);
 		stm.setInt(1, mentorId);
 		ResultSet rs = stm.executeQuery();
 		if (!rs.next()) // user does not exist
 			throw new SQLException("user-mentor does not exist");
-		stm = c.prepareStatement(selectLogin2);
+		stm = c.prepareStatement(SQLStatements.selectMenteeById);
 		stm.setInt(1, menteeId);
 		ResultSet rs1 = stm.executeQuery();
 		if (!rs1.next()) // user does not exist
 			throw new SQLException("user-mentee does not exist");
-		stm = c.prepareStatement(insertPair, Statement.RETURN_GENERATED_KEYS);
+		stm = c.prepareStatement(SQLStatements.insertPair, Statement.RETURN_GENERATED_KEYS);
 		// checking witch user is the mentor and witch is the mentee
 		stm.setInt(1, mentorId);
 		stm.setInt(2, menteeId);
@@ -866,7 +822,7 @@ public class DataAccess implements DataInterface {
 		Mentee u = null;
 		ArrayList<Mentee> menteesList = new ArrayList<Mentee>();
 		Statement stm = c.createStatement();
-		stm.executeQuery(getAllMenteesWithoutMentor);
+		stm.executeQuery(SQLStatements.getAllMenteesWithoutMentor);
 		ResultSet r = stm.getResultSet();
 		while (r.next()) {
 			u = new Mentee(r.getInt(DataContract.UsersTable.COL_ID), r.getString(DataContract.UsersTable.COL_FIRSTNAME),
@@ -897,7 +853,7 @@ public class DataAccess implements DataInterface {
 		Mentor u = null;
 		ArrayList<Mentor> mentorList = new ArrayList<Mentor>();
 		Statement stm = c.createStatement();
-		stm.executeQuery(getAllMentorsWithoutMentees);
+		stm.executeQuery(SQLStatements.getAllMentorsWithoutMentees);
 		ResultSet r = stm.getResultSet();
 		while (r.next()) {
 			u = new Mentor(r.getInt(DataContract.UsersTable.COL_ID), r.getString(DataContract.UsersTable.COL_FIRSTNAME),
@@ -920,7 +876,7 @@ public class DataAccess implements DataInterface {
 	@Override
 	public boolean addWorkPlace(WorkPlace workplace) throws SQLException {
 
-		PreparedStatement stm = c.prepareStatement(insertWorkPlace);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.insertWorkPlace);
 		stm.setString(1, workplace.getCompany());
 		stm.setString(2, workplace.getArea());
 		stm.setString(3, workplace.getCity());
@@ -938,10 +894,10 @@ public class DataAccess implements DataInterface {
 		userType type = getUser(userId).getType();
 
 		if (type == userType.MENTEE) {
-			stm = c.prepareStatement(getMeetings2);
+			stm = c.prepareStatement(SQLStatements.getMeetingsByMentee);
 		}
 		if (type == userType.MENTOR) {
-			stm = c.prepareStatement(getMeetings1);
+			stm = c.prepareStatement(SQLStatements.getMeetingsByMentor);
 		}
 		if (stm != null) {
 
@@ -980,7 +936,7 @@ public class DataAccess implements DataInterface {
 
 	@Override
 	public boolean addAcademicInstitute(AcademicInstitute a) throws SQLException {
-		PreparedStatement stm = c.prepareStatement(insertAcademicinstitute);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.insertAcademicinstitute);
 		stm.setString(1, a.getName());
 		stm.setString(2, a.getArea());
 		stm.setString(3, a.getCity());
@@ -992,7 +948,7 @@ public class DataAccess implements DataInterface {
 	public ArrayList<AcademicInstitute> getAllAcademiclnstitution() throws SQLException {
 		ArrayList<AcademicInstitute> a = new ArrayList<AcademicInstitute>();
 		AcademicInstitute academic = null;
-		PreparedStatement stm = c.prepareStatement(selectAcademicInstitute);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectAcademicInstitute);
 		ResultSet rs = stm.executeQuery();
 		while (rs.next()) {
 			academic = new AcademicInstitute(rs.getInt(DataContract.AcademicInstituteTable.COL_ID),
@@ -1008,7 +964,7 @@ public class DataAccess implements DataInterface {
 	public ArrayList<WorkPlace> getAllWorkingPlace() throws SQLException {
 		ArrayList<WorkPlace> workplace = new ArrayList<>();
 		WorkPlace w = null;
-		PreparedStatement stm = c.prepareStatement(selectWorkPlace);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectWorkPlace);
 		ResultSet rs = stm.executeQuery();
 		while (rs.next()) {
 			w = new WorkPlace(rs.getInt(DataContract.WorkplacesTable.COL_ID),
@@ -1043,7 +999,7 @@ public class DataAccess implements DataInterface {
 	@Override
 	public WorkPlace getWorkPlaceById(int id) throws SQLException {
 		WorkPlace work = null;
-		PreparedStatement stm = c.prepareStatement(selectWorkPlaceId);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectWorkPlaceId);
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
@@ -1056,7 +1012,7 @@ public class DataAccess implements DataInterface {
 	@Override
 	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException {
 		AcademicInstitute a = null;
-		PreparedStatement stm = c.prepareStatement(selectAcademicInstituteId);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectAcademicInstituteId);
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {

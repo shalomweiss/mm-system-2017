@@ -79,7 +79,7 @@ public class AddMentee extends HttpServlet {
 		Float remSemesters= Float.valueOf(uRemSemesters);
 		int uGender= Integer.parseInt(gender);
 		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
-//		int uAcademicInstitution= 1;
+		//int uAcademicInstitution= 1;
 		boolean SignedEULA=Boolean.parseBoolean(Signed);
 //		 try {
 //			 uGender = Integer.parseInt(gender);
@@ -133,6 +133,11 @@ public class AddMentee extends HttpServlet {
 		if(resId>0){
 			try {
 				user=da.getUser(resId);
+				String to = uEmail;
+			    String subject = "Thank you for registering to Mentorem project";
+			    String body = "Hi "+uFirstName+" "+uLastName+",\nWe appreciate your registeration for Mentorem project,\n" +"Here is your login username and passwod: \n\nUsername: "+uEmail+"\nPassword: " +uPass+"\n\nHave a good day,\nTsofen team";
+				SendingMail.sendFromGMail(to,subject,body);
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
