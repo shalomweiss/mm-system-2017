@@ -127,11 +127,18 @@
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  
 	</div>
 </nav>
+<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner">
+	
+	
+	
+	
+	
+	
+	</div>
 	<h1>New Pairs</h1>
 	<section class="Pairs">
-
-
-	
 
 <div class="container-fluid" >
 
