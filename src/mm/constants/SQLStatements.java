@@ -243,4 +243,84 @@ public class SQLStatements {
 			+ DataContract.MeetingTable.TABLE_NAME + " SET "
 			+ DataContract.MeetingTable.COL_NOTE + "=? WHERE "
 			+ DataContract.MeetingTable.COL_ACTIVITYID + " = ? ";
+	
+	public final static String getAllMenteesWithoutMentor = "select u.*,m.* from "
+			+ DataContract.UsersTable.TABLE_NAME + " as u right JOIN "
+			+ DataContract.MenteeTable.TABLE_NAME + " as m ON u."
+			+ DataContract.UsersTable.COL_ID + " = m."
+			+ DataContract.MenteeTable.COL_ID + " where (m."
+			+ DataContract.MenteeTable.COL_ID +" in (select "
+			+ DataContract.PairsTable.COL_MENTEEID + " from "
+			+ DataContract.PairsTable.TABLE_NAME + " where "
+			+ DataContract.PairsTable.COL_MENTEEID + " = m."
+			+ DataContract.MenteeTable.COL_ID + " and "
+			+ DataContract.PairsTable.COL_ACTIVESTATUS + " = 0) and NOT EXISTS(select "
+			+ DataContract.PairsTable.COL_MENTEEID + " from "
+			+ DataContract.PairsTable.TABLE_NAME + " where "
+			+ DataContract.PairsTable.COL_MENTEEID + " = m."
+			+ DataContract.MenteeTable.COL_ID + " and "
+			+ DataContract.PairsTable.COL_ACTIVESTATUS + " = 1)) or not exists(select * from "
+			+ DataContract.PairsTable.TABLE_NAME + " where "
+			+ DataContract.PairsTable.COL_MENTEEID + "=m."
+			+ DataContract.MenteeTable.COL_ID + ")";
+	
+	public final static String getAllMentorsWithoutMentees = "select u.*,m.* from "
+			+ DataContract.UsersTable.TABLE_NAME + " as u right JOIN "
+			+ DataContract.MentorsTable.TABLE_NAME + " as m ON u."
+			+ DataContract.UsersTable.COL_ID + " = m."
+			+ DataContract.MentorsTable.COL_ID + " where (m."
+			+ DataContract.MentorsTable.COL_ID +" in (select "
+			+ DataContract.PairsTable.COL_MENTORID + " from "
+			+ DataContract.PairsTable.TABLE_NAME + " where "
+			+ DataContract.PairsTable.COL_MENTORID + " = m."
+			+ DataContract.MentorsTable.COL_ID + " and "
+			+ DataContract.PairsTable.COL_ACTIVESTATUS + " = 0) and NOT EXISTS(select "
+			+ DataContract.PairsTable.COL_MENTORID + " from "
+			+ DataContract.PairsTable.TABLE_NAME + " where "
+			+ DataContract.PairsTable.COL_MENTORID + " = m."
+			+ DataContract.MentorsTable.COL_ID + " and "
+			+ DataContract.PairsTable.COL_ACTIVESTATUS + " = 1)) or not exists(select * from "
+			+ DataContract.PairsTable.TABLE_NAME + " where "
+			+ DataContract.PairsTable.COL_MENTORID + "=m."
+			+ DataContract.MentorsTable.COL_ID + ")";
+	
+	public final static String selectWorkPlace = "Select * From "
+			+ DataContract.WorkplacesTable.TABLE_NAME;
+	
+	public final static String selectWorkPlaceId = "Select * From "
+			+ DataContract.WorkplacesTable.TABLE_NAME + " where "
+			+ DataContract.WorkplacesTable.COL_ID + "=?";
+	
+	public final static String insertWorkPlace = "INSERT INTO "
+			+ DataContract.WorkplacesTable.TABLE_NAME + " ("
+			+ DataContract.WorkplacesTable.COL_NAME + ","
+			+ DataContract.WorkplacesTable.COL_AREA + ","
+			+ DataContract.WorkplacesTable.COL_CITY + ","
+			+ DataContract.WorkplacesTable.COL_ADDRESS + " ) VALUES (?,?,?,?)";
+	
+	public final static String selectAcademicInstitute = "Select * From "
+			+ DataContract.AcademicInstituteTable.TABLE_NAME;
+	
+	public final static String selectAcademicInstituteId = "Select * From "
+			+ DataContract.AcademicInstituteTable.TABLE_NAME + " where "
+			+ DataContract.AcademicInstituteTable.COL_ID + "=?";
+	
+	public final static String insertAcademicinstitute = "INSERT INTO "
+			+ DataContract.AcademicInstituteTable.TABLE_NAME + " ("
+			+ DataContract.AcademicInstituteTable.COL_NAME + ", "
+			+ DataContract.AcademicInstituteTable.COL_AREA + ", "
+			+ DataContract.AcademicInstituteTable.COL_CITY + ") VALUES (?,?,?)";
+	
+	public final static String getMeetingsByMentor = "Select * From "
+			+ DataContract.MeetingTable.TABLE_NAME + " where "
+			+ DataContract.MeetingTable.COL_MENTORID + "=? AND "
+			+ DataContract.MeetingTable.COL_STATUS + "=? ORDER BY "
+			+ DataContract.MeetingTable.COL_DATE + " DESC LIMIT ?, ?";
+	
+	public final static String getMeetingsByMentee = "Select * From "
+			+ DataContract.MeetingTable.TABLE_NAME + " where "
+			+ DataContract.MeetingTable.COL_MENTEEID + "=? AND "
+			+ DataContract.MeetingTable.COL_STATUS + "=? ORDER BY "
+			+ DataContract.MeetingTable.COL_DATE + " DESC LIMIT ?, ?";
+	
 }
