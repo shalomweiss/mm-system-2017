@@ -12,8 +12,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<head>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<head>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css"><%@include file="WEB-INF/css/styles.css" %>
 </style>
@@ -127,7 +128,8 @@
 		  <a class="active" href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
 		  <a href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
-		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  
+		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
+		   
 	</div>
 </nav>
 <div class="topPart"> </div>
@@ -141,6 +143,14 @@
 	
 	</div>
 	<h1>New Pairs</h1>
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner">
+	
+	
+	
+	
+	
 	<section class="Pairs">
 
 <div class="container-fluid" >
@@ -335,6 +345,7 @@ $(function(){
 </div>
      <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
 </section>
+</div>
 </body>
 
 </html>

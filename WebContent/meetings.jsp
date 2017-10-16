@@ -107,7 +107,9 @@ Mentee:
 		  <c:out value="${Pairs.getPair().getMentee().lastName}"></c:out>, 
 	 <c:out  value="${Pairs.getPair().getMentee().phoneNumber}"></c:out>
 </h1>
-
+<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner">
 <section>
   <!--for demo wrap--> 
   <div class="tbl-header-meeting">
@@ -161,3 +163,9 @@ Mentee:
       </tbody>
     </table>
   </div>
+  
+  </section>
+  </div>
+  </body>
+  </html>
+  
