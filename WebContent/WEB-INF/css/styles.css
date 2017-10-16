@@ -450,3 +450,54 @@ tr.selected td.inf{
   position: relative;
   transition: all 2s ease-in-out;
 }
+
+
+
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#gender1,#gender2{
+	height: 36px;
+}
+
+
+ul {
+    list-style-type: none;
+    padding-left: 90px;
+    overflow: hidden;
+
+}
+
+li {
+    float: left;
+    border-radius: 10px;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover:not(.active) {
+    background-color: #eca1a6;
+    text-color: #fff;
+    border-radius: 5px;
+}
+
+.activeS{
+	background-color: #eca1a6;
+	border-radius: 5px;
+	
+}
+
+.btn {
+    background-color: #bdcebe;
+}
