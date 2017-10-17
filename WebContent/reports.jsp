@@ -298,10 +298,18 @@ $("#submit3").click(function() {
   <label class="col-md-4 control-label">Work place</label>  
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
+    <select name="company">
+		<c:forEach var="item" items="${NewWorkPlace}">
+			<option value="${item.id}">${item.company}</option>
+		</c:forEach>
+	</select>
+								
+    <!-- 
+    
         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
   <input name="work" class="form-control" type="text" id="work"
   onblur="if(this.value==''){ this.value='work'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='work'){this.value=''; this.style.color='#000';}">
+	onfocus="if(this.value=='work'){this.value=''; this.style.color='#000';}"> -->
     </div>
   </div>
 </div>
@@ -390,9 +398,16 @@ $("#submit3").click(function() {
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+        
+       <select name="uAcademicInstitution">
+		<c:forEach var="item" items="${AcadimicIn}">
+				<option value="${item.id}">  ${item.name}</option>
+		</c:forEach>
+		</select>  
+   <!--      
   <input name="website" class="form-control" type="text" id="institution"
   onblur="if(this.value==''){ this.value='institution'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">
+	onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">--> 
     </div>
   </div>
 </div>
