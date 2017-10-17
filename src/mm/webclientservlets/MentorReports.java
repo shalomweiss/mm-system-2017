@@ -48,16 +48,10 @@ public class MentorReports extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		Gson gson = new Gson();
-	   // System.out.println("USER with not json " +getUsers);
-//		String userResult = gson.toJson(allMentors, Constants.USER_CLASS);
-		
-//	    System.out.println("USer with JSON" + userResult);	    
+		System.out.println(""+address+"  "+gender+"kk "+company+" "+inPair);
+	    System.out.println("MentorsReports" + allMentors);	    
 		request.setAttribute("mentorReports", allMentors);
-//	    PrintWriter writer = response.getWriter();
-//		writer.println(userResult);
-//		writer.close();
+
 		RequestDispatcher req = request.getRequestDispatcher("");
 		req.forward(request, response);
 

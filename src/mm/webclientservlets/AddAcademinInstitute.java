@@ -17,13 +17,13 @@ import mm.model.AcademicInstitute;
  * Servlet implementation class AddAcademinInstitute
  */
 @WebServlet("/AddAcademinInstitute")
-public class AddAcademicInstitution extends HttpServlet {
+public class AddAcademinInstitute extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddAcademicInstitution() {
+    public AddAcademinInstitute() {
         super();
         // TODO Auto-generated constructor stub
     }

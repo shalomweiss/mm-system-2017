@@ -30,34 +30,31 @@ public class GetMentorsAndMentees extends HttpServlet {
      */
     public GetMentorsAndMentees() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	//	String NextPage = request.getParameter("jsp");
+	
 		ArrayList<User> ArrMentors = new ArrayList<User>();
 		DataAccess da = new DataAccess();
 		 try {
 		 ArrMentors = da.getUsers(userType.MENTOR);
 		 } catch (SQLException e) {
-		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
 		
 		request.setAttribute("Mentors", ArrMentors);
-		System.out.println("MENTORS: " + ArrMentors);
+	
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
 		
 		ArrayList<Mentee> arrMentees = new ArrayList<Mentee>();
 		 try {
-		// ArrMentees = da.getUsers(userType.MENTEE);
 			 arrMentees = da.getAllMenteesWithoutMentor();
 		 } catch (SQLException e) {
-		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
 		
@@ -73,7 +70,7 @@ public class GetMentorsAndMentees extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request,response);
 	}
 

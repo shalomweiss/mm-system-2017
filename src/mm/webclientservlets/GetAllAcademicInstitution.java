@@ -10,11 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import mm.da.DataAccess;
 import mm.model.AcademicInstitute;
 import mm.model.Meeting.meetingType;
-import mm.model.Mentee;
 import mm.model.WorkPlace;
 
 /**
@@ -37,8 +35,6 @@ public class GetAllAcademicInstitution extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		//String NextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();		
 		
 		ArrayList<meetingType> meetingTypes=new ArrayList<meetingType>();
@@ -47,7 +43,6 @@ public class GetAllAcademicInstitution extends HttpServlet {
 		meetingTypes.add(meetingType.SMS);
 
 		
-		System.out.println("meetings"+meetingTypes);
 
 		ArrayList<AcademicInstitute> allAcademicInstitutes = new ArrayList<AcademicInstitute>();
 		try {
@@ -62,8 +57,7 @@ public class GetAllAcademicInstitution extends HttpServlet {
 			workPlaces = da.getAllWorkingPlace();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}	
 		request.setAttribute("AllAcademicInstitutes", allAcademicInstitutes);
 		request.setAttribute("AllWorkPlaces", workPlaces);
 		request.setAttribute("meetingType", meetingTypes);

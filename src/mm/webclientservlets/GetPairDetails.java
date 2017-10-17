@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import mm.da.DataAccess;
 import mm.model.Meeting;
 import mm.model.Pair;
-import mm.model.PairDetails;
 
 /**
  * Servlet implementation class GetPairById
@@ -43,26 +42,20 @@ public class GetPairDetails extends HttpServlet {
 		int pairId =Integer.parseInt( request.getParameter("pairId"));
         String nextPage = request.getParameter("jsp");
         DataAccess da = new DataAccess();
-            Pair pair = null;
+            Pair pair = new Pair();
           try {
                pair = da.getPair(pairId);
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-          ArrayList<Meeting> allMeetings = null;
+          ArrayList<Meeting> allMeetings = new ArrayList<Meeting>();
           try {
             allMeetings= da.getMeetingsByPairId(pairId);
            } catch (SQLException e) {
                // TODO Auto-generated catch block
                e.printStackTrace();
            }
-//          PairDetails pairDetails=new PairDetails();
-//          pairDetails.setPair(pair);
-//          pairDetails.setMeetings(allMeetings);
-//          
-    //    request.setAttribute("Pairs", pairDetails);	
-        
 
         response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);

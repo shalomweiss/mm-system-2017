@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonObject;
-import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
 import util.ServerUtils;
 
