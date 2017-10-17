@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
 import mm.model.AcademicInstitute;
+import mm.model.Meeting.meetingType;
 import mm.model.Mentee;
 import mm.model.WorkPlace;
 
@@ -38,7 +39,16 @@ public class GetAllAcademicInstitution extends HttpServlet {
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		//String NextPage = request.getParameter("jsp");
-		DataAccess da = new DataAccess();
+		DataAccess da = new DataAccess();		
+		
+		ArrayList<meetingType> meetingTypes=new ArrayList<meetingType>();
+		meetingTypes.add(meetingType.FACE_TO_FACE);
+		meetingTypes.add(meetingType.PHONE);
+		meetingTypes.add(meetingType.SMS);
+
+		
+		System.out.println("meetings"+meetingTypes);
+
 		ArrayList<AcademicInstitute> allAcademicInstitutes = new ArrayList<AcademicInstitute>();
 		try {
 			allAcademicInstitutes = da.getAllAcademiclnstitution();
@@ -56,6 +66,7 @@ public class GetAllAcademicInstitution extends HttpServlet {
 		
 		request.setAttribute("AllAcademicInstitutes", allAcademicInstitutes);
 		request.setAttribute("AllWorkPlaces", workPlaces);
+		request.setAttribute("meetingType", meetingTypes);
 		System.out.println("ACADEMIC"+allAcademicInstitutes);
 		RequestDispatcher req = request.getRequestDispatcher("reports.jsp");
 		req.forward(request, response);

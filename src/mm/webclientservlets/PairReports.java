@@ -18,6 +18,8 @@ import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.Pair;
 import mm.model.User;
+import mm.model.Meeting;
+import mm.model.Meeting.meetingType;
 
 @WebServlet("/PairReports")
 public class PairReports extends HttpServlet {
@@ -33,12 +35,21 @@ public class PairReports extends HttpServlet {
 		DataAccess da = new DataAccess();
 		String nextPage = request.getParameter("jsp");
 		
+		int numOfMeetings = Integer.parseInt(request.getParameter("numOfMeetings"));
+		long startingAt = Long.parseLong(request.getParameter("startingAt"));
+		long endingAt = Long.parseLong(request.getParameter("endingAt"));
+		meetingType meetingT = meetingType.valueOf( request.getParameter("meetingType"));
 		String mentorName = request.getParameter("MentorName");
 		String mentorLastName = request.getParameter("MentorLast");
 
 
 		ArrayList<Pair> allPairs=new ArrayList<Pair>();
-	//	allPairs = da.getAllCorrespondingPairs(mentorName,mentorLastName);
+		try {
+			allPairs = da.getAllCorrespondingPairs(numOfMeetings,mentorName,mentorLastName,startingAt,endingAt,meetingT);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Gson gson = new Gson();
 	   // System.out.println("USER with not json " +getUsers);

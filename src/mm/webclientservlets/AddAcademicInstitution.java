@@ -12,19 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
 import mm.model.AcademicInstitute;
-import mm.model.WorkPlace;
 
 /**
  * Servlet implementation class AddAcademinInstitute
  */
 @WebServlet("/AddAcademinInstitute")
-public class AddAcademinInstitute extends HttpServlet {
+public class AddAcademicInstitution extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddAcademinInstitute() {
+    public AddAcademicInstitution() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,6 +44,7 @@ public class AddAcademinInstitute extends HttpServlet {
 		String Area=request.getParameter("area");
 		String City=request.getParameter("city");
 	
+		
 		RequestDispatcher req = null;
 		 
 		AcademicInstitute acadimicIn= new AcademicInstitute(0,name,Area,City);

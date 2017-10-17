@@ -35,17 +35,12 @@ public class MentorReports extends HttpServlet {
 		String address = request.getParameter("uAddress");
 		int gender = Integer.parseInt(request.getParameter("uGender"));
 		int company = Integer.parseInt(request.getParameter("uCompany"));
-		Boolean inPair = Boolean.parseBoolean(request.getParameter("inPair"));
-		int intInPair = -1;
-		if(inPair != null){
-			intInPair = 0;
-			if(inPair == true){
-				intInPair = 1;
-			}
-		}
+		int inPair = Integer.parseInt(request.getParameter("inPair"));
+
+		
 		ArrayList<Mentor> allMentors=new ArrayList<Mentor>();
 		try {
-			allMentors = da.getAllCorrespondingMentors(address, gender, company, intInPair);
+			allMentors = da.getAllCorrespondingMentors(address, gender, company, inPair);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
