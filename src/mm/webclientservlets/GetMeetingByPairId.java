@@ -2,6 +2,7 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -65,6 +66,8 @@ public class GetMeetingByPairId extends HttpServlet {
           System.out.println("Meetings"+allMeetings);
           request.setAttribute("Pairs", pairDetails);
           request.setAttribute("meetings", allMeetings);	
+          Date d = new Date(1220227200L * 1000);
+          System.out.println("DATE: "+d );
           RequestDispatcher req = null;
 		  req=request.getRequestDispatcher("meetings.jsp");
 	    	req.forward(request, response);	
