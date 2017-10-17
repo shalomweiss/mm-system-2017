@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import mm.da.DataAccess;
 import mm.model.AcademicInstitute;
 import mm.model.Mentee;
+import mm.model.WorkPlace;
 
 /**
  * Servlet implementation class GetAllAcademicInstitution
@@ -44,10 +45,20 @@ public class GetAllAcademicInstitution extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		ArrayList<WorkPlace> workPlaces = new ArrayList<WorkPlace>();
+		
+		try {
+			workPlaces = da.getAllWorkingPlace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		request.setAttribute("AllAcademicInstitutes", allAcademicInstitutes);
+		request.setAttribute("AllWorkPlaces", workPlaces);
 		System.out.println("ACADEMIC"+allAcademicInstitutes);
-		//RequestDispatcher req = request.getRequestDispatcher(NextPage);
-		//req.forward(request, response);
+		RequestDispatcher req = request.getRequestDispatcher("reports.jsp");
+		req.forward(request, response);
 	}
 
 	/**
