@@ -255,13 +255,21 @@ section.Pairs{
 ::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
 }
+a.createPairs{
+	position: fixed;
+    z-index: 8;
+    top: 50%;
+    width: calc(14% - 80px) !important;
+    height: 12% !important;
 
+    left: calc(80px + 43%) !important;
+}
 
 tbody{
 	background-color: white;
 }
 tbody.mentee{
-	background-color: white;
+	background-color: rgba(255, 193, 7, 0.7);
 }
 tbody.mentor{
 	background-color: rgba(108,136,225,0.7);
@@ -503,13 +511,10 @@ li a:hover:not(.active) {
     text-color: #fff;
     border-radius: 5px;
 }
-
 .activeS{
 	background-color: #eca1a6;
 	border-radius: 5px;
-	
 }
-
 .btn {
     background-color: #bdcebe;
 }

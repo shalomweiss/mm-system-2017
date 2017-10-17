@@ -565,7 +565,7 @@ button {
 }
 
 tr.stam:hover {
-	background-color: #f5f5f5;
+	background-color: rgba(255,193,7,0.7);
 	opacity: 0.9;
 	cursor: pointer;
 }
@@ -575,7 +575,7 @@ td {
 }
 
 #table_detail tr:hover {
-	background-color: #F2F2F2;
+	background-color: rgba(255,193,7,0.7);
 }
 
 #table_detail .hidden_row {
@@ -627,7 +627,7 @@ td {
 
 			<table id="table_detail" cellpadding="0" cellspacing="0"  border="0">
 			<div class="tbl-content" style="height: 100%">
-				<tbody class="mentee" >
+				<tbody >
 					<c:forEach items="${Mentees}" var="ment">
 					
 						<tr class="stam"
@@ -649,8 +649,7 @@ td {
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks"
 											onclick="showDetails(event, 'Mentor${ment.id}')">Mentor</button>
-										<button class="tablinks" style="float: right;"
-											onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
+										<button class="tablinks" style="float: right;" onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
 
 								</div>
 								<form id="form${ment.id}" action="UpdateMentee" method="post">
