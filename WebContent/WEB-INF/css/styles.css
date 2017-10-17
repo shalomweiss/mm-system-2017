@@ -511,12 +511,12 @@ li a {
     text-decoration: none;
 }
 li a:hover:not(.active) {
-    background-color: #eca1a6;
+    background-color: #99b3ff;
     text-color: #fff;
     border-radius: 5px;
 }
 .activeS{
-	background-color: #eca1a6;
+	background-color: #99b3ff;
 	border-radius: 5px;
 }
 .btn {
