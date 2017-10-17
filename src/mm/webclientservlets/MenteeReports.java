@@ -37,8 +37,20 @@ public class MenteeReports extends HttpServlet {
 		Boolean inPair = Boolean.parseBoolean(request.getParameter("inPair"));
 		String academicDicipline1 = request.getParameter("uAcademicDicipline1");
 		ArrayList<Mentee> allMentees=new ArrayList<Mentee>();
-		allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
-				academicDicipline1);
+		int intInPair = -1;
+		if(inPair != null){
+			intInPair = 0;
+			if(inPair == true){
+				intInPair = 1;
+			}
+		}
+		try {
+			allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, intInPair,
+					academicDicipline1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	   // System.out.println("USER with not json " +getUsers);
 		Gson gson = new Gson();
 		String userResult = gson.toJson(allMentees, Constants.USER_CLASS);
