@@ -40,6 +40,7 @@ public class MenteeReports extends HttpServlet {
 		allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
 				academicDicipline1);
 	   // System.out.println("USER with not json " +getUsers);
+		Gson gson = new Gson();
 		String userResult = gson.toJson(allMentees, Constants.USER_CLASS);
 		
 	//    System.out.println("USer with JSON" + userResult);	    
