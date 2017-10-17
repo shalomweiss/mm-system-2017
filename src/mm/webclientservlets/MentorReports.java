@@ -36,10 +36,16 @@ public class MentorReports extends HttpServlet {
 		String address = request.getParameter("uAddress");
 		int gender = Integer.parseInt(request.getParameter("uGender"));
 		int company = Integer.parseInt(request.getParameter("uCompany"));
-		Boolean inPair = Boolean.parseBoolean(request.getParameter("inPair"));
+		int inPair = Integer.parseInt(request.getParameter("inPair"));
 
+		
 		ArrayList<Mentor> allMentors=new ArrayList<Mentor>();
-		allMentors = da.getAllCorrespondingMentors(address, gender, company, inPair);
+		try {
+			allMentors = da.getAllCorrespondingMentors(address, gender, company, inPair);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Gson gson = new Gson();
 	   // System.out.println("USER with not json " +getUsers);
