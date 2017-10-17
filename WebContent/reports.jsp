@@ -394,7 +394,7 @@ $("#submit3").click(function() {
         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
         
        <select name="uAcademicInstitution">
-		<c:forEach var="item" items="${AllAcadimicInstitutes}">
+		<c:forEach var="item" items="${AllAcademicInstitutes}">
 				<option value="${item.id}">  ${item.name}</option>
 		</c:forEach>
 		</select>  
