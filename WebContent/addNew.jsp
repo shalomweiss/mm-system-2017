@@ -57,7 +57,7 @@ $("#submit1").click(function() {
         var name = $("#name2").val();
         var area = $("#area2").val();
         var address = $("#address2").val();
-        $.post("AddAcademicInstitution",
+        $.post("AddAcademinInstitute",
                 {
                 name: name2,
                 area: area2,
