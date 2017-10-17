@@ -36,7 +36,7 @@ function showMentee() {
     div = document.getElementById('search1');
     div2 = document.getElementById('search2');
     div3 = document.getElementById('search3');
-  
+  	
     div.style.display = "none";
     div2.style.display = "";
     div3.style.display = "none";
@@ -95,13 +95,14 @@ $("#submit1").click(function() {
     var work = $("#work").val();
     var gender = $("#gender1").val();
     var pair=$('input[name=pair1]:checked', '#formP1').serialize();
-  
+    pair=pair[6];
+  	console.log(pair);
     $.post("MentorReports",
             {
             uAddress: city,
             uCompany: work,
             uGender: gender,
-            inpair: pair
+            inPair: pair
         },
     function(data,status){
     	var table=document.getElementsByClassName("table1")[0];
@@ -136,7 +137,7 @@ $("#submit2").click(function() {
     var academic = $("#academic").val();
     var gender = $("#gender2").val();
     var pair=$('input[name=pair2]:checked', '#formP2').serialize();
-    
+    pair=pair[6];
     $.post("MenteeReports",
             {
             uAddress: city,
@@ -277,9 +278,9 @@ $("#submit3").click(function() {
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select name="uGender" class="form-control selectpicker" id="gender1" >
       <option></option>
-      <option value="male">male</option>
-      <option value="female">female</option>
-      <option value="other">other</option>
+      <option value="0">male</option>
+      <option value="1">female</option>
+
     </select>
   </div>
 </div>
@@ -294,7 +295,7 @@ $("#submit3").click(function() {
     <div class="input-group">
     <select name="uCompany" class="form-control selectpicker">
 		<c:forEach var="item" items="${AllWorkPlaces}">
-			<option value="${item.id}">${item.company}</option>
+			<option id="work" value="${item.id}">${item.company}</option>
 		</c:forEach>
 	</select>
 								
@@ -314,12 +315,12 @@ $("#submit3").click(function() {
                         <div class="col-md-4">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="pair1" id="pair1" value="yes" /> Yes
+                                    <input type="radio" name="pair1" id="pair1" value="1" /> Yes
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="pair1" id="pair1" value="no" /> No
+                                    <input type="radio" name="pair1" id="pair1" value="0" /> No
                                 </label>
                             </div>
                         </div>
@@ -376,9 +377,9 @@ $("#submit3").click(function() {
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
     <select name="uGender" class="form-control selectpicker" id="gender2">
       <option value=" " ></option>
-      <option>male</option>
-      <option>female</option>
-      <option>other</option>
+      <option value="0">male</option>
+      <option value="1">female</option>
+      
     </select>
   </div>
 </div>
@@ -395,7 +396,7 @@ $("#submit3").click(function() {
         
        <select name="uAcademicInstitution" class="form-control selectpicker">
 		<c:forEach var="item" items="${AllAcademicInstitutes}">
-				<option value="${item.id}">  ${item.name}</option>
+				<option id="institution" value="${item.id}">  ${item.name}</option>
 		</c:forEach>
 		</select>  
    <!--      
@@ -423,13 +424,14 @@ $("#submit3").click(function() {
                         <label class="col-md-4 control-label">In a pair?</label>
                         <div class="col-md-4">
                             <div class="radio">
-                                <label>
-                                    <input type="radio" name="pair2" id="pair2" value="yes" /> Yes
-                                </label>
+                              <label>
+                                    <input type="radio" name="pair2" id="pair2" value="1" /> Yes
+                               
+                                   </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="pair2" id="pair2" value="no" /> No
+                                    <input type="radio" name="pair2" id="pair2" value="0" /> No
                                 </label>
                             </div>
                         </div>

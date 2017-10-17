@@ -33,10 +33,13 @@ public class MentorReports extends HttpServlet {
 		DataAccess da = new DataAccess();
 		
 		String address = request.getParameter("uAddress");
-		int gender = Integer.parseInt(request.getParameter("uGender"));
-		int company = Integer.parseInt(request.getParameter("uCompany"));
-		int inPair = Integer.parseInt(request.getParameter("inPair"));
-
+		String gender1 = request.getParameter("uGender");
+		String company1 = request.getParameter("uCompany");
+		 String inPair1 = request.getParameter("inPair");
+		 System.out.println(inPair1);
+		int gender=Integer.parseInt(gender1);
+		int company=Integer.parseInt(company1);
+		int inPair=Integer.parseInt(inPair1);
 		
 		ArrayList<Mentor> allMentors=new ArrayList<Mentor>();
 		try {
