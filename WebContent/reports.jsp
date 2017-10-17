@@ -217,359 +217,7 @@ $("#submit3").click(function() {
 });
 </script>
 </head>
-<!--  
-<style>
 
-
-h1{
-    font-size: 37px;
-  letter-spacing: 8px;
-  text-shadow: 2px 4px 4px #CCCCCC;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 15px;
-  position: absolute;
-	top:5%;
-	right:0;
-	left:90px;
-}
-h4{
-  font-size: 40px;
-  text-shadow: 2px 4px 4px #CCCCCC;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 100;
-  text-align: center;
-  margin-bottom: 10px;
-}
-table{
-  width:100%;
-  table-layout: fixed;
-}
-.tbl-header{
-  background-color: rgba(255,255,255,0.3);
- }
-.tbl-content{
-  height:300px;
-  overflow-x:auto;
-  margin-top: 0px;
-  border: 1px solid rgba(255,255,255,0.3);
-}
-th{
-  padding: 20px 15px;
-  text-align: left;
-  font-weight: bold;
-  font-size: 16px;
-  color: #fff;
-  text-transform: uppercase;
-  word-wrap: break-word;
-}
-td{
-  padding: 15px;
-  text-align: left;
-  vertical-align:middle;
-  font-weight: 600;
-  font-size: 16px;
-  border-bottom: solid 1px rgba(255,255,255,0.1);
-  border-right: solid 1px rgba(255,255,255,0.3);
-  word-wrap: break-word;
-}
-#colorMentee, #mentee{
-	color: #B93A32;
-}
-#colorMentor, #mentor{
-	color: #005960;
-}
-
-
-/* demo styles */
-
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
-body{
-  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-  background: linear-gradient(to right, #25c481, #25b7c4);
-  font-family: 'Century Gothic', sans-serif;
-}
-section{
-  top:0;
-  margin-top: 150px; 
-  margin-bottom: 50px;
-  margin-left: 100px;
-  margin-right: 10px;
-
-}
-
-
-/* follow me template */
-.made-with-love {
-  margin-top: 40px;
-  padding: 10px;
-  clear: left;
-  text-align: center;
-  font-size: 10px;
-  font-family: arial;
-  color: #fff;
-}
-.made-with-love i {
-  font-style: normal;
-  color: #F50057;
-  font-size: 14px;
-  position: relative;
-  top: 2px;
-}
-.made-with-love a {
-  color: #fff;
-  text-decoration: none;
-}
-.made-with-love a:hover {
-  text-decoration: underline;
-}
-
-
-/* for custom scrollbar for webkit browser*/
-
-::-webkit-scrollbar {
-    width: 6px;
-} 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-} 
-::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-}
-
-body {
-	top:0;
-	margin:0
-}
-
-.icon-bar {
-	top:30vh;
-    width: 90px;
-    background-color: #555;
-}
-.icon-bar a {
-    display: block;
-    text-align: center;
-    padding: 16px;
-    transition: all 0.3s ease;
-    color: white;
-    font-size: 36px;
-}
-
-.icon-bar a:hover {
-    background-color: #000;
-}
-
-.active {
-    background-color: #25c481 !important;
-}
-i{
-margin-right:2px;
-}
-body{
-
-	background-color: #cfd9df;
-	height:100%;
-}
-html{
-	
-	height:100%;
-}
-nav.icon-bar{
-	top:0;
-	position:fixed;
-	height:100%;
-	background-color: #555;
-}
-div.icon-bar{
-    margin-left: auto;
-    margin-right: auto; 
-	display: table-cell;
-    vertical-align: middle;
-	position:fixed;
-	top: calc((100% - 490px) / 2);
-	bottom:0;
-}
-h1{
-
-	top:5%;
-	right:0;
-	left:90px;
-}
-button{
-outline: none !important;
-}
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited,.btn-primary:focus {
-    background-color: #67d2bc !important;
-	border-color: #67d2bc !important;
-	outline: none !important;
-	color: white !important;
-	cursor: pointer !important;
-}
-
-
-.button-fill {
-  text-align: center;
-  background: #ccc;
-  display: inline-block;
-  position: relative;
-  text-transform: uppercase;
-  margin: 0px;
-}
-.button-fill.grey {
-  background: #445561;
-  color: white;
-  border-radius: 5px;
-}
-
-.button-text {
-  padding: 0 25px;
-  padding-right: 20px;
-  padding-left: 20px;
-  line-height: 56px;
-  letter-spacing: .1em;
-}
-.button-inside {
-  width: 0px;
-  height: 54px;
-  margin: 0;
-  float: left;
-  position: absolute;
-  top: 1px;
-  left: 50%;
-  line-height: 54px;
-  color: #fff;
-  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-  text-align: center;
-  overflow: hidden;
-  -webkit-transition: width 0.5s, left 0.5s, margin 0.5s;
-  -moz-transition: width 0.5s, left 0.5s, margin 0.5s;
-  -o-transition: width 0.5s, left 0.5s, margin 0.5s;
-  transition: width 0.5s, left 0.5s, margin 0.5s;
-}
-.button-inside.full {
-  width: 100%;
-  left: 0%;
-  top: 0;
-  margin-right: -50px;
-  border: 1px solid #445561;
-  border-radius: 5px;
-}
-.inside-text {
-  text-align: center;
-  position: absolute;
-  right: 50%;
-  letter-spacing: .1em;
-  -webkit-transform: translateX(50%);
-  -moz-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
-}
-
-
-.buttons{
- 	position:relative;
-	margin-top:10px;
-	margin-left: 190px;
-  	
-}
-
-button{
-	margin-right: 10px;
-}
-.searchMentor, .searchMentee, .searchPair {
-position: relative;
-left: 0;
-}
-.menteeT, .mentorT, .pairT {
-position: absolute;
-left: 0;
-}
-
-button {
-	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
-	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
-	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
-	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
-	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
-	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
-	background-color:#ffffff;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	border:1px solid #dcdcdc;
-	display:inline-block;
-	cursor:pointer;
-	color:#666666;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
-}
-button:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
-	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
-	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
-	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
-	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
-	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
-	background-color:#f6f6f6;
-}
-button:active {
-	position:relative;
-	top:1px;
-}
-
-ul {
-    list-style-type: none;
-    padding-left: 90px;
-    overflow: hidden;
-
-}
-
-li {
-    float: left;
-    border-radius: 10px;
-}
-
-li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-li a:hover:not(.active) {
-    background-color: #eca1a6;
-    text-color: #fff;
-    border-radius: 5px;
-}
-
-.activeS{
-	background-color: #eca1a6;
-	border-radius: 5px;
-	
-}
-
-.btn{
-	background-color: #bdcebe;
-
-}
-
-#gender1,#gender2{
-	height: 36px;
-}
-</style>-->
 <body>
 
 
@@ -588,15 +236,18 @@ li a:hover:not(.active) {
 	
 
 <h1>Reports</h1>
+<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner inner--left">
+	
 <section>
-  <div class="container" style="position: fixed; margin-top: 10%; margin-left: 12%;    background-color: transparent;">
-		<div class="row">
-			<div class="col-md-6">
+
+		
 				<div class="container-fluid" >
 	
-  <div class="searchMentor" id="search1"  >
+  <div class="searchMentor" id="search1">
 
-    <form class="well form-horizontal" method="post"  id="contact_form">
+    <form class="well form-horizontal" method="post"  id="contact_form" style="background-color:transparent;border: transparent;">
 <fieldset>
 
 <!-- Form Name -->
@@ -691,7 +342,7 @@ li a:hover:not(.active) {
     
 <div class="searchMentee" id="search2"  style=" display: none">
 
-    <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+    <form class="well form-horizontal" action=" " method="post"  id="contact_form" style="background-color:transparent;border: transparent;">
 <fieldset>
 
 <!-- Form Name -->
@@ -795,7 +446,7 @@ li a:hover:not(.active) {
     
 <div class="searchPair" id="search3" style=" display: none" >
 
-    <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+    <form class="well form-horizontal" action=" " method="post"  id="contact_form" style="background-color:transparent;border: transparent;">
 <fieldset>
 
 <!-- Form Name -->
@@ -860,10 +511,18 @@ li a:hover:not(.active) {
 </div>
     
 	</div>
+			</section>
 			</div>
 			
 			
-			<div class="col-md-6" >
+			
+			
+			
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner inner--right">
+	
+	<section class="Pairs">
 	<div class=mentorT style=" display: none" id="mentor">
 			<div class="tbl-header">
   
@@ -953,9 +612,10 @@ li a:hover:not(.active) {
     </table>
   </div>
 	</div>
-  </div>
-  </div>
-</div>
+
 </section>
+</div>
+
+
 </body>
 </html> 
