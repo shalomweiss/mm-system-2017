@@ -138,7 +138,7 @@ Mentee:
         </tr>
         
 	    <tr id="hidden_row${meeting.meetingId}" class="hidden_row">
-	    <td colspan=4>
+	    <td colspan=5>
 	    
         	<div class="tab">
 		<table>
