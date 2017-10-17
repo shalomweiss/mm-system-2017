@@ -12,9 +12,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<head>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<head>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css"><%@include file="WEB-INF/css/styles.css" %>
 </style>
 	<script>
@@ -26,7 +27,6 @@
 			var trs= document.getElementsByClassName("selected");
 			if(trs.length>1)
 			{
-				
 				var menteeId=trs[0].childNodes[10].innerHTML;
 				var mentorId=trs[1].childNodes[10].innerHTML;
 				$.post("CreateNewPair",
@@ -35,8 +35,9 @@
 				          mentorID: mentorId
 				        },
 				        function(data,status){
-				        	
-				            alert(data);
+				        	location.reload();
+				        	//window.location.href = window.location.pathname + window.location.search + window.location.hash;
+				            //alert(data);
 				        });
 			}
 	});
@@ -114,58 +115,56 @@
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
 
+<style>
 
+</style>
 <body>
-
-
 <nav class="icon-bar">
 	<div class="icon-bar">
+			<a  href="GetAllPairs" title="Back"><i class="fa fa-arrow-circle-left"></i></a> 
 		 <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees"title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a class="active" href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
 		  <a href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
-		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  
+		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
+		   
 	</div>
 </nav>
-
-	<h1>New Pairs</h1>
+<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner inner--left">
 	<section class="Pairs">
-<div class="container-fluid" >
-
-  <div class="row">
-    <div class="col-md-4" style= " margin-top: 70px;background-color:white;padding-left: 0px;">
-    <h3 id="mentee">MENTEES</h3>
+		<div class="container-fluid" >
+			 <div style= "padding-left: 0px;">
+    <h5 id="mentee">MENTEE</h5>
 <nav class="navbar navbar-default">
         <div class="">
  
             <form class="navbar-form navbar-search" role="search">
                 <div class="input-group">
                 
-                    <div class="input-group-btn" style="width: 30px;">
+                    <div class="input-group-btn">
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search" ></span>
                             <span class="label-icon" id="drop">Search</span>
-                          
+                            
                         </button>
                         <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
-                                    
-                                    <span class="label-icon" id="drop"  style="color:black;" >Location</span>
+                                    <span class="label-icon" id="drop"  >Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                
-                                <span class="label-icon" id="drop" style="color:black;">University</span>
+                                	<span class="label-icon" id="drop">University</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                
-                                <span class="label-icon" id="drop1" style="color:black;">Name</span>
+                                <span class="label-icon" id="drop1">Search</span>
                                 </a>
                             </li>
                         </ul>
@@ -200,7 +199,7 @@ $(function(){
 		 
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
-        <tr class="MenteeTR">
+        <tr>
           <th>Name</th>
           <th>Last Name</th>
           <th>Phone</th>
@@ -210,11 +209,11 @@ $(function(){
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
+  <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable">
       <tbody class="mentee">
       <c:forEach var="mentee" items="${Mentees}" >
-			<tr class="para AllMent" id="tabletest"><td><c:out value="${mentee.firstName}"></c:out></td>
+			<tr class="para" id="tabletest"><td><c:out value="${mentee.firstName}"></c:out></td>
 			<td ><c:out value="${mentee.lastName}"></c:out></td>
 			<td><c:out value="${mentee.phoneNumber}"></c:out></td>
 			<td><c:out value="${mentee.email}"></c:out></td>
@@ -226,47 +225,54 @@ $(function(){
       </tbody>
     </table>
   </div>
+	</div>		
+		</div>
+	</section>
+	
+	
+	
+	
+	
 	</div>
-	
-	 <div class="col-md-2" style= "margin-top: 250px;">
-	 
-	 
-	 <a id="createPair" class="btn btn-block btn-primary">
-	 <i  class="fa fa-handshake-o" style="color:white;font-size:100px;text-align: center;"></i><br>
-	 <h5>Create Pair</h5>
-	 </a>
-	 
-	</div>
-	
-	
-    <div class="col-md-4" style="margin-top:70px;background-color:white;padding-right:0px;">
+	<h1>New Pairs</h1>
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner inner--right">
+	<section class="Pairs">
+
+<div class="container-fluid" >
+
+   
+    <div style= "padding-right: 0px;" >
 	<!--for demo wrap-->
-	<h3>MENTORS</h3>
+	<h5>MENTOR</h5>
 	 <nav class="navbar navbar-default">
         <div class="nav nav-justified navbar-nav">
+ 
             <form class="navbar-form navbar-search" role="search">
                 <div class="input-group">
-                    <div class="input-group-btn" style="width: 30px;">
+                
+                    <div class="input-group-btn">
                         <button type="button" class="btn btn-search btn-default dropdown-toggle" data-toggle="dropdown" id="searchB">
                             <span class="glyphicon glyphicon-search"></span>
-                            <span class="label-icon" id="drop1">Search</span>   
+                            <span class="label-icon" id="drop1">Search</span>
                         </button>
                         <ul class="dropdown-menu pull-left" role="menu" id="dropdownM">
                            <li>
                                 <a href="#">
-                                    <span class="label-icon" id="drop1" style="color:black;">Location</span>
+                                    
+                                    <span class="label-icon" id="drop1">Location</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                               
-                                <span class="label-icon " id="drop1"   style="color:black;">Company</span>
+                                
+                                <span class="label-icon" id="drop1">Company</span>
                                 </a>
                             </li>
                              <li>
                                 <a href="#">
-                                
-                                <span class="label-icon" id="drop1" style="color:black;">Name</span>
+                                <span class="label-icon" id="drop1">Search</span>
                                 </a>
                             </li>
                         </ul>
@@ -301,7 +307,7 @@ $(function(){
   
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
-        <tr class="MentorTR">
+        <tr>
           <th>Name</th>
           <th>Last Name</th>
           <th>Phone</th>
@@ -311,11 +317,11 @@ $(function(){
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
+  <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable1">
-      <tbody class="mentoR">
+      <tbody class="mentor">
        <c:forEach items="${Mentors}" var="mentor">
-			<tr class="para mentor AllMent"><td><c:out value="${mentor.firstName}"></c:out></td>
+			<tr class="para"><td><c:out value="${mentor.firstName}"></c:out></td>
 			<td><c:out value="${mentor.lastName}"></c:out></td>
 			<td><c:out value="${mentor.phoneNumber}"></c:out></td>
 			<td><c:out value="${mentor.email}"></c:out></td>
@@ -329,10 +335,10 @@ $(function(){
   </div>
 	</div>
   </div>
-</div>
-<!--  
-     <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>-->
+    
 </section>
+</div>
+ <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
 </body>
 
 </html>

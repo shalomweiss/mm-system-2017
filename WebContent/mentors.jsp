@@ -34,7 +34,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+<style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
 <script> 
 
 $(document).ready(function(){
@@ -74,7 +74,7 @@ var prevRow;
 		document.getElementById(def).click();
 		prevRow=row;
 		
-		for(var i=1;i<=13;i++)  //length of inputs
+		for(var i=1;i<=12;i++)  //length of inputs
 		{
 		showStuff("input"+i+mentId,"div"+i+mentId);
 		}
@@ -86,7 +86,7 @@ var prevRow;
 		$("#" + row).toggle();
 		prevRow=null;
 		
-		for(var i=1;i<=13;i++)  //length of inputs
+		for(var i=1;i<=12;i++)  //length of inputs
 			{
 			showStuff("input"+i+mentId,"div"+i+mentId);
 			}
@@ -95,7 +95,7 @@ var prevRow;
 	}
 	function backUpInputs(mentId){
 		
-		for(var i=1;i<=13;i++)  //length of inputs
+		for(var i=1;i<=12;i++)  //length of inputs
 		{
 			document.getElementById("input"+i+mentId).value =document.getElementById("div"+i+mentId).innerHTML;
 		}
@@ -167,18 +167,11 @@ input[type=submit] {
 input[type=submit]:hover {
 	background-color: #45a049;
 }
-
-/* Add a background color and some padding around the form */
-.container {
-	border-radius: 5px;
-	background-color: #f2f2f2;
-	padding: 20px;
-}
 /* Style the tab */
 div.tab {
 	overflow: hidden;
 	border: 1px solid #ccc;
-	background-color: #f1f1f1;
+	background-color: rgba(250,178,58,0.9);
 }
 
 /* Style the buttons inside the tab */
@@ -199,7 +192,7 @@ div.tab button:hover {
 
 /* Create an active/current tablink class */
 div.tab button.active {
-	background-color: #ccc;
+	background-color: white;
 }
 
 /* Style the tab content */
@@ -208,7 +201,6 @@ div.tab button.active {
 	padding: 6px 12px;
 	border: 1px solid #ccc;
 	border-top: none;
-	background-color: white !important;
 }
 
 .close {
@@ -220,6 +212,7 @@ div.tab button.active {
 	text-align: center;
 	top: -10px;
 	width: 24px;
+	opacity:10 !important;
 	text-decoration: none;
 	font-weight: bold;
 	-webkit-border-radius: 12px;
@@ -240,8 +233,7 @@ div.tab button.active {
 }
 
 .modalDialog>div {
-	width: 800px;
-	
+	width: 80%;
 	margin: auto;
 	border-radius: 10px;
 	background: #fff;
@@ -251,6 +243,7 @@ div.tab button.active {
 }
 
 .modalDialog {
+
 	position: fixed;
 	font-family: Arial, Helvetica, sans-serif;
 	top: 20px;
@@ -271,15 +264,20 @@ div.tab button.active {
 	color: white;
 }
 
-h1 {
-	font-size: 40px;
-	letter-spacing: 8px;
-	text-shadow: 2px 4px 4px #CCCCCC;
-	color: #fff;
-	text-transform: uppercase;
-	font-weight: 300;
-	text-align: center;
-	margin-bottom: 15px;
+h1{
+  z-index: 2;
+  position: fixed;
+  top:5%;
+  right:0;
+  left:90px;
+  font-size: 32px;
+  letter-spacing: 8px;
+  text-shadow: 2px 4px 4px #CCCCCC;
+  color: #fff !important;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
 table {
@@ -288,9 +286,24 @@ table {
 }
 
 .tbl-header {
+    background-color: rgba(255, 255, 255, 0.3);
+    max-height: 48vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 	background-color: rgba(255, 255, 255, 0.3);
+	
 }
-
+.btn-addClick{
+	margin-top:1.8% !important;
+	width:30% !important;
+	float:right;
+}
+section.Pairs {
+   	width: 90% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    margin-top: 3vh !important;
+}
 .tbl-content {
 	height: 300px;
 	overflow-x: auto;
@@ -300,43 +313,21 @@ table {
 
 th {
 	padding: 20px 15px;
-	text-align: center;
 	font-weight: 500;
-	font-size: 14px;
-	color: black;
+	font-size: 12px;
+	color: #000;
 	text-transform: uppercase;
-	word-wrap: break-word;
 }
 
 td {
-	padding: 5px;
-	text-align: center;
 	vertical-align: middle;
 	font-weight: 700;
 	font-size: 14px;
-	color: black;
+	color: #000;
 	border-bottom: solid 1px rgba(255, 255, 255, 0.1);
-	border-right: solid 1px rgba(255, 255, 255, 0.3);
-	word-wrap: break-word;
 }
 
-/* demo styles */
-@import
-	url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 
-body {
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-	background: linear-gradient(to right, #25c481, #25b7c4);
-	font-family: 'Century Gothic', sans-serif;
-}
-
-section {
-	top: 0;
-	margin-top: 150px;
-	margin-bottom: 50px;
-	margin-left: 100px;
-	margin-right: 10px;
-}
 
 /* follow me template */
 .made-with-love {
@@ -356,7 +347,6 @@ section {
 	position: relative;
 	top: 2px;
 }
-
 .made-with-love a {
 	color: #fff;
 	text-decoration: none;
@@ -370,52 +360,31 @@ section {
 ::-webkit-scrollbar {
 	width: 6px;
 }
-
 ::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
-
 ::-webkit-scrollbar-thumb {
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
-
-body {
-	top: 0;
-	margin: 0
-}
-
 .icon-bar {
 	top: 30vh;
 	width: 90px;
 	background-color: #555;
 }
-
 .icon-bar a {
 	display: block;
 	text-align: center;
-	padding: 16px;
+	    padding: 8px;
 	transition: all 0.3s ease;
 	color: white;
 	font-size: 36px;
 }
-
 .icon-bar a:hover {
 	background-color: #000;
 }
-
-.active {
-	background-color: #25c481 !important;
-}
-
 i {
 	margin-right: 2px;
 }
-
-body {
-	background-color: #cfd9df;
-	height: 100%;
-}
-
 html {
 	overflow-y: hidden;
 	height: 100%;
@@ -437,14 +406,6 @@ div.icon-bar {
 	top: calc(( 100% - 490px)/2);
 	bottom: 0;
 }
-
-h1 {
-	position: absolute;
-	top: 5%;
-	right: 0;
-	left: 90px;
-}
-
 button {
 	outline: none !important;
 }
@@ -464,25 +425,26 @@ button {
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited,
 	.btn-primary:focus {
-	background-color: #67d2bc !important;
-	border-color: #67d2bc !important;
+	margin-top:20px;
+    background-color: rgba(255,255,255,0.3);
 	outline: none !important;
 	color: white !important;
 	cursor: pointer !important;
+	border-color: rgba(255,255,255,0.1);}
+.btn-primary:hover{
+	margin-top:20px;
+    background-color: rgba(255,255,255,0.5);
+	outline: none !important;
+	color: white !important;
+	cursor: pointer !important;
+	border-color: rgba(255,255,255,0.1);
 }
 
 button {
 	outline: none !important;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited,
-	.btn-primary:focus {
-	background-color: #67d2bc !important;
-	border-color: #67d2bc !important;
-	outline: none !important;
-	color: white !important;
-	cursor: pointer !important;
-}
+
 
 * {
 	font-family: 'Open Sans', sans-serif;
@@ -501,15 +463,13 @@ button {
 	background: #445561;
 	color: white;
 	text-align: center;
-	border-radius: 5px;
 }
 
 .button-text {
 	padding: 0 25px;
-	padding-right: 20px;
-	padding-left: 20px;
 	line-height: 56px;
 	letter-spacing: .1em;
+	text-align: center;
 }
 
 .button-inside {
@@ -556,8 +516,8 @@ tr.stam:hover {
 	opacity: 0.9;
 	cursor: pointer;
 }
-
 td {
+    padding: 15px !important;
 	height: 20%;
 }
 
@@ -568,13 +528,6 @@ td {
 #table_detail .hidden_row {
 	display: none;
 }
-
-.para.selected {
-	background-color: #f5f5f5;
-	color: black;
-}
-
-
 </style>
 
 <body>
@@ -595,13 +548,15 @@ td {
 	</nav>
 	<h1>Mentors</h1>
 
-
-	<section>
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner">
+	<section class="Pairs">
 		<!--for demo wrap-->
 		<div class="tbl-header">
 
 			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
-				<thead>
+				<thead class="tbl-header">
 					<tr>
 						<th>Name</th>
 						<th>Last Name</th>
@@ -625,7 +580,7 @@ td {
 							</tr>
 
 							<tr id="hidden_row${ment.id}" class="hidden_row"
-								onclick="fun(this)">
+								>
 								<td colspan=4>
 									<div class="tab">
 
@@ -855,7 +810,7 @@ td {
 
 				<div class="container">
 					<a href="#close" title="Close" class="close"
-						style="position: absolute;">X</a>
+						style="position: absolute; background-color: red;">X</a>
 
 					<form action="AddNewMentor" method="post">
 						<table>
@@ -873,17 +828,31 @@ td {
 							</tr>
 							<tr>
 								<td>Gender</td>
-								<td><input id="clickedGender" class="male" type="radio"
+								<td>
+								
+								<input id="clickedGender" class="male" type="radio"
 									name="gender" value="1" checked> Male <input
 									id="noclickedGender" class="female" type="radio" name="gender"
-									value="0"> Female</td>
+									value="0"> Female
+									
+									
+									</td>
 								<td>Address</td>
 								<td><input type="text" name="address"></td>
 							</tr>
 
 							<tr>
 								<td>Company</td>
-								<td><input type="text" name="company"></td>
+								<td>
+								
+								<select name="company">
+										<c:forEach var="item" items="${NewWorkPlace}">
+											<option value="${item.id}">   ${item.company}</option>
+										</c:forEach>
+								</select>
+								
+								
+								</td>
 								<td>Role</td>
 								<td><input type="text" name="role"></td>
 							</tr>
@@ -916,19 +885,11 @@ td {
 
 						</table>
 					</form>
-
-
 				</div>
-
-
 			</div>
-		</div>
-
-
-
-
+		
 	</section>
-
+	</div>
 
 </body>
 </html>

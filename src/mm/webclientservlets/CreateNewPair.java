@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
+import mm.model.User;
 
 /**
  * Servlet implementation class CreateNewPair req: mentorId,menteeId-->
@@ -43,10 +44,23 @@ public class CreateNewPair extends HttpServlet {
 		int MentorId =Integer.parseInt( request.getParameter("mentorID"));
 		int MenteeId =Integer.parseInt( request.getParameter("menteeID"));
 		DataAccess da = new DataAccess();
+		User mentor = null;
+		try {
+			mentor = da.getUser(MentorId);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		User mentee = null;
+		try {
+			mentee = da.getUser(MenteeId);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		boolean res = false;
 		System.out.println(MentorId +"  "+ MenteeId);
 		 try {
-			 System.out.println("pairrrrrrrrrrrrr");
 		 res = da.addPair(MentorId,MenteeId);
 		 } catch (SQLException e) {
 		 // TODO Auto-generated catch block
@@ -54,6 +68,25 @@ public class CreateNewPair extends HttpServlet {
 		 }
 		if (res) {
 			response.getWriter().append("Success");
+			String menteeFullName=mentee.getFirstName()+" "+mentee.getLastName();
+			String mentorFullName=mentor.getFirstName()+" "+mentor.getLastName();
+			String subject = "Welcome";
+		    String body1 = "Hi "+ menteeFullName+
+		    "\nThank you for using our mentorem program," +
+		    "\nYour new mentor is "+mentorFullName+"."+
+		    "\n\nYou can download the mentorem application from here:\n"+
+		    "https://docs.google.com/document/u/0/"+
+		    "\n\nHave a good day,\nTsofen team";
+			SendingMail.sendFromGMail(mentee.getEmail(),subject,body1);
+			
+		    String body2 = "Hi "+ mentorFullName+
+		    "\nThank you for using our mentorem program," +
+		    "\nYour new mentee is "+menteeFullName+"."+
+		    "\n\nYou can download the mentorem application from here:\n"+
+		    "https://docs.google.com/document/u/0/"+
+		    "\n\nHave a good day,\nTsofen team";
+		    SendingMail.sendFromGMail(mentor.getEmail(),subject,body2);
+			
 		}
 		else
 			response.getWriter().append("Failure");

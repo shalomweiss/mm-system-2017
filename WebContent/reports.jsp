@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <head>
+
+<style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
+
+
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -213,6 +217,7 @@ $("#submit3").click(function() {
 });
 </script>
 </head>
+<!--  
 <style>
 
 
@@ -564,7 +569,7 @@ li a:hover:not(.active) {
 #gender1,#gender2{
 	height: 36px;
 }
-</style>
+</style>-->
 <body>
 
 
@@ -584,7 +589,7 @@ li a:hover:not(.active) {
 
 <h1>Reports</h1>
 <section>
-  <div class="container">
+  <div class="container" style="position: fixed; margin-top: 10%; margin-left: 12%;    background-color: transparent;">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="container-fluid" >
@@ -697,11 +702,6 @@ li a:hover:not(.active) {
   <li><a onclick="showPair()">Pair</a></li>
 </ul>
 </legend>
-
-
-
-
-
 <div class="form-group">
   <label class="col-md-4 control-label">City</label>  
     <div class="col-md-4 inputGroupContainer">
@@ -949,18 +949,13 @@ li a:hover:not(.active) {
 			<td></td>
 			<td></td>
 			<td></td></tr>
-			
-	
       </tbody>
     </table>
   </div>
 	</div>
- 
   </div>
   </div>
 </div>
-	
-
 </section>
 </body>
 </html> 
