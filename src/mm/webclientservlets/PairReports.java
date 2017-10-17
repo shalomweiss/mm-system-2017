@@ -34,11 +34,11 @@ public class PairReports extends HttpServlet {
 		String nextPage = request.getParameter("jsp");
 		
 		String mentorName = request.getParameter("MentorName");
-		String menteeName = request.getParameter("MenteeName");
+		String mentorLastName = request.getParameter("MentorLast");
 
 
 		ArrayList<Pair> allPairs=new ArrayList<Pair>();
-		allPairs = da.getAllCorrespondingPairs(mentorName,menteeName);
+		allPairs = da.getAllCorrespondingPairs(mentorName,mentorLastName);
 
 		Gson gson = new Gson();
 	   // System.out.println("USER with not json " +getUsers);

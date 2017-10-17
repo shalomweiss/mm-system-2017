@@ -34,12 +34,12 @@ public class MentorReports extends HttpServlet {
 		String nextPage = request.getParameter("jsp");
 		
 		String address = request.getParameter("uAddress");
-		String gender = request.getParameter("uGender");
-		String workPlace = request.getParameter("uWorkPlace");
+		int gender = Integer.parseInt(request.getParameter("uGender"));
+		int company = Integer.parseInt(request.getParameter("uCompany"));
 		Boolean inPair = Boolean.parseBoolean(request.getParameter("inPair"));
 
 		ArrayList<Mentor> allMentors=new ArrayList<Mentor>();
-		allMentors = da.getAllCorrespondingMentors(address, gender, workPlace, inPair);
+		allMentors = da.getAllCorrespondingMentors(address, gender, company, inPair);
 
 		Gson gson = new Gson();
 	   // System.out.println("USER with not json " +getUsers);
