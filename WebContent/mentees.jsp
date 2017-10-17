@@ -148,7 +148,7 @@ var prevRow;
 					
 				
 			if(childrenOfTheTbody[i].className=="stam")
-				
+				numOfStams++;
 		}
 		
 		
