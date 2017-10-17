@@ -222,7 +222,7 @@ $("#submit3").click(function() {
 		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
-		  <a  class="active" href="GetAllAcademicInstitutions" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		  <a  class="active" href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a> 
 	</div>
 </nav>
@@ -394,7 +394,7 @@ $("#submit3").click(function() {
         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
         
        <select name="uAcademicInstitution">
-		<c:forEach var="item" items="${AllAcadimicInstitution}">
+		<c:forEach var="item" items="${AllAcadimicInstitutes}">
 				<option value="${item.id}">  ${item.name}</option>
 		</c:forEach>
 		</select>  
