@@ -74,6 +74,7 @@ public class AddMentee extends HttpServlet {
 		String resume=request.getParameter("uResume");
 		String gradeSheet=request.getParameter("uGradeSheet");
 		String profilePicture=request.getParameter("profilePicture");
+		
 		Float avg = Float.valueOf(uAverage);
 		Float remSemesters= Float.valueOf(uRemSemesters);
 		int uGender= Integer.parseInt(gender);

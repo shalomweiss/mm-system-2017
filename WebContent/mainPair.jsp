@@ -51,10 +51,7 @@ $(document).ready(function(){
 	</div>
 </nav>
 	<h1>Pairs</h1>
-	<div class="topPart"> </div>
-	<div class="bottomPart"> </div>
-	<div class="inner">
-		<section>
+<section>
   <!--for demo wrap--> 
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">

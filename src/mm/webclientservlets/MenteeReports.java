@@ -34,18 +34,11 @@ public class MenteeReports extends HttpServlet {
 		String address = request.getParameter("uAddress");
 		int  gender = Integer.parseInt(request.getParameter("uGender"));
 		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
-		Boolean inPair = Boolean.parseBoolean(request.getParameter("inPair"));
+		int inPair = Integer.parseInt(request.getParameter("inPair"));
 		String academicDicipline1 = request.getParameter("uAcademicDicipline1");
 		ArrayList<Mentee> allMentees=new ArrayList<Mentee>();
-		int intInPair = -1;
-		if(inPair != null){
-			intInPair = 0;
-			if(inPair == true){
-				intInPair = 1;
-			}
-		}
 		try {
-			allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, intInPair,
+			allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
 					academicDicipline1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

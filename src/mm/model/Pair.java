@@ -156,9 +156,9 @@ public class Pair {
 
 
 	public void setMentee(User user) {
-		System.out.println(user.toString());
+
 		this.mentee = user;
-		System.out.println(this.mentee.toString());
+
 	}
 
 }
