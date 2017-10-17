@@ -63,7 +63,12 @@ $(document).ready(function(){
 		var sign1=document.getElementsByClassName("Sign2")[0];
 		sign1.id="clickedSign";
 	});
+	$(".stam").click(function()
+			{
+		
+			}
 	
+	);
 	
 	
 	
@@ -130,6 +135,23 @@ var prevRow;
 		{
 		showStuff("input"+i+mentId,"div"+i+mentId);
 		}
+		document.getElementById(row);
+		console.log(document.getElementById(row));
+		console.log(document.getElementById(row).parentNode.children);
+		var childrenOfTheTbody=document.getElementById(row).parentNode.children;
+		var numOfStams=0;
+		console.log(childrenOfTheTbody[0].clientHeight);
+		for(i=0;i<childrenOfTheTbody.length;i++)
+		{
+			if(childrenOfTheTbody[i].id==row)
+				break;
+					
+				
+			if(childrenOfTheTbody[i].className=="stam")
+				
+		}
+		
+		
 	backUpInputs(mentId);
 
 	}
