@@ -38,7 +38,7 @@ public class PairReports extends HttpServlet {
 
 
 		ArrayList<Pair> allPairs=new ArrayList<Pair>();
-		allPairs = da.getAllCorrespondingPairs(mentorName,mentorLastName);
+	//	allPairs = da.getAllCorrespondingPairs(mentorName,mentorLastName);
 
 		Gson gson = new Gson();
 	   // System.out.println("USER with not json " +getUsers);
