@@ -12,16 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
-
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.da.DataInterface;
-import mm.jsonModel.JsonUser;
-import mm.model.Mentee;
 import mm.model.Mentor;
 import mm.model.User;
 import mm.model.User.userType;
-import mm.webclientservlets.GetMentorById;
 import util.ServerUtils;
 
 /**
@@ -37,14 +30,14 @@ public class GetMentor extends HttpServlet {
      */
     public GetMentor() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doPost(request, response);
 	}
 
@@ -52,7 +45,7 @@ public class GetMentor extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		
 		int flag=0;
 		AndroidIOManager iom = new AndroidIOManager(request,response);
@@ -83,7 +76,7 @@ public class GetMentor extends HttpServlet {
 						mentor=iom.getDataAccess().getMentorOfMentee(id);
 						mentors.add(mentor);
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
 				

@@ -130,7 +130,7 @@ Mentee:
       <tbody class="meeting meeting">
       <c:forEach var="meeting" items="${meetings}" >
         <tr class="stam" onclick="show_hide_row('hidden_row${meeting.meetingId}',${meeting.meetingId},'defultOpen${meeting.meetingId}');">
-          <td class="inf"><c:out value="${meeting.date}"></c:out></td>
+          <td class="inf"><c:out value="${meeting.dateMeeting}"></c:out></td>
 			<td class="inf"><c:out value="${meeting.location}"></c:out></td>
 			<td class="inf"><c:out value="${meeting.meetingType}"></c:out></td>
 			<td class="inf"><c:out value="${meeting.subject}"></c:out></td>	

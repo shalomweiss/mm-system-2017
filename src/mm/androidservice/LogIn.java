@@ -28,7 +28,7 @@ public class LogIn extends HttpServlet {
 	 */
 	public LogIn() {
 		super();
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class LogIn extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 
 		AndroidIOManager iom = new AndroidIOManager(request, response);
 
@@ -46,7 +46,7 @@ public class LogIn extends HttpServlet {
 
 			String email = myJson.get("email").getAsString();
 			String password = myJson.get("password").getAsString();
-			// TODO deviceID storage
+		
 			String deviceId = "0";
 			if (myJson.has("deviceId")) {
 				deviceId = myJson.get("deviceId").getAsString();
@@ -61,7 +61,7 @@ public class LogIn extends HttpServlet {
 						&& (user.getType() == userType.MENTEE || user.getType() == userType.MENTOR)) {
 
 					String token = ServerUtils.generateToken();
-					// TODO
+					
 					try {
 						iom.getDataAccess().startUserSession(new Session(user.getId(), token, deviceId));
 						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
@@ -97,7 +97,7 @@ public class LogIn extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doPost(request, response);
 	}
 
