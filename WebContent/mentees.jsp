@@ -254,7 +254,9 @@ div.tab button.active {
 	border: 1px solid #ccc;
 	border-top: none;
 }
-
+table tr:nth-child(4n-1), table tr:nth-child(4n)  {
+    background: #ccc;
+}
 .close {
 	background: #606061;
 	color: #FFFFFF;
@@ -367,7 +369,6 @@ th {
 	padding: 20px 15px;
 	font-weight: 500;
 	font-size: 12px;
-	color: #000;
 	text-transform: uppercase;
 }
 
