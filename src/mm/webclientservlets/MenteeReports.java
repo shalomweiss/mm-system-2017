@@ -4,22 +4,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.google.gson.Gson;
-
 import mm.constants.Constants;
 import mm.da.DataAccess;
-import mm.model.AcademicInstitute;
 import mm.model.Mentee;
-import mm.model.User;
-
 @WebServlet("/MenteeReports")
 public class MenteeReports extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,11 +25,14 @@ public class MenteeReports extends HttpServlet {
 			throws ServletException, IOException {
 		DataAccess da = new DataAccess();
 		String address = request.getParameter("uAddress");
-		int  gender = Integer.parseInt(request.getParameter("uGender"));
-		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
-		int inPair = Integer.parseInt(request.getParameter("inPair"));
+		String gender1 = request.getParameter("uGender");
+		String academicInstitution1 = request.getParameter("uAcademicInstitution");
+		String inPair1 = request.getParameter("inPair");
 		String academicDicipline1 = request.getParameter("uAcademicDicipline1");
 		ArrayList<Mentee> allMentees=new ArrayList<Mentee>();
+		int  gender = Integer.parseInt(gender1);
+		int academicInstitution=Integer.parseInt(academicInstitution1 );
+		int inPair = Integer.parseInt(inPair1);
 		try {
 			allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
 					academicDicipline1);

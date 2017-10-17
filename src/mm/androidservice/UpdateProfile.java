@@ -11,16 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
-import mm.constants.Constants;
-import mm.da.DataAccess;
-import mm.da.DataInterface;
-import mm.jsonModel.JsonUser;
 import mm.model.Mentee;
 import mm.model.Mentor;
-import mm.model.Session;
+
 import mm.model.User;
-import mm.model.User.userType;
 import util.ServerUtils;
 
 /**
@@ -35,7 +29,7 @@ public class UpdateProfile extends HttpServlet {
 	 */
 	public UpdateProfile() {
 		super();
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	/**
@@ -44,7 +38,7 @@ public class UpdateProfile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 
 		AndroidIOManager iom = new AndroidIOManager(request, response);
 

@@ -2,7 +2,6 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,9 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import mm.da.DataAccess;
-import mm.model.Meeting;
 import mm.model.Pair;
 
 /**
@@ -33,11 +30,11 @@ public class GetPairById extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("GetPairDetails Servlet");
+		System.out.println("Get PairDetails Servlet");
 		int pairId = Integer.parseInt(request.getParameter("pairId"));
 		String nextPage = request.getParameter("jsp");
 		DataAccess da = new DataAccess();
-		Pair pair = null;
+		Pair pair = new Pair();
 		try {
 			pair = da.getPair(pairId);
 		} catch (SQLException e) {
