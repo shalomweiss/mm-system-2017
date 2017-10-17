@@ -32,8 +32,8 @@ public class MenteeReports extends HttpServlet {
 			throws ServletException, IOException {
 		DataAccess da = new DataAccess();
 		String address = request.getParameter("uAddress");
-		String gender = request.getParameter("uGender");
-		String academicInstitution = request.getParameter("uAcademicInstitution");
+		int  gender = Integer.parseInt(request.getParameter("uGender"));
+		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		Boolean inPair = Boolean.parseBoolean(request.getParameter("inPair"));
 		String academicDicipline1 = request.getParameter("uAcademicDicipline1");
 		ArrayList<Mentee> allMentees=new ArrayList<Mentee>();
