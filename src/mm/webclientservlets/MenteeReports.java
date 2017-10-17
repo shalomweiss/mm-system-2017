@@ -32,17 +32,27 @@ public class MenteeReports extends HttpServlet {
 			throws ServletException, IOException {
 		DataAccess da = new DataAccess();
 		String address = request.getParameter("uAddress");
-		String gender = request.getParameter("uGender");
-		String academicInstitution = request.getParameter("uAcademicInstitution");
+		int  gender = Integer.parseInt(request.getParameter("uGender"));
+		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		Boolean inPair = Boolean.parseBoolean(request.getParameter("inPair"));
 		String academicDicipline1 = request.getParameter("uAcademicDicipline1");
-		String academicDicipline2 = request.getParameter("uAcademicDicipline2");
 		ArrayList<Mentee> allMentees=new ArrayList<Mentee>();
-		allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
-				academicDicipline1, academicDicipline2);
-
-		Gson gson = new Gson();
+		int intInPair = -1;
+		if(inPair != null){
+			intInPair = 0;
+			if(inPair == true){
+				intInPair = 1;
+			}
+		}
+		try {
+			allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, intInPair,
+					academicDicipline1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	   // System.out.println("USER with not json " +getUsers);
+		Gson gson = new Gson();
 		String userResult = gson.toJson(allMentees, Constants.USER_CLASS);
 		
 	//    System.out.println("USer with JSON" + userResult);	    

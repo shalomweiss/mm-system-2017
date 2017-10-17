@@ -63,7 +63,12 @@ $(document).ready(function(){
 		var sign1=document.getElementsByClassName("Sign2")[0];
 		sign1.id="clickedSign";
 	});
+	$(".stam").click(function()
+			{
+		
+			}
 	
+	);
 	
 	
 	
@@ -130,6 +135,23 @@ var prevRow;
 		{
 		showStuff("input"+i+mentId,"div"+i+mentId);
 		}
+		document.getElementById(row);
+		console.log(document.getElementById(row));
+		console.log(document.getElementById(row).parentNode.children);
+		var childrenOfTheTbody=document.getElementById(row).parentNode.children;
+		var numOfStams=0;
+		console.log(childrenOfTheTbody[0].clientHeight);
+		for(i=0;i<childrenOfTheTbody.length;i++)
+		{
+			if(childrenOfTheTbody[i].id==row)
+				break;
+					
+				
+			if(childrenOfTheTbody[i].className=="stam")
+				
+		}
+		
+		
 	backUpInputs(mentId);
 
 	}
@@ -254,7 +276,9 @@ div.tab button.active {
 	border: 1px solid #ccc;
 	border-top: none;
 }
-
+table tr:nth-child(4n-1), table tr:nth-child(4n)  {
+    background: #ccc;
+}
 .close {
 	background: #606061;
 	color: #FFFFFF;
@@ -367,10 +391,13 @@ th {
 	padding: 20px 15px;
 	font-weight: 500;
 	font-size: 12px;
-	color: #000;
 	text-transform: uppercase;
 }
-
+th.inner
+{
+	color: black !important;
+	background-color: white;
+}
 td {
 	vertical-align: middle;
 	font-weight: 700;
@@ -564,7 +591,7 @@ button {
 }
 
 tr.stam:hover {
-	background-color: #f5f5f5;
+	background-color: rgba(255,193,7,0.7);
 	opacity: 0.9;
 	cursor: pointer;
 }
@@ -574,7 +601,7 @@ td {
 }
 
 #table_detail tr:hover {
-	background-color: #F2F2F2;
+	background-color: rgba(255,193,7,0.7);
 }
 
 #table_detail .hidden_row {
@@ -626,7 +653,7 @@ td {
 
 			<table id="table_detail" cellpadding="0" cellspacing="0"  border="0">
 			<div class="tbl-content" style="height: 100%">
-				<tbody class="mentee" >
+				<tbody >
 					<c:forEach items="${Mentees}" var="ment">
 					
 						<tr class="stam"
@@ -648,26 +675,27 @@ td {
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks"
 											onclick="showDetails(event, 'Mentor${ment.id}')">Mentor</button>
-										<button class="tablinks" style="float: right;"
-											onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
+										<button class="tablinks" style= "float:right;" onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
 
 								</div>
 								<form id="form${ment.id}" action="UpdateMentee" method="post">
-								<div id="info${ment.id}" class="tabcontent"style="background-color: rgb(0, 0, 0);">
+								<div id="info${ment.id}" class="tabcontent"style="background-color: rgba(250,178,58,0.8);">
 
 
-
+											
 											<table class="w3-table-all w3-card-4">
 
 												<tr>
 												
-												  <th rowspan="2"><img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com"></th>
-													<th>First name</th>
-													<th>Last name</th>
-													<th>Gender</th>
-													<th>Address</th>
-													<th>Phone</th>
-													<th>Email</th>
+												    
+													<th class="inner">First name</th>
+													<th class="inner">Last name</th>
+													<th class="inner">Gender</th>
+													<th class="inner">Address</th>
+													<th class="inner">Phone</th>
+													<th class="inner">Email</th>
+													<th class="inner">Picture</th>
+													<th class="inner">submit</th>
 												</tr>
 												<tr>
 												
@@ -723,8 +751,13 @@ td {
 														onblur="if(this.value==''){ this.value='example@example.com'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}">
 													</td>
+													<td>
+														<img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
+													</td>
 													<td><input id="submit${ment.id}" type="submit"
 														value="Done"></td>
+														
+													
 												</tr>
 											</table>
 
@@ -732,17 +765,18 @@ td {
 										</div>
 
 										<div id="Academic${ment.id}" class="tabcontent"
-											style="background-color: rgb(0, 0, 0);">
+											style="background-color: rgba(250,178,58,0.8);">
 
 											<table class="w3-table-all w3-card-4">
 												<tr>
-												<th >CV</th>
-													<th>Remaining semesters</th>
-													<th>Graduation status</th>
-													<th>Academic institution</th>
-													<th>average</th>
-													<th>Major</th>
-													<th>Second major</th>
+												<th class="inner">CV</th>
+													<th class="inner">Remaining semesters</th>
+													<th class="inner">Graduation status</th>
+													<th class="inner">Academic institution</th>
+													<th class="inner">average</th>
+													<th class="inner">Major</th>
+													<th class="inner">Second major</th>
+													<th class="inner">submit</th>
 												</tr>
 												<tr>
 												<td>
@@ -808,7 +842,7 @@ td {
 										</div>
 
 										<div id="Notes${ment.id}" class="tabcontent"
-											style="background-color: rgb(0, 0, 0);">
+											style="background-color: rgba(250,178,58,0.8);">
 											<table>
 												<tr>
 <td>
@@ -833,7 +867,7 @@ td {
 
 
 										<div id="Mentor${ment.id}" class="tabcontent"
-											style="background-color: rgb(0, 0, 0);">
+											style="background-color: rgba(250,178,58,0.8);">
 											<table>
 												<tr>${ment.note}
 												</tr>

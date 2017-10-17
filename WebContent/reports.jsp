@@ -91,19 +91,17 @@ function showPairTable() {
 
 $(document).ready(function(){
 $("#submit1").click(function() {
-	var type="mentor";
     var city = $("#city1").val();
     var work = $("#work").val();
     var gender = $("#gender1").val();
     var pair=$('input[name=pair1]:checked', '#formP1').serialize();
   
-    $.post("Reports",
+    $.post("MentorReports",
             {
-        	type: type,
-            city: city,
-            work: work,
-            gender: gender,
-            pair: pair
+            uAddress: city,
+            uCompany: work,
+            uGender: gender,
+            inpair: pair
         },
     function(data,status){
     	var table=document.getElementsByClassName("table1")[0];
@@ -133,21 +131,19 @@ $("#submit1").click(function() {
     });
 });
 $("#submit2").click(function() {
-	var type="mentee";
     var city = $("#city2").val();
     var institution = $("#institution").val();
     var academic = $("#academic").val();
     var gender = $("#gender2").val();
     var pair=$('input[name=pair2]:checked', '#formP2').serialize();
     
-    $.post("Reports",
+    $.post("MenteeReports",
             {
-        	type: type,
-            city: city,
-            institution: institution,
-            academic: academic,
-            gender: gender,
-            pair: pair
+            uAddress: city,
+            uAcademicInstitution: institution,
+            uAcademicDicipline1: academic,
+            uGender: gender,
+            inPair: pair
         },
         function(data,status){
         	var table=document.getElementsByClassName("table2")[0];
@@ -177,15 +173,13 @@ $("#submit2").click(function() {
         });
 });
 $("#submit3").click(function() {
-	var type="pair";
-    var mentee = $("#menteeN").val();
+    var mentee = $("#mentorLast").val();
     var mentor = $("#mentorN").val();
    
-    $.post("Reports",
+    $.post("PairReports",
             {
-        	type: type,
-            mentee: mentee,
-            mentor: mentor
+            MentorName: mentee,
+            MentorLast: mentor
         },
         function(data,status){
         	var table=document.getElementsByClassName("table3")[0];
@@ -217,359 +211,7 @@ $("#submit3").click(function() {
 });
 </script>
 </head>
-<!--  
-<style>
 
-
-h1{
-    font-size: 37px;
-  letter-spacing: 8px;
-  text-shadow: 2px 4px 4px #CCCCCC;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 15px;
-  position: absolute;
-	top:5%;
-	right:0;
-	left:90px;
-}
-h4{
-  font-size: 40px;
-  text-shadow: 2px 4px 4px #CCCCCC;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 100;
-  text-align: center;
-  margin-bottom: 10px;
-}
-table{
-  width:100%;
-  table-layout: fixed;
-}
-.tbl-header{
-  background-color: rgba(255,255,255,0.3);
- }
-.tbl-content{
-  height:300px;
-  overflow-x:auto;
-  margin-top: 0px;
-  border: 1px solid rgba(255,255,255,0.3);
-}
-th{
-  padding: 20px 15px;
-  text-align: left;
-  font-weight: bold;
-  font-size: 16px;
-  color: #fff;
-  text-transform: uppercase;
-  word-wrap: break-word;
-}
-td{
-  padding: 15px;
-  text-align: left;
-  vertical-align:middle;
-  font-weight: 600;
-  font-size: 16px;
-  border-bottom: solid 1px rgba(255,255,255,0.1);
-  border-right: solid 1px rgba(255,255,255,0.3);
-  word-wrap: break-word;
-}
-#colorMentee, #mentee{
-	color: #B93A32;
-}
-#colorMentor, #mentor{
-	color: #005960;
-}
-
-
-/* demo styles */
-
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
-body{
-  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-  background: linear-gradient(to right, #25c481, #25b7c4);
-  font-family: 'Century Gothic', sans-serif;
-}
-section{
-  top:0;
-  margin-top: 150px; 
-  margin-bottom: 50px;
-  margin-left: 100px;
-  margin-right: 10px;
-
-}
-
-
-/* follow me template */
-.made-with-love {
-  margin-top: 40px;
-  padding: 10px;
-  clear: left;
-  text-align: center;
-  font-size: 10px;
-  font-family: arial;
-  color: #fff;
-}
-.made-with-love i {
-  font-style: normal;
-  color: #F50057;
-  font-size: 14px;
-  position: relative;
-  top: 2px;
-}
-.made-with-love a {
-  color: #fff;
-  text-decoration: none;
-}
-.made-with-love a:hover {
-  text-decoration: underline;
-}
-
-
-/* for custom scrollbar for webkit browser*/
-
-::-webkit-scrollbar {
-    width: 6px;
-} 
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-} 
-::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-}
-
-body {
-	top:0;
-	margin:0
-}
-
-.icon-bar {
-	top:30vh;
-    width: 90px;
-    background-color: #555;
-}
-.icon-bar a {
-    display: block;
-    text-align: center;
-    padding: 16px;
-    transition: all 0.3s ease;
-    color: white;
-    font-size: 36px;
-}
-
-.icon-bar a:hover {
-    background-color: #000;
-}
-
-.active {
-    background-color: #25c481 !important;
-}
-i{
-margin-right:2px;
-}
-body{
-
-	background-color: #cfd9df;
-	height:100%;
-}
-html{
-	
-	height:100%;
-}
-nav.icon-bar{
-	top:0;
-	position:fixed;
-	height:100%;
-	background-color: #555;
-}
-div.icon-bar{
-    margin-left: auto;
-    margin-right: auto; 
-	display: table-cell;
-    vertical-align: middle;
-	position:fixed;
-	top: calc((100% - 490px) / 2);
-	bottom:0;
-}
-h1{
-
-	top:5%;
-	right:0;
-	left:90px;
-}
-button{
-outline: none !important;
-}
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited,.btn-primary:focus {
-    background-color: #67d2bc !important;
-	border-color: #67d2bc !important;
-	outline: none !important;
-	color: white !important;
-	cursor: pointer !important;
-}
-
-
-.button-fill {
-  text-align: center;
-  background: #ccc;
-  display: inline-block;
-  position: relative;
-  text-transform: uppercase;
-  margin: 0px;
-}
-.button-fill.grey {
-  background: #445561;
-  color: white;
-  border-radius: 5px;
-}
-
-.button-text {
-  padding: 0 25px;
-  padding-right: 20px;
-  padding-left: 20px;
-  line-height: 56px;
-  letter-spacing: .1em;
-}
-.button-inside {
-  width: 0px;
-  height: 54px;
-  margin: 0;
-  float: left;
-  position: absolute;
-  top: 1px;
-  left: 50%;
-  line-height: 54px;
-  color: #fff;
-  background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-  text-align: center;
-  overflow: hidden;
-  -webkit-transition: width 0.5s, left 0.5s, margin 0.5s;
-  -moz-transition: width 0.5s, left 0.5s, margin 0.5s;
-  -o-transition: width 0.5s, left 0.5s, margin 0.5s;
-  transition: width 0.5s, left 0.5s, margin 0.5s;
-}
-.button-inside.full {
-  width: 100%;
-  left: 0%;
-  top: 0;
-  margin-right: -50px;
-  border: 1px solid #445561;
-  border-radius: 5px;
-}
-.inside-text {
-  text-align: center;
-  position: absolute;
-  right: 50%;
-  letter-spacing: .1em;
-  -webkit-transform: translateX(50%);
-  -moz-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
-}
-
-
-.buttons{
- 	position:relative;
-	margin-top:10px;
-	margin-left: 190px;
-  	
-}
-
-button{
-	margin-right: 10px;
-}
-.searchMentor, .searchMentee, .searchPair {
-position: relative;
-left: 0;
-}
-.menteeT, .mentorT, .pairT {
-position: absolute;
-left: 0;
-}
-
-button {
-	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
-	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
-	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
-	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
-	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
-	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
-	background-color:#ffffff;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	border:1px solid #dcdcdc;
-	display:inline-block;
-	cursor:pointer;
-	color:#666666;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
-}
-button:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
-	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
-	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
-	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
-	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
-	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
-	background-color:#f6f6f6;
-}
-button:active {
-	position:relative;
-	top:1px;
-}
-
-ul {
-    list-style-type: none;
-    padding-left: 90px;
-    overflow: hidden;
-
-}
-
-li {
-    float: left;
-    border-radius: 10px;
-}
-
-li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-li a:hover:not(.active) {
-    background-color: #eca1a6;
-    text-color: #fff;
-    border-radius: 5px;
-}
-
-.activeS{
-	background-color: #eca1a6;
-	border-radius: 5px;
-	
-}
-
-.btn{
-	background-color: #bdcebe;
-
-}
-
-#gender1,#gender2{
-	height: 36px;
-}
-</style>-->
 <body>
 
 
@@ -580,7 +222,7 @@ li a:hover:not(.active) {
 		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
-		  <a  class="active" href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		  <a  class="active" href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a> 
 	</div>
 </nav>
@@ -588,15 +230,18 @@ li a:hover:not(.active) {
 	
 
 <h1>Reports</h1>
+<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner inner--left">
+	
 <section>
-  <div class="container" style="position: fixed; margin-top: 10%; margin-left: 12%;    background-color: transparent;">
-		<div class="row">
-			<div class="col-md-6">
+
+		
 				<div class="container-fluid" >
 	
-  <div class="searchMentor" id="search1"  >
+  <div class="searchMentor" id="search1">
 
-    <form class="well form-horizontal" method="post"  id="contact_form">
+    <form class="well form-horizontal" method="post"  id="contact_form" style="background-color:transparent;border: transparent;">
 <fieldset>
 
 <!-- Form Name -->
@@ -612,11 +257,11 @@ li a:hover:not(.active) {
 
 
 <div class="form-group">
-  <label class="col-md-4 control-label">City</label>  
+  <label class="col-md-5 control-label">Address</label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="city"  class="form-control"  type="text" id="city1"
+  <input name="uAddress"  class="form-control"  type="text" id="city1"
   	onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}">
     </div>
@@ -626,11 +271,11 @@ li a:hover:not(.active) {
 <!-- Select Basic -->
    
 <div class="form-group"> 
-  <label class="col-md-4 control-label" >Gender</label>
+  <label class="col-md-5 control-label" >Gender</label>
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="gender" class="form-control selectpicker" id="gender1" >
+    <select name="uGender" class="form-control selectpicker" id="gender1" >
       <option></option>
       <option value="male">male</option>
       <option value="female">female</option>
@@ -644,20 +289,28 @@ li a:hover:not(.active) {
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label">Work place</label>  
+  <label class="col-md-5 control-label">Company</label>  
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
+    <select name="uCompany" class="form-control selectpicker">
+		<c:forEach var="item" items="${AllWorkPlaces}">
+			<option value="${item.id}">${item.company}</option>
+		</c:forEach>
+	</select>
+								
+    <!-- 
+    
         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
   <input name="work" class="form-control" type="text" id="work"
   onblur="if(this.value==''){ this.value='work'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='work'){this.value=''; this.style.color='#000';}">
+	onfocus="if(this.value=='work'){this.value=''; this.style.color='#000';}"> -->
     </div>
   </div>
 </div>
 
 <!-- radio checks -->
  <div class="form-group" id="formP1" >
-                        <label class="col-md-4 control-label">In a pair?</label>
+                        <label class="col-md-5 control-label">In a pair?</label>
                         <div class="col-md-4">
                             <div class="radio">
                                 <label>
@@ -691,7 +344,7 @@ li a:hover:not(.active) {
     
 <div class="searchMentee" id="search2"  style=" display: none">
 
-    <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+    <form class="well form-horizontal" action=" " method="post"  id="contact_form" style="background-color:transparent;border: transparent;">
 <fieldset>
 
 <!-- Form Name -->
@@ -703,11 +356,11 @@ li a:hover:not(.active) {
 </ul>
 </legend>
 <div class="form-group">
-  <label class="col-md-4 control-label">City</label>  
+  <label class="col-md-5 control-label">Address</label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="city"  class="form-control"  type="text" id="city2"
+  <input name="uAddress"  class="form-control"  type="text" id="city2"
   onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}">
     </div>
@@ -717,11 +370,11 @@ li a:hover:not(.active) {
 <!-- Select Basic -->
    
 <div class="form-group"> 
-  <label class="col-md-4 control-label">Gender</label>
+  <label class="col-md-5 control-label">Gender</label>
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="state" class="form-control selectpicker" id="gender2">
+    <select name="uGender" class="form-control selectpicker" id="gender2">
       <option value=" " ></option>
       <option>male</option>
       <option>female</option>
@@ -735,19 +388,26 @@ li a:hover:not(.active) {
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label">Institution</label>  
+  <label class="col-md-5 control-label">Institution</label>  
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+       
+        
+       <select name="uAcademicInstitution" class="form-control selectpicker">
+		<c:forEach var="item" items="${AllAcademicInstitutes}">
+				<option value="${item.id}">  ${item.name}</option>
+		</c:forEach>
+		</select>  
+   <!--      
   <input name="website" class="form-control" type="text" id="institution"
   onblur="if(this.value==''){ this.value='institution'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">
+	onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">--> 
     </div>
   </div>
 </div>
 
 <div class="form-group">
-  <label class="col-md-4 control-label">Academic discipline</label>  
+  <label class="col-md-5 control-label">Academic discipline</label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
@@ -795,7 +455,7 @@ li a:hover:not(.active) {
     
 <div class="searchPair" id="search3" style=" display: none" >
 
-    <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+    <form class="well form-horizontal" action=" " method="post"  id="contact_form" style="background-color:transparent;border: transparent;">
 <fieldset>
 
 <!-- Form Name -->
@@ -812,38 +472,44 @@ li a:hover:not(.active) {
 
 
 <div class="form-group">
-  <label class="col-md-4 control-label">Mentor name</label>  
+  <label class="col-md-5 control-label">Mentor First Name </label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="mentorN"  class="form-control" id="mentorN"  type="text"
+       
+  <input name="MentorName"  class="form-control" id="mentorN"  type="text"
   onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
     </div>
   </div>
 </div>
-
-
-
-   
-
 
 
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label">Mentee name</label>  
+  <label class="col-md-5 control-label">Mentor Last Name</label>  
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-  <input name="menteeN" class="form-control" id="menteeN" type="text"
+       
+  <input name="MentorLast" class="form-control" id="mentorLast" type="text"
   onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
     </div>
   </div>
 </div>
 
-
+<!-- number input-->
+<div class="form-group">
+  <label class="col-md-5 control-label">Number of meetings</label>  
+   <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+       
+  <input name="" class="form-control" id="" type="number" min="1"
+  onblur="if(this.value==''){ this.value='0'; this.style.color='#BBB';}" 
+	onfocus="if(this.value=='0'){this.value=''; this.style.color='#000';}">
+    </div>
+  </div>
+</div>
 
 
 
@@ -860,12 +526,20 @@ li a:hover:not(.active) {
 </div>
     
 	</div>
+			</section>
 			</div>
 			
 			
-			<div class="col-md-6" >
+			
+			
+			
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
+	<div class="inner inner--right">
+	
+	<section class="Pairs">
 	<div class=mentorT style=" display: none" id="mentor">
-			<div class="tbl-header">
+			<div class="tbl-header" style="margin-left: 4%; margin-right: 4%;margin-bottom: 4%; margin-top: 4%;">
   
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -897,7 +571,7 @@ li a:hover:not(.active) {
     
     
     <div class="menteeT" style=" display: none" id="mentee">
-    	<div class="tbl-header">
+    	<div class="tbl-header" style="margin-left: 4%; margin-right: 4%;margin-bottom: 4%; margin-top: 4%;">
     <table  cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
@@ -927,7 +601,7 @@ li a:hover:not(.active) {
     </div>
     
     <div class="pairT" style=" display: none" id="pair">
-    <div class="tbl-header">
+    <div class="tbl-header" style="margin-left: 4%; margin-right: 4%;margin-bottom: 4%; margin-top: 4%;">
     <table cellpadding="0" cellspacing="0" border="0" >
       <thead>
         <tr>
@@ -953,9 +627,10 @@ li a:hover:not(.active) {
     </table>
   </div>
 	</div>
-  </div>
-  </div>
-</div>
+
 </section>
+</div>
+
+
 </body>
 </html> 

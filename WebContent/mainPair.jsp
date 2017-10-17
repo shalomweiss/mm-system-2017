@@ -80,7 +80,7 @@ $(document).ready(function(){
     			</a>
     		</td>
           	<td class="but">   
-          		<a class="btn btn-block btn-primary disB" style="margin-top: 0px;" id="${pair.pairId}">
+          		<a class="btn btn-block btn-primary disB" id="${pair.pairId}" style="margin-top: 0px;" >
   					Disconnect
    				</a>
     		</td>
