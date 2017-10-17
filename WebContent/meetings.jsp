@@ -134,11 +134,11 @@ Mentee:
 			<td class="inf"><c:out value="${meeting.location}"></c:out></td>
 			<td class="inf"><c:out value="${meeting.meetingType}"></c:out></td>
 			<td class="inf"><c:out value="${meeting.subject}"></c:out></td>	
-			<td class="inf"><c:out value="${meeting.activeStatus}"></c:out></td>	
+			<td class="inf"><c:out value="${meeting.status}"></c:out></td>	
         </tr>
         
 	    <tr id="hidden_row${meeting.meetingId}" class="hidden_row">
-	    <td colspan=4>
+	    <td colspan=5>
 	    
         	<div class="tab">
 		<table>

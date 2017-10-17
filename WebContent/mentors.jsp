@@ -167,11 +167,13 @@ input[type=submit] {
 input[type=submit]:hover {
 	background-color: #45a049;
 }
+
+
 /* Style the tab */
 div.tab {
 	overflow: hidden;
 	border: 1px solid #ccc;
-	background-color: rgba(250,178,58,0.9);
+	background-color: rgba(108,136,225,0.9);
 }
 
 /* Style the buttons inside the tab */
@@ -203,6 +205,16 @@ div.tab button.active {
 	border-top: none;
 }
 
+table tr:nth-child(4n-1), table tr:nth-child(4n)  {
+    background: #ccc;
+}
+
+th.inner
+{
+	color: black !important;
+	background-color: white;
+
+}
 .close {
 	background: #606061;
 	color: #FFFFFF;
@@ -317,6 +329,10 @@ th {
 	font-size: 12px;
 	color: #000;
 	text-transform: uppercase;
+}
+th.inner
+{
+	
 }
 
 td {
@@ -512,7 +528,7 @@ button {
 }
 
 tr.stam:hover {
-	background-color: #f5f5f5;
+	background-color:rgba(108,136,225,0.9);
 	opacity: 0.9;
 	cursor: pointer;
 }
@@ -522,7 +538,7 @@ td {
 }
 
 #table_detail tr:hover {
-	background-color: #F2F2F2;
+	background-color: rgba(108,136,225,0.9);
 }
 
 #table_detail .hidden_row {
@@ -551,12 +567,11 @@ td {
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
 	<div class="inner">
+	
 	<section class="Pairs">
-		<!--for demo wrap-->
-		<div class="tbl-header">
-
-			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
-				<thead class="tbl-header">
+<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+	
+	<thead class="tbl-header-mentor">
 					<tr>
 						<th>Name</th>
 						<th>Last Name</th>
@@ -565,12 +580,18 @@ td {
 					</tr>
 
 				</thead>
-				</div>
+				</table>
+		<!--for demo wrap-->
+		<div class="tbl-header">
+
+			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+				
+				
 
 				<div class="tbl-content" style="height: 100%">
 					<tbody>
 						<c:forEach items="${Mentors}" var="ment">
-							<tr class="stam para"
+							<tr class="stam"
 								onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 								<td style="display: none">${ment.id}</td>
 								<td>${ment.firstName}</td>
@@ -579,8 +600,7 @@ td {
 								<td>${ment.email}</td>
 							</tr>
 
-							<tr id="hidden_row${ment.id}" class="hidden_row"
-								>
+							<tr id="hidden_row${ment.id}" class="hidden_row">
 								<td colspan=4>
 									<div class="tab">
 
@@ -598,19 +618,21 @@ td {
 									</div>
 									<form id="form${ment.id}" action="UpdateMentor" method="post">
 										<div id="info${ment.id}" class="tabcontent"
-											style="background-color: #f1f1f1;">
+											style="background-color: rgba(108,136,225,0.9);">
 
 
 
 											<table class="w3-table-all w3-card-4">
 
 												<tr>
-													<th>First name</th>
-													<th>Last name</th>
-													<th>Gender</th>
-													<th>Address</th>
-													<th>Phone</th>
-													<th>Email</th>
+													<th class="inner">First name</th>
+													<th class="inner">Last name</th>
+													<th class="inner">Gender</th>
+													<th class="inner">Address</th>
+													<th class="inner">Phone</th>
+													<th class="inner">Email</th>
+																										<th class="inner">submit</th>
+													
 												</tr>
 												<tr>
 													<td>
@@ -673,14 +695,16 @@ td {
 										</div>
 
 										<div id="Experience${ment.id}" class="tabcontent"
-											style="background-color: #f1f1f1;">
+											style="background-color: rgba(108,136,225,0.9);">
 
 											<table class="w3-table-all w3-card-4">
 												<tr>
-													<th>Experience</th>
-													<th>Role</th>
-													<th>company</th>
-													<th>workHistory</th>
+													<th class="inner">Experience</th>
+													<th class="inner">Role</th>
+													<th class="inner">company</th>
+													<th class="inner">workHistory</th>
+																										<th class="inner">submit</th>
+													
 
 												</tr>
 												<tr>
@@ -727,10 +751,13 @@ td {
 										</div>
 
 										<div id="Notes${ment.id}" class="tabcontent"
-											style="background-color: #f1f1f1;">
+											style="background-color: rgba(108,136,225,0.9);">
 											<table>
 												<tr>
-													<th>Notes</th>
+													<th class="inner">Notes</th>
+													
+																										<th class="inner">submit</th>
+													
 												</tr>
 												<tr>
 													<td>
@@ -741,30 +768,32 @@ td {
 															value="${ment.note}"
 															style="display: none; height: 100px;">${ment.note}</textarea>
 													</td>
-												</tr>
-
-												<tr>
-													<td><input id="id:${ment.id}" name="uId" type="text"
+																					<td><input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
 														onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
-														<input type="submit" id="submit${ment.id}" style="float: right;" value="Done">
+														<input type="submit" id="submit${ment.id}" style="float: center;" value="Done">
 
 													</td>
 												</tr>
+
+											
 
 											</table>
 										</div>
 
 
 										<div id="Volunteering${ment.id}" class="tabcontent"
-											style="background-color: #f1f1f1;">
+											style="background-color: rgba(108,136,225,0.9);">
 											<table>
 
 
 												<tr>
-													<th>Volunteering</th>
+													<th class="inner">Volunteering</th>
+													<th class="inner">submit</th>
+													
 												</tr>
+												
 												<tr>
 													<td>
 														<div id="div11${ment.id}"
@@ -774,10 +803,11 @@ td {
 															value="${ment.volunteering}"
 															style="display: none; height: 100px;">${ment.volunteering}</textarea>
 													</td>
-												</tr>
-												<tr>
 													<td><input type="submit" id="submit${ment.id}"
-														style="float: right;" value="Done"></td>
+														style="float: center;" value="Done"></td>
+												</tr>
+												
+													
 											</table>
 										</div>
 										</form>
@@ -790,7 +820,7 @@ td {
 						</c:forEach>
 
 					</tbody>
-				</div>
+				
 			</table>
 		</div>
 
