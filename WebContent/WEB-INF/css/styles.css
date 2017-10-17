@@ -456,6 +456,11 @@ li:hover{
 	margin-right:10px;
 	margin-top:10px;
 }
+img
+{
+	height: 60px;
+    width: 60px;
+}
 tr:hover td.inf{
 	background-color:#f5f5f5;
 	color: #69A489;

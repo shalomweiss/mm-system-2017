@@ -318,6 +318,10 @@ th {
 	color: #000;
 	text-transform: uppercase;
 }
+th.inner
+{
+	
+}
 
 td {
 	vertical-align: middle;
@@ -551,12 +555,9 @@ td {
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
 	<div class="inner">
+	
 	<section class="Pairs">
-		<!--for demo wrap-->
-		<div class="tbl-header">
-
-			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
-				<thead class="tbl-header">
+	<thead class="tbl-header">
 					<tr>
 						<th>Name</th>
 						<th>Last Name</th>
@@ -565,6 +566,11 @@ td {
 					</tr>
 
 				</thead>
+		<!--for demo wrap-->
+		<div class="tbl-header">
+
+			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+				
 				</div>
 
 				<div class="tbl-content" style="height: 100%">
