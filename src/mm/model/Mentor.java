@@ -10,7 +10,9 @@ public class Mentor extends User {
 	private String workHistory;
 	
 	
-	public Mentor(){}
+	public Mentor(){
+		super();
+	}
 
 	public Mentor(String firstName, String lastName, String experience) {
 		super(firstName, lastName);
