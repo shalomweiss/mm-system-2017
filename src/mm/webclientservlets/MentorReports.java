@@ -31,7 +31,6 @@ public class MentorReports extends HttpServlet {
 			throws ServletException, IOException {
 
 		DataAccess da = new DataAccess();
-		String nextPage = request.getParameter("jsp");
 		
 		String address = request.getParameter("uAddress");
 		String gender = request.getParameter("uGender");
@@ -43,14 +42,14 @@ public class MentorReports extends HttpServlet {
 
 		Gson gson = new Gson();
 	   // System.out.println("USER with not json " +getUsers);
-		String userResult = gson.toJson(allMentors, Constants.USER_CLASS);
+//		String userResult = gson.toJson(allMentors, Constants.USER_CLASS);
 		
-	//    System.out.println("USer with JSON" + userResult);	    
-    
-	    PrintWriter writer = response.getWriter();
-		writer.println(userResult);
-		writer.close();
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+//	    System.out.println("USer with JSON" + userResult);	    
+		request.setAttribute("mentorReports", allMentors);
+//	    PrintWriter writer = response.getWriter();
+//		writer.println(userResult);
+//		writer.close();
+		RequestDispatcher req = request.getRequestDispatcher("");
 		req.forward(request, response);
 
 	}
