@@ -149,7 +149,7 @@ td{
   border-right: solid 1px rgba(255,255,255,0.3);
   word-wrap: break-word;
 }
-tr:nth-child(even){background-color: #ccc !important}
+/**tr:nth-child(even){background-color: #ccc !important}*/
 td.but{
 	text-align: left;
 }
