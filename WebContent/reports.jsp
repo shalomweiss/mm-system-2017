@@ -257,7 +257,7 @@ $("#submit3").click(function() {
 
 
 <div class="form-group">
-  <label class="col-md-4 control-label">City</label>  
+  <label class="col-md-5 control-label">Address</label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
@@ -271,7 +271,7 @@ $("#submit3").click(function() {
 <!-- Select Basic -->
    
 <div class="form-group"> 
-  <label class="col-md-4 control-label" >Gender</label>
+  <label class="col-md-5 control-label" >Gender</label>
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
@@ -289,10 +289,10 @@ $("#submit3").click(function() {
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label">Company</label>  
+  <label class="col-md-5 control-label">Company</label>  
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
-    <select name="uCompany">
+    <select name="uCompany" class="form-control selectpicker">
 		<c:forEach var="item" items="${AllWorkPlaces}">
 			<option value="${item.id}">${item.company}</option>
 		</c:forEach>
@@ -310,7 +310,7 @@ $("#submit3").click(function() {
 
 <!-- radio checks -->
  <div class="form-group" id="formP1" >
-                        <label class="col-md-4 control-label">In a pair?</label>
+                        <label class="col-md-5 control-label">In a pair?</label>
                         <div class="col-md-4">
                             <div class="radio">
                                 <label>
@@ -356,7 +356,7 @@ $("#submit3").click(function() {
 </ul>
 </legend>
 <div class="form-group">
-  <label class="col-md-4 control-label">Address</label>  
+  <label class="col-md-5 control-label">Address</label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
@@ -370,7 +370,7 @@ $("#submit3").click(function() {
 <!-- Select Basic -->
    
 <div class="form-group"> 
-  <label class="col-md-4 control-label">Gender</label>
+  <label class="col-md-5 control-label">Gender</label>
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
@@ -388,12 +388,12 @@ $("#submit3").click(function() {
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label">Institution</label>  
+  <label class="col-md-5 control-label">Institution</label>  
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+       
         
-       <select name="uAcademicInstitution">
+       <select name="uAcademicInstitution" class="form-control selectpicker">
 		<c:forEach var="item" items="${AllAcademicInstitutes}">
 				<option value="${item.id}">  ${item.name}</option>
 		</c:forEach>
@@ -407,7 +407,7 @@ $("#submit3").click(function() {
 </div>
 
 <div class="form-group">
-  <label class="col-md-4 control-label">Academic discipline</label>  
+  <label class="col-md-5 control-label">Academic discipline</label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
@@ -472,10 +472,10 @@ $("#submit3").click(function() {
 
 
 <div class="form-group">
-  <label class="col-md-4 control-label">Mentor First Name</label>  
+  <label class="col-md-5 control-label">Mentor First Name </label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+       
   <input name="MentorName"  class="form-control" id="mentorN"  type="text"
   onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
@@ -485,17 +485,12 @@ $("#submit3").click(function() {
 
 
 
-   
-
-
-
-
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label">Mentor Last Name</label>  
+  <label class="col-md-5 control-label">Mentor Last Name</label>  
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+       
   <input name="MentorLast" class="form-control" id="mentorLast" type="text"
   onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
@@ -503,7 +498,18 @@ $("#submit3").click(function() {
   </div>
 </div>
 
-
+<!-- number input-->
+<div class="form-group">
+  <label class="col-md-5 control-label">Number of meetings</label>  
+   <div class="col-md-4 inputGroupContainer">
+    <div class="input-group">
+       
+  <input name="" class="form-control" id="" type="number" min="1"
+  onblur="if(this.value==''){ this.value='0'; this.style.color='#BBB';}" 
+	onfocus="if(this.value=='0'){this.value=''; this.style.color='#000';}">
+    </div>
+  </div>
+</div>
 
 
 
@@ -533,7 +539,7 @@ $("#submit3").click(function() {
 	
 	<section class="Pairs">
 	<div class=mentorT style=" display: none" id="mentor">
-			<div class="tbl-header">
+			<div class="tbl-header" style="margin-left: 4%; margin-right: 4%;margin-bottom: 4%; margin-top: 4%;">
   
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
@@ -565,7 +571,7 @@ $("#submit3").click(function() {
     
     
     <div class="menteeT" style=" display: none" id="mentee">
-    	<div class="tbl-header">
+    	<div class="tbl-header" style="margin-left: 4%; margin-right: 4%;margin-bottom: 4%; margin-top: 4%;">
     <table  cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
@@ -595,7 +601,7 @@ $("#submit3").click(function() {
     </div>
     
     <div class="pairT" style=" display: none" id="pair">
-    <div class="tbl-header">
+    <div class="tbl-header" style="margin-left: 4%; margin-right: 4%;margin-bottom: 4%; margin-top: 4%;">
     <table cellpadding="0" cellspacing="0" border="0" >
       <thead>
         <tr>
