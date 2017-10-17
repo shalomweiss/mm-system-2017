@@ -135,9 +135,8 @@ var prevRow;
 		{
 		showStuff("input"+i+mentId,"div"+i+mentId);
 		}
-		document.getElementById(row);
-		console.log(document.getElementById(row));
-		console.log(document.getElementById(row).parentNode.children);
+		var row1=document.getElementById(row);
+		console.log(document.getElementById(row).parentNode.parentNode.parentNode);
 		var childrenOfTheTbody=document.getElementById(row).parentNode.children;
 		var numOfStams=0;
 		console.log(childrenOfTheTbody[0].clientHeight);
@@ -145,11 +144,15 @@ var prevRow;
 		{
 			if(childrenOfTheTbody[i].id==row)
 				break;
-					
-				
 			if(childrenOfTheTbody[i].className=="stam")
-				
+				numOfStams++;
 		}
+		var heightPX=(numOfStams-1)*(childrenOfTheTbody[0].clientHeight+1);
+		console.log('height is '+heightPX);
+		console.log(row1.parentNode.parentNode.parentNode);
+		$( "div.tbl-header" ).scrollTop(heightPX);
+		
+		
 		
 		
 	backUpInputs(mentId);
