@@ -91,19 +91,17 @@ function showPairTable() {
 
 $(document).ready(function(){
 $("#submit1").click(function() {
-	var type="mentor";
     var city = $("#city1").val();
     var work = $("#work").val();
     var gender = $("#gender1").val();
     var pair=$('input[name=pair1]:checked', '#formP1').serialize();
   
-    $.post("Reports",
+    $.post("MentorReports",
             {
-        	type: type,
-            city: city,
-            work: work,
-            gender: gender,
-            pair: pair
+            uAddress: city,
+            uCompany: work,
+            uGender: gender,
+            inpair: pair
         },
     function(data,status){
     	var table=document.getElementsByClassName("table1")[0];
@@ -133,21 +131,19 @@ $("#submit1").click(function() {
     });
 });
 $("#submit2").click(function() {
-	var type="mentee";
     var city = $("#city2").val();
     var institution = $("#institution").val();
     var academic = $("#academic").val();
     var gender = $("#gender2").val();
     var pair=$('input[name=pair2]:checked', '#formP2').serialize();
     
-    $.post("Reports",
+    $.post("MenteeReports",
             {
-        	type: type,
-            city: city,
-            institution: institution,
-            academic: academic,
-            gender: gender,
-            pair: pair
+            uAddress: city,
+            uAcademicInstitution: institution,
+            uAcademicDicipline1: academic,
+            uGender: gender,
+            inPair: pair
         },
         function(data,status){
         	var table=document.getElementsByClassName("table2")[0];
@@ -177,15 +173,13 @@ $("#submit2").click(function() {
         });
 });
 $("#submit3").click(function() {
-	var type="pair";
-    var mentee = $("#menteeN").val();
+    var mentee = $("#mentorLast").val();
     var mentor = $("#mentorN").val();
    
-    $.post("Reports",
+    $.post("PairReports",
             {
-        	type: type,
-            mentee: mentee,
-            mentor: mentor
+            MentorName: mentee,
+            MentorLast: mentor
         },
         function(data,status){
         	var table=document.getElementsByClassName("table3")[0];
@@ -267,7 +261,7 @@ $("#submit3").click(function() {
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="city"  class="form-control"  type="text" id="city1"
+  <input name="uAddress"  class="form-control"  type="text" id="city1"
   	onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}">
     </div>
@@ -281,7 +275,7 @@ $("#submit3").click(function() {
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="gender" class="form-control selectpicker" id="gender1" >
+    <select name="uGender" class="form-control selectpicker" id="gender1" >
       <option></option>
       <option value="male">male</option>
       <option value="female">female</option>
@@ -295,11 +289,11 @@ $("#submit3").click(function() {
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label">Work place</label>  
+  <label class="col-md-4 control-label">Company</label>  
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
-    <select name="company">
-		<c:forEach var="item" items="${NewWorkPlace}">
+    <select name="uCompany">
+		<c:forEach var="item" items="${Company}">
 			<option value="${item.id}">${item.company}</option>
 		</c:forEach>
 	</select>
@@ -362,11 +356,11 @@ $("#submit3").click(function() {
 </ul>
 </legend>
 <div class="form-group">
-  <label class="col-md-4 control-label">City</label>  
+  <label class="col-md-4 control-label">Address</label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="city"  class="form-control"  type="text" id="city2"
+  <input name="uAddress"  class="form-control"  type="text" id="city2"
   onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}">
     </div>
@@ -380,7 +374,7 @@ $("#submit3").click(function() {
     <div class="col-md-4 selectContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="state" class="form-control selectpicker" id="gender2">
+    <select name="uGender" class="form-control selectpicker" id="gender2">
       <option value=" " ></option>
       <option>male</option>
       <option>female</option>
@@ -478,11 +472,11 @@ $("#submit3").click(function() {
 
 
 <div class="form-group">
-  <label class="col-md-4 control-label">Mentor name</label>  
+  <label class="col-md-4 control-label">Mentor First Name</label>  
     <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="mentorN"  class="form-control" id="mentorN"  type="text"
+  <input name="MentorName"  class="form-control" id="mentorN"  type="text"
   onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
     </div>
@@ -498,11 +492,11 @@ $("#submit3").click(function() {
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label">Mentee name</label>  
+  <label class="col-md-4 control-label">Mentor Last Name</label>  
    <div class="col-md-4 inputGroupContainer">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-  <input name="menteeN" class="form-control" id="menteeN" type="text"
+  <input name="MentorLast" class="form-control" id="mentorLast" type="text"
   onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
 	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
     </div>
