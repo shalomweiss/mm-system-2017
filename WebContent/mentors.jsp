@@ -78,6 +78,27 @@ var prevRow;
 		{
 		showStuff("input"+i+mentId,"div"+i+mentId);
 		}
+		
+		var row1=document.getElementById(row);
+		console.log(document.getElementById(row).parentNode.parentNode.parentNode);
+		var childrenOfTheTbody=document.getElementById(row).parentNode.children;
+		var numOfStams=0;
+		
+		console.log(childrenOfTheTbody[0].clientHeight);
+		for(i=0;i<childrenOfTheTbody.length;i++)
+		{
+			if(childrenOfTheTbody[i].id==row)
+				break;
+			if(childrenOfTheTbody[i].className=="stam")
+		
+				
+				numOfStams++;
+		}
+		var heightPX=(numOfStams-1)*(childrenOfTheTbody[0].clientHeight+1);
+		console.log('height is '+heightPX);
+		console.log(row1.parentNode.parentNode.parentNode);
+		$( "div.tbl-header" ).scrollTop(heightPX);
+		
 	backUpInputs(mentId);
 
 	}
@@ -208,6 +229,15 @@ div.tab button.active {
 table tr:nth-child(4n-1), table tr:nth-child(4n)  {
     background: #ccc;
 }
+.container {
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	/*padding: 20px;*/
+	    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+}
 
 th.inner
 {
@@ -245,13 +275,18 @@ th.inner
 }
 
 .modalDialog>div {
-	width: 80%;
+	width: 60%;
 	margin: auto;
 	border-radius: 10px;
 	background: #fff;
 	background: -moz-linear-gradient(#fff, #999);
 	background: -webkit-linear-gradient(#fff, #999);
 	background: -o-linear-gradient(#fff, #999);
+}
+
+.addMentorForm td{
+background-color: #ccc;
+
 }
 
 .modalDialog {
@@ -533,7 +568,7 @@ tr.stam:hover {
 	cursor: pointer;
 }
 td {
-    padding: 15px !important;
+    padding: 5px !important;
 	height: 20%;
 }
 
@@ -543,6 +578,19 @@ td {
 
 #table_detail .hidden_row {
 	display: none;
+}
+
+input[type=text] , input[type=radio] , select{
+
+    padding-top: 5px;
+    padding-bottom: 5x;
+    padding-right: 3px;
+    padding-left: 3px;
+
+}
+textarea{
+
+resize: none;
 }
 </style>
 
@@ -843,18 +891,18 @@ td {
 						style="position: absolute; background-color: red;">X</a>
 
 					<form action="AddNewMentor" method="post">
-						<table>
+						<table class="addMentorForm">
 							<tr>
 								<td>First Name:</td>
-								<td><input type="text" name="firstName"></td>
+								<td><input type="text" name="firstName" required></td>
 								<td>Last Name:</td>
-								<td><input type="text" name="lastName"></td>
+								<td><input type="text" name="lastName" required></td>
 							</tr>
 							<tr>
 								<td>Email</td>
-								<td><input type="text" name="email"></td>
+								<td><input type="text" name="email" required></td>
 								<td>Phone number</td>
-								<td><input type="text" name="phoneNumber"></td>
+								<td><input type="number" name="phoneNumber" required></td>
 							</tr>
 							<tr>
 								<td>Gender</td>
@@ -868,7 +916,7 @@ td {
 									
 									</td>
 								<td>Address</td>
-								<td><input type="text" name="address"></td>
+								<td><input type="text" name="address" required></td>
 							</tr>
 
 							<tr>
@@ -884,7 +932,7 @@ td {
 								
 								</td>
 								<td>Role</td>
-								<td><input type="text" name="role"></td>
+								<td><input type="text" name="role" required></td>
 							</tr>
 
 							<tr>
@@ -906,12 +954,11 @@ td {
 							</tr>
 							<tr>
 								<td>note</td>
-								<td colspan="3"><textarea name="notes"
+								<td colspan="2"><textarea name="notes"
 										style="height: 50px"></textarea></td>
+										<td><input style="float:right" type="submit" value="Done"></td>
 							</tr>
-							<tr>
-								<td colspan="3"><input type="submit" value="Done"></td>
-							</tr>
+							
 
 						</table>
 					</form>

@@ -12,7 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+<style type="text/css">tr:nth-child(even){background-color: #ccc !important}</style>
 <script>
 $(document).ready(function(){
 	$(".disB").click(function(){
