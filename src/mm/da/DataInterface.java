@@ -98,10 +98,10 @@ public interface DataInterface {
 	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException;
 	
 
-	public ArrayList<Mentee> getAllCorrespondingMentees(String address,String gender,String academicInstitution, boolean inPair,
-					 String academicDicipline1,String academicDicipline2);
+	public ArrayList<Mentee> getAllCorrespondingMentees(String address,int  gender,int academicInstitution, int inPair,
+					 String academicDicipline1) throws SQLException;
 	
-	public ArrayList<Mentor> getAllCorrespondingMentors(String address,String gender,String workPlace, boolean inPair);
+	public ArrayList<Mentor> getAllCorrespondingMentors(String address,int gender,int workPlace, int inPair) throws SQLException;
 
 	public ArrayList<Pair> getAllCorrespondingPairs(int numOfMeetings, String mentorFirstName, String mentorLastName, long startingAt,
 			long endingAt, meetingType t) throws SQLException;

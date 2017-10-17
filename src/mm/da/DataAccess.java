@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -981,16 +982,103 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public ArrayList<Mentee> getAllCorrespondingMentees(String address, String gender, String academicInstitution,
-			boolean inPair, String academicDicipline1, String academicDicipline2) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Mentee> getAllCorrespondingMentees(String address, int gender, int academicInstitution,
+			int inPair, String academicDicipline1) throws SQLException {
+		ArrayList<Mentee> m = new ArrayList<>();
+		Mentee mentee=null;
+		java.sql.CallableStatement cStmt = c.prepareCall("{call getAllCorrespondingMentees(?, ?, ?, ?, ?, ?)}");
+		
+		if (address != null && !address.isEmpty())
+		
+			cStmt.setString(1, address);   
+		else 
+			  cStmt.setString(1, null);
+		if (gender != -1)
+			cStmt.setInt(2, gender); 
+		else 
+			cStmt.setNull(2, java.sql.Types.INTEGER);
+		if (academicInstitution != -1)
+			cStmt.setInt(3, academicInstitution); 
+		else 
+			cStmt.setNull(3, java.sql.Types.INTEGER);	
+		if (inPair != -1)
+			cStmt.setInt(4, inPair); 
+		else 
+			 cStmt.setNull(4, java.sql.Types.INTEGER);
+		if (academicDicipline1 != null && !address.isEmpty())
+			
+			cStmt.setString(1, academicDicipline1);   
+		else 
+			  cStmt.setString(1, null); 
+		ResultSet r = cStmt.executeQuery();
+		while(r.next())
+		{
+			mentee =  new Mentee(r.getInt(DataContract.UsersTable.COL_ID), r.getString(DataContract.UsersTable.COL_FIRSTNAME),
+					r.getString(DataContract.UsersTable.COL_LASTNAME), r.getString(DataContract.UsersTable.COL_EMAIL),
+					r.getString(DataContract.UsersTable.COL_PHONENUMBER),
+					r.getString(DataContract.UsersTable.COL_PASSWORD), r.getInt(DataContract.UsersTable.COL_GENDER),
+					r.getString(DataContract.UsersTable.COL_ADDRESS),
+					r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
+					r.getString(DataContract.UsersTable.COL_NOTES), r.getBoolean(DataContract.UsersTable.COL_ACTIVE),
+					userType.MENTEE, r.getFloat(DataContract.MenteeTable.COL_REMAININGSEMESTERS),
+					r.getString(DataContract.MenteeTable.COL_GRADUATIONSTATUS),
+					r.getInt(DataContract.MenteeTable.COL_ACADEMICINSTITUTE),
+					r.getFloat(DataContract.MenteeTable.COL_AVERAGE),
+					r.getString(DataContract.MenteeTable.COL_ACADEMICDICIPLINE1),
+					r.getString(DataContract.MenteeTable.COL_ACADEMICDICIPLINE2),
+					r.getBoolean(DataContract.MenteeTable.COL_SIGNEDEULA),
+					r.getString(DataContract.MenteeTable.COL_RESUME),
+					r.getString(DataContract.MenteeTable.COL_GRADESHEET));
+		}
+		m.add(mentee);
+		
+		return m;
 	}
+	
 
 	@Override
-	public ArrayList<Mentor> getAllCorrespondingMentors(String address, String gender, String workPlace, boolean inPair) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Mentor> getAllCorrespondingMentors(String address, int  gender, int workPlace, int inPair) throws SQLException {
+		
+		ArrayList<Mentor> m = new ArrayList<>();
+		Mentor mentor=null;
+		
+		java.sql.CallableStatement cStmt = c.prepareCall("{call getAllCorrespondingMentors(?, ?, ?, ?)}");
+		if (address != null && !address.isEmpty())
+			cStmt.setString(1, address);   
+		else 
+			  cStmt.setString(1, null);	
+		if (gender != -1)
+			cStmt.setInt(2, gender); 
+		else 
+			cStmt.setNull(2, java.sql.Types.INTEGER);	 
+		if (workPlace != -1)
+			cStmt.setInt(3, workPlace); 	
+		else 
+			 cStmt.setNull(3, java.sql.Types.INTEGER);
+		if (inPair != -1)
+			cStmt.setInt(4, inPair); 
+		else 
+			 cStmt.setNull(4, java.sql.Types.INTEGER);
+		
+		ResultSet r = cStmt.executeQuery();
+		
+		while (r.next())
+		{
+		mentor = new Mentor(r.getInt(DataContract.UsersTable.COL_ID), r.getString(DataContract.UsersTable.COL_FIRSTNAME),
+				r.getString(DataContract.UsersTable.COL_LASTNAME), r.getString(DataContract.UsersTable.COL_EMAIL),
+				r.getString(DataContract.UsersTable.COL_PHONENUMBER),
+				r.getString(DataContract.UsersTable.COL_PASSWORD), r.getInt(DataContract.UsersTable.COL_GENDER),
+				r.getString(DataContract.UsersTable.COL_ADDRESS), r.getString(DataContract.UsersTable.COL_NOTES),
+				r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
+				r.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTOR,
+				r.getString(DataContract.MentorsTable.COL_EXPERIENCE),
+				r.getString(DataContract.MentorsTable.COL_ROLE), r.getInt(DataContract.MentorsTable.COL_COMPANY),
+				r.getString(DataContract.MentorsTable.COL_VOLUNTEERING),
+				r.getString(DataContract.MentorsTable.COL_WORKHISTORY));	
+		m.add(mentor);
+		}
+		
+		return m;
 	}
 
 	@Override
