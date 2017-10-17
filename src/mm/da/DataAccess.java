@@ -11,6 +11,9 @@ import java.util.logging.Logger;
 
 import javax.enterprise.event.Observes;
 
+import com.mysql.jdbc.CallableStatement;
+import com.sun.xml.internal.ws.wsdl.writer.document.Types;
+
 import java.sql.Statement;
 import java.sql.Time;
 import java.text.Format;
@@ -991,9 +994,45 @@ public class DataAccess implements DataInterface {
 	}
 
 	@Override
-	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName, String menteeName) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Pair> getAllCorrespondingPairs(int numOfMeetings, String mentorFirstName, String mentorLastName, long startingAt, long endingAt, meetingType t) throws SQLException {
+		ArrayList<Pair> pairs = new ArrayList<>();
+		Pair p = null;
+		java.sql.CallableStatement cStmt = c.prepareCall("{call getAllCorrespondingPairs(?, ?, ?, ?, ?, ?)}");
+		
+		if(numOfMeetings != -1)
+			cStmt.setInt(1, numOfMeetings);
+		else cStmt.setNull(1, java.sql.Types.INTEGER);
+		
+		if(mentorFirstName != null && !mentorFirstName.isEmpty())
+			cStmt.setString(2, mentorFirstName);
+		else cStmt.setNull(2, java.sql.Types.VARCHAR);
+		
+		if(mentorLastName != null && !mentorLastName.isEmpty())
+			cStmt.setString(3, mentorLastName);
+		else cStmt.setString(3, null);
+		
+		if(startingAt != -1)
+			cStmt.setDate(4, new java.sql.Date(startingAt));
+		else cStmt.setNull(4, java.sql.Types.DATE);
+		
+		if(endingAt != -1)
+			cStmt.setDate(5, new java.sql.Date(endingAt));
+		else cStmt.setNull(5, java.sql.Types.DATE);
+		
+		if(t != null)
+			cStmt.setInt(6, t.ordinal());
+		else cStmt.setNull(6, java.sql.Types.INTEGER);
+		
+		ResultSet rs = cStmt.executeQuery();
+		while (rs.next()) {
+			p = new Pair(rs.getInt(DataContract.PairsTable.COL_PAIRID), rs.getInt(DataContract.PairsTable.COL_MENTORID),
+					rs.getInt(DataContract.PairsTable.COL_MENTEEID), rs.getInt(DataContract.PairsTable.COL_ACTIVESTATUS),
+					rs.getLong(DataContract.PairsTable.COL_STARTDATE), rs.getLong(DataContract.PairsTable.COL_ENDDATE),
+					rs.getString(DataContract.PairsTable.COL_JOINTMESSAGE),
+					rs.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
+			pairs.add(p);
+		}
+		return pairs;
 	}
 
 	@Override
