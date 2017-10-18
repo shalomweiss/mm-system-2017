@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,12 +50,40 @@ public class MentorReports extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(""+address+"  "+gender+"kk "+company+" "+inPair);
-	    System.out.println("MentorsReports" + allMentors);	    
-		request.setAttribute("mentorReports", allMentors);
+		
+		Gson gson = new Gson();
+	    System.out.println("USER with not json " +allMentors);
+		String mentorReports = gson.toJson(allMentors, Constants.MENTOR_Class);
+		
+	    System.out.println("USer with JSON" + allMentors);	    
+	    
+	    response.setContentType("Content-Type: application/json");
+	    System.out.println("MentorsReports" + allMentors);
+	    PrintWriter writer = response.getWriter().append(mentorReports);
+		writer.println();
+		writer.close();
 
-		RequestDispatcher req = request.getRequestDispatcher("");
+		RequestDispatcher req=new RequestDispatcher() {
+			
+			@Override
+			public void include(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void forward(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
+				// TODO Auto-generated method stub
+				
+			}
+		} ;
 		req.forward(request, response);
+		
+		
+		
+		
+	    	    
+
 
 	}
 

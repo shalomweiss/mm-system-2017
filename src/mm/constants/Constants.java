@@ -1,14 +1,19 @@
 package mm.constants;
 import mm.model.Mentor;
+import mm.model.Mentee;
 import mm.model.User;
 import java.lang.reflect.Type;
 import java.util.List;
+
 
 import com.google.gson.reflect.TypeToken;
 
 public class Constants {
 	public final static Type USER_CLASS = new TypeToken<List<User>>() {}.getType();	
 	public static final Type USER_Class = User.class;
+	public static final Type MENTEE_Class = new TypeToken<List<Mentee>>() {}.getType();
+	public static final Type MENTOR_Class = new TypeToken<List<Mentor>>() {}.getType();
+	
 	
 	
 	
