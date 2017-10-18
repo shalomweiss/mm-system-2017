@@ -619,6 +619,7 @@ tr.stam:hover {
 	cursor: pointer;
 }
 td {
+	 padding: 9px !important;
 	height: 20%;
 }
 
@@ -884,18 +885,19 @@ background-color: #ccc;
 										<div id="Notes${ment.id}" class="tabcontent"
 											style="background-color: rgba(250,178,58,0.8);">
 											<table>
+											<tr>
+													<th class="inner">Notes</th>
+													
+												<th class="inner">submit</th>
+													
+												</tr>
 												<tr>
-<td>
-													<div id="div12${ment.id}"
-														ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">
+											<td>
+													<div id="div12${ment.id}" ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">
 														
-														<c:if test="${empty ment.note}">
-															NO VALUE
-															</c:if>
-																<c:if test="${not empty ment.note}">
+														
 															${ment.note}
 															
-															</c:if>
 														
 														
 														</div>
@@ -903,14 +905,15 @@ background-color: #ccc;
 													<textarea id="input12${ment.id}" name="uNotes"
 														
 														style="display: none; height: 100px;">${ment.note}</textarea>
-												</td></tr>
-												<tr>
-<td>
+												</td>
+												<td>
 													<input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
 														>
 													<input type="submit" style="float: right;" value="Done">
-											</td>	</tr>
+											</td>
+												</tr>
+
 
 											</table>
 										</div>
@@ -1041,12 +1044,12 @@ background-color: #ccc;
 							<tr>
 							<td colspan="4"><input style="float:center" type="submit" value="Done">
 							</td>
-							<td>
+							
 							<input type="text" name="id" style="display: none"
 							onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
 							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
-							</td>
 							</tr>
+							</td>
 							
 						</table>
 						

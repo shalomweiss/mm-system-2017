@@ -568,6 +568,7 @@ tr.stam:hover {
 	cursor: pointer;
 }
 td {
+ padding: 9px !important;
 	height: 20%;
 }
 
@@ -675,7 +676,8 @@ resize: none;
 													<th class="inner">Address</th>
 													<th class="inner">Phone</th>
 													<th class="inner">Email</th>
-																										<th class="inner">submit</th>
+													<th class="inner">Picture</th>
+													<th class="inner">submit</th>
 													
 												</tr>
 												<tr>
@@ -745,6 +747,9 @@ resize: none;
 														value="${ment.email}" style="display: none;"
 														required>
 													</td>
+													<td>
+														<img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
+													</td>
 													<td><input id="submit${ment.id}" type="submit"
 														value="Done"></td>
 												</tr>
@@ -811,13 +816,18 @@ resize: none;
 												<tr>
 													<th class="inner">Notes</th>
 													
-																										<th class="inner">submit</th>
+												<th class="inner">submit</th>
 													
 												</tr>
 												<tr>
 													<td>
 														<div id="div10${ment.id}"
-															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}</div>
+															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">
+															
+															
+															${ment.note}
+															
+															</div>
 
 														<textarea id="input10${ment.id}" name="uNotes"
 															value="${ment.note}"
