@@ -38,7 +38,6 @@ public class MenteeReports extends HttpServlet {
 			
 			e.printStackTrace();
 		}
-	  
 		request.setAttribute("menteeReports",allMentees );
 		
 		System.out.println("MenteeReports: "+allMentees);
