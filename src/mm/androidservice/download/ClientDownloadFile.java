@@ -50,9 +50,6 @@ public class ClientDownloadFile {
 			S3Object s3object = s3Client.getObject(new GetObjectRequest(bucketName, key));
 			
 			
-			if(s3object==null) {
-				return false;
-			}
 			
 			
 			String contentType = s3object.getObjectMetadata().getContentType();
@@ -109,14 +106,18 @@ public class ClientDownloadFile {
 			System.out.println("AWS Error Code:   " + ase.getErrorCode());
 			System.out.println("Error Type:       " + ase.getErrorType());
 			System.out.println("Request ID:       " + ase.getRequestId());
+			if(ase.getErrorCode().equals("NoSuchKey") && bucketName.equals(PIC_BUCKET))
+				return false;
 		} catch (AmazonClientException ace) {
 			System.out.println("Caught an AmazonClientException, which means" + " the client encountered "
 					+ "an internal error while trying to " + "communicate with S3, "
 					+ "such as not being able to access the network.");
 			System.out.println("Error Message: " + ace.getMessage());
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+
 		}
 			return true;
 	}

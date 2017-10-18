@@ -42,11 +42,10 @@ public class DownloadFile extends HttpServlet {
 			}
 		}
 
-		
-		
 		if(type.equals("cv")) {
 			ClientDownloadFile.downloadFile(id, ClientDownloadFile.CV_BUCKET,response);
 		}
+		
 		if(type.equals("grade")) {
 			ClientDownloadFile.downloadFile(id, ClientDownloadFile.GRADE_BUCKET,response);
 		}
