@@ -34,22 +34,23 @@ public class DownloadFile extends HttpServlet {
 		String id = request.getParameter("id");
 		String type = request.getParameter("type");
 		//String token = request.getParameter("token");
+//		System.out.println(id+type);
 		
-		if(type.equals("ïmg")) {
-			ClientDownloadFile.downloadFile(id, ClientDownloadFile.PIC_BUCKET,response);
-		}else if(!type.equals("cv")&&!type.equals("grade")){
-			ClientDownloadFile.downloadFile("defaultImage", ClientDownloadFile.PIC_BUCKET,response);
-			return;
+		if(type.equals("img")) {
+			if(!ClientDownloadFile.downloadFile(id, ClientDownloadFile.PIC_BUCKET,response)) {
+				ClientDownloadFile.downloadFile("defaultImage", ClientDownloadFile.PIC_BUCKET,response);
+			}
 		}
-		
-		
+
 		if(type.equals("cv")) {
 			ClientDownloadFile.downloadFile(id, ClientDownloadFile.CV_BUCKET,response);
 		}
+		
 		if(type.equals("grade")) {
 			ClientDownloadFile.downloadFile(id, ClientDownloadFile.GRADE_BUCKET,response);
 		}
 		
+	
 		
 	}
 

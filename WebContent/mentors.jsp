@@ -568,6 +568,7 @@ tr.stam:hover {
 	cursor: pointer;
 }
 td {
+ padding: 9px !important;
 	height: 20%;
 }
 
@@ -675,7 +676,8 @@ resize: none;
 													<th class="inner">Address</th>
 													<th class="inner">Phone</th>
 													<th class="inner">Email</th>
-																										<th class="inner">submit</th>
+													<th class="inner">Picture</th>
+													<th class="inner">submit</th>
 													
 												</tr>
 												<tr>
@@ -696,10 +698,31 @@ resize: none;
 													</td>
 													<td>
 														<div id="div3${ment.id}"
-															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">${ment.gender}</div>
-														<input id="input3${ment.id}" name="uGender" type="text"
-														value="${ment.gender}" style="display: none;"
-														required>
+															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
+															<c:if test="${ment.gender == 1}"> male </c:if>
+															<c:if test="${ment.gender == 0}"> female </c:if> 
+															
+															</div>
+														
+<c:if test="${ment.gender == 1}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"  checked > Male
+															<br>
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" > female
+												
+												</div></c:if>
+												
+												<c:if test="${ment.gender == 0}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"   > male
+															<br>
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" checked> female
+												
+												</div></c:if>
 
 													</td>
 													<td>
@@ -723,6 +746,9 @@ resize: none;
 														<input id="input6${ment.id}" name="uEmail" type="text"
 														value="${ment.email}" style="display: none;"
 														required>
+													</td>
+													<td>
+														<img src="DownloadFile?id=17&type=img" alt="W3Schools.com">
 													</td>
 													<td><input id="submit${ment.id}" type="submit"
 														value="Done"></td>
@@ -790,13 +816,18 @@ resize: none;
 												<tr>
 													<th class="inner">Notes</th>
 													
-																										<th class="inner">submit</th>
+												<th class="inner">submit</th>
 													
 												</tr>
 												<tr>
 													<td>
 														<div id="div10${ment.id}"
-															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}</div>
+															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">
+															
+															
+															${ment.note}
+															
+															</div>
 
 														<textarea id="input10${ment.id}" name="uNotes"
 															value="${ment.note}"
