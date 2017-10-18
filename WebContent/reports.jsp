@@ -298,7 +298,7 @@ $("#submit3").click(function() {
 			<option id="work" value="${item.id}">${item.company}</option>
 		</c:forEach>
 	</select>
-								
+
     <!-- 
     
         <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
@@ -546,7 +546,7 @@ $("#submit3").click(function() {
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Name Mentor</th>
+          <th>First Name</th>
           <th>Last Name</th>
           <th>Phone</th>
           <th>Email</th>
@@ -559,11 +559,16 @@ $("#submit3").click(function() {
     <table cellpadding="0" cellspacing="0" border="0" id="myTable1" class="table1">
       <tbody>
        
-			<tr class="para"><td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td></tr>
+			<c:forEach items="${mentorReports}" var="ment">
+						<tr class="stam"
+							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+							    <td style="display: none">${ment.id}</td>
+						    	<td>${ment.firstName}</td>
+								<td>${ment.lastName}</td>
+								<td>${ment.phoneNumber}</td>
+								<td>${ment.email}</td>
+						</tr>
+						</c:forEach>
 			
 	
       </tbody>
@@ -577,7 +582,7 @@ $("#submit3").click(function() {
     <table  cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Name Mentee</th>
+          <th>First Name </th>
           <th>Last Name</th>
           <th>Phone</th>
           <th>Email</th>
@@ -589,14 +594,17 @@ $("#submit3").click(function() {
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable1" class="table2">
       <tbody>
-       
-			<tr class="para"><td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td></tr>
-			
-		
+       	<c:forEach items="${menteeReports}" var="ment">
+					
+						<tr class="stam"
+							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+							    <td style="display: none">${ment.id}</td>
+						    	<td>${ment.firstName}</td>
+								<td>${ment.lastName}</td>
+								<td>${ment.phoneNumber}</td>
+								<td>${ment.email}</td>
+						</tr>
+						</c:forEach>
       </tbody>
     </table>
     </div>
@@ -619,12 +627,16 @@ $("#submit3").click(function() {
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable1" class="table3">
       <tbody>
-       
-			<tr class="para"><td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td></tr>
+       <c:forEach var="pair" items="${pairsReport}" >
+        <tr>
+        	<td id="mentor"><c:out value="${pair.menteeName}"></c:out></td>
+			<td id="mentee"><c:out value="${pair.mentorName}"></c:out></td>
+			<td><c:out value="${pair.activeStatus}"></c:out></td>
+			<td><c:out value="${pair.startDate}"></c:out></td>
+			<td><c:out value="${pair.endDate}"></c:out></td>
+        </tr>
+        </c:forEach>
+			
       </tbody>
     </table>
   </div>
