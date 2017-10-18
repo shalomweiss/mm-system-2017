@@ -748,7 +748,7 @@ resize: none;
 														required>
 													</td>
 													<td>
-														<img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
+														<img src="DownloadFile?id=17&type=img" alt="W3Schools.com">
 													</td>
 													<td><input id="submit${ment.id}" type="submit"
 														value="Done"></td>
