@@ -1,0 +1,41 @@
+
+	final String selectLogin = "Select * From users where email=?"; //
+	final String selectLogin1 = "Select * From mentor where id=?";
+	final String selectLogin2 = "Select * From mentee where id=?";
+	final String selectByID = "Select * From users where id=?";// feras
+	final String getMenteeofPair = "Select * From pairs where menteeId=?, activeStatus=?";//feras
+	mohamadkenaane:
+	final String getMentorofPair = "Select * From pairs where mentorId=?, activeStatus=?";  
+	final String updateUserBase = "UPDATE users SET firstName=?, lastName=?, email=?, phoneNumber=?, password=?, gender=?, address=?, notes=?, profilePicture=?, active=? WHERE id=?";
+	amni
+	final String updateUserMentor = "UPDATE mentors SET experience=?, role=?, company=?, volunteering=?, workHistory=? WHERE id=?";
+	final String updateUserMentee = "UPDATE mentees SET remainingSemesters=?, graduationStatus=?, academicInstitute=?, average=?, academicDicipline1=?, academicDecipline2=?, isGuarantee=?, resume=?, gradeSheet=? WHERE id=?";
+	mohamad server
+	final String deactivateUser = "UPDATE users SET active=0 WHERE id=?";
+	final String addBaseUser = "INSERT INTO users (type, firstName, lastName, email, phoneNumber, password, gender, address, notes, profilePicture, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	
+	ghada:
+	final String addMenteeUser = "INSERT INTO mentees (id, remainingSemesters, graduationStatus, academicInstitute, average, academicDicipline1, academicDecipline2, isGuarantee, resume, gradeSheet) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	final String addMentorUser = "INSERT INTO mentors (id, experience, role, company, volunteering, workHistory) VALUES (?,?,?,?,?,?)";
+	final String insertPair = "INSERT INTO pairs (mentorId, menteeId, activeStatus, startDate) VALUES (?,?,?,?)";
+	
+	fouad
+	final String selectPairId = "Select * From pair Where id=?";
+	final String selectMeeting = "Select * From activity where mentoId=? ";
+	firdos:
+	
+	final String selectMeeting2 = "Select * From activity where menteeId=? ";
+	final String sessionId = "Select * From session where userId=?";
+	
+	dunia:
+	final String addUserSession = "INSERT INTO session (userId, token, creationDate, expirationDate, deviceId) VALUES (?,?,?,?,?)";
+	final String selectMeetingById = ""; //TODO: write statement
+    final String selectMeetingByPair="Select * From activities where pairId=?" ; 
+  fouad feras mohamad:
+    final String addMeeting = "INSERT INTO activities (pairId,mentorId,menteeId,note,status,menteeReport,mentorReport,menteePrivateReport,mentorPrivateReport,meetingType,subject,location,date,startingTime,endingTime,mentorComplete,menteeComplete)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    final String getAllMenteesWithoutMentor="select m.* user RIGHT JOIN mentee as m ON user.id = m.id as m where m.id  in (select menteeID from pairs	where menteeId = m.id  and activeStatus = 0	) or	NOT EXISTS(select menteeID	from pairs	where menteeId = m.id  and activeStatus != 0)";
+    final String getAllMentorsWithoutMentees="select m.* user RIGHT JOIN mentors "
+			+ "as m ON user.id = m.id as m where m.id  in (select mentorId from pairs	"
+			+ "where mentorId = m.id  and activeStatus = 0	) or	"
+			+ "NOT EXISTS(select mentorId	from pairs	where mentorId = m.id  and activeStatus != 0)";
+    

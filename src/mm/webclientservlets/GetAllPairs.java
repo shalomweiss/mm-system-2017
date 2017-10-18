@@ -1,7 +1,6 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -13,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
-import mm.model.Mentee;
-import mm.model.Mentor;
 import mm.model.Pair;
 import mm.model.PairsInfo;
 
@@ -45,14 +42,12 @@ public class GetAllPairs extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("GetAllPairs Servlet .. s");
+		System.out.println("Get AllPairs Servlet");
 
-	    //String NextPage = request.getParameter("jsp");
 		ArrayList<Pair> pairsArray = new ArrayList<Pair>();
 		ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
 
 		DataAccess da = new DataAccess();
-		//pairsArray = getAllPair();	
 		 try {
 			 pairsArray = da.getAllPairs();
 			 } catch (SQLException e) {
@@ -76,16 +71,11 @@ public class GetAllPairs extends HttpServlet {
 				
 			}
 		}
-		System.out.println("pairsMAIN INFOOOOOOO" + pairsMainInfo);
-	//	 PairsInfo tmpPairInfo = new PairsInfo("firstname","lastname",3,0);
-	//	 pairsMainInfo.add(tmpPairInfo);
+		
 		request.setAttribute("pairs", pairsMainInfo);
-		System.out.println("Pairs: " + pairsArray);
-		PrintWriter writer = response.getWriter();
 		response.setContentType("text/html");
 	    RequestDispatcher req = request.getRequestDispatcher("mainPair.jsp");
 	    req.forward(request, response);
-		writer.close();
 	}
 		
 	/**
@@ -96,26 +86,6 @@ public class GetAllPairs extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-	}
-
-	public ArrayList<Pair> getAllPair() {
-		ArrayList<Pair> a = new ArrayList<Pair>();
-		Mentee u = new Mentee();
-		u.setFirstName("firdos");
-		u.setLastName("F");
-		u.setActive(true);
-		u.setId(4444);
-		Mentor men = new Mentor();
-		men.setFirstName("MENTOR");
-		men.setWorkHistory("MICROSOFT");
-		men.setId(1111);
-		Pair pair = new Pair(1111, 4444);
-		pair.setMentor(men);
-		pair.setMentee(u);
-		pair.setActiveStatus(1);
-		pair.setPairId(2);
-		a.add(pair);
-		return a;
 	}
 
 }

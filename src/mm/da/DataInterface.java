@@ -2,6 +2,7 @@ package mm.da;
 
 import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
+import mm.model.Meeting.meetingType;
 import mm.model.AcademicInstitute;
 import mm.model.Mentee;
 import mm.model.Mentor;
@@ -97,12 +98,13 @@ public interface DataInterface {
 	public AcademicInstitute getAcademicInstituteById(int id) throws SQLException;
 	
 
-	public ArrayList<Mentee> getAllCorrespondingMentees(String address,String gender,String academicInstitution, boolean inPair,
-					 String academicDicipline1,String academicDicipline2);
+	public ArrayList<Mentee> getAllCorrespondingMentees(String address,int  gender,int academicInstitution, int inPair,
+					 String academicDicipline1) throws SQLException;
 	
-	public ArrayList<Mentor> getAllCorrespondingMentors(String address,String gender,String workPlace, boolean inPair);
+	public ArrayList<Mentor> getAllCorrespondingMentors(String address,int gender,int workPlace, int inPair) throws SQLException;
 
-	public ArrayList<Pair> getAllCorrespondingPairs(String mentorName,String menteeName);
+	public ArrayList<Pair> getAllCorrespondingPairs(int numOfMeetings, String mentorFirstName, String mentorLastName, long startingAt,
+			long endingAt, meetingType t) throws SQLException;
 
 
 	public boolean editMeetingNote(int meetingId, String message) throws SQLException;

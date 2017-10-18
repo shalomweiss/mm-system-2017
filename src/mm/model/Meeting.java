@@ -1,5 +1,6 @@
 package mm.model;
 
+import java.sql.Date;
 import java.sql.Time;
 
 public class Meeting {
@@ -261,5 +262,7 @@ public class Meeting {
 				+ ", endingDate=" + endingDate + ", mentorComplete=" + mentorComplete + ", menteeComplete="
 				+ menteeComplete + "]";
 	}
+
+	
 
 }

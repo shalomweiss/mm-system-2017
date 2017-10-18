@@ -3,8 +3,6 @@ package mm.jsonModel;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import mm.model.Meeting;

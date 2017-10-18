@@ -53,25 +53,22 @@ public class AddWorkingPlace extends HttpServlet {
 		
 		DataAccess da = new DataAccess();
 	    boolean res=false;
-	    
-	    
-//		try {
-//			res = da.addWorkPlace(newWorkPlace);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
+		try {
+			res = da.addWorkPlace(newWorkPlace);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(res){
-			response.getWriter().append("Work Place Added");
+			response.getWriter().append("Working Place Is Added");
 			req = request.getRequestDispatcher(nextPage);
 		}
 		if(!res)
 			response.getWriter().append("Failed in added Work Place");	
 		
 		req.forward(request, response);
-	}
-
-		
+	}	
 	}
 
 

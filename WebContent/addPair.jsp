@@ -35,9 +35,11 @@
 				          mentorID: mentorId
 				        },
 				        function(data,status){
+				        	alert(data);
 				        	location.reload();
+				        	
 				        	//window.location.href = window.location.pathname + window.location.search + window.location.hash;
-				            //alert(data);
+				            
 				        });
 			}
 	});
@@ -126,8 +128,8 @@
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees"title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a class="active" href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
-		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
-		  <a href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		 
+		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
 		   
 	</div>
@@ -338,7 +340,10 @@ $(function(){
     
 </section>
 </div>
- <a class="btn btn-block btn-primary" id="createPair"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> Create Pair </a>
+ <a class="btn btn-block btn-primary createPairs" id="createPair">
+  <i class="fa fa-plus"></i>
+  <i class="fa fa-group"></i><br> 
+  Create <br>Pair </a>
 </body>
 
 </html>

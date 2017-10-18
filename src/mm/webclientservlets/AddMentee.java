@@ -74,51 +74,16 @@ public class AddMentee extends HttpServlet {
 		String resume=request.getParameter("uResume");
 		String gradeSheet=request.getParameter("uGradeSheet");
 		String profilePicture=request.getParameter("profilePicture");
+		
 		Float avg = Float.valueOf(uAverage);
 		Float remSemesters= Float.valueOf(uRemSemesters);
 		int uGender= Integer.parseInt(gender);
 		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
-		//int uAcademicInstitution= 1;
 		boolean SignedEULA=Boolean.parseBoolean(Signed);
-//		 try {
-//			 uGender = Integer.parseInt(gender);
-//		    } catch (NumberFormatException | NullPointerException e) {
-//		        // handle the error here
-//		    	e.printStackTrace();
-//		    }
-//		
-//		 try {
-//			 SignedEULA = Boolean.parseBoolean(Signed);
-//		    } catch (NumberFormatException | NullPointerException e) {
-//		        // handle the error here
-//		    	e.printStackTrace();
-//		    }
-//		
-//	 try {
-//		 remSemesters= Float.valueOf(uRemSemesters);
-//	    } catch (NumberFormatException | NullPointerException e) {
-//	        // handle the error here
-//	    	e.printStackTrace();
-//	    }
-//	    try {
-//		      avg = Float.valueOf(uAverage);
-//		    } catch (NumberFormatException | NullPointerException e) {
-//		        // handle the error here
-//		    	e.printStackTrace();
-//		    }
-		
-//	    try {
-//	    	 uAcademicInstitution = Integer.parseInt(uAcademicIn);
-//		    } catch (NumberFormatException | NullPointerException e) {
-//		        // handle the error here
-//		    	e.printStackTrace();
-//		    }
-	    
 
 		String uPass= GeneratePass.getSaltString();	 
-		System.out.println("AVERAGE: "+avg);
 		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
-		System.out.println("here to stay111");
+		
 		User user=new User();
 		DataAccess da = new DataAccess();
 		RequestDispatcher req=null;

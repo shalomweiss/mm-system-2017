@@ -39,8 +39,7 @@ public class LoginWeb extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Login Servlet");
-
+		
 	}
 
 	/**
@@ -72,7 +71,7 @@ public class LoginWeb extends HttpServlet {
 		} 
 			if (temp.getPassword().matches(pass) && temp.getType()==userType.TSOFEN){
 			request.setAttribute("isNotEntered", 1);
-			RequestDispatcher req = request.getRequestDispatcher("Welcome.jsp");
+			RequestDispatcher req = request.getRequestDispatcher("Home.jsp");
 			response.setContentType("text/html");
 			req.forward(request, response);
 		}

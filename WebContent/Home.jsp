@@ -11,9 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
-
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
@@ -24,11 +22,12 @@
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
-		  <a href="#" title="Notification"><i class="fa fa-bell"></i></a>
-		  <a href="reports.jsp" title="Reports"><i class="fa fa-clipboard"></i></a>
+		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
 	</div>
 </nav>
+	<div class="topPart"> </div>
+	<div class="bottomPart"> </div>
 	<h1 class="tsofen">TSOFEN</h1>
 
 

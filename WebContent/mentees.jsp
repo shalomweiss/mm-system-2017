@@ -7,7 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-<
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -63,7 +62,12 @@ $(document).ready(function(){
 		var sign1=document.getElementsByClassName("Sign2")[0];
 		sign1.id="clickedSign";
 	});
+	$(".stam").click(function()
+			{
+		
+			}
 	
+	);
 	
 	
 	
@@ -130,6 +134,29 @@ var prevRow;
 		{
 		showStuff("input"+i+mentId,"div"+i+mentId);
 		}
+		var row1=document.getElementById(row);
+		console.log(document.getElementById(row).parentNode.parentNode.parentNode);
+		var childrenOfTheTbody=document.getElementById(row).parentNode.children;
+		var numOfStams=0;
+		
+		console.log(childrenOfTheTbody[0].clientHeight);
+		for(i=0;i<childrenOfTheTbody.length;i++)
+		{
+			if(childrenOfTheTbody[i].id==row)
+				break;
+			if(childrenOfTheTbody[i].className=="stam")
+		
+				
+				numOfStams++;
+		}
+		var heightPX=(numOfStams-1)*(childrenOfTheTbody[0].clientHeight+1);
+		console.log('height is '+heightPX);
+		console.log(row1.parentNode.parentNode.parentNode);
+		$( "div.tbl-header" ).scrollTop(heightPX);
+		
+		
+		
+		
 	backUpInputs(mentId);
 
 	}
@@ -205,6 +232,8 @@ input[type=text], select, textarea {
 		/* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
+
+
 /* Style the submit button with a specific background color etc */
 input[type=submit] {
 	background-color: #4CAF50;
@@ -226,6 +255,19 @@ div.tab {
 	background-color: rgba(250,178,58,0.9);
 }
 
+input[type=text] , input[type=radio] , select{
+
+    padding-top: 5px;
+    padding-bottom: 5x;
+    padding-right: 3px;
+    padding-left: 3px;
+
+}
+textarea{
+
+resize: none;
+}
+
 /* Style the buttons inside the tab */
 div.tab button {
 	background-color: inherit;
@@ -241,7 +283,9 @@ div.tab button {
 div.tab button:hover {
 	background-color: #ddd;
 }
-
+table tr:nth-child(4n-1), table tr:nth-child(4n)  {
+    background: #ccc;
+}
 /* Create an active/current tablink class */
 div.tab button.active {
 	background-color: white;
@@ -254,7 +298,9 @@ div.tab button.active {
 	border: 1px solid #ccc;
 	border-top: none;
 }
-
+table tr:nth-child(4n-1), table tr:nth-child(4n)  {
+    background: #ccc;
+}
 .close {
 	background: #606061;
 	color: #FFFFFF;
@@ -285,7 +331,7 @@ div.tab button.active {
 }
 
 .modalDialog>div {
-	width: 80%;
+	width: 60%;
 	margin: auto;
 	border-radius: 10px;
 	background: #fff;
@@ -367,10 +413,13 @@ th {
 	padding: 20px 15px;
 	font-weight: 500;
 	font-size: 12px;
-	color: #000;
 	text-transform: uppercase;
 }
-
+th.inner
+{
+	color: black !important;
+	background-color: white;
+}
 td {
 	vertical-align: middle;
 	font-weight: 700;
@@ -564,21 +613,20 @@ button {
 }
 
 tr.stam:hover {
-	background-color: #f5f5f5;
+	background-color: rgba(255,193,7,0.7);
 	opacity: 0.9;
 	cursor: pointer;
 }
 td {
-    padding: 15px !important;
 	height: 20%;
 }
 
-#table_detail tr:hover {
-	background-color: #F2F2F2;
-}
 
 #table_detail .hidden_row {
 	display: none;
+}
+.addMenteeForm td{
+background-color: #ccc;
 }
 </style>
 <body>
@@ -600,8 +648,8 @@ td {
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a class="active" href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
-		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
-		  <a href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		 
+		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  
 	</div>
 	</nav>
@@ -626,11 +674,10 @@ td {
 
 			<table id="table_detail" cellpadding="0" cellspacing="0"  border="0">
 			<div class="tbl-content" style="height: 100%">
-				<tbody class="mentee" >
+				<tbody>
 					<c:forEach items="${Mentees}" var="ment">
 					
-						<tr class="stam"
-							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+						<tr class="stam" onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 							    <td style="display: none">${ment.id}</td>
 						    	<td>${ment.firstName}</td>
 								<td>${ment.lastName}</td>
@@ -648,26 +695,27 @@ td {
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks"
 											onclick="showDetails(event, 'Mentor${ment.id}')">Mentor</button>
-										<button class="tablinks" style="float: right;"
-											onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
+										<button class="tablinks" style= "float:right;" onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
 
 								</div>
 								<form id="form${ment.id}" action="UpdateMentee" method="post">
-								<div id="info${ment.id}" class="tabcontent"style="background-color: rgb(0, 0, 0);">
+								<div id="info${ment.id}" class="tabcontent"style="background-color: rgba(250,178,58,0.8);">
 
 
-
+											
 											<table class="w3-table-all w3-card-4">
 
 												<tr>
 												
-												  <th rowspan="2"><img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com"></th>
-													<th>First name</th>
-													<th>Last name</th>
-													<th>Gender</th>
-													<th>Address</th>
-													<th>Phone</th>
-													<th>Email</th>
+												    
+													<th class="inner">First name</th>
+													<th class="inner">Last name</th>
+													<th class="inner">Gender</th>
+													<th class="inner">Address</th>
+													<th class="inner">Phone</th>
+													<th class="inner">Email</th>
+													<th class="inner">Picture</th>
+													<th class="inner">submit</th>
 												</tr>
 												<tr>
 												
@@ -723,8 +771,13 @@ td {
 														onblur="if(this.value==''){ this.value='example@example.com'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}">
 													</td>
+													<td>
+														<img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
+													</td>
 													<td><input id="submit${ment.id}" type="submit"
 														value="Done"></td>
+														
+													
 												</tr>
 											</table>
 
@@ -732,17 +785,18 @@ td {
 										</div>
 
 										<div id="Academic${ment.id}" class="tabcontent"
-											style="background-color: rgb(0, 0, 0);">
+											style="background-color: rgba(250,178,58,0.8);">
 
 											<table class="w3-table-all w3-card-4">
 												<tr>
-												<th >CV</th>
-													<th>Remaining semesters</th>
-													<th>Graduation status</th>
-													<th>Academic institution</th>
-													<th>average</th>
-													<th>Major</th>
-													<th>Second major</th>
+												<th class="inner">CV</th>
+													<th class="inner">Remaining semesters</th>
+													<th class="inner">Graduation status</th>
+													<th class="inner">Academic institution</th>
+													<th class="inner">average</th>
+													<th class="inner">Major</th>
+													<th class="inner">Second major</th>
+													<th class="inner">submit</th>
 												</tr>
 												<tr>
 												<td>
@@ -808,7 +862,7 @@ td {
 										</div>
 
 										<div id="Notes${ment.id}" class="tabcontent"
-											style="background-color: rgb(0, 0, 0);">
+											style="background-color: rgba(250,178,58,0.8);">
 											<table>
 												<tr>
 <td>
@@ -833,7 +887,7 @@ td {
 
 
 										<div id="Mentor${ment.id}" class="tabcontent"
-											style="background-color: rgb(0, 0, 0);">
+											style="background-color: rgba(250,178,58,0.8);">
 											<table>
 												<tr>${ment.note}
 												</tr>
@@ -872,26 +926,23 @@ td {
 					<a href="#close" title="Close" class="close"
 						style="position: absolute;">X</a>
 					<form action="AddMentee" method="post">
-						<table>
+						<table class="addMenteeForm">
 
 							<tr>
 								<td>First name</td>
 								<td><input type="text" name="uFirstName" 
-								onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}" required></td>
+								 required></td>
 								<td>Last name</td>
 								<td><input type="text" name="uLastName" 
-								onblur="if(this.value==''){ this.value='lastname'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='lastname'){this.value=''; this.style.color='#000';}" required></td>
+								 
+							  	 required></td>
 							<tr>
 								<td>Phone number</td>
-								<td><input type="text" name="uPhoneNumber" 
-								onblur="if(this.value==''){ this.value='number'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='number'){this.value=''; this.style.color='#000';}" required></td>
+								<td><input type="number" name="uPhoneNumber" 
+							 required></td>
 								<td>Email</td>
 								<td><input type="text" name="uEmail" 
-								onblur="if(this.value==''){ this.value='example@example.com'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}" required></td>
+								 required></td>
 							<tr>
 								<td>Gender</td>
 								<td>
@@ -906,13 +957,11 @@ td {
 							  	</td>
 								<td>Address</td>
 								<td><input type="text" name="uAddress"
-								onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}" required>
+								required>
 							<tr>
 								<td>Graduation status</td>
 								<td><input type="text" name="uGraduationStatus"
-								onblur="if(this.value==''){ this.value='gradStatus'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='gradStatus'){this.value=''; this.style.color='#000';}"></td>
+								required></td>
 								<td>Academic institution</td>
 								<td>
 								
@@ -924,19 +973,14 @@ td {
 								</td>
 							<tr>
 								<td>Average</td>			
-								<td><input type="text" name="uAverage" value="-1"
-								onblur="if(this.value==''){this.value='-1'; this.style.color='#BBB';}"
-								onfocus="if(this.value=='-1'){this.value=''; this.style.color='#000';}" style="color:#BBB;" required></td>	
+								<td><input type="number" name="uAverage" min="0" max="100" 
+								style="color:#BBB;" required></td>	
 															
 								<td>Remaining semesters</td>
-								<td><input type="text" name="uRemSemesters" 
-								onblur="if(this.value==''){ this.value='-1'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='-1'){this.value=''; this.style.color='#000';}" required></td>
+								<td><input type="number" name="uRemSemesters" required></td>
 							<tr>
 								<td>Dicipline</td>
-								<td><input type="text" name="uAcademicDicipline"
-								onblur="if(this.value==''){ this.value='acDic'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='acDic'){this.value=''; this.style.color='#000';}"></td>
+								<td><input type="text" name="uAcademicDicipline" required ></td>
 
 								<td>Dicipline 2</td>
 								<td><input type="text" name="uAcademicDicipline2"
@@ -952,7 +996,7 @@ td {
 								<input id="clickedSign" class="Sign1" type="radio"
 									name="uSignedEULA" value="true" checked> YES <input
 									id="noclickedclickedSign" class="Sign2" type="radio" name="uSignedEULA"
-									value="0"> NO
+									value="false"> NO
 									
 								
 							  	
@@ -965,6 +1009,9 @@ td {
 								<td>note</td>
 								<td colspan="3"><textarea name="uNotes" style="height: 50px"></textarea></td>
 							</tr>
+							<tr>
+							<td colspan="4"><input style="float:center" type="submit" value="Done">
+							</td>
 							
 							<input type="text" name="id" style="display: none"
 							onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
@@ -972,8 +1019,7 @@ td {
 							</tr>
 							</td>
 						</table>
-						<input type="submit" value="Done">
-
+						
 					</form>
 				</div>
 

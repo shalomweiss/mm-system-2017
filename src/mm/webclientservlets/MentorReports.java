@@ -31,26 +31,28 @@ public class MentorReports extends HttpServlet {
 			throws ServletException, IOException {
 
 		DataAccess da = new DataAccess();
-		String nextPage = request.getParameter("jsp");
 		
 		String address = request.getParameter("uAddress");
-		String gender = request.getParameter("uGender");
-		String workPlace = request.getParameter("uWorkPlace");
-		Boolean inPair = Boolean.parseBoolean(request.getParameter("inPair"));
-
-		ArrayList<Mentor> allMentors=new ArrayList<Mentor>();
-		allMentors = da.getAllCorrespondingMentors(address, gender, workPlace, inPair);
-
-		Gson gson = new Gson();
-	   // System.out.println("USER with not json " +getUsers);
-		String userResult = gson.toJson(allMentors, Constants.USER_CLASS);
+		String gender1 = request.getParameter("uGender");
+		String company1 = request.getParameter("uCompany");
+		 String inPair1 = request.getParameter("inPair");
+		 System.out.println(inPair1);
+		int gender=Integer.parseInt(gender1);
+		int company=Integer.parseInt(company1);
+		int inPair=Integer.parseInt(inPair1);
 		
-	//    System.out.println("USer with JSON" + userResult);	    
-    
-	    PrintWriter writer = response.getWriter();
-		writer.println(userResult);
-		writer.close();
-		RequestDispatcher req = request.getRequestDispatcher(nextPage);
+		ArrayList<Mentor> allMentors=new ArrayList<Mentor>();
+		try {
+			allMentors = da.getAllCorrespondingMentors(address, gender, company, inPair);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(""+address+"  "+gender+"kk "+company+" "+inPair);
+	    System.out.println("MentorsReports" + allMentors);	    
+		request.setAttribute("mentorReports", allMentors);
+
+		RequestDispatcher req = request.getRequestDispatcher("");
 		req.forward(request, response);
 
 	}

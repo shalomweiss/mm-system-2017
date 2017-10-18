@@ -4,7 +4,6 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -13,10 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
-
-import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.Mentor;
 import mm.model.User;
@@ -53,7 +48,6 @@ public class UpdateMentor extends HttpServlet {
 		String email = request.getParameter("uEmail");
 		String firstName = request.getParameter("uFirstName");
 		String lastName = request.getParameter("uLastName");
-		String workingPlace = request.getParameter("uWorkingPlace");
 		String address = request.getParameter("uAddress");
 		String notes = request.getParameter("uNotes");
 		String experience = request.getParameter("uExperience");

@@ -23,15 +23,14 @@ public class GetMenteeById extends HttpServlet {
      */
     public GetMenteeById() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("GetMenteeById Servlet");
+		System.out.println("Get MenteeById Servlet");
 		int id =Integer.parseInt( request.getParameter("uId"));
         String jsp = request.getParameter("jsp");
           DataAccess da = new DataAccess();
@@ -39,7 +38,6 @@ public class GetMenteeById extends HttpServlet {
           try {
                mentee = da.getUser(id);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         	
@@ -55,7 +53,7 @@ public class GetMenteeById extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		doGet(request,response);
 	}
 
 }

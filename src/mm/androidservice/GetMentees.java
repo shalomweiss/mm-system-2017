@@ -2,20 +2,14 @@ package mm.androidservice;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.google.gson.JsonObject;
-import mm.da.DataAccess;
-import mm.da.DataInterface;
 import mm.model.Mentee;
-import mm.model.Mentor;
 import mm.model.User;
 import mm.model.User.userType;
 import util.ServerUtils;
