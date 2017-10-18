@@ -8,6 +8,7 @@ public class RESPONSE_STATUS implements ErrorModel {
 	public static final int INVALID_SESSION = 3;
 	public static final int DATABASE_ERROR = 4;
 	public static final int PASSWORD_ERROR = 5;
+	public static final int UNSUPPORTED_FORMAT = 6;
 
 	private int code;
 	private String message;
@@ -36,6 +37,10 @@ public class RESPONSE_STATUS implements ErrorModel {
 		if (status == RESPONSE_STATUS.PASSWORD_ERROR) {
 			code = mm.constants.Constants.STATUS_WRONGPARA;
 			message = mm.constants.Constants.WRONGPASSWORD;
+		}
+		if (status == RESPONSE_STATUS.UNSUPPORTED_FORMAT) {
+			code = mm.constants.Constants.STATUS_WRONGPARA;
+			message = mm.constants.Constants.WRONGFORMAT;
 		}
 	}
 

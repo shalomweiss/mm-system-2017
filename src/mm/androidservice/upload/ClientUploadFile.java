@@ -24,7 +24,7 @@ public class ClientUploadFile {
 	private static final  String awsKey = "dJfPvvni02d7jISPYZTNNPXN0yZB0Hd0oCFsInsC";
 	
 	
-	public ClientUploadFile(){}
+	private ClientUploadFile(){}
 
 	/**
 	 * Use UploadFile.BucketName
