@@ -28,7 +28,7 @@ public class AddMeeting extends HttpServlet {
      */
     public AddMeeting() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
  
     
@@ -64,7 +64,7 @@ public class AddMeeting extends HttpServlet {
 					
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.DATABASE_ERROR));
 			}
 		}else {

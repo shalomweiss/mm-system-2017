@@ -1,9 +1,6 @@
 package mm.androidservice;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.JsonObject;
-
-import mm.jsonModel.MeetingModel;
-import mm.model.Meeting;
 import mm.model.User;
-import mm.model.Meeting.meetingStatus;
 import util.ServerUtils;
 
 /**
@@ -31,19 +24,14 @@ public class GetProfile extends HttpServlet {
      */
     public GetProfile() {
         super();
-        // TODO Auto-generated constructor stub
+       
     }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
-		
-		//JsonObject myJson = ServerUtils.getJsonObjectFromRequest(request);
-		
-	
 		AndroidIOManager iom = new AndroidIOManager(request,response);
 		
 		 try{
@@ -102,7 +90,7 @@ public class GetProfile extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 		
 		doPost(request, response);
 		

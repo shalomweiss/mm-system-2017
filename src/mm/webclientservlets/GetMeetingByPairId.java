@@ -4,6 +4,7 @@ package mm.webclientservlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
 import mm.model.Meeting;
+import mm.model.MeetingHelp;
 import mm.model.Pair;
 import mm.model.PairDetails;
 
@@ -30,14 +32,14 @@ public class GetMeetingByPairId extends HttpServlet {
      */
     public GetMeetingByPairId() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 		
 		System.out.println("GetMeetingByPairId Servlet");
 		int pairId =Integer.parseInt( request.getParameter("id"));
@@ -46,39 +48,39 @@ public class GetMeetingByPairId extends HttpServlet {
           try {
                pair = da.getPair(pairId);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
+               
                 e.printStackTrace();
             }
           ArrayList<Meeting> allMeetings = new ArrayList<Meeting>();
+          ArrayList<MeetingHelp> allMeetings1 = new ArrayList<MeetingHelp>();
           try {
             allMeetings= da.getMeetingsByPairId(pairId);       
            } catch (SQLException e) {
-               // TODO Auto-generated catch block
+              
                e.printStackTrace();
            }
-  
-          System.out.println("Meetings"+allMeetings);
-        //  allMeetings=getAllMeeting();
           PairDetails pairDetails=new PairDetails();
           pairDetails.setPair(pair);
           pairDetails.setMeetings(allMeetings);
-          System.out.println("Meetings"+allMeetings);
+          
+       
+      
+          
+          
+          for (Meeting meeting : allMeetings) {
+        	  Date meetingDate=new Date(meeting.getDate() * 1000);
+        	 MeetingHelp p= new MeetingHelp( meeting.getMeetingId(),meeting.getPairId(), meeting.getMentorId(),meeting.getMenteeId(), meeting.getNote(), meeting.getStatus(),meeting.getMenteeReport(), meeting.getMentorReport(), meeting.getMenteePrivateReport(), meeting.getMentorPrivateReport(), meeting.getMeetingType(), meeting.getSubject(), meeting.getLocation(), meeting.getDate(), meeting.getStartingDate(), meeting.getEndingDate(), meeting.getMentorComplete(), meeting.getMenteeComplete(),meetingDate);
+        	  allMeetings1.add(p);      	  
+              
+          }          
+          
           request.setAttribute("Pairs", pairDetails);
-          request.setAttribute("meetings", allMeetings);	
+          request.setAttribute("meetings", allMeetings1);
           RequestDispatcher req = null;
 		  req=request.getRequestDispatcher("meetings.jsp");
-	    	req.forward(request, response);	
+	      req.forward(request, response);	
 	}
 	
-	public ArrayList<Meeting> getAllMeeting(){
-		ArrayList<Meeting> arr=new ArrayList<Meeting>();
-		Meeting m=new Meeting(0, 0, 0, 0, "String",null,null,null,null,null,null,null, null, null, null, null, false, false);
-		m.setLocation("LOCATION");
-		m.setMenteePrivateReport("REPORTING");
-		m.setMenteeReport("PPPPP");
-		
-		arr.add(m);
-		return arr;
-	}
+	
 
 }

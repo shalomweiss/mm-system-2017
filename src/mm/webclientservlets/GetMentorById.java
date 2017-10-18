@@ -25,7 +25,7 @@ public class GetMentorById extends HttpServlet {
 	 * Default constructor.
 	 */
 	public GetMentorById() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class GetMentorById extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("GetMentorById Servlet");
+		System.out.println("Get MentorById Servlet");
 		int id =Integer.parseInt( request.getParameter("uId"));
         String jsp = request.getParameter("jsp");
           DataAccess da = new DataAccess();
@@ -43,11 +43,9 @@ public class GetMentorById extends HttpServlet {
           try {
                 mentor = da.getUser(id);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         request.setAttribute("MentorById", mentor);	
-        System.out.println(mentor);
         response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
 		req.forward(request, response);
@@ -58,12 +56,8 @@ public class GetMentorById extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("Mentor Servlet");
+		
 	}
 	
-	public Mentor getMentorById(){
-		Mentor m=new Mentor("shushu","CC","DEV");
-		return m;
-	}
+
 }
