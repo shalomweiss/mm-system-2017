@@ -33,15 +33,39 @@ public class MentorReports extends HttpServlet {
 			throws ServletException, IOException {
 
 		DataAccess da = new DataAccess();
+		boolean flagAddress = false;
+		boolean flagGender = false;
+		boolean flagCompany = false;
+		boolean flagPair = false;
 		
-		String address = request.getParameter("uAddress");
-		String gender1 = request.getParameter("uGender");
-		String company1 = request.getParameter("uCompany");
-		 String inPair1 = request.getParameter("inPair");
-		 System.out.println(inPair1);
-		int gender=Integer.parseInt(gender1);
-		int company=Integer.parseInt(company1);
-		int inPair=Integer.parseInt(inPair1);
+		String address = null;
+		int gender = -1;
+		int company = -1;
+		 int inPair = -1;
+		
+		
+		
+		if(request.getParameter("uAddress")==null) {
+			flagAddress=true;
+		}else {
+			address=request.getParameter("uAddress");
+		}
+		if(request.getParameter("uGender")==null || request.getParameter("uGender").trim().isEmpty()) {
+			flagGender=true;
+		}else {
+			System.out.println(request.getParameter("uGender"));
+			 gender = Integer.parseInt(request.getParameter("uGender"));
+		}
+		if(request.getParameter("uCompany")==null) {
+			flagCompany=true;
+		}else {
+			 company = Integer.parseInt(request.getParameter("uCompany"));
+		}
+		if(request.getParameter("inPair")==null) {
+			flagPair=true;
+		}else {
+			  inPair = Integer.parseInt(request.getParameter("inPair"));
+		}
 		
 		ArrayList<Mentor> allMentors=new ArrayList<Mentor>();
 		try {
