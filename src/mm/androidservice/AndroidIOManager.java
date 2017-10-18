@@ -23,6 +23,13 @@ public class AndroidIOManager {
 	private JsonObject requestObject;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
+	
+	
+	public AndroidIOManager(HttpServletResponse response) throws IOException {
+		this.da = new DataAccess();
+		this.responseMap = new HashMap<String,Object>();
+		this.response=response;
+	}
 
 	public AndroidIOManager(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		this.da = new DataAccess();

@@ -16,6 +16,7 @@ public class Constants {
 	public final static String SUCCESS="success";
 	public final static String USERNOTFOUND="user not found";
 	public final static String WRONGPASSWORD="wrong password";
+	public final static String WRONGFORMAT="unsupported file format";
 	public final static int STATUS_SUCCESS=200;
 	public final static int STATUS_MISSINGPARA=401;
 	public final static int STATUS_WRONGPARA=402;
