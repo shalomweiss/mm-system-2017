@@ -7,7 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-<
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -298,7 +298,7 @@ background-color: #ccc;
 	left: 0;
 	buttom: 0;
 	background: rgba(0, 0, 0, 0.3);
-	z-index: 99999;
+	z-index: 99;
 	opacity: 0;
 	-webkit-transition: opacity 400ms ease-in;
 	-moz-transition: opacity 400ms ease-in;
@@ -568,13 +568,9 @@ tr.stam:hover {
 	cursor: pointer;
 }
 td {
-    padding: 5px !important;
 	height: 20%;
 }
 
-#table_detail tr:hover {
-	background-color: rgba(108,136,225,0.9);
-}
 
 #table_detail .hidden_row {
 	display: none;

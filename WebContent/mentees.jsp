@@ -7,7 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-<
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -284,7 +283,9 @@ div.tab button {
 div.tab button:hover {
 	background-color: #ddd;
 }
-
+table tr:nth-child(4n-1), table tr:nth-child(4n)  {
+    background: #ccc;
+}
 /* Create an active/current tablink class */
 div.tab button.active {
 	background-color: white;
@@ -617,13 +618,9 @@ tr.stam:hover {
 	cursor: pointer;
 }
 td {
-    padding: 5px !important;
 	height: 20%;
 }
 
-#table_detail tr:hover {
-	background-color: rgba(255,193,7,0.7);
-}
 
 #table_detail .hidden_row {
 	display: none;
@@ -677,11 +674,10 @@ background-color: #ccc;
 
 			<table id="table_detail" cellpadding="0" cellspacing="0"  border="0">
 			<div class="tbl-content" style="height: 100%">
-				<tbody >
+				<tbody>
 					<c:forEach items="${Mentees}" var="ment">
 					
-						<tr class="stam"
-							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+						<tr class="stam" onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 							    <td style="display: none">${ment.id}</td>
 						    	<td>${ment.firstName}</td>
 								<td>${ment.lastName}</td>
