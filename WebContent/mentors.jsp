@@ -696,10 +696,31 @@ resize: none;
 													</td>
 													<td>
 														<div id="div3${ment.id}"
-															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">${ment.gender}</div>
-														<input id="input3${ment.id}" name="uGender" type="text"
-														value="${ment.gender}" style="display: none;"
-														required>
+															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
+															<c:if test="${ment.gender == 1}"> male </c:if>
+															<c:if test="${ment.gender == 0}"> female </c:if> 
+															
+															</div>
+														
+<c:if test="${ment.gender == 1}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"  checked > Male
+															<br>
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" > female
+												
+												</div></c:if>
+												
+												<c:if test="${ment.gender == 0}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"   > male
+															<br>
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" checked> female
+												
+												</div></c:if>
 
 													</td>
 													<td>

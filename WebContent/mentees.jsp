@@ -747,7 +747,7 @@ background-color: #ccc;
 										<div id="input3${ment.id}" style="display: none;">
 												<input id="clickedGender" class="male" type="radio"
 															name="uGender" value="1"  checked > Male
-															
+															<br>
 										<input id="noclickedGender" class="female" type="radio" name="uGender"
 														value="0" > female
 												
@@ -757,7 +757,7 @@ background-color: #ccc;
 										<div id="input3${ment.id}" style="display: none;">
 												<input id="clickedGender" class="male" type="radio"
 															name="uGender" value="1"   > male
-															
+													<br>		
 										<input id="noclickedGender" class="female" type="radio" name="uGender"
 														value="0" checked> female
 												
