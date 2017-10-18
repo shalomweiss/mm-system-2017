@@ -41,14 +41,20 @@ public class ClientDownloadFile {
 	 * @param bucketName
 	 * @param response
 	 */
-	public static void downloadFile(String key, String bucketName, HttpServletResponse response) {
+	public static boolean downloadFile(String key, String bucketName, HttpServletResponse response) {
 
 		AmazonS3 s3Client = s3client();
 		File file = null;
 		try {
 			System.out.println("Downloading an object");
 			S3Object s3object = s3Client.getObject(new GetObjectRequest(bucketName, key));
-
+			
+			
+			if(s3object==null) {
+				return false;
+			}
+			
+			
 			String contentType = s3object.getObjectMetadata().getContentType();
 
 			response.setContentType(contentType);
@@ -112,7 +118,7 @@ public class ClientDownloadFile {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+			return true;
 	}
 
 	private static AmazonS3 s3client() {
