@@ -41,10 +41,11 @@ public class MenteeReports extends HttpServlet {
 			e.printStackTrace();
 		}
 	   // System.out.println("USER with not json " +getUsers);
+		request.setAttribute("menteeReports",allMentees );
 		Gson gson = new Gson();
 		String userResult = gson.toJson(allMentees, Constants.USER_CLASS);
 		
-	//    System.out.println("USer with JSON" + userResult);	    
+    
     
 	    PrintWriter writer = response.getWriter();
 		writer.println(userResult);

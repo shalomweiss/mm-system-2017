@@ -1107,7 +1107,7 @@ public class DataAccess implements DataInterface {
 		ArrayList<Mentee> m = new ArrayList<>();
 		Mentee mentee = null;
 		java.sql.CallableStatement cStmt = c
-				.prepareCall("{call getAllCorrespondingMentees(?, ?, ?, ?, ?, ?)}");
+				.prepareCall("{call getAllCorrespondingMentees(?, ?, ?, ?, ?)}");
 
 		if (address != null && !address.isEmpty())
 
@@ -1126,11 +1126,10 @@ public class DataAccess implements DataInterface {
 			cStmt.setInt(4, inPair);
 		else
 			cStmt.setNull(4, java.sql.Types.INTEGER);
-		if (academicDicipline1 != null && !address.isEmpty())
-
-			cStmt.setString(1, academicDicipline1);
+		if (academicDicipline1 != null && ! academicDicipline1.isEmpty())
+			cStmt.setString(5, academicDicipline1);
 		else
-			cStmt.setString(1, null);
+			cStmt.setString(5, null);
 		ResultSet r = cStmt.executeQuery();
 		while (r.next()) {
 			mentee = new Mentee(
