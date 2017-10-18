@@ -8,13 +8,55 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
 
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<style type="text/css">
+tr.selected td{
+	background-color: rgba(123,31,162,0.7) !important;
+	color:white !important;
+} 
+table tr:nth-child(4n-1), table tr:nth-child(4n)  {
+    background: #ccc;
+}
+tr:hover td.inf{
+	background-color:rgba(123,31,162,0.7);
+	color: white;
+}
+h1.left
+{
+	left:8%;
+	width:40%;
+	right: 55% !important;
+	
+}
+h1.right
+{
+	    width: 40%;
+    /* right: 5% !important; */
+    left: 60%;
+}
+img{
+	width:10%;
+	height:16%;
+	z-index: 9;
+	position: fixed;
+	top:7%;
+	border-radius: 50%;
+}
+img.mentee
+{
+	right:50%;
+}
+img.mentor
+{
+	right:35%;
+}
+</style>
 <script type="text/javascript">
 $(document).ready(function(){
 
@@ -96,20 +138,22 @@ var prevRow;
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>
 	</div>
 </nav>
-<h1>
-Mentor: 
+<h1 class="right">
+Mentor: <br>
  <c:out value="${Pairs.getPair().getMentor().firstName}"></c:out>
-		 <c:out value="${Pairs.getPair().getMentor().lastName}"></c:out>, 
+		 <c:out value="${Pairs.getPair().getMentor().lastName}"></c:out><br> 
 	 <c:out value="${Pairs.getPair().getMentor().phoneNumber}"></c:out>
-<br>
-Mentee: 
+	 </h1>
+	 <img class="mentee" alt="harry" src="https://images.pottermore.com/bxd3o8b291gf/3SQ3X2km8wkQIsQWa02yOY/25f258f21bdbe5f552a4419bb775f4f0/HarryPotter_WB_F4_HarryPotterMidshot_Promo_080615_Port.jpg?w=1200">
+	<img class="mentor" alt="harry" src="https://typeset-beta.imgix.net/rehost%2F2016%2F9%2F13%2Fbf4612d7-e76a-4f3c-8cb8-f2486b5d15b4.jpg">
+<h1 class="left">
+Mentee: <br>
 		 <c:out value="${Pairs.getPair().getMentee().firstName}"></c:out>
-		  <c:out value="${Pairs.getPair().getMentee().lastName}"></c:out>, 
+		  <c:out value="${Pairs.getPair().getMentee().lastName}"></c:out><br>
 	 <c:out  value="${Pairs.getPair().getMentee().phoneNumber}"></c:out>
 </h1>
 <div class="topPart"> </div>
-	<div class="bottomPart"> </div>
-	<div class="inner">
+	<div class="bottomPart"> </div><div class="inner">
 <section>
   <!--for demo wrap--> 
   <div class="tbl-header-meeting">
@@ -127,7 +171,7 @@ Mentee:
   </div>
   <div class="tbl-content">
     <table cellpadding="0" cellspacing="0" border="0">
-      <tbody class="meeting meeting">
+      <tbody>
       <c:forEach var="meeting" items="${meetings}" >
         <tr class="stam" onclick="show_hide_row('hidden_row${meeting.meetingId}',${meeting.meetingId},'defultOpen${meeting.meetingId}');">
           <td class="inf"><c:out value="${meeting.dateMeeting}"></c:out></td>

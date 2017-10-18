@@ -8,12 +8,12 @@
  	font-weight: 300;
  	text-align: center;
  	margin-bottom: 15px;
- 	top:30%;
+ 	top:15%;
  	bottom:0;
-  text-align: center;
-  font-size: 200px;
-  font-family:AR DARLING;
-  color: #fff;
+	  text-align: center;
+	  font-size: 200px;
+	  font-family:AR DARLING;
+	  color: #fff;
 }
 .glyphicon {
     position: relative;
@@ -30,7 +30,7 @@
 input[type=submit] {
 	background-color: #4CAF50;
 	color: white;
-	padding: 12px 20px;
+	/*padding: 12px 20px;*/
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
@@ -334,11 +334,11 @@ outline: none !important;
 }
 .btn-primary, .btn-primary:active, .btn-primary:visited,.btn-primary:focus {
 
-    background-color: rgb(245,63,124) !important;
+    background-color: rgba(255, 156, 60, 0.9) !important;
 	outline: none !important;
 	color: white !important;
 	cursor: pointer !important;
-	border-color: rgb(245,63,124) !important;
+	border-color: rgba(255, 156, 60, 0.9) !important;
 	border-radius: 20px !important;
 	right:0 !important;
 	float:right;
@@ -346,11 +346,11 @@ outline: none !important;
 }
 .btn-primary:hover{
 	border-radius:20px;
-    background-color: rgb(210,0,124) !important;
+    background-color: rgba(255, 156, 60, 0.7) !important;
 	outline: none !important;
 	color: white !important;
 	cursor: pointer !important;
-	border-color: rgb(210,0,124) !important;
+	border-color: rgba(255, 156, 60, 0.7) !important;
 }
 .btn-addClick{
 	margin-top:1.8% !important;
