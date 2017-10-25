@@ -1,14 +1,19 @@
 package mm.constants;
 import mm.model.Mentor;
+import mm.model.Mentee;
 import mm.model.User;
 import java.lang.reflect.Type;
 import java.util.List;
+
 
 import com.google.gson.reflect.TypeToken;
 
 public class Constants {
 	public final static Type USER_CLASS = new TypeToken<List<User>>() {}.getType();	
 	public static final Type USER_Class = User.class;
+	public static final Type MENTEE_Class = new TypeToken<List<Mentee>>() {}.getType();
+	public static final Type MENTOR_Class = new TypeToken<List<Mentor>>() {}.getType();
+	
 	
 	
 	
@@ -16,6 +21,7 @@ public class Constants {
 	public final static String SUCCESS="success";
 	public final static String USERNOTFOUND="user not found";
 	public final static String WRONGPASSWORD="wrong password";
+	public final static String WRONGFORMAT="unsupported file format";
 	public final static int STATUS_SUCCESS=200;
 	public final static int STATUS_MISSINGPARA=401;
 	public final static int STATUS_WRONGPARA=402;

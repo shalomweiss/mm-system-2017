@@ -1107,7 +1107,7 @@ public class DataAccess implements DataInterface {
 		ArrayList<Mentee> m = new ArrayList<>();
 		Mentee mentee = null;
 		java.sql.CallableStatement cStmt = c
-				.prepareCall("{call getAllCorrespondingMentees(?, ?, ?, ?, ?, ?)}");
+				.prepareCall("{call getAllCorrespondingMentees(?, ?, ?, ?, ?)}");
 
 		if (address != null && !address.isEmpty())
 
@@ -1126,11 +1126,10 @@ public class DataAccess implements DataInterface {
 			cStmt.setInt(4, inPair);
 		else
 			cStmt.setNull(4, java.sql.Types.INTEGER);
-		if (academicDicipline1 != null && !address.isEmpty())
-
-			cStmt.setString(1, academicDicipline1);
+		if (academicDicipline1 != null && ! academicDicipline1.isEmpty())
+			cStmt.setString(5, academicDicipline1);
 		else
-			cStmt.setString(1, null);
+			cStmt.setString(5, null);
 		ResultSet r = cStmt.executeQuery();
 		while (r.next()) {
 			mentee = new Mentee(
@@ -1167,13 +1166,13 @@ public class DataAccess implements DataInterface {
 
 		ArrayList<Mentor> m = new ArrayList<>();
 		Mentor mentor = null;
-
+System.out.println(""+ address+" "+gender+" "+workPlace+" "+inPair);
 		java.sql.CallableStatement cStmt = c
 				.prepareCall("{call getAllCorrespondingMentors(?, ?, ?, ?)}");
 		if (address != null && !address.isEmpty())
 			cStmt.setString(1, address);
 		else
-			cStmt.setString(1, null);
+			cStmt.setNull(1, java.sql.Types.VARCHAR);
 		if (gender != -1)
 			cStmt.setInt(2, gender);
 		else
@@ -1188,8 +1187,9 @@ public class DataAccess implements DataInterface {
 			cStmt.setNull(4, java.sql.Types.INTEGER);
 
 		ResultSet r = cStmt.executeQuery();
-
+		
 		while (r.next()) {
+			System.out.println("*********************");
 			mentor = new Mentor(r.getInt(DataContract.UsersTable.COL_ID),
 					r.getString(DataContract.UsersTable.COL_FIRSTNAME),
 					r.getString(DataContract.UsersTable.COL_LASTNAME),
@@ -1344,10 +1344,10 @@ public class DataAccess implements DataInterface {
 				stm5.setInt(2, meetingId);
 				stm5.executeUpdate();
 			}
-			return false;
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	@Override

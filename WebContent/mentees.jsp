@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+<
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -618,6 +619,7 @@ tr.stam:hover {
 	cursor: pointer;
 }
 td {
+	 padding: 9px !important;
 	height: 20%;
 }
 
@@ -648,9 +650,8 @@ background-color: #ccc;
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a class="active" href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
-		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
-		  <a href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
-		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  
+		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>
 	</div>
 	</nav>
 	<h1>Mentees</h1>
@@ -674,10 +675,11 @@ background-color: #ccc;
 
 			<table id="table_detail" cellpadding="0" cellspacing="0"  border="0">
 			<div class="tbl-content" style="height: 100%">
-				<tbody>
+				<tbody >
 					<c:forEach items="${Mentees}" var="ment">
 					
-						<tr class="stam" onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+						<tr class="stam"
+							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 							    <td style="display: none">${ment.id}</td>
 						    	<td>${ment.firstName}</td>
 								<td>${ment.lastName}</td>
@@ -724,27 +726,43 @@ background-color: #ccc;
 														<div id="div1${ment.id}"
 															ondblclick="showStuff('div1${ment.id}','input1${ment.id}');">${ment.firstName}</div>
 														<input id="input1${ment.id}" name="uFirstName" type="text"
-														value="${ment.firstName}" style="display: none;"
-							  							onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}" >
+														value="${ment.firstName}" style="display: none;" required>
 													</td>
 
 													<td>
 														<div id="div2${ment.id}"
 															ondblclick="showStuff('div2${ment.id}','input2${ment.id}');">${ment.lastName}</div>
 														<input id="input2${ment.id}" name="uLastName" type="text"
-														value="${ment.lastName}" style="display: none;"
-														onblur="if(this.value==''){ this.value='lastname'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='lastname'){this.value=''; this.style.color='#000';}">
+														value="${ment.lastName}" style="display: none;" required>
 													</td>
 													<td>
 														<div id="div3${ment.id}"
-															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">${ment.gender}</div>
-														<input id="input3${ment.id}" name="uGender" type="text"
-														value="${ment.gender}" style="display: none;"
-														onblur="if(this.value==''){ this.value='gender'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='gender'){this.value=''; this.style.color='#000';}">
-
+															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
+															
+															<c:if test="${ment.gender == 1}"> male </c:if> 
+															<c:if test="${ment.gender == 0}"> female </c:if> 
+															
+															</div>
+														
+<c:if test="${ment.gender == 1}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"  checked > Male
+															<br>
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" > female
+												
+												</div></c:if>
+												
+												<c:if test="${ment.gender == 0}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"   > male
+													<br>		
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" checked> female
+												
+												</div></c:if>
 													</td>
 													<td>
 														<div id="div4${ment.id}"
@@ -760,16 +778,14 @@ background-color: #ccc;
 														<input id="input5${ment.id}" name="uPhoneNumber"
 														type="text" value="${ment.phoneNumber}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='number'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='number'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div6${ment.id}"
 															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
 														<input id="input6${ment.id}" name="uEmail" type="text"
 														value="${ment.email}" style="display: none;"
-														onblur="if(this.value==''){ this.value='example@example.com'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
@@ -801,7 +817,7 @@ background-color: #ccc;
 												<tr>
 												<td>
 												
-											<img class="icon icons8-Profile" width="50" height="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAABTBJREFUaAXtmHuon3Mcx2djx1y2uf5BMUPkbsScOBllpImVlKaJWi6R5A8ltSVMhvwhd/vDcvlrmctGhlAsl2kKq7WzOWtDzC7YMI7X63e+33r2eJ7v73mO8+zs5LzrdZ7v5fO9fL733xkxYljDI9DICOxRs9ajsJ8eOKxm2armOzB8BR6FnqqF6jjSRaVvw16h8tf5/hnCA/mx/gthOXQOZMXWpRNbYS0sgF4YD01pLhXbxtiqDYysYKgTjv5GOB9WQdPaHhqo0r+WaTvDvBPdTXvQ3/pTjgwZJ3S+zJEh5USZI0POiSJHvCcWQdzYRXvC02S30565Ht1NfBy8BjNzeUZHw/XgybUZdlutpGeOeIqPyB/wiyo3IrNDHyrfVfkZccS9M2ZAkf4mcUtRxmCn5R2xPz47Ng12x+q2X3b81q1n0O2LZqSsUz4w58EFZQa5dA8Dl+g6mAOXgXL/3QHvGBko1XHENn+FqsvOvfSXhVC2nI780Upt8E83dS9ssP6qVc/GUIf7fWqlGnJp3QlnpYwK8t4jzR9JKXla+kPNmfspZViWV2dpeTAcA6eVVVaS/i3pDoIjnJUdnwaXwxToALUN4hFvuX5pVyytyfTMu8o7yb3yOTwFt8EDsAQ2gI6/AWOhtpp25GJ6pANr4SGYCGXyKfQ7LIP9y4zK0pt2xNF3qe1b1oFc+hXEd8BLufS20ZQj/lNgKTjlVdiE3SSI8jFqOZePuhZsz2V1BJTJg8Jy55YZmF5nszsyL8AKC1bQb9j0ZOwODOH1fM+Ep8H868Bl5HL7JvAj31XgK/wAUFfCh61QwZ86jjgqzxbUUTUpXo6jKHAs2NlOcM+cB12BqXxHwmr4Aa4B23a/VJZTXXYh2gEd0aaMD8g7BIo0hkQ7fV/I9O4o0t4kHgraO4s+Yh+D5FFcZ0bshNMdlwjBf+l7UspGbnqwjm169BZpO4mivFO+gqvgCfgSKik1I5UqKDE6nHQ754mV3LQF5W8mzdt+BSRnJVu2KUe8P3rhhmxjNcIvhvIuu0K5qXaFltGIp158ytdp0ztnCngHxSXXtnxTM2LDD4OzMtdIRe2D3VtguVqD0KQjbvKXwWP4SKiiGRjpxK1VjLM2TTpiOzrgadXuWa+ty/4L+DqE+VRX047YEzeuzkwyktAt5DkbNyVsSrOadMTZ8C7wnrGDK6EDinQCiT5xtPPNdg+k7i+yd1YTjkygiSdBBzy5fK95DBteDtMg3g8er+6HDfAdeInGzb6Z8L1wELRV1pFZWPvfjqi7CMyMEb6PwKUhbkfmwzkh7mcC+DB0GdnpBXA8RF1EwJdAL6yBV+FnMP4pHA1RnQSWgHlb4H5IOtSNQXxrvUvYEYty0y2OEb42Oj/EHUkbsQF1CdigDjwPx0GRDibRNiwbeY6wPxmKNJlE+6BtD5wKLaUuxPVYSFQq7sPOl6o2p8BCWAMngq9X90ORfAGPAd9QN4LLz7qkSB+T6CB1wSh4Ewofqd1k2AllA/u1Qn1//LnpyEeNJxAfgKY51Q7MM+BymgjtNBYD75UHg+EnfKWKpmLkzNyucWpGtpH/i0ZBW/lmnwieJi6dKB92vpAdoXWwGtrpdAzsw2fB0O/JMDrEU5/3Q2ZrRvKO2BFn4r/IOuIp1K6eM4JB1pEO0k5qV5D82Ibt7bQ0jHvUzYKl4Gbtj86m0DiISzRVh/tJzQM7FNf744Tdbym5R1TLkehVX1JfB7xJr4bs/oj5Vb9uWke2aS2igTmwsemGhuv/347AP28HPrB11U7wAAAAAElFTkSuQmCC">
+											<a href="https://drive.google.com/open?id=0B_QS8uk1BPLYSkxxTWpRSDd0eDg"><img class="icon icons8-Profile" width="50" height="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAABTBJREFUaAXtmHuon3Mcx2djx1y2uf5BMUPkbsScOBllpImVlKaJWi6R5A8ltSVMhvwhd/vDcvlrmctGhlAsl2kKq7WzOWtDzC7YMI7X63e+33r2eJ7v73mO8+zs5LzrdZ7v5fO9fL733xkxYljDI9DICOxRs9ajsJ8eOKxm2armOzB8BR6FnqqF6jjSRaVvw16h8tf5/hnCA/mx/gthOXQOZMXWpRNbYS0sgF4YD01pLhXbxtiqDYysYKgTjv5GOB9WQdPaHhqo0r+WaTvDvBPdTXvQ3/pTjgwZJ3S+zJEh5USZI0POiSJHvCcWQdzYRXvC02S30565Ht1NfBy8BjNzeUZHw/XgybUZdlutpGeOeIqPyB/wiyo3IrNDHyrfVfkZccS9M2ZAkf4mcUtRxmCn5R2xPz47Ng12x+q2X3b81q1n0O2LZqSsUz4w58EFZQa5dA8Dl+g6mAOXgXL/3QHvGBko1XHENn+FqsvOvfSXhVC2nI780Upt8E83dS9ssP6qVc/GUIf7fWqlGnJp3QlnpYwK8t4jzR9JKXla+kPNmfspZViWV2dpeTAcA6eVVVaS/i3pDoIjnJUdnwaXwxToALUN4hFvuX5pVyytyfTMu8o7yb3yOTwFt8EDsAQ2gI6/AWOhtpp25GJ6pANr4SGYCGXyKfQ7LIP9y4zK0pt2xNF3qe1b1oFc+hXEd8BLufS20ZQj/lNgKTjlVdiE3SSI8jFqOZePuhZsz2V1BJTJg8Jy55YZmF5nszsyL8AKC1bQb9j0ZOwODOH1fM+Ep8H868Bl5HL7JvAj31XgK/wAUFfCh61QwZ86jjgqzxbUUTUpXo6jKHAs2NlOcM+cB12BqXxHwmr4Aa4B23a/VJZTXXYh2gEd0aaMD8g7BIo0hkQ7fV/I9O4o0t4kHgraO4s+Yh+D5FFcZ0bshNMdlwjBf+l7UspGbnqwjm169BZpO4mivFO+gqvgCfgSKik1I5UqKDE6nHQ754mV3LQF5W8mzdt+BSRnJVu2KUe8P3rhhmxjNcIvhvIuu0K5qXaFltGIp158ytdp0ztnCngHxSXXtnxTM2LDD4OzMtdIRe2D3VtguVqD0KQjbvKXwWP4SKiiGRjpxK1VjLM2TTpiOzrgadXuWa+ty/4L+DqE+VRX047YEzeuzkwyktAt5DkbNyVsSrOadMTZ8C7wnrGDK6EDinQCiT5xtPPNdg+k7i+yd1YTjkygiSdBBzy5fK95DBteDtMg3g8er+6HDfAdeInGzb6Z8L1wELRV1pFZWPvfjqi7CMyMEb6PwKUhbkfmwzkh7mcC+DB0GdnpBXA8RF1EwJdAL6yBV+FnMP4pHA1RnQSWgHlb4H5IOtSNQXxrvUvYEYty0y2OEb42Oj/EHUkbsQF1CdigDjwPx0GRDibRNiwbeY6wPxmKNJlE+6BtD5wKLaUuxPVYSFQq7sPOl6o2p8BCWAMngq9X90ORfAGPAd9QN4LLz7qkSB+T6CB1wSh4Ewofqd1k2AllA/u1Qn1//LnpyEeNJxAfgKY51Q7MM+BymgjtNBYD75UHg+EnfKWKpmLkzNyucWpGtpH/i0ZBW/lmnwieJi6dKB92vpAdoXWwGtrpdAzsw2fB0O/JMDrEU5/3Q2ZrRvKO2BFn4r/IOuIp1K6eM4JB1pEO0k5qV5D82Ibt7bQ0jHvUzYKl4Gbtj86m0DiISzRVh/tJzQM7FNf744Tdbym5R1TLkehVX1JfB7xJr4bs/oj5Vb9uWke2aS2igTmwsemGhuv/347AP28HPrB11U7wAAAAAElFTkSuQmCC"></a>
 
 												
 												
@@ -810,10 +826,9 @@ background-color: #ccc;
 														<div id="div7${ment.id}"
 															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.remainingSemesters}</div>
 														<input id="input7${ment.id}" name="uRemSemesters"
-														type="text" value="${ment.remainingSemesters}"
-														style="display: none;"
-														onblur="if(this.value==''){ this.value='remainSem'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='remainSem'){this.value=''; this.style.color='#000';}">
+														type="number" value="${ment.remainingSemesters}"
+														style="display: none;" min="0" required
+														>
 													</td>
 													<td>
 														<div id="div8${ment.id}"
@@ -821,21 +836,18 @@ background-color: #ccc;
 														<input id="input8${ment.id}" name="uGraduationStatus"
 														type="text" value="${ment.graduationStatus}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='gradStatus'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='gradStatus'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitution}</div>
 												 		<input name="uAcademicInstitution" id="input13${ment.id}" type="text" value="${ment.academiclnstitution}"   style="display :none;"
-													 	onblur="if(this.value==''){ this.value='institution'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">													</td>
+													 	required >													</td>
 													<td>
 														<div id="div9${ment.id}"
 															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.average}</div>
-														<input id="input9${ment.id}" name="uAverage" type="text"
-														value="${ment.average}" style="display: none;"
-														onblur="if(this.value==''){ this.value='avg'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='avg'){this.value=''; this.style.color='#000';}">
+														<input id="input9${ment.id}" name="uAverage" type="number"
+														value="${ment.average}" style="display: none;" min="0" max="100"
+														required>
 													</td>
 													<td>
 														<div id="div10${ment.id}"
@@ -843,17 +855,26 @@ background-color: #ccc;
 														<input id="input10${ment.id}" name="uAcademicDicipline"
 														type="text" value="${ment.academicDicipline}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='acDic'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='acDic'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div11${ment.id}"
-															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">${ment.academicDicipline2}</div>
+															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">
+															
+															
+															
+															<c:if test="${empty ment.academicDicipline2}">
+															NO VALUE
+															</c:if>
+																<c:if test="${not empty ment.academicDicipline2}">
+															${ment.academicDicipline2}
+															
+															</c:if>
+															</div>
 														<input id="input11${ment.id}" name="uAcademicDicipline2"
 														type="text" value="${ment.academicDicipline2}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='acDic2'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='acDic2'){this.value=''; this.style.color='#000';}">
+														>
 													</td>
 													<td><input type="submit" value="Done"></td>
 												</tr>
@@ -864,23 +885,35 @@ background-color: #ccc;
 										<div id="Notes${ment.id}" class="tabcontent"
 											style="background-color: rgba(250,178,58,0.8);">
 											<table>
+											<tr>
+													<th class="inner">Notes</th>
+													
+												<th class="inner">submit</th>
+													
+												</tr>
 												<tr>
-<td>
-													<div id="div12${ment.id}"
-														ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.note}</div>
+											<td>
+													<div id="div12${ment.id}" ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">
+														
+														
+															${ment.note}
+															
+														
+														
+														</div>
 
 													<textarea id="input12${ment.id}" name="uNotes"
-														value="${ment.note}"
+														
 														style="display: none; height: 100px;">${ment.note}</textarea>
-												</td></tr>
-												<tr>
-<td>
+												</td>
+												<td>
 													<input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
-														onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
+														>
 													<input type="submit" style="float: right;" value="Done">
-											</td>	</tr>
+											</td>
+												</tr>
+
 
 											</table>
 										</div>
@@ -984,8 +1017,7 @@ background-color: #ccc;
 
 								<td>Dicipline 2</td>
 								<td><input type="text" name="uAcademicDicipline2"
-								onblur="if(this.value==''){ this.value='acDic2'; this.style.color='#BBB';}" 
-							  	onfocus="if(this.value=='acDic2'){this.value=''; this.style.color='#000';}">
+								>
 								</td>
 							<tr>
 
@@ -1018,6 +1050,7 @@ background-color: #ccc;
 							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
 							</tr>
 							</td>
+							
 						</table>
 						
 					</form>

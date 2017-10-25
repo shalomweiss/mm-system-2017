@@ -568,6 +568,7 @@ tr.stam:hover {
 	cursor: pointer;
 }
 td {
+ padding: 9px !important;
 	height: 20%;
 }
 
@@ -602,7 +603,7 @@ resize: none;
 		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
 		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
-		  <a href="#" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  		  
 	</div>
 	</nav>
@@ -675,7 +676,8 @@ resize: none;
 													<th class="inner">Address</th>
 													<th class="inner">Phone</th>
 													<th class="inner">Email</th>
-																										<th class="inner">submit</th>
+													<th class="inner">Picture</th>
+													<th class="inner">submit</th>
 													
 												</tr>
 												<tr>
@@ -684,8 +686,7 @@ resize: none;
 															ondblclick="showStuff('div1${ment.id}','input1${ment.id}');">${ment.firstName}</div>
 														<input id="input1${ment.id}" name="uFirstName" type="text"
 														value="${ment.firstName}" style="display: none;"
-														onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 
 													<td>
@@ -693,16 +694,35 @@ resize: none;
 															ondblclick="showStuff('div2${ment.id}','input2${ment.id}');">${ment.lastName}</div>
 														<input id="input2${ment.id}" name="uLastName" type="text"
 														value="${ment.lastName}" style="display: none;"
-														onblur="if(this.value==''){ this.value='lastname'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='lastname'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div3${ment.id}"
-															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">${ment.gender}</div>
-														<input id="input3${ment.id}" name="uGender" type="text"
-														value="${ment.gender}" style="display: none;"
-														onblur="if(this.value==''){ this.value='gender'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='gender'){this.value=''; this.style.color='#000';}">
+															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
+															<c:if test="${ment.gender == 1}"> male </c:if>
+															<c:if test="${ment.gender == 0}"> female </c:if> 
+															
+															</div>
+														
+<c:if test="${ment.gender == 1}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"  checked > Male
+															<br>
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" > female
+												
+												</div></c:if>
+												
+												<c:if test="${ment.gender == 0}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"   > male
+															<br>
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" checked> female
+												
+												</div></c:if>
 
 													</td>
 													<td>
@@ -710,8 +730,7 @@ resize: none;
 															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
 														<input id="input4${ment.id}" name="uAddress" type="text"
 														value="${ment.address}" style="display: none;"
-														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div5${ment.id}"
@@ -719,16 +738,17 @@ resize: none;
 														<input id="input5${ment.id}" name="uPhoneNumber"
 														type="text" value="${ment.phoneNumber}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='number'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='number'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div6${ment.id}"
 															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
 														<input id="input6${ment.id}" name="uEmail" type="text"
 														value="${ment.email}" style="display: none;"
-														onblur="if(this.value==''){ this.value='example@example.com'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}">
+														required>
+													</td>
+													<td>
+														<img src="DownloadFile?id=${ment.id}&type=img" alt="W3Schools.com">
 													</td>
 													<td><input id="submit${ment.id}" type="submit"
 														value="Done"></td>
@@ -758,24 +778,21 @@ resize: none;
 														<input id="input7${ment.id}" name="uExperience"
 														type="text" value="${ment.experience}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='exp'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='exp'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div8${ment.id}"
 															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.role}</div>
 														<input id="input8${ment.id}" name="uRole" type="text"
 														value="${ment.role}" style="display: none;"
-														onblur="if(this.value==''){ this.value='role'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='role'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div12${ment.id}"
 															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.company}</div>
 														<input name="uCompany" id="input12${ment.id}" type="text"
 														value="${ment.company}" style="display: none;"
-														onblur="if(this.value==''){ this.value='company'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='company'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div9${ment.id}"
@@ -783,8 +800,7 @@ resize: none;
 														<input id="input9${ment.id}" name="uWorkHistory"
 														type="text" value="${ment.workHistory}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='workHis'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='workHis'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 
 
@@ -800,13 +816,18 @@ resize: none;
 												<tr>
 													<th class="inner">Notes</th>
 													
-																										<th class="inner">submit</th>
+												<th class="inner">submit</th>
 													
 												</tr>
 												<tr>
 													<td>
 														<div id="div10${ment.id}"
-															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}</div>
+															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">
+															
+															
+															${ment.note}
+															
+															</div>
 
 														<textarea id="input10${ment.id}" name="uNotes"
 															value="${ment.note}"

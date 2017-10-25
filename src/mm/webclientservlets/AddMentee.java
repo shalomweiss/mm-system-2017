@@ -99,7 +99,8 @@ public class AddMentee extends HttpServlet {
 				user=da.getUser(resId);
 				String to = uEmail;
 			    String subject = "Thank you for registering to Mentorem project";
-			    String body = "Hi "+uFirstName+" "+uLastName+",\nWe appreciate your registeration for Mentorem project,\n" +"Here is your login username and passwod: \n\nUsername: "+uEmail+"\nPassword: " +uPass+"\n\nHave a good day,\nTsofen team";
+			    String apk="https://goo.gl/dbYx8R";
+			    String body = "Hi "+uFirstName+" "+uLastName+",\nWe appreciate your registeration for Mentorem project,\n" +"Here is your login username and passwod: \n\nUsername: "+uEmail+"\nPassword: " +uPass+"\nDownload and Install the android client app \n "+ apk+"\n\nHave a good day,\nTsofen team";
 				SendingMail.sendFromGMail(to,subject,body);
 
 			} catch (SQLException e) {

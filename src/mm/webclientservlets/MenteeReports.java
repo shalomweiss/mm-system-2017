@@ -5,14 +5,19 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.google.gson.Gson;
-import mm.constants.Constants;
+
 import mm.da.DataAccess;
 import mm.model.Mentee;
+import javax.servlet.RequestDispatcher;
+import mm.constants.*;
 @WebServlet("/MenteeReports")
 public class MenteeReports extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,22 +42,36 @@ public class MenteeReports extends HttpServlet {
 			allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
 					academicDicipline1);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-	   // System.out.println("USER with not json " +getUsers);
+		
 		Gson gson = new Gson();
-		String userResult = gson.toJson(allMentees, Constants.USER_CLASS);
+	    System.out.println("USER with not json " +allMentees);
+		String menteeReports = gson.toJson(allMentees, Constants.MENTEE_Class);
 		
-	//    System.out.println("USer with JSON" + userResult);	    
-    
-	    PrintWriter writer = response.getWriter();
-		writer.println(userResult);
+	    System.out.println("USer with JSON" + menteeReports);	    
+	    
+	    response.setContentType("Content-Type: application/json");
+	    PrintWriter writer = response.getWriter().append(menteeReports);
+		writer.println();
 		writer.close();
-		
-		
-	//	RequestDispatcher req = request.getRequestDispatcher(nextPage);
-	//	req.forward(request, response);
+
+		RequestDispatcher req=new RequestDispatcher() {
+			
+			@Override
+			public void include(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void forward(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
+				// TODO Auto-generated method stub
+				
+			}
+		} ;
+		req.forward(request, response);
 
 	}
 

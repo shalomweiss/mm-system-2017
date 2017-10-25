@@ -20,20 +20,21 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import mm.androidservice.AndroidIOManager;
 import mm.androidservice.RESPONSE_STATUS;
+import mm.da.DataAccess;
 import util.ServerUtils;
 
 /**
  * Servlet implementation class UploadFile
  */
-@WebServlet("/UploadImage")
-public class UploadImage extends HttpServlet {
+@WebServlet("/UploadCV")
+public class UploadCV extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ServletFileUpload uploader = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UploadImage() {
+	public UploadCV() {
 		super();
 	}
 
@@ -55,21 +56,24 @@ public class UploadImage extends HttpServlet {
 		File file = null;
 		try {
 			if (id != null) {
-				if (true) {
+				if (ServerUtils.validateUserSession(Integer.parseInt(id), token, iom.getDataAccess())) {
 					List<FileItem> items = upload.parseRequest(new ServletRequestContext(request));
 					for (FileItem item : items) {
 						String contentType = item.getContentType();
 						// save file in temporary directory on the server before sending it to a bucket
 
-						if (contentType.equals("image/png"))
-							file = File.createTempFile("img", ".png");
-						if (contentType.equals("image/jpeg"))
-							file = File.createTempFile("img", ".jpg");
+						if (contentType.equals("text/plain"))
+							file = File.createTempFile("cv", ".txt");
+						if (contentType.equals("application/pdf"))
+							file = File.createTempFile("cv", ".pdf");
+						if (contentType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+							file = File.createTempFile("cv", ".docx");
+					
 
 						item.write(file);// write to temp
 
 						// upload to bucket
-						ClientUploadFile.uploadFile(id, file, ClientUploadFile.PIC_BUCKET);
+						ClientUploadFile.uploadFile(id, file, ClientUploadFile.CV_BUCKET);
 						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 						// success
 						file.deleteOnExit();
