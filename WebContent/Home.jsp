@@ -14,8 +14,37 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
+
+<script>
+	function logout(){
+		localStorage.removeItem("TsofenKey");
+		window.location.replace("/LoginWeb");
+	}
+</script>
 </head>
 <body>
+
+<c:choose>
+    <c:when test="${empty isNotEntered}">
+         <script>
+         	if (localStorage.getItem("TsofenKey") === null) {
+					window.location.replace("/LoginWeb");
+				}
+         </script>
+    </c:when   > 
+    <c:when test="${isNotEntered=='0'}">
+    		<script>
+    		if (localStorage.getItem("TsofenKey") === null) {
+					window.location.replace("/LoginWeb");
+				}
+    		</script>
+    </c:when>
+    <c:otherwise>
+    	<script>
+    		localStorage.setItem("TsofenKey", "TsofenKey");
+    	</script>
+    </c:otherwise>
+</c:choose>
 <nav class="icon-bar">
 	<div class="icon-bar">
 		  <a class="active" title="Home" href="ForwardPath"><i class="fa fa-home"></i></a> 
@@ -24,7 +53,7 @@
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
 		  <a href="#" title="Notification"><i class="fa fa-bell"></i></a>
 		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>
-		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
+		  <a onclick="logout()" href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
 	</div>
 </nav>
 	<div class="topPart"> </div>
