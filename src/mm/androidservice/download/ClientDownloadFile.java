@@ -22,6 +22,8 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 
+import mm.androidservice.common.JsonKeyMapper;
+
 public class ClientDownloadFile {
 
 	private ClientDownloadFile() {
@@ -31,9 +33,9 @@ public class ClientDownloadFile {
 	public final static String CV_BUCKET = "tsofencv";
 	public final static String GRADE_BUCKET = "tsofengrade";
 
-	private static final String awsId = "AKIAJDNJD2EUPO5NGVMA";
+	private static final  String awsId = JsonKeyMapper.ID;
 
-	private static final String awsKey = "dJfPvvni02d7jISPYZTNNPXN0yZB0Hd0oCFsInsC";
+	private static final  String awsKey = JsonKeyMapper.KEY;
 
 	/**
 	 * key is User's id, bucketName file location, include response

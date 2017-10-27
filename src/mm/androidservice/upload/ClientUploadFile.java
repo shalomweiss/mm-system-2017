@@ -11,6 +11,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+import mm.androidservice.common.JsonKeyMapper;
+
 
 public class ClientUploadFile {
 
@@ -19,9 +21,9 @@ public class ClientUploadFile {
 	public final static String GRADE_BUCKET     = "tsofengrade";
 	
 
-	private static final  String awsId = "AKIAJDNJD2EUPO5NGVMA";
+	private static final  String awsId = JsonKeyMapper.ID;
 
-	private static final  String awsKey = "dJfPvvni02d7jISPYZTNNPXN0yZB0Hd0oCFsInsC";
+	private static final  String awsKey = JsonKeyMapper.KEY;
 	
 	
 	private ClientUploadFile(){}
