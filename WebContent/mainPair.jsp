@@ -54,17 +54,25 @@ $(document).ready(function(){
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
 	<div class="inner">
-		<section>
+		<section class="Pairs">
   <!--for demo wrap--> 
   <div class="tbl-header">
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
+       <tr>
+          <th>Mentor</th>
+          <th></th>
+          <th></th>
+          <th>Mentee</th>
+        </tr>
         <tr>
-          <th>Mentor Name</th>
-          <th>Mentee Name</th>
-          <th>Notification</th>
-          <th>Meetings </th>
-          <th>Disconnect </th>
+          <th class="mentor">Name</th>
+          <th class="mentor">Phone</th>
+          <th class="mentor">Workplace</th>
+          <th class="mentee">Name</th>
+          <th class="mentee">Phone</th>
+          <th class="mentee">Academy</th>
+          <th >Actions</th>
         </tr>
       </thead>
     </table>
@@ -74,15 +82,16 @@ $(document).ready(function(){
       <tbody>
    <c:forEach var="pair" items="${pairs}" >
         <tr>
-        	<td id="mentor"><c:out value="${pair.menteeName}"></c:out></td>
-			<td id="mentee"><c:out value="${pair.mentorName}"></c:out></td>
-			<td><c:out value="${pair.activeStatus}"></c:out></td>
-			<td class="but">   
-			 	<a class="btn btn-block btn-primary" href="GetMeetingByPairId?id=${pair.pairId}" style="margin-top: 0px;" >
+        	<td id="mentor">${pair.mentor.firstName} ${pair.mentor.lastName}</td>
+        	<td id="mentorPhone">${pair.mentor.phoneNumber}</td>
+			<td id="mentee"><c:out value="${pair.mentor.company}"></c:out></td>
+			<td id="mentor">${pair.mentee.firstName} ${pair.mentee.lastName}</td>
+        	<td id="mentorPhone">${pair.mentee.phoneNumber}</td>
+			<td id="mentee"><c:out value="${pair.mentee.academiclnstitution}"></c:out></td>
+          	<td class="but"> 
+          		<a class="btn btn-block btn-primary topButton" href="GetMeetingByPairId?id=${pair.pairId}" style="margin-top: 0px;" >
 			 		Meetings
-    			</a>
-    		</td>
-          	<td class="but">   
+    			</a>  <br>
           		<a class="btn btn-block btn-primary disB" id="${pair.pairId}" style="margin-top: 0px;" >
   					Disconnect
    				</a>
@@ -92,9 +101,8 @@ $(document).ready(function(){
       </tbody>
     </table>
   </div>
-
- <a class="btn btn-block btn-primary .btn-click btn-addClick" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
 </section>
+<a class="btn btn-block btn-primary .btn-click btn-addClick" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
  </div>
 
  </body>

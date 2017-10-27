@@ -138,7 +138,16 @@ var prevRow;
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>
 	</div>
 </nav>
-<h1 class="right">
+<div class="menteeMeetings">
+	<h1 class="left">
+Mentee: <br>
+		 <c:out value="${Pairs.getPair().getMentee().firstName}"></c:out>
+		  <c:out value="${Pairs.getPair().getMentee().lastName}"></c:out><br>
+	 <c:out  value="${Pairs.getPair().getMentee().phoneNumber}"></c:out>
+</h1>
+</div>
+<div class="mentorMeetings">
+	<h1 class="right">
 Mentor: <br>
  <c:out value="${Pairs.getPair().getMentor().firstName}"></c:out>
 		 <c:out value="${Pairs.getPair().getMentor().lastName}"></c:out><br> 
@@ -146,12 +155,7 @@ Mentor: <br>
 	 </h1>
 	 <img class="mentee" alt="harry" src="https://images.pottermore.com/bxd3o8b291gf/3SQ3X2km8wkQIsQWa02yOY/25f258f21bdbe5f552a4419bb775f4f0/HarryPotter_WB_F4_HarryPotterMidshot_Promo_080615_Port.jpg?w=1200">
 	<img class="mentor" alt="harry" src="https://typeset-beta.imgix.net/rehost%2F2016%2F9%2F13%2Fbf4612d7-e76a-4f3c-8cb8-f2486b5d15b4.jpg">
-<h1 class="left">
-Mentee: <br>
-		 <c:out value="${Pairs.getPair().getMentee().firstName}"></c:out>
-		  <c:out value="${Pairs.getPair().getMentee().lastName}"></c:out><br>
-	 <c:out  value="${Pairs.getPair().getMentee().phoneNumber}"></c:out>
-</h1>
+</div>
 <div class="topPart"> </div>
 	<div class="bottomPart"> </div><div class="inner">
 <section>

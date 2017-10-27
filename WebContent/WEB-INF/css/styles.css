@@ -15,6 +15,12 @@
 	  font-family:AR DARLING;
 	  color: #fff;
 }
+th.mentor{
+	background-color: rgb(108,136,225)
+}
+th.mentee{
+	background-color: #FFC107;
+}
 .glyphicon {
     position: relative;
     top: 1px;
@@ -118,9 +124,9 @@ table{
   background-color: rgba(108,136,225,0.9);
  }
 .tbl-content{
-  height:300px;
-  overflow-y:auto;
-  overflow-x:hidden;
+   max-height: 37vh;
+    overflow-y: auto;
+    overflow-x: hidden;
   margin-top: 0px;
   border: 1px solid rgba(255,255,255,0.3);
 }
@@ -182,18 +188,20 @@ div.bottomPart{
 	width:100%;
 }
 div.inner{
-	border-radius:20px;
-	z-index: 4;
+border-radius: 20px;
+    z-index: 4;
     background-color: white;
     position: fixed;
-    right: 5%;
-    width: 80%;
+    right: 20px;
+    left: 100px;
+    /* width: 85%; */
     top: 25%;
-    bottom: 10%;
-    height: 70%;
+    bottom: 5%;
+    max-height: 70%;
     background-color: white;
     box-shadow: 5px 5px 5px #888888;
 }
+ 
 div.inner--left{
     width: 40% !important;
         left: calc(80px + 2%) !important;
@@ -210,13 +218,14 @@ section{
   	z-index:2;
   	top:0;
 }
-section.Pairs{
-	margin-top: 0;
-	width:100% !important;
-	margin-right:0 !important;
-	margin-left:0 !important;
-	margin-top:0 !important;
-	
+section.Pairs {
+   	width: 96% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    margin-top: 3vh !important;
+}
+.topButton{
+    margin-bottom: 5% !important;;
 }
 .made-with-love {
   margin-top: 40px;
@@ -353,9 +362,15 @@ outline: none !important;
 	border-color: rgba(255, 156, 60, 0.7) !important;
 }
 .btn-addClick{
+	position: absolute;
+    right: 2% !important;
 	margin-top:1.8% !important;
 	width:30% !important;
 	float:right;
+	width:30% !important;
+	float:right;
+	margin-bottom: 2vh;
+	bottom: 2vh;
 }
 .btn-pairClick{
 	margin-top:1.8% !important;
@@ -365,6 +380,14 @@ outline: none !important;
 tr.para:hover td{
 	background-color:#f5f5f5;
 	color: #69A489;
+}
+tr.mentor:hover td{
+	background-color:rgba(108,136,225,0.6) !important;
+	color: black;
+}
+tr.mentee:hover td{
+	background-color:rgba(255,193,7,0.6) !important;
+	color: black;
 }
 h5{
 	color: black;
@@ -382,12 +405,17 @@ h3{
     color: black;
     margin-left: 20px;
 }
-.para.selected {
+tr.para.selected {
     background-color:#f5f5f5;
 	color: #69A489;
 }
-tr.selected td{
-	color: #69A489;
+tr.mentor.selected {
+    background-color:rgba(108,136,225,0.9) !important;
+	color: black;
+}
+tr.mentee.selected {
+    background-color:rgba(255,193,7,0.9) !important;
+	color: black;
 }
 
 .navbar .navbar-search .dropdown-menu { min-width: 25px; }
@@ -526,3 +554,91 @@ li a:hover:not(.active) {
     margin-right: -300px;
     margin-left: 2px;
 }
+	div.waiting{
+		position:fixed;
+		z-index: 12;
+		top:0;
+		left:0;
+		height:100%;
+		width:100%;
+		background-color: rgb(46,61,154);
+	}
+	p.sorry{
+		font-size:20px;
+		width: 100%;
+		position: absolute;
+		top: 60vh;
+		text-align: center;
+		color: white;
+	}
+  .loader {
+  top: 20vh;
+  color: #ffffff;
+  font-size: 20px;
+  margin: 100px auto;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-animation: load4 1.3s infinite linear;
+  animation: load4 1.3s infinite linear;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+@-webkit-keyframes load4 {
+  0%,
+  100% {
+    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
+}
+@keyframes load4 {
+  0%,
+  100% {
+    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
+}
+

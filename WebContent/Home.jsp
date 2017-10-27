@@ -23,7 +23,7 @@
 </script>
 </head>
 <body>
-
+<!-- 
 <c:choose>
     <c:when test="${empty isNotEntered}">
          <script>
@@ -45,6 +45,8 @@
     	</script>
     </c:otherwise>
 </c:choose>
+ -->
+
 <nav class="icon-bar">
 	<div class="icon-bar">
 		  <a class="active" title="Home" href="ForwardPath"><i class="fa fa-home"></i></a> 
@@ -58,7 +60,5 @@
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
 	<h1 class="tsofen">TSOFEN</h1>
-
-
 </body>
 </html> 
