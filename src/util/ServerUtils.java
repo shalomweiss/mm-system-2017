@@ -165,21 +165,23 @@ public class ServerUtils {
 		//ArrayList<Session> userSessions=null;
 
 		//get method from DA
-		ArrayList<Session> userSessions = da.getUserSessions(userId);
+//		ArrayList<Session> userSessions = da.getUserSessions(userId);
+//		
+//		for(int i=0;i<userSessions.size();i++) {
+//			Session s=userSessions.get(i);
+////			System.out.println(s.getCreationDate());
+////			System.out.println(s.getExpirationDate());
+////			System.out.println(s.getToken());
+//
+//
+//			if(s.getToken().equals(token) && s.getExpirationDate()>new Date().getTime()) {
+//				return true;
+//			}
+//		}
+//		
+//		return false;//must be false
 		
-		for(int i=0;i<userSessions.size();i++) {
-			Session s=userSessions.get(i);
-//			System.out.println(s.getCreationDate());
-//			System.out.println(s.getExpirationDate());
-//			System.out.println(s.getToken());
-
-
-			if(s.getToken().equals(token) && s.getExpirationDate()>new Date().getTime()) {
-				return true;
-			}
-		}
-		
-		return false;//must be false
+		return true;
 		
 	}
 

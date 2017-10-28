@@ -45,6 +45,7 @@ public class UploadImage extends HttpServlet {
 		String token = request.getHeader("token");
 		AndroidIOManager iom = new AndroidIOManager(response);
 
+
 		FileItemFactory itemFactory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(itemFactory);
 
@@ -55,9 +56,11 @@ public class UploadImage extends HttpServlet {
 		File file = null;
 		try {
 			if (id != null) {
-				if (true) {
+				if (ServerUtils.validateUserSession(Integer.parseInt(id), token, iom.getDataAccess())) {
 					List<FileItem> items = upload.parseRequest(new ServletRequestContext(request));
+
 					for (FileItem item : items) {
+
 						String contentType = item.getContentType();
 						// save file in temporary directory on the server before sending it to a bucket
 
@@ -69,7 +72,7 @@ public class UploadImage extends HttpServlet {
 						item.write(file);// write to temp
 
 						// upload to bucket
-						ClientUploadFile.uploadFile(id, file, ClientUploadFile.PIC_BUCKET);
+						ClientUploadFile.uploadFile(id, file, ClientUploadFile.PIC_BUCKET,contentType);
 						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 						// success
 						file.deleteOnExit();
@@ -98,6 +101,5 @@ public class UploadImage extends HttpServlet {
 		}
 
 	}
-
 
 }

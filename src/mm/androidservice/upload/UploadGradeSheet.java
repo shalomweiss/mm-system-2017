@@ -63,14 +63,14 @@ public class UploadGradeSheet extends HttpServlet {
 						// save file in temporary directory on the server before sending it to a bucket
 
 						if (contentType.equals("application/pdf"))
-							file = File.createTempFile("cv", ".pdf");
+							file = File.createTempFile("gradesheettoupload", ".pdf");
 					
 					
 
 						item.write(file);// write to temp
 
 						// upload to bucket
-						ClientUploadFile.uploadFile(id, file, ClientUploadFile.GRADE_BUCKET);
+						ClientUploadFile.uploadFile(id, file, ClientUploadFile.GRADE_BUCKET,contentType);
 						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 						// success
 						file.deleteOnExit();

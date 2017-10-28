@@ -47,6 +47,7 @@ public class ClientDownloadFile {
 
 		AmazonS3 s3Client = s3client();
 		File file = null;
+	
 		try {
 			System.out.println("Downloading an object");
 			S3Object s3object = s3Client.getObject(new GetObjectRequest(bucketName, key));
@@ -55,7 +56,9 @@ public class ClientDownloadFile {
 			
 			
 			String contentType = s3object.getObjectMetadata().getContentType();
-
+	
+			
+			
 			response.setContentType(contentType);
 
 			// response.setHeader(arg0, arg1);
@@ -67,24 +70,30 @@ public class ClientDownloadFile {
 					file = File.createTempFile("img", ".jpg");
 			} else if (bucketName.equals(CV_BUCKET)) {
 				if (contentType.equals("text/plain"))
-					file = File.createTempFile("cv", ".txt");
+					file = File.createTempFile("cvtodownload", ".txt");
 				if (contentType.equals("application/pdf"))
-					file = File.createTempFile("cv", ".pdf");
-				if (contentType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
-					file = File.createTempFile("cv", ".docx");
+					file = File.createTempFile("cvtodownload", ".pdf");
+				if (contentType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+					file = File.createTempFile("cvtodownload", ".docx");
+				}
+		
+			
 
 			} else if (bucketName.equals(GRADE_BUCKET)) {
 				if (contentType.equals("application/pdf"))
-					file = File.createTempFile("cv", ".pdf");
+					file = File.createTempFile("gradetodownload", ".pdf");
 
 			}
 
 		      InputStream initialStream = s3object.getObjectContent();
       	    
-      	    java.nio.file.Files.copy(
-      	      initialStream, 
-      	      file.toPath(), 
-      	      StandardCopyOption.REPLACE_EXISTING);
+		    
+		  	    java.nio.file.Files.copy(
+		        	      initialStream, 
+		        	      file.toPath(), 
+		        	      StandardCopyOption.REPLACE_EXISTING);
+		      
+      
       	 
       	    IOUtils.closeQuietly(initialStream);
       
@@ -120,6 +129,9 @@ public class ClientDownloadFile {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 
+		}finally {
+			if(file!=null)
+			file.deleteOnExit();
 		}
 			return true;
 	}
