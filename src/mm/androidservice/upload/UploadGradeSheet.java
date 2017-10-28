@@ -83,14 +83,15 @@ public class UploadGradeSheet extends HttpServlet {
 			}
 		} catch (NullPointerException e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
-
+			e.printStackTrace();
 			return;
 		} catch (FileUploadException e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
-
+			e.printStackTrace();
 			return;
 		} catch (Exception e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+			e.printStackTrace();
 		} finally {
 			if (file != null)
 				file.deleteOnExit();
