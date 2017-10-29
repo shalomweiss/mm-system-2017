@@ -34,6 +34,7 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
+<style type="text/css"><%@include file="/WEB-INF/css/styles1.css"%></style>
 <script type="text/javascript">
 	
 $(document).ready(function(){
@@ -63,7 +64,7 @@ $(document).ready(function(){
 		var sign1=document.getElementsByClassName("Sign2")[0];
 		sign1.id="clickedSign";
 	});
-	$(".stam").click(function()
+	$(".stam1").click(function()
 			{
 		
 			}
@@ -123,7 +124,7 @@ $(document).ready(function(){
 
 var prevRow;
 
-	function show_hide_row(row,mentId,def) {
+	function show_hide_row1(row,mentId,def) {
 		$("#" + prevRow).toggle();
 		$("#" + row).toggle();
 		
@@ -143,9 +144,7 @@ var prevRow;
 		{
 			if(childrenOfTheTbody[i].id==row)
 				break;
-			if(childrenOfTheTbody[i].className=="stam")
-		
-				
+			if(childrenOfTheTbody[i].className=="stam1")
 				numOfStams++;
 		}
 		var heightPX=(numOfStams-1)*(childrenOfTheTbody[0].clientHeight+1);
@@ -212,427 +211,6 @@ var prevRow;
 	
 	
 </script>
-
-
-<style>
-/* Style inputs with type="text", select elements and textareas */
-input[type=text], select, textarea {
-	width: 100%; /* Full width */
-	padding: 12px; /* Some padding */
-	border: 1px solid #ccc; /* Gray border */
-	border-radius: 4px; /* Rounded borders */
-	box-sizing: border-box;
-	/* Make sure that padding and width stays in place */
-	margin-top: 6px; /* Add a top margin */
-	margin-bottom: 16px; /* Bottom margin */
-	resize: vertical
-		/* Allow the user to vertically resize the textarea (not horizontally) */
-}
-
-
-
-/* Style the submit button with a specific background color etc */
-input[type=submit] {
-	background-color: #4CAF50;
-	color: white;
-	padding: 4px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	width: 100%;
-}
-.saveButton{
-    margin-bottom: 5px;
-}
-/* When moving the mouse over the submit button, add a darker green color */
-input[type=submit]:hover {
-	background-color: #45a049;
-}
-/* Style the tab */
-div.tab {
-	overflow: hidden;
-	border: 1px solid #ccc;
-	background-color: rgba(250,178,58,0.9);
-}
-
-input[type=text] , input[type=radio] , select{
-
-    padding-top: 5px;
-    padding-bottom: 5x;
-    padding-right: 3px;
-    padding-left: 3px;
-
-}
-textarea{
-
-resize: none;
-}
-
-/* Style the buttons inside the tab */
-div.tab button {
-	background-color: inherit;
-	float: left;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	padding: 14px 16px;
-	transition: 0.3s;
-}
-
-/* Change background color of buttons on hover */
-div.tab button:hover {
-	background-color: #ddd;
-}
-table tr:nth-child(4n-1), table tr:nth-child(4n)  {
-    background: #ccc;
-}
-/* Create an active/current tablink class */
-div.tab button.active {
-	background-color: white;
-}
-
-/* Style the tab content */
-.tabcontent {
-	display: none;
-	padding: 6px 12px;
-	border: 1px solid #ccc;
-	border-top: none;
-}
-table tr:nth-child(4n-1), table tr:nth-child(4n)  {
-    background: #ccc;
-}
-.close {
-	background: #606061;
-	color: #FFFFFF;
-	line-height: 25px;
-	position: absolute;
-	right: -12px;
-	text-align: center;
-	top: -10px;
-	width: 24px;
-	opacity:10 !important;
-	text-decoration: none;
-	font-weight: bold;
-	-webkit-border-radius: 12px;
-	-moz-border-radius: 12px;
-	border-radius: 12px;
-	-moz-box-shadow: 1px 1px 3px #000;
-	-webkit-box-shadow: 1px 1px 3px #000;
-	box-shadow: 1px 1px 3px #000;
-}
-
-.close:hover {
-	background: #00d9ff;
-}
-
-.modalDialog:target {
-	opacity: 1;
-	pointer-events: auto;
-}
-
-.modalDialog>div {
-	width: 60%;
-	margin: auto;
-	border-radius: 10px;
-	background: #fff;
-	background: -moz-linear-gradient(#fff, #999);
-	background: -webkit-linear-gradient(#fff, #999);
-	background: -o-linear-gradient(#fff, #999);
-}
-
-.modalDialog {
-
-	position: fixed;
-	font-family: Arial, Helvetica, sans-serif;
-	top: 20px;
-	right: 0;
-	left: 0;
-	buttom: 0;
-	background: rgba(0, 0, 0, 0.3);
-	z-index: 99999;
-	opacity: 0;
-	-webkit-transition: opacity 400ms ease-in;
-	-moz-transition: opacity 400ms ease-in;
-	transition: opacity 400ms ease-in;
-	pointer-events: none;
-}
-
-.button:hover {
-	background-color: #4CAF50; /* Green */
-	color: white;
-}
-
-h1{
-  z-index: 2;
-  position: fixed;
-  top:5%;
-  right:0;
-  left:90px;
-  font-size: 32px;
-  letter-spacing: 8px;
-  text-shadow: 2px 4px 4px #CCCCCC;
-  color: #fff !important;
-  text-transform: uppercase;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-table {
-	width: 100%;
-	table-layout: fixed;
-}
-
-.tbl-header {
-    background-color: rgba(255, 255, 255, 0.3);
-    max-height: 46vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-	background-color: rgba(255, 255, 255, 0.3);
-	
-}
-.btn-addClick{
-	    position: absolute;
-    right: 2% !important;
-	margin-top:1.8% !important;
-	width:30% !important;
-	float:right;
-	width:30% !important;
-	float:right;
-	margin-bottom: 1vh;
-	bottom: 1vh;
-}
-section.Pairs {
-   	width: 96% !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    margin-top: 3vh !important;
-}
-.tbl-content {
-	height: 300px;
-	overflow-x: auto;
-	margin-top: 0px;
-	border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-th {
-	padding: 20px 15px;
-	font-weight: 500;
-	font-size: 14px;
-	text-transform: uppercase;
-}
-th.inner
-{
-	color: black !important;
-	background-color: white;
-}
-td {
-	vertical-align: middle;
-	font-weight: 700;
-	font-size: 14px;
-	color: #000;
-	border-bottom: solid 1px rgba(255, 255, 255, 0.1);
-}
-
-
-
-/* follow me template */
-.made-with-love {
-
-	margin-top: 40px;
-	padding: 10px;
-	clear: left;
-	text-align: center;
-	font-size: 10px;
-	font-family: arial;
-	color: #fff;
-}
-
-.made-with-love i {
-	font-style: normal;
-	color: #F50057;
-	font-size: 14px;
-	position: relative;
-	top: 2px;
-}
-.made-with-love a {
-	color: #fff;
-	text-decoration: none;
-}
-
-.made-with-love a:hover {
-	text-decoration: underline;
-}
-
-/* for custom scrollbar for webkit browser*/
-::-webkit-scrollbar {
-	width: 6px;
-}
-::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-::-webkit-scrollbar-thumb {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-.icon-bar {
-	top: 30vh;
-	width: 90px;
-	background-color: #555;
-}
-.icon-bar a {
-	display: block;
-	text-align: center;
-	    padding: 8px;
-	transition: all 0.3s ease;
-	color: white;
-	font-size: 36px;
-}
-.icon-bar a:hover {
-	background-color: #000;
-}
-i {
-	margin-right: 2px;
-}
-html {
-	overflow-y: hidden;
-	height: 100%;
-}
-
-nav.icon-bar {
-	top: 0;
-	position: fixed;
-	height: 100%;
-	background-color: #555;
-}
-
-div.icon-bar {
-	margin-left: auto;
-	margin-right: auto;
-	display: table-cell;
-	vertical-align: middle;
-	position: fixed;
-	top: calc(( 100% - 490px)/2);
-	bottom: 0;
-}
-button {
-	outline: none !important;
-}
-
-.button {
-	background-color: #4CAF50;
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-}
-
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited,
-	.btn-primary:focus {
-	margin-top:20px;
-    background-color: rgba(255,255,255,0.3);
-	outline: none !important;
-	color: white !important;
-	cursor: pointer !important;
-	border-color: rgba(255,255,255,0.1);}
-.btn-primary:hover{
-	margin-top:20px;
-    background-color: rgba(255,255,255,0.5);
-	outline: none !important;
-	color: white !important;
-	cursor: pointer !important;
-	border-color: rgba(255,255,255,0.1);
-}
-button {
-	outline: none !important;
-}
-* {
-	font-family: 'Open Sans', sans-serif;
-}
-
-.button-fill {
-	text-align: center;
-	background: #ccc;
-	display: inline-block;
-	position: relative;
-	text-transform: uppercase;
-	margin: 25px;
-}
-
-.button-fill.grey {
-	background: #445561;
-	color: white;
-	text-align: center;
-}
-
-.button-text {
-	padding: 0 25px;
-	line-height: 56px;
-	letter-spacing: .1em;
-	text-align: center;
-}
-
-.button-inside {
-	width: 0px;
-	height: 54px;
-	margin: 0;
-	float: left;
-	position: absolute;
-	top: 1px;
-	left: 50%;
-	line-height: 54px;
-	color: #fff;
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-	text-align: center;
-	overflow: hidden;
-	-webkit-transition: width 0.5s, left 0.5s, margin 0.5s;
-	-moz-transition: width 0.5s, left 0.5s, margin 0.5s;
-	-o-transition: width 0.5s, left 0.5s, margin 0.5s;
-	transition: width 0.5s, left 0.5s, margin 0.5s;
-}
-
-.button-inside.full {
-	width: 100%;
-	text-align: center;
-	left: 0%;
-	top: 0;
-	margin-right: -50px;
-	border: 1px solid #445561;
-}
-
-.inside-text {
-	text-align: center;
-	position: absolute;
-	right: 50%;
-	letter-spacing: .1em;
-	-webkit-transform: translateX(50%);
-	-moz-transform: translateX(50%);
-	-ms-transform: translateX(50%);
-	transform: translateX(50%);
-}
-
-tr.stam:hover {
-	background-color: rgba(255,193,7,0.7);
-	opacity: 0.9;
-	cursor: pointer;
-}
-td {
-	 padding: 9px !important;
-	height: 20%;
-}
-
-
-#table_detail .hidden_row {
-	display: none;
-}
-.addMenteeForm td{
-background-color: #ccc;
-}
-</style>
 <body>
 	<!-- add successfully alert -->
 	<c:if test="${AddedSuc =='1'}">
@@ -681,8 +259,7 @@ background-color: #ccc;
 				<tbody >
 					<c:forEach items="${Mentees}" var="ment">
 					
-						<tr class="stam"
-							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+						<tr class="stam1" onclick="show_hide_row1('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 							    <td style="display: none">${ment.id}</td>
 						    	<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
@@ -699,7 +276,7 @@ background-color: #ccc;
 						</tr>
 						<tr id="hidden_row${ment.id}" class="hidden_row"  >
 							    <td colspan=5>
-								<div class="tab">
+								<div class="tab tabMentee">
 
 								<button class="tablinks" id="defultOpen${ment.id}" onclick="showDetails(event, 'info${ment.id}')">Info</button>
 								<button class="tablinks" onclick="showDetails(event, 'Academic${ment.id}')">Academic</button>
@@ -945,7 +522,7 @@ background-color: #ccc;
 			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
 			Mentee
 		</a>
-		</div>
+	
 		
 		<div id="openModal3" class="modalDialog">
 			<div>
@@ -1055,10 +632,6 @@ background-color: #ccc;
 
 			</div>
 		</div>
-
-
-
-
 	</section>
 </div>
 </body>
