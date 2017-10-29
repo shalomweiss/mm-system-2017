@@ -12,7 +12,6 @@ public class SessionController {
             sb.append(candidateChars.charAt(random.nextInt(candidateChars
                     .length())));
         }
-
         return sb.toString();
     }
 }

@@ -45,13 +45,15 @@ public class GetAllPairs extends HttpServlet {
 		System.out.println("Get AllPairs Servlet");
 
 		ArrayList<Pair> pairsArray = new ArrayList<Pair>();
-		ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
-
+		//Daniel did this change because I need more info that the pair model has
+		//ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
+		//added by Daniel
+		ArrayList<Pair> activePairsArray= new ArrayList<Pair>();
 		DataAccess da = new DataAccess();
 		 try {
 			 pairsArray = da.getAllPairs();
 			 } catch (SQLException e) {
-			 // TODO Auto-generated catch block
+			
 			 e.printStackTrace();
 			 }
 		
@@ -60,19 +62,21 @@ public class GetAllPairs extends HttpServlet {
 				try {
 					pair.setMentee(da.getUser(pair.getMenteeId()));
 					pair.setMentor(da.getUser(pair.getMentorId()));
+					
+					activePairsArray.add(pair);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentee().getFirstName(), pair.getMentor().getFirstName(),
+				//Daniel did this change because I need more info that the pair model has
+				/*PairsInfo tmpPairInfo = new PairsInfo(pair.getMentee().getFirstName(), pair.getMentor().getFirstName(),
 						pair.getPairId(), pair.getActiveStatus());
-				pairsMainInfo.add(tmpPairInfo);
+				pairsMainInfo.add(tmpPairInfo);*/
 				
 			}
 		}
-		
-		request.setAttribute("pairs", pairsMainInfo);
+		//changed by Daniel
+		request.setAttribute("pairs", activePairsArray);
 		response.setContentType("text/html");
 	    RequestDispatcher req = request.getRequestDispatcher("mainPair.jsp");
 	    req.forward(request, response);

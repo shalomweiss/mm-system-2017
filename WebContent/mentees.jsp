@@ -136,11 +136,9 @@ var prevRow;
 		showStuff("input"+i+mentId,"div"+i+mentId);
 		}
 		var row1=document.getElementById(row);
-		console.log(document.getElementById(row).parentNode.parentNode.parentNode);
+		
 		var childrenOfTheTbody=document.getElementById(row).parentNode.children;
 		var numOfStams=0;
-		
-		console.log(childrenOfTheTbody[0].clientHeight);
 		for(i=0;i<childrenOfTheTbody.length;i++)
 		{
 			if(childrenOfTheTbody[i].id==row)
@@ -151,8 +149,6 @@ var prevRow;
 				numOfStams++;
 		}
 		var heightPX=(numOfStams-1)*(childrenOfTheTbody[0].clientHeight+1);
-		console.log('height is '+heightPX);
-		console.log(row1.parentNode.parentNode.parentNode);
 		$( "div.tbl-header" ).scrollTop(heightPX);
 		
 		
@@ -239,12 +235,15 @@ input[type=text], select, textarea {
 input[type=submit] {
 	background-color: #4CAF50;
 	color: white;
-	padding: 12px 20px;
+	padding: 4px 20px;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
+	width: 100%;
 }
-
+.saveButton{
+    margin-bottom: 5px;
+}
 /* When moving the mouse over the submit button, add a darker green color */
 input[type=submit]:hover {
 	background-color: #45a049;
@@ -386,19 +385,25 @@ table {
 
 .tbl-header {
     background-color: rgba(255, 255, 255, 0.3);
-    max-height: 48vh;
+    max-height: 46vh;
     overflow-y: scroll;
     overflow-x: hidden;
 	background-color: rgba(255, 255, 255, 0.3);
 	
 }
 .btn-addClick{
+	    position: absolute;
+    right: 2% !important;
 	margin-top:1.8% !important;
 	width:30% !important;
 	float:right;
+	width:30% !important;
+	float:right;
+	margin-bottom: 1vh;
+	bottom: 1vh;
 }
 section.Pairs {
-   	width: 90% !important;
+   	width: 96% !important;
     margin-right: auto !important;
     margin-left: auto !important;
     margin-top: 3vh !important;
@@ -413,7 +418,7 @@ section.Pairs {
 th {
 	padding: 20px 15px;
 	font-weight: 500;
-	font-size: 12px;
+	font-size: 14px;
 	text-transform: uppercase;
 }
 th.inner
@@ -433,6 +438,7 @@ td {
 
 /* follow me template */
 .made-with-love {
+
 	margin-top: 40px;
 	padding: 10px;
 	clear: left;
@@ -541,13 +547,9 @@ button {
 	cursor: pointer !important;
 	border-color: rgba(255,255,255,0.1);
 }
-
 button {
 	outline: none !important;
 }
-
-
-
 * {
 	font-family: 'Open Sans', sans-serif;
 }
@@ -664,9 +666,10 @@ background-color: #ccc;
 		<thead class="tbl-header-mentee">
 					<tr>
 						<th>Name</th>
-						<th>Last Name</th>
 						<th>Phone</th>
-						<th>Email</th>
+						<th>Academy</th>
+						<th>Gender</th>
+						<th>Actions</th>
 					</tr>
 
 				</thead>
@@ -681,14 +684,21 @@ background-color: #ccc;
 						<tr class="stam"
 							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 							    <td style="display: none">${ment.id}</td>
-						    	<td>${ment.firstName}</td>
-								<td>${ment.lastName}</td>
+						    	<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
-								<td>${ment.email}</td>
+								<td>${ment.academiclnstitution}</td>
+								<td>
+									<c:if test="${ment.gender == 1}"> male </c:if>
+									<c:if test="${ment.gender == 0}"> female </c:if> 
+								</td>
+								<td>
+									<a class="btn btn-block btn-primary" href="" style="margin-top: 0px;" >
+			 							Deactivate
+    								</a><br>
+								</td>
 						</tr>
-
 						<tr id="hidden_row${ment.id}" class="hidden_row"  >
-							    <td colspan=4>
+							    <td colspan=5>
 								<div class="tab">
 
 								<button class="tablinks" id="defultOpen${ment.id}" onclick="showDetails(event, 'info${ment.id}')">Info</button>
@@ -697,45 +707,37 @@ background-color: #ccc;
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks"
 											onclick="showDetails(event, 'Mentor${ment.id}')">Mentor</button>
-										<button class="tablinks" style= "float:right;" onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
+										<button class="tablinks" style="float:right;" onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
 
 								</div>
 								<form id="form${ment.id}" action="UpdateMentee" method="post">
 								<div id="info${ment.id}" class="tabcontent"style="background-color: rgba(250,178,58,0.8);">
-
-
-											
 											<table class="w3-table-all w3-card-4">
-
 												<tr>
-												
-												    
-													<th class="inner">First name</th>
-													<th class="inner">Last name</th>
-													<th class="inner">Gender</th>
-													<th class="inner">Address</th>
-													<th class="inner">Phone</th>
-													<th class="inner">Email</th>
-													<th class="inner">Picture</th>
-													<th class="inner">submit</th>
+													<th width="14%" class="inner">First name</th>
+													<th width="14%" class="inner">Last name</th>
+													<th width="10%" class="inner">Gender</th>
+													<th width="12%" class="inner">Address</th>
+													<th width="12%" class="inner">Phone</th>
+													<th width="18%" class="inner">Email</th>
+													<th width="10%" class="inner">Picture</th>
+													<th width="10%" class="inner">Actions</th>
 												</tr>
 												<tr>
-												
-												
-													<td>
+													<td width="14%">
 														<div id="div1${ment.id}"
 															ondblclick="showStuff('div1${ment.id}','input1${ment.id}');">${ment.firstName}</div>
 														<input id="input1${ment.id}" name="uFirstName" type="text"
 														value="${ment.firstName}" style="display: none;" required>
 													</td>
 
-													<td>
+													<td width="14%">
 														<div id="div2${ment.id}"
 															ondblclick="showStuff('div2${ment.id}','input2${ment.id}');">${ment.lastName}</div>
 														<input id="input2${ment.id}" name="uLastName" type="text"
 														value="${ment.lastName}" style="display: none;" required>
 													</td>
-													<td>
+													<td width="10%">
 														<div id="div3${ment.id}"
 															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
 															
@@ -764,7 +766,7 @@ background-color: #ccc;
 												
 												</div></c:if>
 													</td>
-													<td>
+													<td width="12%">
 														<div id="div4${ment.id}"
 															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
 														<input id="input4${ment.id}" name="uAddres" type="text"
@@ -772,7 +774,7 @@ background-color: #ccc;
 														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
 													</td>
-													<td>
+													<td width="12%">
 														<div id="div5${ment.id}"
 															ondblclick="showStuff('div5${ment.id}','input5${ment.id}');">${ment.phoneNumber}</div>
 														<input id="input5${ment.id}" name="uPhoneNumber"
@@ -780,18 +782,20 @@ background-color: #ccc;
 														style="display: none;"
 														required>
 													</td>
-													<td>
+													<td width="18%">
 														<div id="div6${ment.id}"
 															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
 														<input id="input6${ment.id}" name="uEmail" type="text"
 														value="${ment.email}" style="display: none;"
 														required>
 													</td>
-													<td>
-														<img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
+													<td width="10%">
+														<img src="DownloadFile?id=${ment.id}&type=img">
 													</td>
-													<td><input id="submit${ment.id}" type="submit"
-														value="Done"></td>
+													<td width="10%">
+														<input class="saveButton" id="submit${ment.id}" type="submit" value="Save">
+														<input id="submit${ment.id}" type="submit" value="Mail"></td>
+													</td>
 														
 													
 												</tr>
@@ -805,24 +809,24 @@ background-color: #ccc;
 
 											<table class="w3-table-all w3-card-4">
 												<tr>
-												<th class="inner">CV</th>
-													<th class="inner">Remaining semesters</th>
-													<th class="inner">Graduation status</th>
-													<th class="inner">Academic institution</th>
-													<th class="inner">average</th>
-													<th class="inner">Major</th>
-													<th class="inner">Second major</th>
-													<th class="inner">submit</th>
+													<th width="10%" class="inner">CV</th>
+													<th width="10%" class="inner">Remaining semesters</th>
+													<th width="10%" class="inner">Graduation status</th>
+													<th width="20%" class="inner">Academic institution</th>
+													<th width="10%" class="inner">average</th>
+													<th width="15%" class="inner">Major</th>
+													<th width="15%" class="inner">Second major</th>
+													<th width="10%" class="inner">Actions</th>
 												</tr>
 												<tr>
-												<td>
+												<td width="10%">
 												
-											<a href="https://drive.google.com/open?id=0B_QS8uk1BPLYSkxxTWpRSDd0eDg"><img class="icon icons8-Profile" width="50" height="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAABTBJREFUaAXtmHuon3Mcx2djx1y2uf5BMUPkbsScOBllpImVlKaJWi6R5A8ltSVMhvwhd/vDcvlrmctGhlAsl2kKq7WzOWtDzC7YMI7X63e+33r2eJ7v73mO8+zs5LzrdZ7v5fO9fL733xkxYljDI9DICOxRs9ajsJ8eOKxm2armOzB8BR6FnqqF6jjSRaVvw16h8tf5/hnCA/mx/gthOXQOZMXWpRNbYS0sgF4YD01pLhXbxtiqDYysYKgTjv5GOB9WQdPaHhqo0r+WaTvDvBPdTXvQ3/pTjgwZJ3S+zJEh5USZI0POiSJHvCcWQdzYRXvC02S30565Ht1NfBy8BjNzeUZHw/XgybUZdlutpGeOeIqPyB/wiyo3IrNDHyrfVfkZccS9M2ZAkf4mcUtRxmCn5R2xPz47Ng12x+q2X3b81q1n0O2LZqSsUz4w58EFZQa5dA8Dl+g6mAOXgXL/3QHvGBko1XHENn+FqsvOvfSXhVC2nI780Upt8E83dS9ssP6qVc/GUIf7fWqlGnJp3QlnpYwK8t4jzR9JKXla+kPNmfspZViWV2dpeTAcA6eVVVaS/i3pDoIjnJUdnwaXwxToALUN4hFvuX5pVyytyfTMu8o7yb3yOTwFt8EDsAQ2gI6/AWOhtpp25GJ6pANr4SGYCGXyKfQ7LIP9y4zK0pt2xNF3qe1b1oFc+hXEd8BLufS20ZQj/lNgKTjlVdiE3SSI8jFqOZePuhZsz2V1BJTJg8Jy55YZmF5nszsyL8AKC1bQb9j0ZOwODOH1fM+Ep8H868Bl5HL7JvAj31XgK/wAUFfCh61QwZ86jjgqzxbUUTUpXo6jKHAs2NlOcM+cB12BqXxHwmr4Aa4B23a/VJZTXXYh2gEd0aaMD8g7BIo0hkQ7fV/I9O4o0t4kHgraO4s+Yh+D5FFcZ0bshNMdlwjBf+l7UspGbnqwjm169BZpO4mivFO+gqvgCfgSKik1I5UqKDE6nHQ754mV3LQF5W8mzdt+BSRnJVu2KUe8P3rhhmxjNcIvhvIuu0K5qXaFltGIp158ytdp0ztnCngHxSXXtnxTM2LDD4OzMtdIRe2D3VtguVqD0KQjbvKXwWP4SKiiGRjpxK1VjLM2TTpiOzrgadXuWa+ty/4L+DqE+VRX047YEzeuzkwyktAt5DkbNyVsSrOadMTZ8C7wnrGDK6EDinQCiT5xtPPNdg+k7i+yd1YTjkygiSdBBzy5fK95DBteDtMg3g8er+6HDfAdeInGzb6Z8L1wELRV1pFZWPvfjqi7CMyMEb6PwKUhbkfmwzkh7mcC+DB0GdnpBXA8RF1EwJdAL6yBV+FnMP4pHA1RnQSWgHlb4H5IOtSNQXxrvUvYEYty0y2OEb42Oj/EHUkbsQF1CdigDjwPx0GRDibRNiwbeY6wPxmKNJlE+6BtD5wKLaUuxPVYSFQq7sPOl6o2p8BCWAMngq9X90ORfAGPAd9QN4LLz7qkSB+T6CB1wSh4Ewofqd1k2AllA/u1Qn1//LnpyEeNJxAfgKY51Q7MM+BymgjtNBYD75UHg+EnfKWKpmLkzNyucWpGtpH/i0ZBW/lmnwieJi6dKB92vpAdoXWwGtrpdAzsw2fB0O/JMDrEU5/3Q2ZrRvKO2BFn4r/IOuIp1K6eM4JB1pEO0k5qV5D82Ibt7bQ0jHvUzYKl4Gbtj86m0DiISzRVh/tJzQM7FNf744Tdbym5R1TLkehVX1JfB7xJr4bs/oj5Vb9uWke2aS2igTmwsemGhuv/347AP28HPrB11U7wAAAAAElFTkSuQmCC"></a>
+														<a href="https://drive.google.com/open?id=0B_QS8uk1BPLYSkxxTWpRSDd0eDg"><img class="icon icons8-Profile" width="50" height="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAABTBJREFUaAXtmHuon3Mcx2djx1y2uf5BMUPkbsScOBllpImVlKaJWi6R5A8ltSVMhvwhd/vDcvlrmctGhlAsl2kKq7WzOWtDzC7YMI7X63e+33r2eJ7v73mO8+zs5LzrdZ7v5fO9fL733xkxYljDI9DICOxRs9ajsJ8eOKxm2armOzB8BR6FnqqF6jjSRaVvw16h8tf5/hnCA/mx/gthOXQOZMXWpRNbYS0sgF4YD01pLhXbxtiqDYysYKgTjv5GOB9WQdPaHhqo0r+WaTvDvBPdTXvQ3/pTjgwZJ3S+zJEh5USZI0POiSJHvCcWQdzYRXvC02S30565Ht1NfBy8BjNzeUZHw/XgybUZdlutpGeOeIqPyB/wiyo3IrNDHyrfVfkZccS9M2ZAkf4mcUtRxmCn5R2xPz47Ng12x+q2X3b81q1n0O2LZqSsUz4w58EFZQa5dA8Dl+g6mAOXgXL/3QHvGBko1XHENn+FqsvOvfSXhVC2nI780Upt8E83dS9ssP6qVc/GUIf7fWqlGnJp3QlnpYwK8t4jzR9JKXla+kPNmfspZViWV2dpeTAcA6eVVVaS/i3pDoIjnJUdnwaXwxToALUN4hFvuX5pVyytyfTMu8o7yb3yOTwFt8EDsAQ2gI6/AWOhtpp25GJ6pANr4SGYCGXyKfQ7LIP9y4zK0pt2xNF3qe1b1oFc+hXEd8BLufS20ZQj/lNgKTjlVdiE3SSI8jFqOZePuhZsz2V1BJTJg8Jy55YZmF5nszsyL8AKC1bQb9j0ZOwODOH1fM+Ep8H868Bl5HL7JvAj31XgK/wAUFfCh61QwZ86jjgqzxbUUTUpXo6jKHAs2NlOcM+cB12BqXxHwmr4Aa4B23a/VJZTXXYh2gEd0aaMD8g7BIo0hkQ7fV/I9O4o0t4kHgraO4s+Yh+D5FFcZ0bshNMdlwjBf+l7UspGbnqwjm169BZpO4mivFO+gqvgCfgSKik1I5UqKDE6nHQ754mV3LQF5W8mzdt+BSRnJVu2KUe8P3rhhmxjNcIvhvIuu0K5qXaFltGIp158ytdp0ztnCngHxSXXtnxTM2LDD4OzMtdIRe2D3VtguVqD0KQjbvKXwWP4SKiiGRjpxK1VjLM2TTpiOzrgadXuWa+ty/4L+DqE+VRX047YEzeuzkwyktAt5DkbNyVsSrOadMTZ8C7wnrGDK6EDinQCiT5xtPPNdg+k7i+yd1YTjkygiSdBBzy5fK95DBteDtMg3g8er+6HDfAdeInGzb6Z8L1wELRV1pFZWPvfjqi7CMyMEb6PwKUhbkfmwzkh7mcC+DB0GdnpBXA8RF1EwJdAL6yBV+FnMP4pHA1RnQSWgHlb4H5IOtSNQXxrvUvYEYty0y2OEb42Oj/EHUkbsQF1CdigDjwPx0GRDibRNiwbeY6wPxmKNJlE+6BtD5wKLaUuxPVYSFQq7sPOl6o2p8BCWAMngq9X90ORfAGPAd9QN4LLz7qkSB+T6CB1wSh4Ewofqd1k2AllA/u1Qn1//LnpyEeNJxAfgKY51Q7MM+BymgjtNBYD75UHg+EnfKWKpmLkzNyucWpGtpH/i0ZBW/lmnwieJi6dKB92vpAdoXWwGtrpdAzsw2fB0O/JMDrEU5/3Q2ZrRvKO2BFn4r/IOuIp1K6eM4JB1pEO0k5qV5D82Ibt7bQ0jHvUzYKl4Gbtj86m0DiISzRVh/tJzQM7FNf744Tdbym5R1TLkehVX1JfB7xJr4bs/oj5Vb9uWke2aS2igTmwsemGhuv/347AP28HPrB11U7wAAAAAElFTkSuQmCC"></a>
 
 												
 												
 												</td>
-													<td>
+													<td width="10%">
 														<div id="div7${ment.id}"
 															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.remainingSemesters}</div>
 														<input id="input7${ment.id}" name="uRemSemesters"
@@ -830,7 +834,7 @@ background-color: #ccc;
 														style="display: none;" min="0" required
 														>
 													</td>
-													<td>
+													<td width="10%">
 														<div id="div8${ment.id}"
 															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.graduationStatus}</div>
 														<input id="input8${ment.id}" name="uGraduationStatus"
@@ -838,18 +842,18 @@ background-color: #ccc;
 														style="display: none;"
 														required>
 													</td>
-													<td>
+													<td width="20%">
 														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitution}</div>
 												 		<input name="uAcademicInstitution" id="input13${ment.id}" type="text" value="${ment.academiclnstitution}"   style="display :none;"
 													 	required >													</td>
-													<td>
+													<td width="10%">
 														<div id="div9${ment.id}"
 															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.average}</div>
 														<input id="input9${ment.id}" name="uAverage" type="number"
 														value="${ment.average}" style="display: none;" min="0" max="100"
 														required>
 													</td>
-													<td>
+													<td width="15%">
 														<div id="div10${ment.id}"
 															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.academicDicipline}</div>
 														<input id="input10${ment.id}" name="uAcademicDicipline"
@@ -857,7 +861,7 @@ background-color: #ccc;
 														style="display: none;"
 														required>
 													</td>
-													<td>
+													<td width="15%">
 														<div id="div11${ment.id}"
 															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">
 															
@@ -876,7 +880,10 @@ background-color: #ccc;
 														style="display: none;"
 														>
 													</td>
-													<td><input type="submit" value="Done"></td>
+													<td width="10%">
+														<input class="saveButton" type="submit" value="Save">
+														<input type="submit" value="Mail">
+													</td>
 												</tr>
 											</table>
 
@@ -886,53 +893,42 @@ background-color: #ccc;
 											style="background-color: rgba(250,178,58,0.8);">
 											<table>
 											<tr>
-													<th class="inner">Notes</th>
-													
-												<th class="inner">submit</th>
-													
-												</tr>
-												<tr>
-											<td>
+												<th width="90%" class="inner">Notes</th>	
+												<th width="10%" class="inner">Actions</th>	
+											</tr>
+											<tr>
+												<td width="90%">
 													<div id="div12${ment.id}" ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">
-														
-														
 															${ment.note}
-															
-														
-														
-														</div>
-
+													</div>
 													<textarea id="input12${ment.id}" name="uNotes"
-														
 														style="display: none; height: 100px;">${ment.note}</textarea>
 												</td>
-												<td>
+												<td width="10%">
 													<input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
 														>
-													<input type="submit" style="float: right;" value="Done">
+													<input class="saveButton" type="submit" style="float: right;" value="Save">
+													<input type="submit" style="float: right;" value="Mail">
 											</td>
 												</tr>
 
 
 											</table>
 										</div>
-
-
 										<div id="Mentor${ment.id}" class="tabcontent"
 											style="background-color: rgba(250,178,58,0.8);">
 											<table>
-												<tr>${ment.note}
-												</tr>
 												<tr>
-
-													<input type="submit" style="float: right;" value="Done">
+													<td width="90%">${ment.note}</td>
+													<td width="10%">
+														<input class="saveButton" type="submit" style="float: right;" value="Save">
+														<input type="submit" style="float: right;" value="Mail">
+													</td>	
 												</tr>
-
-
-
 											</table>
-										</div></form>
+										</div>
+									</form>
 								</td>
 							</tr>
 							
