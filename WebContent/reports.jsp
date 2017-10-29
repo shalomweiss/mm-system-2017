@@ -22,33 +22,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 
 <script>
-function showMentor() {
-    div = document.getElementById('search1'); //mentor
-    div2 = document.getElementById('search2'); //mentee
-    div3 = document.getElementById('search3'); //pair
-
-    div.style.display = "";
-    div2.style.display = "none";
-    div3.style.display = "none";
-}
-
-function showMentee() {
-    div = document.getElementById('search1');
-    div2 = document.getElementById('search2');
-    div3 = document.getElementById('search3');
-  	
-    div.style.display = "none";
-    div2.style.display = "";
-    div3.style.display = "none";
-}
-function showPair() {
-    div = document.getElementById('search1');
-    div2 = document.getElementById('search2');
-    div3 = document.getElementById('search3');
-    
-    div.style.display = "none";
-    div2.style.display = "none";
-    div3.style.display = "";
+function changeSearch(param)
+{
+	var list=document.getElementsByTagName("ul")[0].getElementsByTagName("li");
+	for(i=0;i<list.length;i++)
+		{
+			list[i].className="reports";
+			if(list[i]==param)
+				list[i].className+=" clicked";	
+		}
+	var id=param.childNodes[0].innerHTML;
+	var forms=document.getElementsByTagName("form");
+	for(i=0;i<forms.length;i++)
+	{
+		forms[i].style.display="none";
+		if(forms[i].id==id)
+			forms[i].style.display="";
+	}
 }
 
 
@@ -214,8 +204,6 @@ $("#submit3").click(function() {
 </head>
 
 <body>
-
-
 <nav class="icon-bar">
 	<div class="icon-bar">
 		  <a href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
@@ -228,421 +216,95 @@ $("#submit3").click(function() {
 	</div>
 </nav>
 	
-	
 
-<h1>Reports</h1>
 <div class="topPart"> </div>
-	<div class="bottomPart"> </div>
-	<div class="inner inner--left">
-	
-<section>
-
-		
-				<div class="container-fluid" >
-	
-  <div class="searchMentor" id="search1">
-
-    <form class="well form-horizontal" method="post"  id="contact_form" style="background-color:transparent;border: transparent;">
-<fieldset>
-
-<!-- Form Name -->
-<legend>
-<ul>
-	<li><a class="activeS" onclick="showMentor()">Mentor</a></li>
-  <li><a onclick="showMentee()">Mentee</a></li>
-  <li><a onclick="showPair()">Pair</a></li>
-</ul>
-</legend>
-
-
-
-
-<div class="form-group">
-  <label class="col-md-5 control-label">Address</label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="uAddress"  class="form-control"  type="text" id="city1"
-  	onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}">
-    </div>
-  </div>
-</div>
-
-<!-- Select Basic -->
-   
-<div class="form-group"> 
-  <label class="col-md-5 control-label" >Gender</label>
-    <div class="col-md-4 selectContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="uGender" class="form-control selectpicker" id="gender1" >
-      <option></option>
-      <option value="0">male</option>
-      <option value="1">female</option>
-
-    </select>
-  </div>
-</div>
-</div>
-
-
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-5 control-label">Company</label>  
-   <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-    <select name="uCompany" class="form-control selectpicker">
-		<c:forEach var="item" items="${AllWorkPlaces}">
-			<option id="work" value="${item.id}">${item.company}</option>
-		</c:forEach>
-	</select>
-
-    <!-- 
-    
-        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-  <input name="work" class="form-control" type="text" id="work"
-  onblur="if(this.value==''){ this.value='work'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='work'){this.value=''; this.style.color='#000';}"> -->
-    </div>
-  </div>
-</div>
-
-<!-- radio checks -->
- <div class="form-group" id="formP1" >
-                        <label class="col-md-5 control-label">In a pair?</label>
-                        <div class="col-md-4">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="pair1" id="pair1" value="1" /> Yes
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="pair1" id="pair1" value="0" /> No
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-  
-
-
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label"></label>
-  <div class="col-md-4">
-    <a class="btn" onclick="showMentorTable()"  id="submit1">Search <span class="glyphicon glyphicon-send"></span></a>
-  </div>
-</div>
-
-</fieldset>
-</form>
-</div>
-    
-    
-<div class="searchMentee" id="search2"  style=" display: none">
-
-    <form class="well form-horizontal" action=" " method="post"  id="contact_form" style="background-color:transparent;border: transparent;">
-<fieldset>
-
-<!-- Form Name -->
-<legend>
-<ul>
-	<li><a  onclick="showMentor()">Mentor</a></li>
-  <li><a class="activeS" onclick="showMentee()">Mentee</a></li>
-  <li><a onclick="showPair()">Pair</a></li>
-</ul>
-</legend>
-<div class="form-group">
-  <label class="col-md-5 control-label">Address</label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="uAddress"  class="form-control"  type="text" id="city2"
-  onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}">
-    </div>
-  </div>
-</div>
-
-<!-- Select Basic -->
-   
-<div class="form-group"> 
-  <label class="col-md-5 control-label">Gender</label>
-    <div class="col-md-4 selectContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-    <select name="uGender" class="form-control selectpicker" id="gender2">
-      <option value=" " ></option>
-      <option value="0">male</option>
-      <option value="1">female</option>
-      
-    </select>
-  </div>
-</div>
-</div>
-
-
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-5 control-label">Institution</label>  
-   <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-       
-        
-       <select name="uAcademicInstitution" class="form-control selectpicker">
-		<c:forEach var="item" items="${AllAcademicInstitutes}">
+<div class="bottomPart"> </div>
+<div class="inner inner--left">
+	<ul>
+		<li id="mentorLI" class="reports clicked" onclick="changeSearch(this)"><a class="" >Mentors</a></li>
+	  	<li id="menteeLI" class="reports" onclick="changeSearch(this)"><a class="" >Mentees</a></li>
+	  	<li id="pairLI" class="reports" onclick="changeSearch(this)"><a class="" >Pairs</a></li>	
+	</ul>
+	<form class="reports" id="Mentors" style="display: none;">
+	  	<label class="control-label reports">Address: </label>  
+	  	<input name="uAddress"  class="reports"  type="text" id="city1"
+	  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
+					onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
+		<label class="control-label reports">Gender: </label>  
+    	<select name="uGender" class="selectpicker reports" id="gender1" >
+    	 	 <option></option>
+     		 <option value="0">Male</option>
+     		 <option value="1">Female</option>
+      	</select>
+      	<label class="control-label reports">Company: </label>  
+      	<select name="uCompany" class="selectpicker reports">
+      		<option></option>
+			<c:forEach var="item" items="${AllWorkPlaces}">
+				<option id="work" value="${item.id}">${item.company}</option>
+			</c:forEach>
+		</select>
+		<label class="control-label reports">Is in a pair: </label> 
+		<select name="uGender" class="selectpicker reports" id="gender1" >
+    	 	 <option></option>
+     		 <option value="0">No</option>
+     		 <option value="1">Yes</option>
+      	</select>
+      	<br>
+      	<a class="reportsSendButton btn"  onclick="showMentorTable()"  id="submit1">Search <span class="glyphicon glyphicon-send"></span></a>
+  	
+  	</form>
+	<form class="reports" id="Mentees" style="display: none;">
+	  	<label class="control-label reports">Address: </label>  
+	  	<input name="uAddress"  class="reports"  type="text" id="city1"
+	  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
+					onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
+		<label class="control-label reports">Gender: </label>  
+    	<select name="uGender" class="selectpicker reports" id="gender1" >
+    	 	 <option></option>
+     		 <option value="0">Male</option>
+     		 <option value="1">Female</option>
+      	</select>
+      	<label class="control-label reports">Academy: </label>  
+      	<select name="uAcademicInstitution" class="selectpicker reports">
+      		<option></option>
+			<c:forEach var="item" items="${AllAcademicInstitutes}">
 				<option id="institution" value="${item.id}">  ${item.name}</option>
-		</c:forEach>
-		</select>  
-   <!--      
-  <input name="website" class="form-control" type="text" id="institution"
-  onblur="if(this.value==''){ this.value='institution'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='institution'){this.value=''; this.style.color='#000';}">--> 
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-md-5 control-label">Academic discipline</label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-  <input name="academic"  class="form-control"  type="text" id="academic"
-  onblur="if(this.value==''){ this.value='acDic'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='acDic'){this.value=''; this.style.color='#000';}">
-    </div>
-  </div>
-</div>
-
-<!-- radio checks -->
- <div class="form-group" id="formP2">
-                        <label class="col-md-4 control-label">In a pair?</label>
-                        <div class="col-md-4">
-                            <div class="radio">
-                              <label>
-                                    <input type="radio" name="pair2" id="pair2" value="1" /> Yes
-                               
-                                   </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="pair2" id="pair2" value="0" /> No
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-  
-
-
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label"></label>
-  <div class="col-md-4">
-    <a class="btn " onclick="showMenteeTable()" id="submit2">Search <span class="glyphicon glyphicon-send"></span></a>
-    
-  </div>
-</div>
-
-</fieldset>
-</form>
-</div>
-    
-    
-<div class="searchPair" id="search3" style=" display: none" >
-
-    <form class="well form-horizontal" action=" " method="post"  id="contact_form" style="background-color:transparent;border: transparent;">
-<fieldset>
-
-<!-- Form Name -->
-<legend>
-<ul>
-	<li><a onclick="showMentor()">Mentor</a></li>
-  <li><a onclick="showMentee()">Mentee</a></li>
-  <li><a class="activeS" onclick="showPair()">Pair</a></li>
-</ul>
-</legend>
-
-
-
-
-
-<div class="form-group">
-  <label class="col-md-5 control-label">Mentor First Name </label>  
-    <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-       
-  <input name="MentorName"  class="form-control" id="mentorN"  type="text"
-  onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-5 control-label">Mentor Last Name</label>  
-   <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-       
-  <input name="MentorLast" class="form-control" id="mentorLast" type="text"
-  onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
-    </div>
-  </div>
-</div>
-
-<!-- number input-->
-<div class="form-group">
-  <label class="col-md-5 control-label">Number of meetings</label>  
-   <div class="col-md-4 inputGroupContainer">
-    <div class="input-group">
-       
-  <input name="" class="form-control" id="" type="number" min="1"
-  onblur="if(this.value==''){ this.value='0'; this.style.color='#BBB';}" 
-	onfocus="if(this.value=='0'){this.value=''; this.style.color='#000';}">
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label"></label>
-  <div class="col-md-4">
-    <a class="btn " onclick="showPairTable()" id="submit3">Search <span class="glyphicon glyphicon-send"></span></a>
-  </div>
-</div>
-
-</fieldset>
-</form>
-</div>
-    
-	</div>
-			</section>
-			</div>
-			
-			
-			
-			
-			
-	<div class="topPart"> </div>
-	<div class="bottomPart"> </div>
-	<div class="inner inner--right">
+			</c:forEach>
+		</select>
+		<label class="control-label reports">Is in a pair: </label> 
+		<select name="uGender" class="selectpicker reports" id="gender1" >
+    	 	 <option></option>
+     		 <option value="0">No</option>
+     		 <option value="1">Yes</option>
+      	</select>
+      	<br>
+      	<a class="reportsSendButton btn"  onclick="showMentorTable()"  id="submit1">Search <span class="glyphicon glyphicon-send"></span></a>
+  	
+  	</form>
+	<form class="reports" id="Pairs">
+	  	<label class="control-label reports">Mentor First Name: </label>  
+	  	<input name="MentorName"  class="reports" id="mentorN"  type="text"
+  				onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
+				onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
+				
+	  	<label class="control-label reports">Mentor Last Name: </label>  
+	  	<input name="MentorLast"  class="reports" id="mentorLast"  type="text"
+  				onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
+				onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
+				
+		<label class="control-label reports">Number of meetings: </label>  
+    	 <input name="" class="reports" id="numberOfMeets" type="number" min="1"
+  				onblur="if(this.value==''){ this.value='0'; this.style.color='#BBB';}" 
+				onfocus="if(this.value=='0'){this.value=''; this.style.color='#000';}">
+				<br>
+      	<a class="reportsSendButton btn"  onclick="showMentorTable()"  id="submit1">Search <span class="glyphicon glyphicon-send"></span></a>
+  	
+  	</form>
+</div>	
+<div class="topPart"> </div>
+<div class="bottomPart"> </div>
+<div class="inner inner--right">
 	
-	<section class="Pairs">
-	<div class=mentorT style=" display: none" id="mentor">
-			<div class="tbl-header" style="margin-left: 4%; margin-right: 4%;margin-bottom: 4%; margin-top: 4%;">
-  
-    <table cellpadding="0" cellspacing="0" border="0">
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Gender</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0" id="myTable1" class="table1">
-      <tbody>
-       
-			<c:forEach items="${mentorReports}" var="ment">
-						<tr class="stam"
-							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
-							    <td style="display: none">${ment.id}</td>
-						    	<td>${ment.firstName}</td>
-								<td>${ment.lastName}</td>
-								<td>${ment.phoneNumber}</td>
-								<td>${ment.email}</td>
-						</tr>
-						</c:forEach>
-			
-	
-      </tbody>
-    </table>
-    </div>
-    </div>
-    
-    
-    <div class="menteeT" style=" display: none" id="mentee">
-    	<div class="tbl-header" style="margin-left: 4%; margin-right: 4%;margin-bottom: 4%; margin-top: 4%;">
-    <table  cellpadding="0" cellspacing="0" border="0">
-      <thead>
-        <tr>
-          <th>First Name </th>
-          <th>Last Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Gender</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0" id="myTable1" class="table2">
-      <tbody>
-       	<c:forEach items="${menteeReports}" var="ment">
-					
-						<tr class="stam"
-							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
-							    <td style="display: none">${ment.id}</td>
-						    	<td>${ment.firstName}</td>
-								<td>${ment.lastName}</td>
-								<td>${ment.phoneNumber}</td>
-								<td>${ment.email}</td>
-						</tr>
-						</c:forEach>
-      </tbody>
-    </table>
-    </div>
-    </div>
-    
-    <div class="pairT" style=" display: none" id="pair">
-    <div class="tbl-header" style="margin-left: 4%; margin-right: 4%;margin-bottom: 4%; margin-top: 4%;">
-    <table cellpadding="0" cellspacing="0" border="0" >
-      <thead>
-        <tr>
-          <th>Mentor Name</th>
-          <th>Mentee Name</th>
-          <th>Active</th>
-          <th>start date</th>
-          <th>end date</th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0" id="myTable1" class="table3">
-      <tbody>
-       <c:forEach var="pair" items="${pairsReport}" >
-        <tr>
-        	<td id="mentor"><c:out value="${pair.menteeName}"></c:out></td>
-			<td id="mentee"><c:out value="${pair.mentorName}"></c:out></td>
-			<td><c:out value="${pair.activeStatus}"></c:out></td>
-			<td><c:out value="${pair.startDate}"></c:out></td>
-			<td><c:out value="${pair.endDate}"></c:out></td>
-        </tr>
-        </c:forEach>
-			
-      </tbody>
-    </table>
-  </div>
-	</div>
-
-</section>
 </div>
 
 

@@ -16,9 +16,6 @@ public class Mentee extends User {
 	public Mentee(){
 		super();
 	}
-
-	
-
 	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
 			int gender, String address, String profilePicture, String note, boolean active, userType type, float remainingSemesters,
 			String graduationStatus, int academiclnstitution, float average, String academicDicipline,
