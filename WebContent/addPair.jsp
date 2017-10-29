@@ -25,23 +25,23 @@
 		});
 		$("#createPair").click(function(){
 			var trs= document.getElementsByClassName("selected");
-			if(trs.length>1)
+			if(trs.length==2)
 			{
-				var menteeId=trs[0].childNodes[10].innerHTML;
-				var mentorId=trs[1].childNodes[10].innerHTML;
+				var menteeId=trs[0].getElementsByClassName("menteeId")[0].innerHTML;
+				var mentorId=trs[1].getElementsByClassName("mentorId")[0].innerHTML;
 				$.post("CreateNewPair",
 				        {
 				          menteeID: menteeId,
 				          mentorID: mentorId
 				        },
 				        function(data,status){
-				        	alert(data);
 				        	location.reload();
-				        	
-				        	//window.location.href = window.location.pathname + window.location.search + window.location.hash;
-				            
 				        });
+				var body=document.getElementsByTagName("body")[0];
+				body.innerHTML='<div class="waiting"><div class="loader">Loading...</div><p class="sorry">Sorry, Please wait...<br>We are making the world a better place one pair at a time :)</p>';
+				
 			}
+			
 	});
 	});
 	</script>
@@ -118,7 +118,12 @@
 </head>
 
 <style>
-
+th{
+	font-size: 12px;
+}
+tr:nth-child(even) {
+    background-color: #ccc !important;
+}
 </style>
 <body>
 <nav class="icon-bar">
@@ -202,24 +207,27 @@ $(function(){
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Last Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Gender</th>
+          <th width="18%">Name</th>
+          <th width="18%">Phone</th>
+          <th width="17%">Gender</th>
+          <th width="18%">Area</th>
+          <th width="21%">Academy</th>
+          <th width="8%"><i class="fa fa-file-text-o"></i></th>
         </tr>
       </thead>
     </table>
   </div>
   <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable">
-      <tbody class="mentee">
+      <tbody>
       <c:forEach var="mentee" items="${Mentees}" >
-			<tr class="para" id="tabletest"><td><c:out value="${mentee.firstName}"></c:out></td>
-			<td ><c:out value="${mentee.lastName}"></c:out></td>
-			<td><c:out value="${mentee.phoneNumber}"></c:out></td>
-			<td><c:out value="${mentee.email}"></c:out></td>
-			<td><c:out value="${mentee.gender}"></c:out></td>
+			<tr class="mentee" id="tabletest">
+			<td width="18%">${mentee.firstName} ${mentee.lastName}</td>
+			<td width="18%">${mentee.phoneNumber}</td>
+			<td width="16%">${mentee.gender}</td>
+			<td width="18%">${mentee.address}</td>
+			<td width="20%">${mentee.academiclnstitution}</td>
+			<td width="8%"><i class="fa fa-file-text-o"></i></td>
 			<td style="display:none;" class="menteeId"><c:out value="${mentee.id}"></c:out></td>
 			<td style="display:none;" class="menteeAddress"><c:out value="${mentee.address}"></c:out></td>
 			<td style="display:none;" class="menteeUniversity"><c:out value="${mentee.academiclnstitution}"></c:out></td></tr>
@@ -310,27 +318,29 @@ $(function(){
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Last Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Gender</th>
+          <th width="18%">Name</th>
+          <th width="18%">Phone</th>
+          <th width="17%">Gender</th>
+          <th width="18%">Area</th>
+          <th width="21%">company</th>
         </tr>
       </thead>
     </table>
   </div>
   <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable1">
-      <tbody class="mentor">
+      <tbody >
        <c:forEach items="${Mentors}" var="mentor">
-			<tr class="para"><td><c:out value="${mentor.firstName}"></c:out></td>
-			<td><c:out value="${mentor.lastName}"></c:out></td>
-			<td><c:out value="${mentor.phoneNumber}"></c:out></td>
-			<td><c:out value="${mentor.email}"></c:out></td>
-			<td><c:out value="${mentor.gender}"></c:out></td>
-			<td style="display:none;" class="mentorId"><c:out value="${mentor.id}"></c:out></td>
-			<td style="display:none;" class="mentorAddress"><c:out value="${mentor.address}"></c:out></td>
-			<td style="display:none;" class="mentorCompany"><c:out value="${mentor.company}"></c:out></td></tr>
+			<tr class="mentor">
+				<td>${mentor.firstName} ${mentor.lastName}</td>
+				<td>${mentor.phoneNumber}</td>
+				<td>${mentor.gender}</td>
+				<td>${mentor.address}</td>
+				<td>${mentor.company}</td>
+				<td style="display:none;" class="mentorId"><c:out value="${mentor.id}"></c:out></td>
+				<td style="display:none;" class="mentorAddress"><c:out value="${mentor.address}"></c:out></td>
+				<td style="display:none;" class="mentorCompany"><c:out value="${mentor.company}"></c:out></td>
+			</tr>
 		</c:forEach>
       </tbody>
     </table>

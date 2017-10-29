@@ -14,8 +14,50 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
+
+<script>
+	function logout(){
+		localStorage.removeItem("TsofenKey");
+		window.location.replace("/LoginWeb");
+	}
+</script>
+<style type="text/css">
+.icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 19px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+
+</style>
 </head>
 <body>
+<!-- 
+<c:choose>
+    <c:when test="${empty isNotEntered}">
+         <script>
+         	if (localStorage.getItem("TsofenKey") === null) {
+					window.location.replace("/LoginWeb");
+				}
+         </script>
+    </c:when   > 
+    <c:when test="${isNotEntered=='0'}">
+    		<script>
+    		if (localStorage.getItem("TsofenKey") === null) {
+					window.location.replace("/LoginWeb");
+				}
+    		</script>
+    </c:when>
+    <c:otherwise>
+    	<script>
+    		localStorage.setItem("TsofenKey", "TsofenKey");
+    	</script>
+    </c:otherwise>
+</c:choose>
+ -->
+
 <nav class="icon-bar">
 	<div class="icon-bar">
 		  <a class="active" title="Home" href="ForwardPath"><i class="fa fa-home"></i></a> 
@@ -23,13 +65,11 @@
 		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
 		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>
-		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
+		  <a onclick="logout()" href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
 	</div>
 </nav>
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
-	<h1 class="tsofen">TSOFEN</h1>
-
-
+	<h1 class="tsofen">MENTORIM</h1>
 </body>
 </html> 

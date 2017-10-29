@@ -80,23 +80,16 @@ var prevRow;
 		}
 		
 		var row1=document.getElementById(row);
-		console.log(document.getElementById(row).parentNode.parentNode.parentNode);
 		var childrenOfTheTbody=document.getElementById(row).parentNode.children;
 		var numOfStams=0;
-		
-		console.log(childrenOfTheTbody[0].clientHeight);
 		for(i=0;i<childrenOfTheTbody.length;i++)
 		{
 			if(childrenOfTheTbody[i].id==row)
 				break;
 			if(childrenOfTheTbody[i].className=="stam")
-		
-				
 				numOfStams++;
 		}
 		var heightPX=(numOfStams-1)*(childrenOfTheTbody[0].clientHeight+1);
-		console.log('height is '+heightPX);
-		console.log(row1.parentNode.parentNode.parentNode);
 		$( "div.tbl-header" ).scrollTop(heightPX);
 		
 	backUpInputs(mentId);
@@ -160,6 +153,20 @@ var prevRow;
 
 
 <style>
+.btn-addClick{
+    position: absolute;
+    right: 2% !important;
+	margin-top:1.8% !important;
+	width:30% !important;
+	float:right;
+	width:30% !important;
+	float:right;
+	margin-bottom: 1vh;
+	bottom: 1vh;
+}
+.topButton{
+    margin-bottom: 5%;
+}
 /* Style inputs with type="text", select elements and textareas */
 input[type=text], select, textarea {
 	width: 100%; /* Full width */
@@ -178,12 +185,15 @@ input[type=text], select, textarea {
 input[type=submit] {
 	background-color: #4CAF50;
 	color: white;
-	padding: 12px 20px;
+	padding: 4px 20px;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
+	width: 100%;
 }
-
+.saveButton{
+    margin-bottom: 5px;
+}
 /* When moving the mouse over the submit button, add a darker green color */
 input[type=submit]:hover {
 	background-color: #45a049;
@@ -334,19 +344,14 @@ table {
 
 .tbl-header {
     background-color: rgba(255, 255, 255, 0.3);
-    max-height: 48vh;
+    max-height: 46vh;
     overflow-y: scroll;
     overflow-x: hidden;
 	background-color: rgba(255, 255, 255, 0.3);
 	
 }
-.btn-addClick{
-	margin-top:1.8% !important;
-	width:30% !important;
-	float:right;
-}
 section.Pairs {
-   	width: 90% !important;
+    width: 96% !important;
     margin-right: auto !important;
     margin-left: auto !important;
     margin-top: 3vh !important;
@@ -361,8 +366,7 @@ section.Pairs {
 th {
 	padding: 20px 15px;
 	font-weight: 500;
-	font-size: 12px;
-	color: #000;
+	font-size: 14px;
 	text-transform: uppercase;
 }
 th.inner
@@ -394,7 +398,7 @@ td {
 .made-with-love i {
 	font-style: normal;
 	color: #F50057;
-	font-size: 14px;
+	font-size: 10px;
 	position: relative;
 	top: 2px;
 }
@@ -469,7 +473,7 @@ button {
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 14px;
 	margin: 4px 2px;
 	cursor: pointer;
 }
@@ -566,6 +570,7 @@ tr.stam:hover {
 	background-color:rgba(108,136,225,0.9);
 	opacity: 0.9;
 	cursor: pointer;
+	color:white !important;
 }
 td {
  padding: 9px !important;
@@ -598,11 +603,10 @@ resize: none;
 	<!-- welcome bar -->
 	<nav class="icon-bar">
 		<div class="icon-bar">
-		  	  <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
+		  <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
 		  <a class="active" href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
-		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
 		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  		  
 	</div>
@@ -614,14 +618,14 @@ resize: none;
 	<div class="inner">
 	
 	<section class="Pairs">
-<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
-	
-	<thead class="tbl-header-mentor">
+		<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+			<thead class="tbl-header-mentor">
 					<tr>
 						<th>Name</th>
-						<th>Last Name</th>
 						<th>Phone</th>
-						<th>Email</th>
+						<th>Workplace</th>
+						<th>Gender</th>
+						<th>Actions</th>
 					</tr>
 
 				</thead>
@@ -639,14 +643,22 @@ resize: none;
 							<tr class="stam"
 								onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 								<td style="display: none">${ment.id}</td>
-								<td>${ment.firstName}</td>
-								<td>${ment.lastName}</td>
+								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
-								<td>${ment.email}</td>
+								<td>${ment.company}</td>
+								<td>
+									<c:if test="${ment.gender == 1}"> male </c:if>
+									<c:if test="${ment.gender == 0}"> female </c:if> 
+								</td>
+								<td>
+									<a class="btn btn-block btn-primary topButton" href="" style="margin-top: 0px;" >
+			 							Deactivate
+    								</a><br>
+								</td>
 							</tr>
 
 							<tr id="hidden_row${ment.id}" class="hidden_row">
-								<td colspan=4>
+								<td colspan=5>
 									<div class="tab">
 
 										<button class="tablinks" id="defultOpen${ment.id}"
@@ -658,7 +670,7 @@ resize: none;
 										<button class="tablinks"
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks" style="float: right;"
-											onclick="closeRow('hidden_row${ment.id}',${ment.id});">X</button>
+											onclick="closeRow('hidden_row${ment.id}',${ment.id});">Close</button>
 
 									</div>
 									<form id="form${ment.id}" action="UpdateMentor" method="post">
@@ -668,20 +680,19 @@ resize: none;
 
 
 											<table class="w3-table-all w3-card-4">
-
 												<tr>
-													<th class="inner">First name</th>
-													<th class="inner">Last name</th>
-													<th class="inner">Gender</th>
-													<th class="inner">Address</th>
-													<th class="inner">Phone</th>
-													<th class="inner">Email</th>
-													<th class="inner">Picture</th>
-													<th class="inner">submit</th>
+													<th width="14%" class="inner">First name</th>
+													<th width="14%" class="inner">Last name</th>
+													<th width="10%" class="inner">Gender</th>
+													<th width="12%" class="inner">Address</th>
+													<th width="12%" class="inner">Phone</th>
+													<th width="18%" class="inner">Email</th>
+													<th width="10%" class="inner">Picture</th>
+													<th width="10%" class="inner">Actions</th>
 													
 												</tr>
 												<tr>
-													<td>
+													<td width="14%">
 														<div id="div1${ment.id}"
 															ondblclick="showStuff('div1${ment.id}','input1${ment.id}');">${ment.firstName}</div>
 														<input id="input1${ment.id}" name="uFirstName" type="text"
@@ -689,14 +700,14 @@ resize: none;
 														required>
 													</td>
 
-													<td>
+													<td width="14%">
 														<div id="div2${ment.id}"
 															ondblclick="showStuff('div2${ment.id}','input2${ment.id}');">${ment.lastName}</div>
 														<input id="input2${ment.id}" name="uLastName" type="text"
 														value="${ment.lastName}" style="display: none;"
 														required>
 													</td>
-													<td>
+													<td width="10%">
 														<div id="div3${ment.id}"
 															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
 															<c:if test="${ment.gender == 1}"> male </c:if>
@@ -725,14 +736,14 @@ resize: none;
 												</div></c:if>
 
 													</td>
-													<td>
+													<td width="12%">
 														<div id="div4${ment.id}"
 															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
 														<input id="input4${ment.id}" name="uAddress" type="text"
 														value="${ment.address}" style="display: none;"
 														required>
 													</td>
-													<td>
+													<td width="12%">
 														<div id="div5${ment.id}"
 															ondblclick="showStuff('div5${ment.id}','input5${ment.id}');">${ment.phoneNumber}</div>
 														<input id="input5${ment.id}" name="uPhoneNumber"
@@ -740,18 +751,20 @@ resize: none;
 														style="display: none;"
 														required>
 													</td>
-													<td>
+													<td width="18%">
 														<div id="div6${ment.id}"
 															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
 														<input id="input6${ment.id}" name="uEmail" type="text"
 														value="${ment.email}" style="display: none;"
 														required>
 													</td>
-													<td>
+													<td width="10%">
 														<img src="DownloadFile?id=${ment.id}&type=img" alt="W3Schools.com">
 													</td>
-													<td><input id="submit${ment.id}" type="submit"
-														value="Done"></td>
+													<td width="10%"><input class="saveButton" id="submit${ment.id}" type="submit"
+														value="Save"><br>
+														<input id="submit${ment.id}" type="submit"
+														value="Mail"></td>
 												</tr>
 											</table>
 
@@ -763,13 +776,11 @@ resize: none;
 
 											<table class="w3-table-all w3-card-4">
 												<tr>
-													<th class="inner">Experience</th>
-													<th class="inner">Role</th>
-													<th class="inner">company</th>
-													<th class="inner">workHistory</th>
-																										<th class="inner">submit</th>
-													
-
+													<th width="30%" class="inner">Experience</th>
+													<th width="15%" class="inner">Role</th>
+													<th width="15%" class="inner">company</th>
+													<th width="30%" class="inner">workHistory</th>
+													<th width="10%" class="inner">Actions</th>
 												</tr>
 												<tr>
 													<td>
@@ -804,7 +815,10 @@ resize: none;
 													</td>
 
 
-													<td><input id="submit${ment.id}" type="submit" value="Done"></td>
+													<td>
+														<input class="saveButton" id="submit${ment.id}" type="submit" value="Save"><br>
+														<input id="submit${ment.id}" type="submit" value="Mail">
+													</td>
 												</tr>
 											</table>
 
@@ -814,13 +828,13 @@ resize: none;
 											style="background-color: rgba(108,136,225,0.9);">
 											<table>
 												<tr>
-													<th class="inner">Notes</th>
+													<th width="90%" class="inner">Notes</th>
 													
-												<th class="inner">submit</th>
+												<th width="10%" class="inner">Actions</th>
 													
 												</tr>
 												<tr>
-													<td>
+													<td width="90%">
 														<div id="div10${ment.id}"
 															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">
 															
@@ -833,11 +847,13 @@ resize: none;
 															value="${ment.note}"
 															style="display: none; height: 100px;">${ment.note}</textarea>
 													</td>
-																					<td><input id="id:${ment.id}" name="uId" type="text"
+													<td width="10%"><input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
 														onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
-														<input type="submit" id="submit${ment.id}" style="float: center;" value="Done">
+														<input class="saveButton" type="submit" id="submit${ment.id}" style="float: center;" value="Save">
+														<br>
+														<input type="submit" id="submit${ment.id}" style="float: center;" value="Mail">
 
 													</td>
 												</tr>
@@ -854,13 +870,13 @@ resize: none;
 
 
 												<tr>
-													<th class="inner">Volunteering</th>
-													<th class="inner">submit</th>
+													<th width="90%" class="inner">Volunteering</th>
+													<th width="10%" class="inner">Actions</th>
 													
 												</tr>
 												
 												<tr>
-													<td>
+													<td width="90%">
 														<div id="div11${ment.id}"
 															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">${ment.volunteering}</div>
 
@@ -868,8 +884,13 @@ resize: none;
 															value="${ment.volunteering}"
 															style="display: none; height: 100px;">${ment.volunteering}</textarea>
 													</td>
-													<td><input type="submit" id="submit${ment.id}"
-														style="float: center;" value="Done"></td>
+													<td width="10%">
+													<input type="submit" id="submit${ment.id}"
+													class="saveButton"
+														style="float: center;" value="Save">
+														<br>
+													<input type="submit" id="submit${ment.id}"
+														style="float: center;" value="Mail"></td>
 												</tr>
 												
 													
@@ -890,13 +911,6 @@ resize: none;
 		</div>
 
 
-
-
-		<a href="#openModal3" class="btn btn-block btn-primary"> <i
-			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
-			Mentor
-		</a>
-		
 
 
 		<div id="openModal3" class="modalDialog">
@@ -973,16 +987,20 @@ resize: none;
 								<td>note</td>
 								<td colspan="2"><textarea name="notes"
 										style="height: 50px"></textarea></td>
-										<td><input style="float:right" type="submit" value="Done"></td>
+										<td><input class="saveButton" style="float:right" type="submit" value="Save"><br>
+										<input style="float:right" type="submit" value="Mail"></td>
 							</tr>
-							
-
 						</table>
 					</form>
 				</div>
 			</div>
 		
 	</section>
+	<a href="#openModal3" class="btn btn-block btn-primary btn-addClick"> <i
+			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
+			Mentor
+		</a>
+		
 	</div>
 
 </body>
