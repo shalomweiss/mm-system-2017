@@ -20,6 +20,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import mm.androidservice.AndroidIOManager;
 import mm.androidservice.RESPONSE_STATUS;
+import mm.androidservice.common.UnsupportedFormatException;
 import mm.da.DataAccess;
 import util.ServerUtils;
 
@@ -63,13 +64,22 @@ public class UploadCV extends HttpServlet {
 						System.out.println(item.getContentType());
 						String contentType = item.getContentType();
 						// save file in temporary directory on the server before sending it to a bucket
-						if (contentType.equals("text/plain"))
-							file = File.createTempFile("cvtoupload", ".txt");
-						if (contentType.equals("application/pdf"))
-							file = File.createTempFile("cvtoupload", ".pdf");
-						if (contentType
-								.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
-							file = File.createTempFile("cvtoupload", ".docx");
+						
+						if(contentType.equals("text/plain") || contentType.equals("application/pdf") || contentType
+								.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+							if (contentType.equals("text/plain"))
+								file = File.createTempFile("cvtoupload", ".txt");
+							if (contentType.equals("application/pdf"))
+								file = File.createTempFile("cvtoupload", ".pdf");
+							if (contentType
+									.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+								file = File.createTempFile("cvtoupload", ".docx");
+						}else {
+							UnsupportedFormatException.invalidFormat("Unsupported File Format.(Only .txt .pdf .docx allowed)");
+						
+						}
+						
+			
 
 						item.write(file);// write to temp
 
@@ -96,7 +106,11 @@ public class UploadCV extends HttpServlet {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
 	
 			return;
-		} catch (Exception e) {
+		}catch (UnsupportedFormatException e) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
+		} 
+		
+		catch (Exception e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
 
 		} finally {

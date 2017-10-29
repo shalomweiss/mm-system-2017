@@ -20,6 +20,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import mm.androidservice.AndroidIOManager;
 import mm.androidservice.RESPONSE_STATUS;
+import mm.androidservice.common.UnsupportedFormatException;
 import util.ServerUtils;
 
 /**
@@ -64,10 +65,17 @@ public class UploadImage extends HttpServlet {
 						String contentType = item.getContentType();
 						// save file in temporary directory on the server before sending it to a bucket
 
-						if (contentType.equals("image/png"))
-							file = File.createTempFile("img", ".png");
-						if (contentType.equals("image/jpeg"))
-							file = File.createTempFile("img", ".jpg");
+						if(contentType.equals("image/png") || contentType.equals("image/jpeg")) {
+							if (contentType.equals("image/png"))
+								file = File.createTempFile("img", ".png");
+							if (contentType.equals("image/jpeg"))
+								file = File.createTempFile("img", ".jpg");
+						}else {
+							UnsupportedFormatException.invalidFormat("Unsupported Image Format.(Only .png .jpg allowed)");
+						
+						}
+						
+					
 
 						item.write(file);// write to temp
 
@@ -91,7 +99,11 @@ public class UploadImage extends HttpServlet {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
 
 			return;
-		} catch (Exception e) {
+		}catch (UnsupportedFormatException e) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
+		} 
+		
+		catch (Exception e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
 		} finally {
 			if (file != null)
