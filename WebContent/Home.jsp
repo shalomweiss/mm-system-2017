@@ -21,6 +21,17 @@
 		window.location.replace("/LoginWeb");
 	}
 </script>
+<style type="text/css">
+.icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 19px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+
+</style>
 </head>
 <body>
 <!-- 
@@ -59,6 +70,6 @@
 </nav>
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
-	<h1 class="tsofen">TSOFEN</h1>
+	<h1 class="tsofen">MENTORIM</h1>
 </body>
 </html> 

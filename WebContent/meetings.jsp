@@ -40,14 +40,6 @@ h1.right
     /* right: 5% !important; */
     left: 60%;
 }
-img{
-	width:10%;
-	height:16%;
-	z-index: 9;
-	position: fixed;
-	top:7%;
-	border-radius: 50%;
-}
 img.mentee
 {
 	right:50%;
@@ -136,26 +128,27 @@ var prevRow;
 		  
 		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>
-	</div>
+</div>
 </nav>
-<div class="menteeMeetings">
-	<h1 class="left">
-Mentee: <br>
-		 <c:out value="${Pairs.getPair().getMentee().firstName}"></c:out>
-		  <c:out value="${Pairs.getPair().getMentee().lastName}"></c:out><br>
-	 <c:out  value="${Pairs.getPair().getMentee().phoneNumber}"></c:out>
-</h1>
+<div class="menteeMeetings nameTags">
+	<h2>mentee</h2>
+	<img class="nameTag" alt="harry" src="DownloadFile?id=${Pairs.getPair().getMentee().id}&type=img">
+	<p class="nameTag"> 
+		${Pairs.getPair().getMentee().firstName} ${Pairs.getPair().getMentee().lastName} <br>
+	 	${Pairs.getPair().getMentee().phoneNumber}
+	 </p>
 </div>
-<div class="mentorMeetings">
-	<h1 class="right">
-Mentor: <br>
- <c:out value="${Pairs.getPair().getMentor().firstName}"></c:out>
-		 <c:out value="${Pairs.getPair().getMentor().lastName}"></c:out><br> 
-	 <c:out value="${Pairs.getPair().getMentor().phoneNumber}"></c:out>
-	 </h1>
-	 <img class="mentee" alt="harry" src="https://images.pottermore.com/bxd3o8b291gf/3SQ3X2km8wkQIsQWa02yOY/25f258f21bdbe5f552a4419bb775f4f0/HarryPotter_WB_F4_HarryPotterMidshot_Promo_080615_Port.jpg?w=1200">
-	<img class="mentor" alt="harry" src="https://typeset-beta.imgix.net/rehost%2F2016%2F9%2F13%2Fbf4612d7-e76a-4f3c-8cb8-f2486b5d15b4.jpg">
+<div class="mentorMeetings nameTags">
+	<h2 class="mentor">mentor</h2>
+	<img class="nameTag" alt="harry" src="DownloadFile?id=${Pairs.getPair().getMentor().id}&type=img">
+	<p class="nameTag"> 
+		${Pairs.getPair().getMentor().firstName} ${Pairs.getPair().getMentor().lastName} <br>
+	 	${Pairs.getPair().getMentor().phoneNumber}
+	 </p>
 </div>
+
+
+
 <div class="topPart"> </div>
 	<div class="bottomPart"> </div><div class="inner">
 <section>
@@ -164,10 +157,10 @@ Mentor: <br>
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Location</th>
-          <th>Meeting Type</th>
-          <th>Meeting subject</th>
+          <th>Set Date</th>
+          <th>Meeting Date</th>
+          <th>Type</th>
+          <th>subject</th>
           <th>Active Status</th>
         </tr>
       </thead>
@@ -178,13 +171,12 @@ Mentor: <br>
       <tbody>
       <c:forEach var="meeting" items="${meetings}" >
         <tr class="stam" onclick="show_hide_row('hidden_row${meeting.meetingId}',${meeting.meetingId},'defultOpen${meeting.meetingId}');">
-          <td class="inf"><c:out value="${meeting.dateMeeting}"></c:out></td>
-			<td class="inf"><c:out value="${meeting.location}"></c:out></td>
-			<td class="inf"><c:out value="${meeting.meetingType}"></c:out></td>
+          <td class="inf">${meeting.dateMeeting}</td>
+			<td class="inf">${meeting.dateMeeting}</td>
+			<td class="inf">${meeting.meetingType}</td>
 			<td class="inf"><c:out value="${meeting.subject}"></c:out></td>	
 			<td class="inf"><c:out value="${meeting.status}"></c:out></td>	
         </tr>
-        
 	    <tr id="hidden_row${meeting.meetingId}" class="hidden_row">
 	    <td colspan=5>
 	    
@@ -196,15 +188,16 @@ Mentor: <br>
 		        <th>Mentee's Review:</th>  
 		        <th>Mentor's Review to Tsofen member:</th>  
 		        <th>Mentee's Review to Tsofen member:</th>
+		        <th>Location</th>
 	         </tr>
 	         <tr>
 		         <td><c:out value="${meeting.mentorReport}"></c:out></td>
 		         <td><c:out value="${meeting.menteeReport}"></c:out></td>
 		         <td><c:out value="${meeting.mentorPrivateReport}"></c:out></td>
 		         <td><c:out value="${meeting.menteePrivateReport}"></c:out></td>
+		         <td><c:out value="${meeting.location}"></c:out></td>
 	         </tr>
 			</tbody>
-		
    </table>
         </div>
         </td>
