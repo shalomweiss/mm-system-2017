@@ -20,6 +20,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import mm.androidservice.AndroidIOManager;
 import mm.androidservice.RESPONSE_STATUS;
+import mm.androidservice.common.UnsupportedFormatException;
 import mm.da.DataAccess;
 import util.ServerUtils;
 
@@ -62,15 +63,17 @@ public class UploadGradeSheet extends HttpServlet {
 						String contentType = item.getContentType();
 						// save file in temporary directory on the server before sending it to a bucket
 
-						if (contentType.equals("application/pdf"))
-							file = File.createTempFile("cv", ".pdf");
-					
-					
+						if (contentType.equals("application/pdf")) {
+							file = File.createTempFile("gradesheettoupload", ".pdf");
+						} else {
+							UnsupportedFormatException.invalidFormat("Unsupported File Format.(Only .pdf allowed)");
+
+						}
 
 						item.write(file);// write to temp
 
 						// upload to bucket
-						ClientUploadFile.uploadFile(id, file, ClientUploadFile.GRADE_BUCKET);
+						ClientUploadFile.uploadFile(id, file, ClientUploadFile.GRADE_BUCKET, contentType);
 						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 						// success
 						file.deleteOnExit();
@@ -83,14 +86,19 @@ public class UploadGradeSheet extends HttpServlet {
 			}
 		} catch (NullPointerException e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
-
+			e.printStackTrace();
 			return;
 		} catch (FileUploadException e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
-
+			e.printStackTrace();
 			return;
-		} catch (Exception e) {
+		} catch (UnsupportedFormatException e) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
+		}
+
+		catch (Exception e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+			e.printStackTrace();
 		} finally {
 			if (file != null)
 				file.deleteOnExit();
@@ -99,6 +107,5 @@ public class UploadGradeSheet extends HttpServlet {
 		}
 
 	}
-
 
 }
