@@ -183,10 +183,6 @@ var prevRow;
 	    document.getElementById(hide).style.display  = 'none';
 	    
 	}
-	
-</script>
-
-<script>
 	function showDetails(evt, Detail) {
 
 		var i, tabcontent, tablinks;
@@ -211,6 +207,22 @@ var prevRow;
 	
 	
 </script>
+<style>
+	input[type=text], select, textarea {
+		width: 100%; /* Full width */
+		padding: 12px; /* Some padding */
+		border: 1px solid #ccc; /* Gray border */
+		border-radius: 4px; /* Rounded borders */
+		box-sizing: border-box;
+		/* Make sure that padding and width stays in place */
+		margin-top: 6px; /* Add a top margin */
+		margin-bottom: 16px; /* Bottom margin */
+		resize: vertical
+			/* Allow the user to vertically resize the textarea (not horizontally) */
+	}
+
+
+</style>
 <body>
 	<!-- add successfully alert -->
 	<c:if test="${AddedSuc =='1'}">

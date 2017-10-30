@@ -34,8 +34,10 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
 <style type="text/css"><%@include file="/WEB-INF/css/styles1.css"%></style>
+
 <script> 
 
 $(document).ready(function(){
@@ -151,7 +153,22 @@ var prevRow;
 	
 	
 </script>
+<style>
+	input[type=text], select, textarea {
+		width: 100%; /* Full width */
+		padding: 12px; /* Some padding */
+		border: 1px solid #ccc; /* Gray border */
+		border-radius: 4px; /* Rounded borders */
+		box-sizing: border-box;
+		/* Make sure that padding and width stays in place */
+		margin-top: 6px; /* Add a top margin */
+		margin-bottom: 16px; /* Bottom margin */
+		resize: vertical
+			/* Allow the user to vertically resize the textarea (not horizontally) */
+	}
 
+
+</style>
 <body>
 
 

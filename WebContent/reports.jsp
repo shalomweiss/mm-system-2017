@@ -13,6 +13,13 @@
 <style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
 
 
+<c:if test="${tableType=='1'}">
+	<style type="text/css"><%@include file="/WEB-INF/css/styles1.css"%></style>
+</c:if>
+<c:if test="${tableType=='2'}">
+	<style type="text/css"><%@include file="/WEB-INF/css/styles1.css"%></style>
+</c:if>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -243,6 +250,7 @@ $("#submit3").click(function() {
 				<option id="work" value="${item.id}">${item.company}</option>
 			</c:forEach>
 		</select>
+		<br>
 		<label class="control-label reports">Is in a pair: </label> 
 		<select name="uGender" class="selectpicker reports" id="gender1" >
     	 	 <option></option>
@@ -271,6 +279,7 @@ $("#submit3").click(function() {
 				<option id="institution" value="${item.id}">  ${item.name}</option>
 			</c:forEach>
 		</select>
+		<br>
 		<label class="control-label reports">Is in a pair: </label> 
 		<select name="uGender" class="selectpicker reports" id="gender1" >
     	 	 <option></option>
@@ -304,7 +313,9 @@ $("#submit3").click(function() {
 <div class="topPart"> </div>
 <div class="bottomPart"> </div>
 <div class="inner inner--right">
-		<section class="Pairs">
+<c:choose>
+    <c:when test="${tableType=='1'}">
+			<section id="menteesTable" style="display: none;" class="Pairs">
 		<!--for demo wrap-->
 		<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
 		<thead class="tbl-header-mentee">
@@ -325,8 +336,7 @@ $("#submit3").click(function() {
 				<tbody >
 					<c:forEach items="${Mentees}" var="ment">
 					
-						<tr class="stam"
-							onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+						<tr class="stam" onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 							    <td style="display: none">${ment.id}</td>
 						    	<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
@@ -582,8 +592,343 @@ $("#submit3").click(function() {
 			</table>
 		</div>
 	</section>
+    </c:when>
+    <c:when test="${tableType=='2'}">
+		<section id="mentorsTable" style="display: none;" class="Pairs">
+		<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+			<thead class="tbl-header-mentor">
+					<tr>
+						<th>Name</th>
+						<th>Phone</th>
+						<th>Workplace</th>
+						<th>Gender</th>
+						<th>Actions</th>
+					</tr>
+
+				</thead>
+				</table>
+		<!--for demo wrap-->
+		<div class="tbl-header">
+
+			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+				
+				
+
+				<div class="tbl-content" style="height: 100%">
+					<tbody>
+						<c:forEach items="${Mentors}" var="ment">
+							<tr class="stam"
+								onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+								<td style="display: none">${ment.id}</td>
+								<td>${ment.firstName} ${ment.lastName}</td>
+								<td>${ment.phoneNumber}</td>
+								<td>${ment.company}</td>
+								<td>
+									<c:if test="${ment.gender == 1}"> male </c:if>
+									<c:if test="${ment.gender == 0}"> female </c:if> 
+								</td>
+								<td>
+									<a class="btn btn-block btn-primary topButton" href="" style="margin-top: 0px;" >
+			 							Deactivate
+    								</a><br>
+								</td>
+							</tr>
+
+							<tr id="hidden_row${ment.id}" class="hidden_row">
+								<td colspan=5>
+									<div class="tab tabMentor">
+
+										<button class="tablinks" id="defultOpen${ment.id}"
+											onclick="showDetails(event, 'info${ment.id}')">Info</button>
+										<button class="tablinks"
+											onclick="showDetails(event, 'Experience${ment.id}')">Experience</button>
+										<button class="tablinks"
+											onclick="showDetails(event, 'Volunteering${ment.id}')">Volunteering</button>
+										<button class="tablinks"
+											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
+										<button class="tablinks" style="float: right;"
+											onclick="closeRow('hidden_row${ment.id}',${ment.id});">Close</button>
+
+									</div>
+									<form id="form${ment.id}" action="UpdateMentor" method="post">
+										<div id="info${ment.id}" class="tabcontent"
+											style="background-color: rgba(108,136,225,0.9);">
+
+
+
+											<table class="w3-table-all w3-card-4">
+												<tr>
+													<th width="14%" class="inner">First name</th>
+													<th width="14%" class="inner">Last name</th>
+													<th width="10%" class="inner">Gender</th>
+													<th width="12%" class="inner">Address</th>
+													<th width="12%" class="inner">Phone</th>
+													<th width="18%" class="inner">Email</th>
+													<th width="10%" class="inner">Picture</th>
+													<th width="10%" class="inner">Actions</th>
+													
+												</tr>
+												<tr>
+													<td width="14%">
+														<div id="div1${ment.id}"
+															ondblclick="showStuff('div1${ment.id}','input1${ment.id}');">${ment.firstName}</div>
+														<input id="input1${ment.id}" name="uFirstName" type="text"
+														value="${ment.firstName}" style="display: none;"
+														required>
+													</td>
+
+													<td width="14%">
+														<div id="div2${ment.id}"
+															ondblclick="showStuff('div2${ment.id}','input2${ment.id}');">${ment.lastName}</div>
+														<input id="input2${ment.id}" name="uLastName" type="text"
+														value="${ment.lastName}" style="display: none;"
+														required>
+													</td>
+													<td width="10%">
+														<div id="div3${ment.id}"
+															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
+															<c:if test="${ment.gender == 1}"> male </c:if>
+															<c:if test="${ment.gender == 0}"> female </c:if> 
+															
+															</div>
+														
+<c:if test="${ment.gender == 1}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"  checked > Male
+															<br>
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" > female
+												
+												</div></c:if>
+												
+												<c:if test="${ment.gender == 0}">  
+										<div id="input3${ment.id}" style="display: none;">
+												<input id="clickedGender" class="male" type="radio"
+															name="uGender" value="1"   > male
+															<br>
+										<input id="noclickedGender" class="female" type="radio" name="uGender"
+														value="0" checked> female
+												
+												</div></c:if>
+
+													</td>
+													<td width="12%">
+														<div id="div4${ment.id}"
+															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
+														<input id="input4${ment.id}" name="uAddress" type="text"
+														value="${ment.address}" style="display: none;"
+														required>
+													</td>
+													<td width="12%">
+														<div id="div5${ment.id}"
+															ondblclick="showStuff('div5${ment.id}','input5${ment.id}');">${ment.phoneNumber}</div>
+														<input id="input5${ment.id}" name="uPhoneNumber"
+														type="text" value="${ment.phoneNumber}"
+														style="display: none;"
+														required>
+													</td>
+													<td width="18%">
+														<div id="div6${ment.id}"
+															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
+														<input id="input6${ment.id}" name="uEmail" type="text"
+														value="${ment.email}" style="display: none;"
+														required>
+													</td>
+													<td width="10%">
+														<img src="DownloadFile?id=${ment.id}&type=img" alt="W3Schools.com">
+													</td>
+													<td width="10%"><input class="saveButton" id="submit${ment.id}" type="submit"
+														value="Save"><br>
+														<input id="submit${ment.id}" type="submit"
+														value="Mail"></td>
+												</tr>
+											</table>
+
+
+										</div>
+
+										<div id="Experience${ment.id}" class="tabcontent"
+											style="background-color: rgba(108,136,225,0.9);">
+
+											<table class="w3-table-all w3-card-4">
+												<tr>
+													<th width="30%" class="inner">Experience</th>
+													<th width="15%" class="inner">Role</th>
+													<th width="15%" class="inner">company</th>
+													<th width="30%" class="inner">workHistory</th>
+													<th width="10%" class="inner">Actions</th>
+												</tr>
+												<tr>
+													<td>
+														<div id="div7${ment.id}"
+															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.experience}</div>
+														<input id="input7${ment.id}" name="uExperience"
+														type="text" value="${ment.experience}"
+														style="display: none;"
+														required>
+													</td>
+													<td>
+														<div id="div8${ment.id}"
+															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.role}</div>
+														<input id="input8${ment.id}" name="uRole" type="text"
+														value="${ment.role}" style="display: none;"
+														required>
+													</td>
+													<td>
+														<div id="div12${ment.id}"
+															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.company}</div>
+														<input name="uCompany" id="input12${ment.id}" type="text"
+														value="${ment.company}" style="display: none;"
+														required>
+													</td>
+													<td>
+														<div id="div9${ment.id}"
+															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.workHistory}</div>
+														<input id="input9${ment.id}" name="uWorkHistory"
+														type="text" value="${ment.workHistory}"
+														style="display: none;"
+														required>
+													</td>
+
+
+													<td>
+														<input class="saveButton" id="submit${ment.id}" type="submit" value="Save"><br>
+														<input id="submit${ment.id}" type="submit" value="Mail">
+													</td>
+												</tr>
+											</table>
+
+										</div>
+
+										<div id="Notes${ment.id}" class="tabcontent"
+											style="background-color: rgba(108,136,225,0.9);">
+											<table>
+												<tr>
+													<th width="90%" class="inner">Notes</th>
+													
+												<th width="10%" class="inner">Actions</th>
+													
+												</tr>
+												<tr>
+													<td width="90%">
+														<div id="div10${ment.id}"
+															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">
+															
+															
+															${ment.note}
+															
+															</div>
+
+														<textarea id="input10${ment.id}" name="uNotes"
+															value="${ment.note}"
+															style="display: none; height: 100px;">${ment.note}</textarea>
+													</td>
+													<td width="10%"><input id="id:${ment.id}" name="uId" type="text"
+														value="${ment.id}" style="display: none;"
+														onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
+							  							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
+														<input class="saveButton" type="submit" id="submit${ment.id}" style="float: center;" value="Save">
+														<br>
+														<input type="submit" id="submit${ment.id}" style="float: center;" value="Mail">
+
+													</td>
+												</tr>
+
+											
+
+											</table>
+										</div>
+
+
+										<div id="Volunteering${ment.id}" class="tabcontent"
+											style="background-color: rgba(108,136,225,0.9);">
+											<table>
+
+
+												<tr>
+													<th width="90%" class="inner">Volunteering</th>
+													<th width="10%" class="inner">Actions</th>
+													
+												</tr>
+												
+												<tr>
+													<td width="90%">
+														<div id="div11${ment.id}"
+															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">${ment.volunteering}</div>
+
+														<textarea id="input11${ment.id}" name="uVolunteering"
+															value="${ment.volunteering}"
+															style="display: none; height: 100px;">${ment.volunteering}</textarea>
+													</td>
+													<td width="10%">
+													<input type="submit" id="submit${ment.id}"
+													class="saveButton"
+														style="float: center;" value="Save">
+														<br>
+													<input type="submit" id="submit${ment.id}"
+														style="float: center;" value="Mail"></td>
+												</tr>
+												
+													
+											</table>
+										</div>
+										</form>
+								</td>
+							</tr>
+
+
+
+							
+						</c:forEach>
+
+					</tbody>
+			</table>
+		</div>		
+	</section>
+    </c:when>      
+    <c:otherwise>
+       <section id="PairsTable" class="Pairs">
+  <!--for demo wrap--> 
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+       <tr>
+          <th>Mentor</th>
+          <th></th>
+          <th></th>
+          <th>Mentee</th>
+        </tr>
+        <tr>
+          <th class="mentor">Name</th>
+          <th class="mentor">Phone</th>
+          <th class="mentor">Workplace</th>
+          <th class="mentee">Name</th>
+          <th class="mentee">Phone</th>
+          <th class="mentee">Academy</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+   <c:forEach var="pair" items="${pairs}" >
+        <tr>
+        	<td id="mentor">${pair.mentor.firstName} ${pair.mentor.lastName}</td>
+        	<td id="mentorPhone">${pair.mentor.phoneNumber}</td>
+			<td id="mentee"><c:out value="${pair.mentor.company}"></c:out></td>
+			<td id="mentor">${pair.mentee.firstName} ${pair.mentee.lastName}</td>
+        	<td id="mentorPhone">${pair.mentee.phoneNumber}</td>
+			<td id="mentee"><c:out value="${pair.mentee.academiclnstitution}"></c:out></td>
+        </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+  </div>
+</section>
+    </c:otherwise>
+</c:choose>
 </div>
-
-
 </body>
 </html> 
