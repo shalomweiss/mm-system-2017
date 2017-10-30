@@ -497,65 +497,66 @@ var prevRow;
 					<form action="AddNewMentor" method="post">
 						<table class="addMentorForm">
 							<tr>
-								<td>First Name:</td>
-								<td><input type="text" name="firstName" required></td>
-								<td>Last Name:</td>
-								<td><input type="text" name="lastName" required></td>
+								<td class="form">First Name:</td>
+								<td class="form"><input type="text" name="firstName" required></td>
+								<td class="form">Last Name:</td>
+								<td class="form"><input type="text" name="lastName" required></td>
+								<td class="form">Email</td>
+								<td class="form"><input type="text" name="email" required></td>
 							</tr>
 							<tr>
-								<td>Email</td>
-								<td><input type="text" name="email" required></td>
-								<td>Phone number</td>
-								<td><input type="number" name="phoneNumber" required></td>
-							</tr>
-							<tr>
-								<td>Gender</td>
-								<td>
+								<td class="form">Phone number</td>
+								<td class="form"><input type="number" name="phoneNumber" required></td>
+								<td class="form">Gender</td>
+								<td class="form">
 								
-								<input id="clickedGender" class="male" type="radio"
-									name="gender" value="1" checked> Male <input
-									id="noclickedGender" class="female" type="radio" name="gender"
-									value="0"> Female
+									<select name="gender" class="selectpicker reports" id="gender1" >
+		    	 	 					<option></option>
+		     							<option value="0">Male</option>
+		     		 					<option value="1">Female</option>
+	      							</select>
 									
 									
-									</td>
-								<td>Address</td>
-								<td><input type="text" name="address" required></td>
+								</td>
+								<td class="form">Address</td>
+								<td class="form"><input type="text" name="address" required></td>
+									
 							</tr>
-
 							<tr>
-								<td>Company</td>
-								<td>
+								
+								<td>Role</td>
+								<td class="form"><input type="text" name="role" required></td>
+								<td class="form">Experience</td>
+								<td class="form" colspan="3"><textarea name="experience"
+										style="height: 50px"></textarea></td>
+							</tr>
+							<tr>
+							<td class="form">Company</td>
+								<td class="form">
 								<select name="company">
 										<c:forEach var="item" items="${NewWorkPlace}">
 											<option value="${item.id}">   ${item.company}</option>
 										</c:forEach>
 								</select>
 								</td>
-								<td>Role</td>
-								<td><input type="text" name="role" required></td>
-							</tr>
-							<tr>
-								<td>Experience</td>
-								<td colspan="3"><textarea name="experience"
+								<td class="form">volunteering</td>
+								<td class="form" colspan="3"><textarea name="volunteering"
 										style="height: 50px"></textarea></td>
 							</tr>
 							<tr>
-								<td>volunteering</td>
-								<td colspan="3"><textarea name="volunteering"
+								
+							</tr>
+							<tr>
+								<td class="form">Work History</td>
+								<td class="form" colspan="5"><textarea name="history"
 										style="height: 50px"></textarea></td>
 							</tr>
 							<tr>
-								<td>Work History</td>
-								<td colspan="3"><textarea name="history"
+								<td class="form">note</td>
+								<td class="form" colspan="4"><textarea name="notes"
 										style="height: 50px"></textarea></td>
-							</tr>
-							<tr>
-								<td>note</td>
-								<td colspan="2"><textarea name="notes"
-										style="height: 50px"></textarea></td>
-										<td><input class="saveButton" style="float:right" type="submit" value="Save"><br>
-										<input style="float:right" type="submit" value="Mail"></td>
+										<td><input class="saveButton" style="padding: 10px 20px;" type="submit" value="Add"><br>
+					
 							</tr>
 						</table>
 					</form>

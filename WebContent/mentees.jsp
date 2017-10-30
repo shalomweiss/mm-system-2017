@@ -538,32 +538,29 @@ var prevRow;
 		
 		<div id="openModal3" class="modalDialog">
 			<div>
-
-
 				<div class="container" >
 					<a href="#close" title="Close" class="close"
 						style="position: absolute;">X</a>
 					<form action="AddMentee" method="post">
 						<table class="addMenteeForm">
-
+							<tbody style="background-color:#ccc">
 							<tr>
-								<td>First name</td>
-								<td><input type="text" name="uFirstName" 
+								<td class="form">First name</td>
+								<td class="form"><input type="text" name="uFirstName" 
 								 required></td>
-								<td>Last name</td>
-								<td><input type="text" name="uLastName" 
-								 
+								<td class="form">Last name</td>
+								<td class="form"><input type="text" name="uLastName" 
 							  	 required></td>
-							<tr>
-								<td>Phone number</td>
-								<td><input type="number" name="uPhoneNumber" 
-							 required></td>
-								<td>Email</td>
-								<td><input type="text" name="uEmail" 
+							  	 <td class="form">Email</td>
+								<td class="form"><input type="text" name="uEmail" 
 								 required></td>
+							</tr>
 							<tr>
-								<td>Gender</td>
-								<td>
+								<td class="form">Phone number</td>
+								<td class="form"><input type="number" name="uPhoneNumber" 
+							 required></td>
+							 <td class="form">Gender</td>
+								<td class="form">
 								
 								
 								<input id="clickedGender" class="male" type="radio"
@@ -573,14 +570,16 @@ var prevRow;
 						
 							  	
 							  	</td>
-								<td>Address</td>
-								<td><input type="text" name="uAddress"
+								<td class="form">Address</td>
+								<td class="form"><input type="text" name="uAddress"
 								required>
+								
+							</tr>
 							<tr>
-								<td>Graduation status</td>
-								<td><input type="text" name="uGraduationStatus"
+								<td class="form">Graduation status</td>
+								<td class="form"><input type="text" name="uGraduationStatus"
 								required></td>
-								<td>Academic institution</td>
+								<td class="form">Academic institution</td>
 								<td>
 								
 								<select name="uAcademicInstitution">
@@ -589,26 +588,27 @@ var prevRow;
 										</c:forEach>
 								</select>   
 								</td>
-							<tr>
-								<td>Average</td>			
-								<td><input type="number" name="uAverage" min="0" max="100" 
+								<td class="form">Average</td>			
+								<td class="form"><input type="number" name="uAverage" min="0" max="100" 
 								style="color:#BBB;" required></td>	
 															
-								<td>Remaining semesters</td>
-								<td><input type="number" name="uRemSemesters" required></td>
+								
+							</tr>
 							<tr>
-								<td>Dicipline</td>
-								<td><input type="text" name="uAcademicDicipline" required ></td>
+								<td class="form">Remaining semesters</td>
+								<td class="form"><input type="number" name="uRemSemesters" required></td>
+								<td class="form">Dicipline</td>
+								<td class="form"><input type="text" name="uAcademicDicipline" required ></td>
 
-								<td>Dicipline 2</td>
-								<td><input type="text" name="uAcademicDicipline2"
-								>
+								<td class="form">Dicipline 2</td>
+								<td class="form"><input type="text" name="uAcademicDicipline2">
 								</td>
+							</tr>
 							<tr>
 
 
-								<td>Signed</td>
-								<td>
+								<td class="form">Signed</td>
+								<td class="form">
 								
 								<input id="clickedSign" class="Sign1" type="radio"
 									name="uSignedEULA" value="true" checked> YES <input
@@ -618,24 +618,25 @@ var prevRow;
 								
 							  	
 							  	</td>
-							
-							<td></td><td></td>
-							<tr>
 
 
-								<td>note</td>
-								<td colspan="3"><textarea name="uNotes" style="height: 50px"></textarea></td>
+								<td class="form">note</td>
+								<td class="form" colspan="3"><textarea name="uNotes" style="height: 50px"></textarea></td>
 							</tr>
-							<tr>
-							<td colspan="4"><input style="float:center" type="submit" value="Done">
+							<tr >
+							<td colspan="4"></td>
+							<td class="form">
+								<input type="text" name="id" style="display: none"
+								onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
+								onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
+							</td>
+							<td class="form" ><input style="float:center" type="submit" value="Add">
 							</td>
 							
-							<input type="text" name="id" style="display: none"
-							onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
-							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
-							</tr>
-							</td>
 							
+							</tbody>
+							
+							</tr>
 						</table>
 						
 					</form>

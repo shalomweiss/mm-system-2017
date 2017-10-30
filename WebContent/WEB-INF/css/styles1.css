@@ -26,6 +26,7 @@ input[type=submit] {
 	cursor: pointer;
 	width: 100%;
 }
+
 .saveButton{
     margin-bottom: 5px;
 }
@@ -120,7 +121,7 @@ th.inner
 	pointer-events: auto;
 }
 .modalDialog>div {
-	width: 60%;
+	width: 90%;
 	margin: auto;
 	border-radius: 10px;
 	background: #fff;
@@ -139,9 +140,9 @@ background-color: #ccc;
 	top: 20px;
 	right: 0;
 	left: 0;
-	buttom: 0;
+	height: calc( 100% - 20px );
 	background: rgba(0, 0, 0, 0.3);
-	z-index: 99;
+	z-index: 15;
 	opacity: 0;
 	-webkit-transition: opacity 400ms ease-in;
 	-moz-transition: opacity 400ms ease-in;
@@ -387,7 +388,15 @@ td {
  	padding: 9px !important;
 	height: 20%;
 }
-input[type=text] , input[type=radio] , select{
+td.form {
+	background-color: #ccc !importants;
+ 	padding-top: 0px !important;
+ 	padding-bottom: 0px !important;
+ 	padding-left: 9px !important;
+ 	padding-right: 9px !important;
+}
+input[type=text] , input[type=radio],input[type=number] , select{
+	width:100%;
     padding-top: 5px;
     padding-bottom: 5x;
     padding-right: 3px;
