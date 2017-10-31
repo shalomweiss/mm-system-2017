@@ -118,17 +118,18 @@ var prevRow;
 </head>
 <body>
 <nav class="icon-bar">
-<div class="icon-bar">
-		  <a  href="GetAllPairs" title="Back"><i class="fa fa-arrow-circle-left"></i></a> 
-		  <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
+	<div class="icon-bar">
+	 <a  href="GetAllPairs" title="Back"><i class="fa fa-arrow-circle-left"></i></a> 
+		  <a class="active" title="Home" href="ForwardPath"><i class="fa fa-home"></i></a> 
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
-		  <a href="GetAllMentees"title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
-		  <a class="active" href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
-		  
-		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
-		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>
-</div>
+		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
+		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
+		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>
+		  <a href="AddingDataServlet" title="AddingStuff"><i class="fa fa-cogs"></i></a>
+		  <a onclick="logout()" href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
+	</div>
 </nav>
+
 <div class="menteeMeetings nameTags">
 	<h2>mentee</h2>
 	<img class="nameTag" alt="harry" src="DownloadFile?id=${Pairs.getPair().getMentee().id}&type=img">

@@ -180,7 +180,8 @@ var prevRow;
 		  <a class="active" href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
-		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>
+		  <a href="AddingDataServlet" title="AddingStuff"><i class="fa fa-cogs"></i></a>	
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  		  
 	</div>
 	</nav>
