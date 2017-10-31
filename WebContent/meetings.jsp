@@ -32,7 +32,6 @@ h1.left
 	left:8%;
 	width:40%;
 	right: 55% !important;
-	
 }
 h1.right
 {
