@@ -618,8 +618,6 @@ var prevRow;
 								
 							  	
 							  	</td>
-
-
 								<td class="form">note</td>
 								<td class="form" colspan="3"><textarea name="uNotes" style="height: 50px"></textarea></td>
 							</tr>

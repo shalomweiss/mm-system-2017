@@ -292,10 +292,9 @@ a.createPairs{
 	position: fixed;
     z-index: 8;
     top: 50%;
-    width: calc(14% - 80px) !important;
+    width: calc(8%) !important;
     height: 12% !important;
-
-    left: calc(80px + 43%) !important;
+    left: calc(100px + 41%) !important;
 }
 
 tbody{

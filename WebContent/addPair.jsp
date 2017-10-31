@@ -118,6 +118,13 @@
 </head>
 
 <style>
+div.inner--left1{
+		width:40%;
+       	left: 100px;
+}
+div.inner--right{
+	left : calc( 100px + 50%);
+}
 th{
 	font-size: 12px;
 }
@@ -141,7 +148,7 @@ tr:nth-child(even) {
 </nav>
 <div class="topPart"> </div>
 	<div class="bottomPart"> </div>
-	<div class="inner inner--left">
+	<div class="inner inner--left1">
 	<section class="Pairs">
 		<div class="container-fluid" >
 			 <div style= "padding-left: 0px;">
