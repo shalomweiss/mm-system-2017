@@ -11,6 +11,7 @@ public class Mentee extends User {
 	private boolean signedEULA;
 	private String resume;
 	private String gradeSheet;
+	private String academiclnstitutionName;
 	
 
 	public Mentee(){
@@ -104,7 +105,13 @@ public class Mentee extends User {
 	public void setGradeSheet(String gradeSheet) {
 		this.gradeSheet = gradeSheet;
 	}
-
+	
+	public String getAcademiclnstitutionName() {
+		return academiclnstitutionName;
+	}
+	public void setAcademiclnstitutionName(String academiclnstitutionName) {
+		this.academiclnstitutionName = academiclnstitutionName;
+	}
 	@Override
 	public String toString() {
 		return "Mentee [remainingSemesters=" + remainingSemesters

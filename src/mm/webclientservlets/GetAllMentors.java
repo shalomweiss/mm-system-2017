@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mm.da.DataAccess;
-
+import mm.model.Mentor;
 import mm.model.User;
 import mm.model.User.userType;
 import mm.model.WorkPlace;
@@ -47,8 +47,11 @@ public class GetAllMentors extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-		request.setAttribute("Mentors", ArrMentors);
 		
+		
+		for(User mentor: ArrMentors){
+			((Mentor)mentor).setCompanyName(da.getCompanyNameById(((Mentor)mentor).getCompany()));			
+		}
 		ArrayList<WorkPlace> allWorkingPlace =new ArrayList<WorkPlace>();
 		 try {
 			 allWorkingPlace = da.getAllWorkingPlace();
@@ -56,9 +59,20 @@ public class GetAllMentors extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
-		request.setAttribute("NewWorkPlace", allWorkingPlace); 
-		
-		
+
+//			ArrayList<Address> Address =new ArrayList<Address>();
+//			 try {
+//				 Address = da.getAllAddresses();
+//				 } catch (SQLException e) {
+//				 // TODO Auto-generated catch block
+//				 e.printStackTrace();
+//				 }
+//		 
+//		 
+//	    request.setAttribute("AddressList", Address);
+		 
+		request.setAttribute("Mentors", ArrMentors);
+		request.setAttribute("NewWorkPlace", allWorkingPlace); 		
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
 		RequestDispatcher req ;

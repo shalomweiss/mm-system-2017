@@ -60,7 +60,4 @@ public class AcademicInstitute {
 	public String toString() {
 		return "AcademicInstitute [id=" + id + ", name=" + name + ", area=" + area + ", city=" + city + "]";
 	}
-	
-	
-
 }

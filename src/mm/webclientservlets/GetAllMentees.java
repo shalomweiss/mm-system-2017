@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
 import mm.model.AcademicInstitute;
+import mm.model.Mentee;
 import mm.model.User;
 import mm.model.User.userType;
 
@@ -47,8 +48,12 @@ public class GetAllMentees extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-
-		request.setAttribute("Mentees", ArrMentees);
+        
+		 for(User mentee: ArrMentees){
+			((Mentee)mentee).setAcademiclnstitutionName((da.getAcadimicInsById(((Mentee)mentee).getAcademiclnstitution())));			
+	
+		 }
+		
 		ArrayList<AcademicInstitute> AcadimicIn =new ArrayList<AcademicInstitute>();
 		 try {
 			 AcadimicIn = da.getAllAcademiclnstitution();
@@ -56,8 +61,18 @@ public class GetAllMentees extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
-			
-
+		
+//			ArrayList<Address> Address =new ArrayList<Address>();
+//			 try {
+//				 Address = da.getAllAddress();
+//				 } catch (SQLException e) {
+//				 // TODO Auto-generated catch block
+//				 e.printStackTrace();
+//				 }
+//		 
+//		 
+//	    request.setAttribute("AddressList", Address);
+		request.setAttribute("Mentees", ArrMentees);
 		request.setAttribute("AcadimicIn", AcadimicIn); 
 	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
