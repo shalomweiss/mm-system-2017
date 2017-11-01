@@ -36,6 +36,11 @@ $(document).ready(function(){
    			);
 });
 </script>
+<style>
+.icon-bar a {
+       padding: 8px;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
 </head>
 <body>
