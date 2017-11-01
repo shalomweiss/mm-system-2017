@@ -108,5 +108,10 @@ public interface DataInterface {
 
 
 	public boolean editMeetingNote(int meetingId, String message) throws SQLException;
+	
+	public String getAcadimicInsById(int id);
+	public String getCompanyNameById(int id);
+//	public Address getAllAddresses();
+	public String getAddressById(int id);
 
 }
