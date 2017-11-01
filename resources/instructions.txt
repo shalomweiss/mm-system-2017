@@ -1,0 +1,1 @@
+-put the json file in this directory with the name "log.json"
