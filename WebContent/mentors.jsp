@@ -70,7 +70,24 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 var prevRow;
-
+function sendAPK(param)
+{
+	var thisForm=param.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+	var rowColumns=thisForm.childNodes[1].childNodes[1].childNodes[1].childNodes[2].childNodes;
+	var fname=rowColumns[1].childNodes[1].innerHTML;
+	var lname=rowColumns[3].childNodes[1].innerHTML;
+	var email=rowColumns[11].childNodes[1].innerHTML;
+	console.log(fname+" "+lname+" "+email);
+	$.post("SendAPK",
+	        {
+				uFirstName: fname,
+				uLastName: lname,
+				uEmail:email
+	        },
+	        function(data,status){
+	        	alert(data);
+	        });
+}
 	function show_hide_row(row,mentId,def) {
 		$("#" + prevRow).toggle();
 		$("#" + row).toggle();
@@ -337,7 +354,7 @@ var prevRow;
 													</td>
 													<td width="10%"><input class="saveButton" id="submit${ment.id}" type="submit"
 														value="Save"><br>
-														<input id="submit${ment.id}" type="submit"
+														<input onclick="sendAPK(this)" id="submit${ment.id}" type="button"
 														value="Mail"></td>
 												</tr>
 											</table>
@@ -391,7 +408,7 @@ var prevRow;
 
 													<td>
 														<input class="saveButton" id="submit${ment.id}" type="submit" value="Save"><br>
-														<input id="submit${ment.id}" type="submit" value="Mail">
+														<input onclick="sendAPK(this)" id="submit${ment.id}" type="button" value="Mail">
 													</td>
 												</tr>
 											</table>
@@ -427,7 +444,7 @@ var prevRow;
 							  							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
 														<input class="saveButton" type="submit" id="submit${ment.id}" style="float: center;" value="Save">
 														<br>
-														<input type="submit" id="submit${ment.id}" style="float: center;" value="Mail">
+														<input onclick="sendAPK(this)" type="button" id="submit${ment.id}" style="float: center;" value="Mail">
 
 													</td>
 												</tr>
@@ -463,7 +480,7 @@ var prevRow;
 													class="saveButton"
 														style="float: center;" value="Save">
 														<br>
-													<input type="submit" id="submit${ment.id}"
+													<input onclick="sendAPK(this)" type="button" id="submit${ment.id}"
 														style="float: center;" value="Mail"></td>
 												</tr>
 												

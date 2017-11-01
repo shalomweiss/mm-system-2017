@@ -8,6 +8,7 @@ public class Mentor extends User {
 	private int company;
 	private String volunteering;
 	private String workHistory;
+	private String companyName;
 	
 	
 	public Mentor(){
@@ -33,6 +34,7 @@ public class Mentor extends User {
 		this.company = company;
 		this.volunteering = volunteering;
 		this.workHistory = workHistory;
+		
 	}
 
 	public String getRole() {
@@ -73,6 +75,14 @@ public class Mentor extends User {
 
 	public void setVolunteering(String volunteering) {
 		this.volunteering = volunteering;
+	}
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 	@Override

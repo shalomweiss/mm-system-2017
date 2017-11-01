@@ -207,12 +207,16 @@ $("#submit3").click(function() {
 });
 });
 </script>
+<style type="text/css">
+.icon-bar a {
+    padding: 8px;
+}
+</style>
 </head>
 
 <body>
 <nav class="icon-bar">
 	<div class="icon-bar">
-		  <a href="AddingDataServlet" title="AddingStuff"><i class="fa fa-cogs"></i></a>
 		  <a href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
