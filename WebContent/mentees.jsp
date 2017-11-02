@@ -7,7 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
-<
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
@@ -70,13 +69,18 @@ $(document).ready(function(){
 			}
 	
 	);
-	
-	
-	
-	
-	
-	
 });
+	function getMentorOfMentee(param) {
+		//.childNodes[1].childNodes[1].childNodes[1]
+		var mentId=param.parentNode.nextSibling.nextSibling.id.substr(4);
+		console.log(mentId);
+		var sendData={id1:mentId};
+		console.log(sendData);
+		$.post("GetMentorOfMentee1",sendData,
+		        function(data,status){
+		        	alert(status);
+		        });
+	}
 	function sendAPK(param)
 	{
 		var thisForm=param.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
@@ -315,14 +319,14 @@ var prevRow;
 										<button class="tablinks"
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks"
-											onclick="showDetails(event, 'Mentor${ment.id}')">Mentor</button>
+											onclick="getMentorOfMentee(this);showDetails(event, 'Mentor${ment.id}');">Mentor</button>
 										<button class="tablinks" style="float:right;" onclick="closeRow('hidden_row${ment.id}',${ment.id});">close</button>
 
 								</div>
 								<form id="form${ment.id}" action="UpdateMentee" method="post">
 								<div id="info${ment.id}" class="tabcontent"style="background-color: rgba(250,178,58,0.8);">
 											<table class="w3-table-all w3-card-4">
-												<tr>
+												<tr >
 													<th width="14%" class="inner">First name</th>
 													<th width="14%" class="inner">Last name</th>
 													<th width="10%" class="inner">Gender</th>
@@ -530,7 +534,8 @@ var prevRow;
 											style="background-color: rgba(250,178,58,0.8);">
 											<table>
 												<tr>
-													<td width="90%">${ment.note}</td>
+													<!--<td width="90%">${ment.note}</td>  --> 
+													<td width="90%"></td>
 													<td width="10%">
 														<input class="saveButton" type="submit" style="float: right;" value="Save">
 														<input type="button" style="float: right;" value="Mail">
