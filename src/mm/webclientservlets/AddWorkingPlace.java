@@ -49,7 +49,7 @@ public class AddWorkingPlace extends HttpServlet {
 		String nextPage = request.getParameter("jsp");
 		RequestDispatcher req = null;
 		 
-		WorkPlace newWorkPlace= new WorkPlace(Id,Company,Area,City,Address);
+		WorkPlace newWorkPlace= new WorkPlace(Id,Company,Area,City,Address, 0, 0); //TODO: needs to be given proper city/area id
 		
 		DataAccess da = new DataAccess();
 	    boolean res=false;
