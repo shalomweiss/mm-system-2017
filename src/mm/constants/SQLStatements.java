@@ -198,10 +198,10 @@ public class SQLStatements {
 			+ DataContract.MeetingTable.COL_MENTEEID + "=? AND " + DataContract.MeetingTable.COL_STATUS + "=? ORDER BY "
 			+ DataContract.MeetingTable.COL_DATE + " DESC LIMIT ?, ?";
 
-	public final static String getCityById = "Select * From" + DataContract.CitiesTable.TABLE_NAME + " WHERE "
+	public final static String getCityById = "Select * From " + DataContract.CitiesTable.TABLE_NAME + " WHERE "
 			+ DataContract.CitiesTable.COL_ID + "=?";
 	
-	public final static String getAreaById = "Select * From" + DataContract.AreasTable.TABLE_NAME + " WHERE "
+	public final static String getAreaById = "Select * From " + DataContract.AreasTable.TABLE_NAME + " WHERE "
 			+ DataContract.AreasTable.COL_ID + "=?";
 	
 }
