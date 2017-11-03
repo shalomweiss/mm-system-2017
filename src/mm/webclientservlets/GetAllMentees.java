@@ -56,7 +56,6 @@ public class GetAllMentees extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}			
-	
 		 }
 		
 		ArrayList<AcademicInstitute> AcadimicIn =new ArrayList<AcademicInstitute>();
