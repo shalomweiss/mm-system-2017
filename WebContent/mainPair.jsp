@@ -89,10 +89,10 @@ $(document).ready(function(){
         <tr>
         	<td id="mentor">${pair.mentor.firstName} ${pair.mentor.lastName}</td>
         	<td id="mentorPhone">${pair.mentor.phoneNumber}</td>
-			<td id="mentee"><c:out value="${pair.mentor.company}"></c:out></td>
+			<td id="mentee"><c:out value="${pair.mentor.companyName}"></c:out></td>
 			<td id="mentor">${pair.mentee.firstName} ${pair.mentee.lastName}</td>
         	<td id="mentorPhone">${pair.mentee.phoneNumber}</td>
-			<td id="mentee"><c:out value="${pair.mentee.academiclnstitution}"></c:out></td>
+			<td id="mentee"><c:out value="${pair.mentee.academiclnstitutionName}"></c:out></td>
           	<td class="but"> 
           		<a class="btn btn-block btn-primary topButton" href="GetMeetingByPairId?id=${pair.pairId}" style="margin-top: 0px;" >
 			 		Meetings

@@ -76,9 +76,11 @@ $(document).ready(function(){
 		console.log(mentId);
 		var sendData={id1:mentId};
 		console.log(sendData);
-		$.post("GetMentorOfMentee1",sendData,
+		$.post("GetMentorOfMentee",{
+			'id':mentId,
+		},
 		        function(data,status){
-		        	alert(status);
+		        	alert(data);
 		        });
 	}
 	function sendAPK(param)
@@ -299,7 +301,7 @@ var prevRow;
 							    <td style="display: none">${ment.id}</td>
 						    	<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
-								<td>${ment.academiclnstitution}</td>
+								<td>${ment.academiclnstitutionName}</td>
 								<td>
 									<c:if test="${ment.gender == 1}"> male </c:if>
 									<c:if test="${ment.gender == 0}"> female </c:if> 

@@ -51,7 +51,6 @@ public class GetAllMentees extends HttpServlet {
         
 		 for(User mentee: ArrMentees){
 			((Mentee)mentee).setAcademiclnstitutionName((da.getAcadimicInsById(((Mentee)mentee).getAcademiclnstitution())));			
-	
 		 }
 		
 		ArrayList<AcademicInstitute> AcadimicIn =new ArrayList<AcademicInstitute>();

@@ -47,6 +47,9 @@ img.mentor
 {
 	right:35%;
 }
+.icon-bar a {
+    padding: 8px;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
