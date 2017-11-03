@@ -45,7 +45,12 @@ public class GetMentorOfMentee extends HttpServlet {
                 e.printStackTrace();
             }
           
-        mentor.setCompanyName(da.getCompanyNameById(mentor.getCompany()));
+        try {
+			mentor.setCompanyName((da.getWorkPlaceById(mentor.getCompany())).getCompany());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         request.setAttribute("MentorByMenteeId", mentor);	
         response.setContentType("text/html");
 		

@@ -236,7 +236,7 @@ function sendAPK(param)
 								<td style="display: none">${ment.id}</td>
 								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
-								<td>${ment.company}</td>
+								<td>${ment.companyName}</td>
 								<td>
 									<c:if test="${ment.gender == 1}"> male </c:if>
 									<c:if test="${ment.gender == 0}"> female </c:if> 
@@ -391,7 +391,7 @@ function sendAPK(param)
 													</td>
 													<td>
 														<div id="div12${ment.id}"
-															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.company}</div>
+															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.companyName}</div>
 														<input name="uCompany" id="input12${ment.id}" type="text"
 														value="${ment.company}" style="display: none;"
 														required>

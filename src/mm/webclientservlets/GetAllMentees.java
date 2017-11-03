@@ -50,8 +50,12 @@ public class GetAllMentees extends HttpServlet {
 		 }
         
 		 for(User mentee: ArrMentees){
-			((Mentee)mentee).setAcademiclnstitutionName((da.getAcadimicInsById(((Mentee)mentee).getAcademiclnstitution())));			
-	
+			try {
+				((Mentee)mentee).setAcademiclnstitutionName((da.getAcademicInstituteById(((Mentee)mentee).getAcademiclnstitution()).getName()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		 }
 		
 		ArrayList<AcademicInstitute> AcadimicIn =new ArrayList<AcademicInstitute>();
