@@ -50,7 +50,12 @@ public class GetAllMentors extends HttpServlet {
 		
 		
 		for(User mentor: ArrMentors){
-			((Mentor)mentor).setCompanyName(da.getCompanyNameById(((Mentor)mentor).getCompany()));			
+			try {
+				((Mentor)mentor).setCompanyName((da.getWorkPlaceById(((Mentor)mentor).getCompany()).getCompany()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
 		}
 		ArrayList<WorkPlace> allWorkingPlace =new ArrayList<WorkPlace>();
 		 try {
