@@ -1246,17 +1246,6 @@ public class DataAccess implements DataInterface {
 		return true;
 	}
 
-	@Override
-	public String getAcadimicInsById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCompanyNameById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public String getAddressById(int id) {

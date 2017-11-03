@@ -1,7 +1,5 @@
 package mm.model;
 
-import mm.model.User.userType;
-
 public class Mentor extends User {
 	private String experience;
 	private String role;
