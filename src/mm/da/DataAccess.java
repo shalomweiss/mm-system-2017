@@ -6,18 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.event.Observes;
-
-import com.mysql.jdbc.CallableStatement;
-import com.sun.xml.internal.ws.wsdl.writer.document.Types;
-
 import java.sql.Statement;
-import java.sql.Time;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -149,6 +141,7 @@ public class DataAccess implements DataInterface {
 
 		rs.close();
 		stm.close();
+		c.close();
 		return u;
 	}
 
@@ -159,6 +152,7 @@ public class DataAccess implements DataInterface {
 		if (!rs.next()) { // user does not exist
 			rs.close();
 			stm.close();
+			c.close();
 			return false;
 		}
 		rs.close();
@@ -178,6 +172,7 @@ public class DataAccess implements DataInterface {
 
 		if (user.getType() == userType.TSOFEN || user.getType() == userType.ADMIN) {
 			stm2.close();
+			c.close();
 			return true;
 		}
 		if (user.getType() == userType.MENTOR) {
@@ -192,6 +187,7 @@ public class DataAccess implements DataInterface {
 			stm3.executeUpdate();
 
 			stm3.close();
+			c.close();
 			return true;
 		}
 
@@ -210,9 +206,11 @@ public class DataAccess implements DataInterface {
 			stm4.executeUpdate();
 
 			stm4.close();
+			c.close();
 			return true;
 		}
 
+		c.close();
 		return false;
 	}
 
@@ -221,10 +219,18 @@ public class DataAccess implements DataInterface {
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
+			rs.close();
+			stm.close();
 			PreparedStatement stm2 = c.prepareStatement(SQLStatements.setUserDeactiveById);
 			stm2.setInt(1, id);
+			stm2.executeQuery();
+			stm2.close();
+			c.close();
 			return true;
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return false;
 	}
 
@@ -248,6 +254,9 @@ public class DataAccess implements DataInterface {
 		{
 			System.out.println("rs.next(): " + rs.getString(3));
 			System.out.println("BAD, USER ALREADY EXISTS");
+			rs.close();
+			stm.close();
+			c.close();
 			return -1;
 		}
 		PreparedStatement stm2 = c.prepareStatement(SQLStatements.insertUser);
@@ -272,11 +281,18 @@ public class DataAccess implements DataInterface {
 		{
 			id = rs.getInt(1);
 		} else {
+			rs.close();
+			stm.close();
+			stm2.close();
+			c.close();
 			return -1;
 		}
-
-		if (u.getType() == userType.TSOFEN || u.getType() == userType.ADMIN)
+		rs.close();
+		stm.close();
+		stm2.close();
+		if (u.getType() == userType.TSOFEN || u.getType() == userType.ADMIN) {
 			return id;
+		}
 
 		if (u.getType() == userType.MENTOR) {
 			System.out.println("MENTOR DATABASE");
@@ -289,6 +305,8 @@ public class DataAccess implements DataInterface {
 			stm3.setString(6, ((Mentor) u).getWorkHistory());
 
 			stm3.executeUpdate();
+			stm3.close();
+			c.close();
 			return id;
 		}
 
@@ -305,8 +323,10 @@ public class DataAccess implements DataInterface {
 			stm4.setString(9, ((Mentee) u).getResume());
 			stm4.setString(10, ((Mentee) u).getGradeSheet());
 			stm4.executeUpdate();
+			stm4.close();
 			return id;
 		}
+		c.close();
 		return -1;
 	}
 
@@ -314,13 +334,15 @@ public class DataAccess implements DataInterface {
 	public ArrayList<User> getUsers(userType type) throws SQLException {
 		User u = null;
 		ArrayList<User> users = new ArrayList<User>();
+		PreparedStatement stm = null;
+		ResultSet r = null;
 		switch (type) {
 		case ADMIN:
 			break;
 		case TSOFEN:
-			PreparedStatement stm = c.prepareStatement(SQLStatements.selectUserByType);
+			stm = c.prepareStatement(SQLStatements.selectUserByType);
 			stm.setInt(1, type.getValue());
-			ResultSet r = stm.executeQuery();
+			r = stm.executeQuery();
 			while (r.next()) {
 				u = new TsofenT(r.getInt(DataContract.UsersTable.COL_ID),
 						r.getString(DataContract.UsersTable.COL_FIRSTNAME),
@@ -332,61 +354,58 @@ public class DataAccess implements DataInterface {
 						r.getString(DataContract.UsersTable.COL_NOTES),
 						r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 						r.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.TSOFEN);
+				users.add(u);
 			}
 
 			break;
 		case MENTOR:
 
-			Statement stm2 = c.createStatement();
-			stm2.executeQuery(SQLStatements.selectMentor);
-			ResultSet r2 = stm2.getResultSet();
-			while (r2.next()) {
-				u = new Mentor(r2.getInt(DataContract.UsersTable.COL_ID),
-						r2.getString(DataContract.UsersTable.COL_FIRSTNAME),
-						r2.getString(DataContract.UsersTable.COL_LASTNAME),
-						r2.getString(DataContract.UsersTable.COL_EMAIL),
-						r2.getString(DataContract.UsersTable.COL_PHONENUMBER),
-						r2.getString(DataContract.UsersTable.COL_PASSWORD),
-						r2.getInt(DataContract.UsersTable.COL_GENDER),
-						r2.getString(DataContract.UsersTable.COL_ADDRESS),
-						r2.getString(DataContract.UsersTable.COL_NOTES),
-						r2.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
-						r2.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTOR,
-						r2.getString(DataContract.MentorsTable.COL_EXPERIENCE),
-						r2.getString(DataContract.MentorsTable.COL_ROLE),
-						r2.getInt(DataContract.MentorsTable.COL_COMPANY),
-						r2.getString(DataContract.MentorsTable.COL_VOLUNTEERING),
-						r2.getString(DataContract.MentorsTable.COL_WORKHISTORY));
+			stm = c.prepareStatement(SQLStatements.selectMentor);
+			r = stm.executeQuery();
+			while (r.next()) {
+				u = new Mentor(r.getInt(DataContract.UsersTable.COL_ID),
+						r.getString(DataContract.UsersTable.COL_FIRSTNAME),
+						r.getString(DataContract.UsersTable.COL_LASTNAME),
+						r.getString(DataContract.UsersTable.COL_EMAIL),
+						r.getString(DataContract.UsersTable.COL_PHONENUMBER),
+						r.getString(DataContract.UsersTable.COL_PASSWORD), r.getInt(DataContract.UsersTable.COL_GENDER),
+						r.getString(DataContract.UsersTable.COL_ADDRESS),
+						r.getString(DataContract.UsersTable.COL_NOTES),
+						r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
+						r.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTOR,
+						r.getString(DataContract.MentorsTable.COL_EXPERIENCE),
+						r.getString(DataContract.MentorsTable.COL_ROLE),
+						r.getInt(DataContract.MentorsTable.COL_COMPANY),
+						r.getString(DataContract.MentorsTable.COL_VOLUNTEERING),
+						r.getString(DataContract.MentorsTable.COL_WORKHISTORY));
 				users.add(u);
 			}
 
 			break;
 		case MENTEE:
 
-			Statement stm3 = c.createStatement();
-			stm3.executeQuery(SQLStatements.selectMentee);
-			ResultSet r3 = stm3.getResultSet();
-			while (r3.next()) {
-				u = new Mentee(r3.getInt(DataContract.UsersTable.COL_ID),
-						r3.getString(DataContract.UsersTable.COL_FIRSTNAME),
-						r3.getString(DataContract.UsersTable.COL_LASTNAME),
-						r3.getString(DataContract.UsersTable.COL_EMAIL),
-						r3.getString(DataContract.UsersTable.COL_PHONENUMBER),
-						r3.getString(DataContract.UsersTable.COL_PASSWORD),
-						r3.getInt(DataContract.UsersTable.COL_GENDER),
-						r3.getString(DataContract.UsersTable.COL_ADDRESS),
-						r3.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
-						r3.getString(DataContract.UsersTable.COL_NOTES),
-						r3.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTEE,
-						r3.getFloat(DataContract.MenteeTable.COL_REMAININGSEMESTERS),
-						r3.getString(DataContract.MenteeTable.COL_GRADUATIONSTATUS),
-						r3.getInt(DataContract.MenteeTable.COL_ACADEMICINSTITUTE),
-						r3.getFloat(DataContract.MenteeTable.COL_AVERAGE),
-						r3.getString(DataContract.MenteeTable.COL_ACADEMICDICIPLINE1),
-						r3.getString(DataContract.MenteeTable.COL_ACADEMICDICIPLINE2),
-						r3.getBoolean(DataContract.MenteeTable.COL_SIGNEDEULA),
-						r3.getString(DataContract.MenteeTable.COL_RESUME),
-						r3.getString(DataContract.MenteeTable.COL_GRADESHEET));
+			stm = c.prepareStatement(SQLStatements.selectMentee);
+			r = stm.executeQuery();
+			while (r.next()) {
+				u = new Mentee(r.getInt(DataContract.UsersTable.COL_ID),
+						r.getString(DataContract.UsersTable.COL_FIRSTNAME),
+						r.getString(DataContract.UsersTable.COL_LASTNAME),
+						r.getString(DataContract.UsersTable.COL_EMAIL),
+						r.getString(DataContract.UsersTable.COL_PHONENUMBER),
+						r.getString(DataContract.UsersTable.COL_PASSWORD), r.getInt(DataContract.UsersTable.COL_GENDER),
+						r.getString(DataContract.UsersTable.COL_ADDRESS),
+						r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
+						r.getString(DataContract.UsersTable.COL_NOTES),
+						r.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTEE,
+						r.getFloat(DataContract.MenteeTable.COL_REMAININGSEMESTERS),
+						r.getString(DataContract.MenteeTable.COL_GRADUATIONSTATUS),
+						r.getInt(DataContract.MenteeTable.COL_ACADEMICINSTITUTE),
+						r.getFloat(DataContract.MenteeTable.COL_AVERAGE),
+						r.getString(DataContract.MenteeTable.COL_ACADEMICDICIPLINE1),
+						r.getString(DataContract.MenteeTable.COL_ACADEMICDICIPLINE2),
+						r.getBoolean(DataContract.MenteeTable.COL_SIGNEDEULA),
+						r.getString(DataContract.MenteeTable.COL_RESUME),
+						r.getString(DataContract.MenteeTable.COL_GRADESHEET));
 				users.add(u);
 			}
 			break;
@@ -394,6 +413,9 @@ public class DataAccess implements DataInterface {
 		default:
 			break;
 		}
+		r.close();
+		stm.close();
+		c.close();
 		return users;
 	}
 
@@ -413,6 +435,9 @@ public class DataAccess implements DataInterface {
 					r.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
 			pair.add(p);
 		}
+		r.close();
+		stm.close();
+		c.close();
 		return pair;
 	}
 
@@ -464,6 +489,8 @@ public class DataAccess implements DataInterface {
 							rs2.getInt(DataContract.MentorsTable.COL_COMPANY),
 							rs2.getString(DataContract.MentorsTable.COL_VOLUNTEERING),
 							rs2.getString(DataContract.MentorsTable.COL_WORKHISTORY));
+				rs2.close();
+				stm2.close();
 				break;
 			case 3:
 				PreparedStatement stm3 = c.prepareStatement(SQLStatements.selectMenteeById);
@@ -491,12 +518,17 @@ public class DataAccess implements DataInterface {
 							rs3.getBoolean(DataContract.MenteeTable.COL_SIGNEDEULA),
 							rs3.getString(DataContract.MenteeTable.COL_RESUME),
 							rs3.getString(DataContract.MenteeTable.COL_GRADESHEET));
+				rs3.close();
+				stm3.close();
 				break;
 			default:
 				break;
 			}
 
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return user;
 	}
 
@@ -505,18 +537,30 @@ public class DataAccess implements DataInterface {
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMentorById);
 		stm.setInt(1, mentorId);
 		ResultSet rs = stm.executeQuery();
-		if (!rs.next()) // user does not exist
+		if (!rs.next()) { // user does not exist
+			rs.close();
+			stm.close();
+			c.close();
 			return false;
+		}
 		stm = c.prepareStatement(SQLStatements.selectMenteeById);
 		stm.setInt(1, menteeId);
-		ResultSet rs1 = stm.executeQuery();
-		if (!rs1.next()) // user does not exist
+		rs = stm.executeQuery();
+		if (!rs.next()) { // user does not exist
+			rs.close();
+			stm.close();
+			c.close();
 			return false;
+		}
 		stm = c.prepareStatement(SQLStatements.selectMenteeInPair);
 		stm.setInt(1, menteeId);
-		ResultSet rs2 = stm.executeQuery();
-		if (rs2.next()) // mentee already in pair
+		rs = stm.executeQuery();
+		if (rs.next()) { // mentee already in pair
+			rs.close();
+			stm.close();
+			c.close();
 			return false;
+		}
 		stm = c.prepareStatement(SQLStatements.insertPair);
 		// checking witch user is the mentor and witch is the mentee
 		stm.setInt(1, mentorId);
@@ -524,6 +568,9 @@ public class DataAccess implements DataInterface {
 		stm.setInt(3, 1);
 		stm.setDate(4, Date.valueOf(LocalDate.now()));
 		stm.executeUpdate();
+		rs.close();
+		stm.close();
+		c.close();
 		return true;
 
 	}
@@ -534,13 +581,21 @@ public class DataAccess implements DataInterface {
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMentorById);
 		stm.setInt(1, mentorId);
 		ResultSet rs = stm.executeQuery();
-		if (!rs.next()) // user does not exist
+		if (!rs.next()) { // user does not exist
+			rs.close();
+			stm.close();
+			c.close();
 			throw new SQLException("user-mentor does not exist");
+		}
 		stm = c.prepareStatement(SQLStatements.selectMenteeById);
 		stm.setInt(1, menteeId);
-		ResultSet rs1 = stm.executeQuery();
-		if (!rs1.next()) // user does not exist
+		rs = stm.executeQuery();
+		if (!rs.next()) { // user does not exist
+			rs.close();
+			stm.close();
+			c.close();
 			throw new SQLException("user-mentee does not exist");
+		}
 		stm = c.prepareStatement(SQLStatements.insertPair, Statement.RETURN_GENERATED_KEYS);
 		// checking witch user is the mentor and witch is the mentee
 		stm.setInt(1, mentorId);
@@ -549,6 +604,9 @@ public class DataAccess implements DataInterface {
 		stm.setDate(4, Date.valueOf(LocalDate.now()));
 		int num = stm.executeUpdate();
 		if (num == 0) {
+			rs.close();
+			stm.close();
+			c.close();
 			throw new SQLException("Creating pair failed, no rows affected.");
 
 		}
@@ -557,11 +615,16 @@ public class DataAccess implements DataInterface {
 			if (generatedKeys.next()) {
 				p = getPair(generatedKeys.getInt(1));
 			} else {
+				rs.close();
+				stm.close();
+				c.close();
 				throw new SQLException("Creating user failed, no ID obtained.");
 
 			}
-
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return p;
 
 	}
@@ -572,6 +635,8 @@ public class DataAccess implements DataInterface {
 			PreparedStatement stm = c.prepareStatement(SQLStatements.setPairDeactiveById);
 			stm.setInt(1, pairId);
 			stm.executeUpdate();
+			stm.close();
+			c.close();
 		} catch (SQLException e) {
 			return false;
 		}
@@ -592,14 +657,18 @@ public class DataAccess implements DataInterface {
 		long l = -1;
 		if (d != null)
 			l = d.getTime();
-		return new Pair(rs.getInt(DataContract.PairsTable.COL_PAIRID), rs.getInt(DataContract.PairsTable.COL_MENTORID),
-				rs.getInt(DataContract.PairsTable.COL_MENTEEID),
+		Pair p = new Pair(rs.getInt(DataContract.PairsTable.COL_PAIRID),
+				rs.getInt(DataContract.PairsTable.COL_MENTORID), rs.getInt(DataContract.PairsTable.COL_MENTEEID),
 				getUser(rs.getInt(DataContract.PairsTable.COL_MENTORID)),
 				getUser(rs.getInt(DataContract.PairsTable.COL_MENTEEID)),
 				rs.getInt(DataContract.PairsTable.COL_ACTIVESTATUS),
 				rs.getDate(DataContract.PairsTable.COL_STARTDATE).getTime(), l,
 				rs.getString(DataContract.PairsTable.COL_JOINTMESSAGE),
 				rs.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
+		rs.close();
+		stm.close();
+		c.close();
+		return p;
 	}
 
 	@Override
@@ -618,20 +687,43 @@ public class DataAccess implements DataInterface {
 			session.add(s);
 
 		}
-
+		rs.close();
+		stm.close();
+		c.close();
 		return session;
 	}
 
-	@Override
+	@SuppressWarnings("resource") //got warning about stm in case 3 not being closed
+	@Override // TODO: RECHECK CODE
 	public ArrayList<Meeting> getUserMeetings(int id) throws SQLException {
 		ArrayList<Meeting> meeting = new ArrayList<Meeting>();
 		Meeting meet = null;
-		PreparedStatement stm = c.prepareStatement(SQLStatements.selectMeetingsByMentorId);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectUserById);
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
 
 		if (rs.next()) {
-			java.sql.Date SDate1 = rs.getDate(DataContract.MeetingTable.COL_DATE);
+			int type = rs.getInt(DataContract.UsersTable.COL_TYPE);
+			switch (type) {
+			case 2:// Mentor
+				stm = c.prepareStatement(SQLStatements.selectMeetingsByMentorId);
+				break;
+			case 3:// Mentee
+				stm = c.prepareStatement(SQLStatements.selectMeetingsByMenteeId);
+				break;
+			default:
+				// TODO: LOG ERROR
+				rs.close();
+				stm.close();
+				c.close();
+				return null;
+			}
+		}
+		
+		stm.setInt(1, id);
+		rs = stm.executeQuery();
+		while (rs.next()) {
+			java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
 			meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
 					rs.getInt(DataContract.MeetingTable.COL_PAIRID), rs.getInt(DataContract.MeetingTable.COL_MENTORID),
 					rs.getInt(DataContract.MeetingTable.COL_MENTEEID), rs.getString(DataContract.MeetingTable.COL_NOTE),
@@ -642,54 +734,34 @@ public class DataAccess implements DataInterface {
 					rs.getString(DataContract.MeetingTable.COL_MENTORPRIVREPORT),
 					meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
 					rs.getString(DataContract.MeetingTable.COL_SUBJECT),
-					rs.getString(DataContract.MeetingTable.COL_LOCATION), SDate1.getTime(),
+					rs.getString(DataContract.MeetingTable.COL_LOCATION), SDate.getTime(),
 					rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
 					rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
 					rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
 					rs.getBoolean(DataContract.MeetingTable.COL_MENTEECOMPLETE));
+			meeting.add(meet);
 
-		} else {
-			PreparedStatement stm1 = c.prepareStatement(SQLStatements.selectMeetingsByMenteeId);
-			stm1.setInt(1, id);
-			ResultSet rs1 = stm.executeQuery();
-			if (rs1.next()) {
-				java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
-				meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
-						rs.getInt(DataContract.MeetingTable.COL_PAIRID),
-						rs.getInt(DataContract.MeetingTable.COL_MENTORID),
-						rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
-						rs.getString(DataContract.MeetingTable.COL_NOTE),
-						meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
-						rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
-						rs.getString(DataContract.MeetingTable.COL_MENTORREPORT),
-						rs.getString(DataContract.MeetingTable.COL_MENTEEPRIVREPORT),
-						rs.getString(DataContract.MeetingTable.COL_MENTORPRIVREPORT),
-						meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
-						rs.getString(DataContract.MeetingTable.COL_SUBJECT),
-						rs.getString(DataContract.MeetingTable.COL_LOCATION), SDate.getTime(),
-						rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
-						rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
-						rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
-						rs.getBoolean(DataContract.MeetingTable.COL_MENTEECOMPLETE));
-				meeting.add(meet);
-
-			}
 		}
-
+		rs.close();
+		stm.close();
+		c.close();
 		return meeting;
 	}
 
 	@Override
 	public Mentor getMentorOfMentee(int menteeId) throws SQLException {
+		Mentor m = null;
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectPairsByMenteeIdAndActiveStats);
 		stm.setInt(1, menteeId);
-
 		stm.setInt(2, 1);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
-			return (Mentor) getUser(rs.getInt(2));
+			m = (Mentor) getUser(rs.getInt(2));
 		}
-		return null;
+		rs.close();
+		stm.close();
+		c.close();
+		return m;
 
 	}
 
@@ -701,10 +773,11 @@ public class DataAccess implements DataInterface {
 		stm.setInt(2, 1);
 		ResultSet rs = stm.executeQuery();
 		while (rs.next()) {
-
 			mentees.add((Mentee) getUser(rs.getInt(3)));
 		}
-
+		rs.close();
+		stm.close();
+		c.close();
 		return mentees;
 	}
 
@@ -735,6 +808,9 @@ public class DataAccess implements DataInterface {
 					rs.getBoolean(DataContract.MeetingTable.COL_MENTEECOMPLETE));
 
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return m;
 	}
 
@@ -748,6 +824,8 @@ public class DataAccess implements DataInterface {
 		stm.setString(5, session.getDeviceId());
 		stm.executeUpdate();
 
+		stm.close();
+		c.close();
 		return true;
 
 	}
@@ -794,6 +872,8 @@ public class DataAccess implements DataInterface {
 			stm.setBoolean(16, meeting.getMentorComplete());
 			stm.setBoolean(17, meeting.getMenteeComplete());
 			stm.executeUpdate();
+			stm.close();
+			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -830,6 +910,9 @@ public class DataAccess implements DataInterface {
 					rs.getBoolean(DataContract.MeetingTable.COL_MENTEECOMPLETE));
 			m.add(meeting);
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return m;
 	}
 
@@ -860,6 +943,9 @@ public class DataAccess implements DataInterface {
 			menteesList.add(u);
 		}
 
+		r.close();
+		stm.close();
+		c.close();
 		return menteesList;
 
 	}
@@ -886,6 +972,9 @@ public class DataAccess implements DataInterface {
 			mentorList.add(u);
 		}
 
+		r.close();
+		stm.close();
+		c.close();
 		return mentorList;
 	}
 
@@ -898,6 +987,9 @@ public class DataAccess implements DataInterface {
 		stm.setInt(3, workplace.getCityId());
 		stm.setString(4, workplace.getAddress());
 		stm.executeUpdate();
+
+		stm.close();
+		c.close();
 		return true;
 	}
 
@@ -911,42 +1003,42 @@ public class DataAccess implements DataInterface {
 
 		if (type == userType.MENTEE) {
 			stm = c.prepareStatement(SQLStatements.getMeetingsByMentee);
-		}
-		if (type == userType.MENTOR) {
+		} else if (type == userType.MENTOR) {
 			stm = c.prepareStatement(SQLStatements.getMeetingsByMentor);
-		}
-		if (stm != null) {
-
-			stm.setInt(1, userId);
-			stm.setInt(2, status.ordinal());
-			stm.setInt(3, (page - 1) * (count));
-			stm.setInt(4, count);
-			ResultSet rs = stm.executeQuery();
-			m = new ArrayList<Meeting>();
-			while (rs.next()) {
-				java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
-
-				Meeting meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
-						rs.getInt(DataContract.MeetingTable.COL_PAIRID),
-						rs.getInt(DataContract.MeetingTable.COL_MENTORID),
-						rs.getInt(DataContract.MeetingTable.COL_MENTEEID),
-						rs.getString(DataContract.MeetingTable.COL_NOTE),
-						meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
-						rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
-						rs.getString(DataContract.MeetingTable.COL_MENTORREPORT),
-						rs.getString(DataContract.MeetingTable.COL_MENTEEPRIVREPORT),
-						rs.getString(DataContract.MeetingTable.COL_MENTORPRIVREPORT),
-						meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
-						rs.getString(DataContract.MeetingTable.COL_SUBJECT),
-						rs.getString(DataContract.MeetingTable.COL_LOCATION), SDate.getTime(),
-						rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
-						rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
-						rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
-						rs.getBoolean(DataContract.MeetingTable.COL_MENTEECOMPLETE));
-				m.add(meet);
-			}
+		} else {
+			return null;
 		}
 
+		stm.setInt(1, userId);
+		stm.setInt(2, status.ordinal());
+		stm.setInt(3, (page - 1) * (count));
+		stm.setInt(4, count);
+		ResultSet rs = stm.executeQuery();
+		m = new ArrayList<Meeting>();
+		while (rs.next()) {
+			java.sql.Date SDate = rs.getDate(DataContract.MeetingTable.COL_DATE);
+
+			Meeting meet = new Meeting(rs.getInt(DataContract.MeetingTable.COL_ACTIVITYID),
+					rs.getInt(DataContract.MeetingTable.COL_PAIRID), rs.getInt(DataContract.MeetingTable.COL_MENTORID),
+					rs.getInt(DataContract.MeetingTable.COL_MENTEEID), rs.getString(DataContract.MeetingTable.COL_NOTE),
+					meetingStatus.valueOf(rs.getInt(DataContract.MeetingTable.COL_STATUS)),
+					rs.getString(DataContract.MeetingTable.COL_MENTEEREPORT),
+					rs.getString(DataContract.MeetingTable.COL_MENTORREPORT),
+					rs.getString(DataContract.MeetingTable.COL_MENTEEPRIVREPORT),
+					rs.getString(DataContract.MeetingTable.COL_MENTORPRIVREPORT),
+					meetingType.getByValue(rs.getInt(DataContract.MeetingTable.COL_MEETINGTYPE)),
+					rs.getString(DataContract.MeetingTable.COL_SUBJECT),
+					rs.getString(DataContract.MeetingTable.COL_LOCATION), SDate.getTime(),
+					rs.getTime(DataContract.MeetingTable.COL_STARTINGTIME),
+					rs.getTime(DataContract.MeetingTable.COL_ENDINGTIME),
+					rs.getBoolean(DataContract.MeetingTable.COL_MENTORCOMPLETE),
+					rs.getBoolean(DataContract.MeetingTable.COL_MENTEECOMPLETE));
+			m.add(meet);
+		}
+
+		rs.close();
+		stm.close();
+		c.close();
 		return m;
 	}
 
@@ -957,6 +1049,9 @@ public class DataAccess implements DataInterface {
 		stm.setInt(2, a.getAreaId());
 		stm.setInt(3, a.getCityId());
 		stm.executeUpdate();
+
+		stm.close();
+		c.close();
 		return true;
 	}
 
@@ -974,6 +1069,9 @@ public class DataAccess implements DataInterface {
 					area.getId(), city.getId());
 			a.add(academic);
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return a;
 	}
 
@@ -991,6 +1089,9 @@ public class DataAccess implements DataInterface {
 					rs.getString(DataContract.WorkplacesTable.COL_ADDRESS), area.getId(), city.getId());
 			workplace.add(w);
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return workplace;
 	}
 
@@ -1041,9 +1142,12 @@ public class DataAccess implements DataInterface {
 					r.getBoolean(DataContract.MenteeTable.COL_SIGNEDEULA),
 					r.getString(DataContract.MenteeTable.COL_RESUME),
 					r.getString(DataContract.MenteeTable.COL_GRADESHEET));
+			m.add(mentee);
 		}
-		m.add(mentee);
 
+		r.close();
+		cStmt.close();
+		c.close();
 		return m;
 	}
 
@@ -1089,6 +1193,9 @@ public class DataAccess implements DataInterface {
 			m.add(mentor);
 		}
 
+		r.close();
+		cStmt.close();
+		c.close();
 		return m;
 	}
 
@@ -1139,6 +1246,9 @@ public class DataAccess implements DataInterface {
 					rs.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
 			pairs.add(p);
 		}
+		rs.close();
+		cStmt.close();
+		c.close();
 		return pairs;
 	}
 
@@ -1156,6 +1266,9 @@ public class DataAccess implements DataInterface {
 					rs.getString(DataContract.WorkplacesTable.COL_ADDRESS), area.getId(), city.getId());
 		}
 
+		rs.close();
+		stm.close();
+		c.close();
 		return work;
 	}
 
@@ -1172,6 +1285,9 @@ public class DataAccess implements DataInterface {
 					rs.getString(DataContract.AcademicInstituteTable.COL_NAME), area.getName(), city.getName(),
 					area.getId(), city.getId());
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return a;
 	}
 
@@ -1179,8 +1295,10 @@ public class DataAccess implements DataInterface {
 	public boolean changeMeetingStatus(int meetingId, int userId, meetingStatus status) throws SQLException {
 
 		Meeting m = getMeetingById(meetingId);
-		if (m == null) // no meeting with this ID
+		if (m == null) { // no meeting with this ID
+			c.close();
 			return false;
+		}
 
 		int meetingStatus = status.ordinal();
 		switch (meetingStatus) {
@@ -1191,6 +1309,8 @@ public class DataAccess implements DataInterface {
 			stm1.setInt(1, status.ordinal());
 			stm1.setInt(2, meetingId);
 			stm1.executeUpdate();
+			stm1.close();
+			c.close();
 			return true;
 		case 2:
 			// TODO: could be implemented better
@@ -1200,12 +1320,14 @@ public class DataAccess implements DataInterface {
 			stm2.setInt(1, meetingId);
 			stm2.setInt(2, userId);
 			stm2.executeUpdate();
+			stm2.close();
 			PreparedStatement stm3 = c.prepareStatement(SQLStatements.completeMentee); // only one
 																						// will
 																						// work
 			stm3.setInt(1, meetingId);
 			stm3.setInt(2, userId);
 			stm3.executeUpdate();
+			stm3.close();
 
 			PreparedStatement stm4 = c.prepareStatement(SQLStatements.checkIfComplete);
 			stm4.setInt(1, meetingId);
@@ -1215,10 +1337,15 @@ public class DataAccess implements DataInterface {
 				stm5.setInt(1, status.ordinal());
 				stm5.setInt(2, meetingId);
 				stm5.executeUpdate();
+				stm5.close();
 			}
+			rs.close();
+			stm4.close();
+			c.close();
 			return true;
 		}
 
+		c.close();
 		return false;
 	}
 
@@ -1231,9 +1358,16 @@ public class DataAccess implements DataInterface {
 		ResultSet rs = stm.executeQuery();
 
 		if (rs.next()) {
-			return rs.getInt(DataContract.PairsTable.COL_PAIRID);
+			int id = rs.getInt(DataContract.PairsTable.COL_PAIRID);
+			rs.close();
+			stm.close();
+			c.close();
+			return id;
 		}
 
+		rs.close();
+		stm.close();
+		c.close();
 		return -1;// default error value
 	}
 
@@ -1243,14 +1377,9 @@ public class DataAccess implements DataInterface {
 		stm.setString(1, message);
 		stm.setInt(2, meetingId);
 		stm.executeUpdate();
+		stm.close();
+		c.close();
 		return true;
-	}
-
-
-	@Override
-	public String getAddressById(int id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public City getCityById(int id) throws SQLException {
@@ -1263,6 +1392,9 @@ public class DataAccess implements DataInterface {
 			city = new City(rs.getInt(DataContract.CitiesTable.COL_ID),
 					rs.getString(DataContract.CitiesTable.COL_NAME));
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return city;
 	}
 
@@ -1275,6 +1407,9 @@ public class DataAccess implements DataInterface {
 		if (rs.next()) {
 			area = new Area(rs.getInt(DataContract.AreasTable.COL_ID), rs.getString(DataContract.AreasTable.COL_NAME));
 		}
+		rs.close();
+		stm.close();
+		c.close();
 		return area;
 	}
 
