@@ -60,6 +60,13 @@ public class AddWorkingPlace extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(res){
 			response.getWriter().append("Working Place Is Added");
 			req = request.getRequestDispatcher(nextPage);

@@ -141,7 +141,7 @@ public class DataAccess implements DataInterface {
 
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return u;
 	}
 
@@ -152,7 +152,7 @@ public class DataAccess implements DataInterface {
 		if (!rs.next()) { // user does not exist
 			rs.close();
 			stm.close();
-			c.close();
+			 
 			return false;
 		}
 		rs.close();
@@ -172,7 +172,7 @@ public class DataAccess implements DataInterface {
 
 		if (user.getType() == userType.TSOFEN || user.getType() == userType.ADMIN) {
 			stm2.close();
-			c.close();
+			 
 			return true;
 		}
 		if (user.getType() == userType.MENTOR) {
@@ -187,7 +187,7 @@ public class DataAccess implements DataInterface {
 			stm3.executeUpdate();
 
 			stm3.close();
-			c.close();
+			 
 			return true;
 		}
 
@@ -206,11 +206,11 @@ public class DataAccess implements DataInterface {
 			stm4.executeUpdate();
 
 			stm4.close();
-			c.close();
+			 
 			return true;
 		}
 
-		c.close();
+		 
 		return false;
 	}
 
@@ -225,12 +225,12 @@ public class DataAccess implements DataInterface {
 			stm2.setInt(1, id);
 			stm2.executeQuery();
 			stm2.close();
-			c.close();
+			 
 			return true;
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return false;
 	}
 
@@ -256,7 +256,7 @@ public class DataAccess implements DataInterface {
 			System.out.println("BAD, USER ALREADY EXISTS");
 			rs.close();
 			stm.close();
-			c.close();
+			 
 			return -1;
 		}
 		PreparedStatement stm2 = c.prepareStatement(SQLStatements.insertUser);
@@ -284,7 +284,7 @@ public class DataAccess implements DataInterface {
 			rs.close();
 			stm.close();
 			stm2.close();
-			c.close();
+			 
 			return -1;
 		}
 		rs.close();
@@ -306,7 +306,7 @@ public class DataAccess implements DataInterface {
 
 			stm3.executeUpdate();
 			stm3.close();
-			c.close();
+			 
 			return id;
 		}
 
@@ -326,7 +326,7 @@ public class DataAccess implements DataInterface {
 			stm4.close();
 			return id;
 		}
-		c.close();
+		 
 		return -1;
 	}
 
@@ -415,7 +415,6 @@ public class DataAccess implements DataInterface {
 		}
 		r.close();
 		stm.close();
-		c.close();
 		return users;
 	}
 
@@ -437,7 +436,7 @@ public class DataAccess implements DataInterface {
 		}
 		r.close();
 		stm.close();
-		c.close();
+	
 		return pair;
 	}
 
@@ -528,7 +527,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return user;
 	}
 
@@ -540,7 +539,7 @@ public class DataAccess implements DataInterface {
 		if (!rs.next()) { // user does not exist
 			rs.close();
 			stm.close();
-			c.close();
+			 
 			return false;
 		}
 		stm = c.prepareStatement(SQLStatements.selectMenteeById);
@@ -549,7 +548,7 @@ public class DataAccess implements DataInterface {
 		if (!rs.next()) { // user does not exist
 			rs.close();
 			stm.close();
-			c.close();
+			 
 			return false;
 		}
 		stm = c.prepareStatement(SQLStatements.selectMenteeInPair);
@@ -558,7 +557,7 @@ public class DataAccess implements DataInterface {
 		if (rs.next()) { // mentee already in pair
 			rs.close();
 			stm.close();
-			c.close();
+			 
 			return false;
 		}
 		stm = c.prepareStatement(SQLStatements.insertPair);
@@ -570,7 +569,7 @@ public class DataAccess implements DataInterface {
 		stm.executeUpdate();
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return true;
 
 	}
@@ -584,7 +583,7 @@ public class DataAccess implements DataInterface {
 		if (!rs.next()) { // user does not exist
 			rs.close();
 			stm.close();
-			c.close();
+			 
 			throw new SQLException("user-mentor does not exist");
 		}
 		stm = c.prepareStatement(SQLStatements.selectMenteeById);
@@ -593,7 +592,7 @@ public class DataAccess implements DataInterface {
 		if (!rs.next()) { // user does not exist
 			rs.close();
 			stm.close();
-			c.close();
+			 
 			throw new SQLException("user-mentee does not exist");
 		}
 		stm = c.prepareStatement(SQLStatements.insertPair, Statement.RETURN_GENERATED_KEYS);
@@ -606,7 +605,7 @@ public class DataAccess implements DataInterface {
 		if (num == 0) {
 			rs.close();
 			stm.close();
-			c.close();
+			 
 			throw new SQLException("Creating pair failed, no rows affected.");
 
 		}
@@ -617,14 +616,14 @@ public class DataAccess implements DataInterface {
 			} else {
 				rs.close();
 				stm.close();
-				c.close();
+				 
 				throw new SQLException("Creating user failed, no ID obtained.");
 
 			}
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return p;
 
 	}
@@ -636,7 +635,7 @@ public class DataAccess implements DataInterface {
 			stm.setInt(1, pairId);
 			stm.executeUpdate();
 			stm.close();
-			c.close();
+			 
 		} catch (SQLException e) {
 			return false;
 		}
@@ -667,7 +666,7 @@ public class DataAccess implements DataInterface {
 				rs.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return p;
 	}
 
@@ -689,7 +688,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return session;
 	}
 
@@ -715,7 +714,7 @@ public class DataAccess implements DataInterface {
 				// TODO: LOG ERROR
 				rs.close();
 				stm.close();
-				c.close();
+				 
 				return null;
 			}
 		}
@@ -744,7 +743,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return meeting;
 	}
 
@@ -760,7 +759,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return m;
 
 	}
@@ -777,7 +776,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return mentees;
 	}
 
@@ -810,7 +809,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return m;
 	}
 
@@ -825,7 +824,7 @@ public class DataAccess implements DataInterface {
 		stm.executeUpdate();
 
 		stm.close();
-		c.close();
+		 
 		return true;
 
 	}
@@ -873,7 +872,7 @@ public class DataAccess implements DataInterface {
 			stm.setBoolean(17, meeting.getMenteeComplete());
 			stm.executeUpdate();
 			stm.close();
-			c.close();
+			 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -912,7 +911,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return m;
 	}
 
@@ -945,7 +944,7 @@ public class DataAccess implements DataInterface {
 
 		r.close();
 		stm.close();
-		c.close();
+		 
 		return menteesList;
 
 	}
@@ -974,7 +973,7 @@ public class DataAccess implements DataInterface {
 
 		r.close();
 		stm.close();
-		c.close();
+		 
 		return mentorList;
 	}
 
@@ -989,7 +988,7 @@ public class DataAccess implements DataInterface {
 		stm.executeUpdate();
 
 		stm.close();
-		c.close();
+		 
 		return true;
 	}
 
@@ -1038,7 +1037,7 @@ public class DataAccess implements DataInterface {
 
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return m;
 	}
 
@@ -1051,7 +1050,7 @@ public class DataAccess implements DataInterface {
 		stm.executeUpdate();
 
 		stm.close();
-		c.close();
+		 
 		return true;
 	}
 
@@ -1071,7 +1070,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return a;
 	}
 
@@ -1091,7 +1090,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return workplace;
 	}
 
@@ -1147,7 +1146,7 @@ public class DataAccess implements DataInterface {
 
 		r.close();
 		cStmt.close();
-		c.close();
+		 
 		return m;
 	}
 
@@ -1195,7 +1194,7 @@ public class DataAccess implements DataInterface {
 
 		r.close();
 		cStmt.close();
-		c.close();
+		 
 		return m;
 	}
 
@@ -1248,7 +1247,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		cStmt.close();
-		c.close();
+		 
 		return pairs;
 	}
 
@@ -1268,7 +1267,7 @@ public class DataAccess implements DataInterface {
 
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return work;
 	}
 
@@ -1287,7 +1286,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return a;
 	}
 
@@ -1296,7 +1295,7 @@ public class DataAccess implements DataInterface {
 
 		Meeting m = getMeetingById(meetingId);
 		if (m == null) { // no meeting with this ID
-			c.close();
+			 
 			return false;
 		}
 
@@ -1310,7 +1309,7 @@ public class DataAccess implements DataInterface {
 			stm1.setInt(2, meetingId);
 			stm1.executeUpdate();
 			stm1.close();
-			c.close();
+			 
 			return true;
 		case 2:
 			// TODO: could be implemented better
@@ -1341,11 +1340,11 @@ public class DataAccess implements DataInterface {
 			}
 			rs.close();
 			stm4.close();
-			c.close();
+			 
 			return true;
 		}
 
-		c.close();
+		 
 		return false;
 	}
 
@@ -1361,13 +1360,13 @@ public class DataAccess implements DataInterface {
 			int id = rs.getInt(DataContract.PairsTable.COL_PAIRID);
 			rs.close();
 			stm.close();
-			c.close();
+			 
 			return id;
 		}
 
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return -1;// default error value
 	}
 
@@ -1378,7 +1377,7 @@ public class DataAccess implements DataInterface {
 		stm.setInt(2, meetingId);
 		stm.executeUpdate();
 		stm.close();
-		c.close();
+		 
 		return true;
 	}
 
@@ -1394,7 +1393,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return city;
 	}
 
@@ -1409,7 +1408,7 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-		c.close();
+		 
 		return area;
 	}
 
