@@ -169,10 +169,6 @@ public class ServerUtils {
 		
 		for(int i=0;i<userSessions.size();i++) {
 			Session s=userSessions.get(i);
-			System.out.println(s.getCreationDate());
-			System.out.println(s.getExpirationDate());
-			System.out.println(s.getToken());
-
 
 			if(s.getToken().equals(token) && s.getExpirationDate()>new Date().getTime()) {
 				return true;
