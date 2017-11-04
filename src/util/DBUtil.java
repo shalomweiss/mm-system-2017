@@ -39,38 +39,7 @@ public class DBUtil {
 			
 		return conn;
 		
-		
-//		
-//		if (conn != null)
-//			return conn;
-//		try {
-//			Class.forName("com.mysql.jdbc.Driver");
-//
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//
-//		}
-//////
-//		String url = "jdbc:mysql://aa16lmxbq1txb0j.coi6zcmnhpte.us-east-2.rds.amazonaws.com:3306/db";
-//		String username = "tsofendbmaster2";
-//		String password = "ESEahn57327";
-//
-//	//	 DEBUG VALUES
-////		 String url = "jdbc:mysql://localhost:3306/db";
-////		 String username = "root";
-////		 String password = "1234";
-//		try {
-//			logger.log(Level.INFO,"Attempting to connection to: " + url + " with user: " + username + " password: " +password);
-//			conn = DriverManager.getConnection(url, username, password);
-//		}
-//
-//		catch (java.sql.SQLException e) {
-//			logger.log(Level.SEVERE,"Connection not opened");
-//			System.out.println(e.getMessage());
-//		}
-//
-//		return conn;
+
 	}
 
 	public static void closeConnection(Connection toBeClosed) {
