@@ -68,15 +68,18 @@ public class DownloadFile extends HttpServlet {
 					if (jsonRequest.has("img") && jsonRequest.get("img").getAsString() != null) {
 						if (!ClientDownloadFile.downloadFile(id, ClientDownloadFile.PIC_BUCKET, response)) {
 							ClientDownloadFile.downloadFile("defaultImage", ClientDownloadFile.PIC_BUCKET, response);
+							iom.getDataAccess().closeConnection();
 						}
 					}
 
 					if (jsonRequest.has("cv") && jsonRequest.get("cv").getAsString() != null) {
 						ClientDownloadFile.downloadFile(id, ClientDownloadFile.CV_BUCKET, response);
+						iom.getDataAccess().closeConnection();
 					}
 
 					if (jsonRequest.has("grade") && jsonRequest.get("grade").getAsString() != null) {
 						ClientDownloadFile.downloadFile(id, ClientDownloadFile.GRADE_BUCKET, response);
+						iom.getDataAccess().closeConnection();
 					}
 
 				} else {
@@ -84,7 +87,7 @@ public class DownloadFile extends HttpServlet {
 					if (jsonRequest.has("img")) {
 
 						ClientDownloadFile.downloadFile("defaultImage", ClientDownloadFile.PIC_BUCKET, response);
-
+						iom.getDataAccess().closeConnection();
 					}
 
 					if (jsonRequest.has("cv")) {
