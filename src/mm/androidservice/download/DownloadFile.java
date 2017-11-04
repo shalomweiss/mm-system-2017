@@ -36,6 +36,28 @@ public class DownloadFile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if(request.getParameter("logo")!=null) {
+			String imgName = request.getParameter("logo");
+			if(imgName.equals("MP-LOGO-10.png")) {
+				ClientDownloadFile.downloadFile("MP-LOGO-10.png", ClientDownloadFile.PIC_BUCKET, response);
+			
+
+			}else if(imgName.equals("logo-tsofen-tagline-trans-whiteback_2016.png")) {
+				ClientDownloadFile.downloadFile("logo-tsofen-tagline-trans-whiteback_2016.png", ClientDownloadFile.PIC_BUCKET, response);
+			
+			}else if(imgName.equals("logo-tsofen-black.png")) {
+				ClientDownloadFile.downloadFile("logo-tsofen-black.png", ClientDownloadFile.PIC_BUCKET, response);
+				
+			}
+			else if(imgName.equals("defaultImage")) {
+				ClientDownloadFile.downloadFile("defaultImage", ClientDownloadFile.PIC_BUCKET, response);
+				
+			}
+		}
+	
+		
+		
+		
 	}
 
 	/**
@@ -46,11 +68,14 @@ public class DownloadFile extends HttpServlet {
 			throws ServletException, IOException {
 
 		String id = null;
-
+		String token = null;
 		AndroidIOManager iom = new AndroidIOManager(request, response);
 		JsonObject jsonRequest = iom.getJsonRequest();
-		String token = jsonRequest.get("token").getAsString();
-
+		try {
+		token = jsonRequest.get("token").getAsString();
+		}catch(NullPointerException e) {
+			
+		}
 		if (jsonRequest.has("img") || jsonRequest.has("cv") || jsonRequest.has("grade")) {
 
 			if (jsonRequest.has("img"))
@@ -61,6 +86,10 @@ public class DownloadFile extends HttpServlet {
 
 			if (jsonRequest.has("cv"))
 				id = jsonRequest.get("cv").getAsString();
+			
+			
+		
+			
 
 			try {
 				if (token != null
