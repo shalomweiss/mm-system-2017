@@ -57,14 +57,14 @@ public class GetMentorOfMentee extends HttpServlet {
 		}
         request.setAttribute("MentorByMenteeId", mentor);	
    
-        Gson gson = new Gson();
-		String mentorGson = gson.toJson(mentor, Constants.MENTOR_Class);
-		
-	    
-	    response.setContentType("Content-Type: application/json");
-	    PrintWriter writer = response.getWriter().append(mentorGson);
-		writer.println();
-		writer.close();
+//        Gson gson = new Gson();
+//		String mentorGson = gson.toJson(mentor, Constants.MENTOR_Class);
+//		
+//	    
+//	    response.setContentType("Content-Type: application/json");
+//	    PrintWriter writer = response.getWriter().append(mentorGson);
+//		writer.println();
+//		writer.close();
 
         
         
