@@ -12,33 +12,48 @@ import org.apache.tomcat.dbcp.dbcp2.*;
 
 
 public class DBUtil {
-	private static Connection conn;
-
-	public static Connection getConnection() {
-		Logger logger = Logger.getLogger(DBUtil.class.getName());
-		logger.log(Level.INFO,"No open connection");
-		
 	
-			Context initContext;
-			try {
-				initContext = new InitialContext();
-				Context envContext = (Context) initContext.lookup("java:comp/env");
-				BasicDataSource ds = (BasicDataSource) envContext.lookup("jdbc/UsersDB");
+	private BasicDataSource ds;
+	
+	
+	 private static DBUtil instance = null;
+	   private DBUtil() {
+			
+			Logger logger = Logger.getLogger(DBUtil.class.getName());
+			logger.log(Level.INFO,"No open connection");
+		   
+		   Context initContext;
+
 				try {
-					conn = ds.getConnection();
-				} catch (SQLException e) {
+					initContext = new InitialContext();
+					Context envContext = (Context) initContext.lookup("java:comp/env");
+					ds = (BasicDataSource) envContext.lookup("jdbc/UsersDB");
+				} catch (NamingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} catch (NamingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			
 		
 			
-		return conn;
-		
+	   }
+
+	   public static DBUtil getInstance() {
+	      if(instance == null) {
+	         instance = new DBUtil();
+	      }
+	      return instance;
+	   }
+	   
+	   
+
+	public static Connection getConnection() {
+	
+		try {
+			return DBUtil.getInstance().ds.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 
 	}
 
