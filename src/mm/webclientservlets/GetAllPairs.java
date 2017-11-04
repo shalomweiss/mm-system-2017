@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
+import mm.model.Mentee;
+import mm.model.Mentor;
 import mm.model.Pair;
 import mm.model.PairsInfo;
 
@@ -45,9 +47,6 @@ public class GetAllPairs extends HttpServlet {
 		System.out.println("Get AllPairs Servlet");
 
 		ArrayList<Pair> pairsArray = new ArrayList<Pair>();
-		//Daniel did this change because I need more info that the pair model has
-		//ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
-		//added by Daniel
 		ArrayList<Pair> activePairsArray= new ArrayList<Pair>();
 		DataAccess da = new DataAccess();
 		 try {
@@ -62,20 +61,17 @@ public class GetAllPairs extends HttpServlet {
 				try {
 					pair.setMentee(da.getUser(pair.getMenteeId()));
 					pair.setMentor(da.getUser(pair.getMentorId()));
-					
+					((Mentee)pair.getMentee()).setAcademiclnstitutionName((da.getAcademicInstituteById(((Mentee)pair.getMentee()).getAcademiclnstitution()).getName()));
+					((Mentor)pair.getMentor()).setCompanyName((da.getWorkPlaceById(((Mentor)pair.getMentor()).getCompany()).getCompany()));
+
 					activePairsArray.add(pair);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//Daniel did this change because I need more info that the pair model has
-				/*PairsInfo tmpPairInfo = new PairsInfo(pair.getMentee().getFirstName(), pair.getMentor().getFirstName(),
-						pair.getPairId(), pair.getActiveStatus());
-				pairsMainInfo.add(tmpPairInfo);*/
 				
 			}
 		}
-		//changed by Daniel
 		request.setAttribute("pairs", activePairsArray);
 		response.setContentType("text/html");
 	    RequestDispatcher req = request.getRequestDispatcher("mainPair.jsp");

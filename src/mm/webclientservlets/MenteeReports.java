@@ -57,23 +57,8 @@ public class MenteeReports extends HttpServlet {
 		writer.println();
 		writer.close();
 
-		RequestDispatcher req=new RequestDispatcher() {
-			
-			@Override
-			public void include(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void forward(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
-				// TODO Auto-generated method stub
-				
-			}
-		} ;
-		req.forward(request, response);
-
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
