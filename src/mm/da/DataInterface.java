@@ -108,5 +108,7 @@ public interface DataInterface {
 
 
 	public boolean editMeetingNote(int meetingId, String message) throws SQLException;
+	
+	public void closeConnection() throws SQLException;
 
 }
