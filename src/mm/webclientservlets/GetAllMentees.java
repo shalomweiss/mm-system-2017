@@ -64,17 +64,13 @@ public class GetAllMentees extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
-		
-//			ArrayList<Address> Address =new ArrayList<Address>();
-//			 try {
-//				 Address = da.getAllAddress();
-//				 } catch (SQLException e) {
-//				 // TODO Auto-generated catch block
-//				 e.printStackTrace();
-//				 }
-//		 
-//		 
-//	    request.setAttribute("AddressList", Address);
+			try {
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		request.setAttribute("Mentees", ArrMentees);
 		request.setAttribute("AcadimicIn", AcadimicIn); 
 	

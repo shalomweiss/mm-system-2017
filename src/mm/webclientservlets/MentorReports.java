@@ -20,6 +20,7 @@ import mm.constants.Constants;
 import mm.da.DataAccess;
 import mm.model.Mentor;
 import mm.model.User;
+import mm.model.User.userType;
 
 @WebServlet("/MentorReports")
 public class MentorReports extends HttpServlet {
@@ -31,7 +32,8 @@ public class MentorReports extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+        
+		System.out.println("Mentors's Reports ");
 		DataAccess da = new DataAccess();
 		boolean flagAddress = false;
 		boolean flagGender = false;
@@ -67,48 +69,21 @@ public class MentorReports extends HttpServlet {
 			  inPair = Integer.parseInt(request.getParameter("inPair"));
 		}
 		
-		ArrayList<Mentor> allMentors=new ArrayList<Mentor>();
+		ArrayList<User> allMentors=new ArrayList<User>();
 		try {
-			allMentors = da.getAllCorrespondingMentors(address, gender, company, inPair);
+		//	allMentors = da.getAllCorrespondingMentors(address, gender, company, inPair);
+			allMentors = da.getUsers(userType.MENTOR);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		Gson gson = new Gson();
-	    System.out.println("USER with not json " +allMentors);
-		String mentorReports = gson.toJson(allMentors, Constants.MENTOR_Class);
-		
-	    System.out.println("USer with JSON" + allMentors);	    
-	    
+		String mentorReports = gson.toJson(allMentors, Constants.MENTOR_Class);	    
 	    response.setContentType("Content-Type: application/json");
-	    System.out.println("MentorsReports" + allMentors);
 	    PrintWriter writer = response.getWriter().append(mentorReports);
 		writer.println();
-		writer.close();
-
-		RequestDispatcher req=new RequestDispatcher() {
-			
-			@Override
-			public void include(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void forward(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
-				// TODO Auto-generated method stub
-				
-			}
-		} ;
-		req.forward(request, response);
-		
-		
-		
-		
-	    	    
-
-
+		writer.close();		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

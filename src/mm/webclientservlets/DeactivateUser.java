@@ -55,6 +55,13 @@ public class DeactivateUser extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(res){
 		req = request.getRequestDispatcher(nextPage);			
 		}
