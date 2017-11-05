@@ -52,6 +52,12 @@ public class DisconnectPair extends HttpServlet {
 	    
 		res = da.disconnectPair(id);
 		
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(res){
 		//	response.getWriter().append("Disconnect Pair Successfull");

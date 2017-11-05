@@ -72,7 +72,13 @@ public class GetMentorsAndMentees extends HttpServlet {
 					e.printStackTrace();
 				}			
 			 }
-		
+		 try {
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		request.setAttribute("Mentees", arrMentees);
 		response.setContentType("text/html");
 	

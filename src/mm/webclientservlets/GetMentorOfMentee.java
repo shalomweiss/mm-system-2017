@@ -55,7 +55,13 @@ public class GetMentorOfMentee extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        request.setAttribute("MentorByMenteeId", mentor);	
+        try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
    
         Gson gson = new Gson();
 		String mentorGson = gson.toJson(mentor, Constants.MENTOR_Class);
