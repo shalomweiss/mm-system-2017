@@ -70,6 +70,19 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 var prevRow;
+function deactivate(param)
+{
+	var row=param.parentNode.parentNode;
+	$.post("DeactivateUser",{
+		'userId':row.firstChild.nextSibling.innerHTML,
+	},
+	        function(data,status){
+	        	alert(data);
+	        });
+	row.parentNode.removeChild(row.nextSibling.nextSibling);
+	row.parentNode.removeChild(row);
+	
+}
 function sendAPK(param)
 {
 	var thisForm=param.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
