@@ -178,7 +178,9 @@ public class DataAccess implements DataInterface {
 		stm2.setString(5, user.getAddress());
 		stm2.setString(6, user.getNote());
 		stm2.setString(7, user.getProfilePicture());
-		stm2.setInt(8, user.getId());
+		stm2.setInt(8, user.getAreaId());
+		stm2.setInt(9, user.getCityId());
+		stm2.setInt(10, user.getId());
 		stm2.executeUpdate();
 
 		if (user.getType() == userType.TSOFEN || user.getType() == userType.ADMIN) {
