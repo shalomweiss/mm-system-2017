@@ -51,8 +51,18 @@ public class AddNewMentor extends HttpServlet {
 		int company = Integer.parseInt(request.getParameter("company"));
 		String pass = GeneratePass.getSaltString();
 		String ProfilePicture = request.getParameter("profilePicture");
+		String cityId=request.getParameter("cityId");
+		String areaId=request.getParameter("areaId");
+
+	
+		int uCity= Integer.parseInt(cityId);
+
+		int uArea= Integer.parseInt(areaId);
+	    long millis=System.currentTimeMillis();  
+	    java.sql.Date date=new java.sql.Date(millis);
+		
 		User newMentor = new Mentor(0, firstName, lastName, email, phoneNumber, pass, gender, address, notes,
-				ProfilePicture, true, userType.MENTOR, experience, role, company, volunteering, workHistory);
+				ProfilePicture, true, userType.MENTOR,uArea,"",uCity,"",date, experience, role, company, volunteering, workHistory);
 		DataAccess da = new DataAccess();
 		int res = -1;
 		RequestDispatcher req = null;

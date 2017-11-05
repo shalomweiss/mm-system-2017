@@ -2,6 +2,7 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -56,7 +57,7 @@ public class AddMentee extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("here to stay");
+		System.out.println("ADD MENTEE");
     	String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
@@ -74,15 +75,23 @@ public class AddMentee extends HttpServlet {
 		String resume=request.getParameter("uResume");
 		String gradeSheet=request.getParameter("uGradeSheet");
 		String profilePicture=request.getParameter("profilePicture");
+		String cityId=request.getParameter("cityId");
+		String areaId=request.getParameter("areaId");
 		
 		Float avg = Float.valueOf(uAverage);
 		Float remSemesters= Float.valueOf(uRemSemesters);
 		int uGender= Integer.parseInt(gender);
+		int uCity= Integer.parseInt(cityId);
+
+		int uArea= Integer.parseInt(areaId);
+		
 		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
 		boolean SignedEULA=Boolean.parseBoolean(Signed);
 
-		String uPass= GeneratePass.getSaltString();	 
-		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
+		String uPass= GeneratePass.getSaltString();	
+        long millis=System.currentTimeMillis();  
+        Date date=new Date(millis);
+		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,uArea,"",uCity,"",date,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
 		
 		User user=new User();
 		DataAccess da = new DataAccess();

@@ -4,6 +4,8 @@ import mm.model.Meeting;
 import mm.model.Meeting.meetingStatus;
 import mm.model.Meeting.meetingType;
 import mm.model.AcademicInstitute;
+import mm.model.Area;
+import mm.model.City;
 import mm.model.Mentee;
 import mm.model.Mentor;
 import mm.model.Pair;
@@ -110,5 +112,10 @@ public interface DataInterface {
 	public boolean editMeetingNote(int meetingId, String message) throws SQLException;
 	
 	public void closeConnection() throws SQLException;
+	
+	public ArrayList<Area> getAllAreas() throws SQLException;
+	
+	public ArrayList<City> getAllCities() throws SQLException;
+	
 
 }
