@@ -59,6 +59,8 @@ public class DataAccess implements DataInterface {
 		User u = null;
 		if (rs.next()) {
 			int type = rs.getInt(DataContract.UsersTable.COL_TYPE);
+			City city = getCityById(rs.getInt(DataContract.UsersTable.COL_CITYID));
+			Area area = getAreaById(rs.getInt(DataContract.UsersTable.COL_AREAID));
 			switch (type) {
 
 			case 0: // Admin
@@ -77,7 +79,8 @@ public class DataAccess implements DataInterface {
 						rs.getString(DataContract.UsersTable.COL_NOTES),
 						rs.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 						rs.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.TSOFEN,
-						rs.getInt(DataContract.UsersTable.COL_AREAID), rs.getInt(DataContract.UsersTable.COL_CITYID),
+						rs.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+						rs.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 						rs.getDate(DataContract.UsersTable.COL_JOINDATE));
 				break;
 			case 2:// Mentor
@@ -86,7 +89,7 @@ public class DataAccess implements DataInterface {
 				stm2.setInt(1, rs.getInt(DataContract.MentorsTable.COL_ID));
 
 				ResultSet rs2 = stm2.executeQuery();
-				if (rs2.next())
+				if (rs2.next()) {
 					u = new Mentor(rs.getInt(DataContract.UsersTable.COL_ID),
 							rs.getString(DataContract.UsersTable.COL_FIRSTNAME),
 							rs.getString(DataContract.UsersTable.COL_LASTNAME),
@@ -98,14 +101,15 @@ public class DataAccess implements DataInterface {
 							rs.getString(DataContract.UsersTable.COL_NOTES),
 							rs.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 							rs.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTOR,
-							rs.getInt(DataContract.UsersTable.COL_AREAID),
-							rs.getInt(DataContract.UsersTable.COL_CITYID),
+							rs.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+							rs.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 							rs.getDate(DataContract.UsersTable.COL_JOINDATE),
 							rs2.getString(DataContract.MentorsTable.COL_EXPERIENCE),
 							rs2.getString(DataContract.MentorsTable.COL_ROLE),
 							rs2.getInt(DataContract.MentorsTable.COL_COMPANY),
 							rs2.getString(DataContract.MentorsTable.COL_VOLUNTEERING),
 							rs2.getString(DataContract.MentorsTable.COL_WORKHISTORY));
+				}
 				rs2.close();
 				stm2.close();
 				break;
@@ -127,8 +131,8 @@ public class DataAccess implements DataInterface {
 							rs.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 							rs.getString(DataContract.UsersTable.COL_NOTES),
 							rs.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTEE,
-							rs.getInt(DataContract.UsersTable.COL_AREAID),
-							rs.getInt(DataContract.UsersTable.COL_CITYID),
+							rs.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+							rs.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 							rs.getDate(DataContract.UsersTable.COL_JOINDATE),
 							rs3.getFloat(DataContract.MenteeTable.COL_REMAININGSEMESTERS),
 							rs3.getString(DataContract.MenteeTable.COL_GRADUATIONSTATUS),
@@ -339,6 +343,8 @@ public class DataAccess implements DataInterface {
 			stm.setInt(1, type.getValue());
 			r = stm.executeQuery();
 			while (r.next()) {
+				City city = getCityById(r.getInt(DataContract.UsersTable.COL_CITYID));
+				Area area = getAreaById(r.getInt(DataContract.UsersTable.COL_AREAID));
 				u = new TsofenT(r.getInt(DataContract.UsersTable.COL_ID),
 						r.getString(DataContract.UsersTable.COL_FIRSTNAME),
 						r.getString(DataContract.UsersTable.COL_LASTNAME),
@@ -349,7 +355,8 @@ public class DataAccess implements DataInterface {
 						r.getString(DataContract.UsersTable.COL_NOTES),
 						r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 						r.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.TSOFEN,
-						r.getInt(DataContract.UsersTable.COL_AREAID), r.getInt(DataContract.UsersTable.COL_CITYID),
+						r.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+						r.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 						r.getDate(DataContract.UsersTable.COL_JOINDATE));
 				users.add(u);
 			}
@@ -360,6 +367,8 @@ public class DataAccess implements DataInterface {
 			stm = c.prepareStatement(SQLStatements.selectMentor);
 			r = stm.executeQuery();
 			while (r.next()) {
+				City city = getCityById(r.getInt(DataContract.UsersTable.COL_CITYID));
+				Area area = getAreaById(r.getInt(DataContract.UsersTable.COL_AREAID));
 				u = new Mentor(r.getInt(DataContract.UsersTable.COL_ID),
 						r.getString(DataContract.UsersTable.COL_FIRSTNAME),
 						r.getString(DataContract.UsersTable.COL_LASTNAME),
@@ -370,7 +379,8 @@ public class DataAccess implements DataInterface {
 						r.getString(DataContract.UsersTable.COL_NOTES),
 						r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 						r.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTOR,
-						r.getInt(DataContract.UsersTable.COL_AREAID), r.getInt(DataContract.UsersTable.COL_CITYID),
+						r.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+						r.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 						r.getDate(DataContract.UsersTable.COL_JOINDATE),
 						r.getString(DataContract.MentorsTable.COL_EXPERIENCE),
 						r.getString(DataContract.MentorsTable.COL_ROLE),
@@ -386,6 +396,8 @@ public class DataAccess implements DataInterface {
 			stm = c.prepareStatement(SQLStatements.selectMentee);
 			r = stm.executeQuery();
 			while (r.next()) {
+				City city = getCityById(r.getInt(DataContract.UsersTable.COL_CITYID));
+				Area area = getAreaById(r.getInt(DataContract.UsersTable.COL_AREAID));
 				u = new Mentee(r.getInt(DataContract.UsersTable.COL_ID),
 						r.getString(DataContract.UsersTable.COL_FIRSTNAME),
 						r.getString(DataContract.UsersTable.COL_LASTNAME),
@@ -396,7 +408,8 @@ public class DataAccess implements DataInterface {
 						r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 						r.getString(DataContract.UsersTable.COL_NOTES),
 						r.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTEE,
-						r.getInt(DataContract.UsersTable.COL_AREAID), r.getInt(DataContract.UsersTable.COL_CITYID),
+						r.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+						r.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 						r.getDate(DataContract.UsersTable.COL_JOINDATE),
 						r.getFloat(DataContract.MenteeTable.COL_REMAININGSEMESTERS),
 						r.getString(DataContract.MenteeTable.COL_GRADUATIONSTATUS),
@@ -450,6 +463,8 @@ public class DataAccess implements DataInterface {
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
 			int type = rs.getInt(2);
+			City city = getCityById(rs.getInt(DataContract.UsersTable.COL_CITYID));
+			Area area = getAreaById(rs.getInt(DataContract.UsersTable.COL_AREAID));
 			switch (type) {
 
 			case 0:
@@ -466,7 +481,8 @@ public class DataAccess implements DataInterface {
 						rs.getString(DataContract.UsersTable.COL_NOTES),
 						rs.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 						rs.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.TSOFEN,
-						rs.getInt(DataContract.UsersTable.COL_AREAID), rs.getInt(DataContract.UsersTable.COL_CITYID),
+						rs.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+						rs.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 						rs.getDate(DataContract.UsersTable.COL_JOINDATE));
 
 				break;
@@ -487,8 +503,8 @@ public class DataAccess implements DataInterface {
 							rs.getString(DataContract.UsersTable.COL_NOTES),
 							rs.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 							rs.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTOR,
-							rs.getInt(DataContract.UsersTable.COL_AREAID),
-							rs.getInt(DataContract.UsersTable.COL_CITYID),
+							rs.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+							rs.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 							rs.getDate(DataContract.UsersTable.COL_JOINDATE),
 							rs2.getString(DataContract.MentorsTable.COL_EXPERIENCE),
 							rs2.getString(DataContract.MentorsTable.COL_ROLE),
@@ -515,8 +531,8 @@ public class DataAccess implements DataInterface {
 							rs.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 							rs.getString(DataContract.UsersTable.COL_NOTES),
 							rs.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTEE,
-							rs.getInt(DataContract.UsersTable.COL_AREAID),
-							rs.getInt(DataContract.UsersTable.COL_CITYID),
+							rs.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+							rs.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 							rs.getDate(DataContract.UsersTable.COL_JOINDATE),
 							rs3.getFloat(DataContract.MenteeTable.COL_REMAININGSEMESTERS),
 							rs3.getString(DataContract.MenteeTable.COL_GRADUATIONSTATUS),
@@ -703,7 +719,7 @@ public class DataAccess implements DataInterface {
 	}
 
 	@SuppressWarnings("resource") // got warning about stm in case 3 not being closed
-	@Override // TODO: RECHECK CODE
+	@Override
 	public ArrayList<Meeting> getUserMeetings(int id) throws SQLException {
 		ArrayList<Meeting> meeting = new ArrayList<Meeting>();
 		Meeting meet = null;
@@ -933,6 +949,8 @@ public class DataAccess implements DataInterface {
 		stm.executeQuery(SQLStatements.getAllMenteesWithoutMentor);
 		ResultSet r = stm.getResultSet();
 		while (r.next()) {
+			City city = getCityById(r.getInt(DataContract.UsersTable.COL_CITYID));
+			Area area = getAreaById(r.getInt(DataContract.UsersTable.COL_AREAID));
 			u = new Mentee(r.getInt(DataContract.UsersTable.COL_ID), r.getString(DataContract.UsersTable.COL_FIRSTNAME),
 					r.getString(DataContract.UsersTable.COL_LASTNAME), r.getString(DataContract.UsersTable.COL_EMAIL),
 					r.getString(DataContract.UsersTable.COL_PHONENUMBER),
@@ -940,8 +958,9 @@ public class DataAccess implements DataInterface {
 					r.getString(DataContract.UsersTable.COL_ADDRESS),
 					r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 					r.getString(DataContract.UsersTable.COL_NOTES), r.getBoolean(DataContract.UsersTable.COL_ACTIVE),
-					userType.MENTEE, r.getInt(DataContract.UsersTable.COL_AREAID),
-					r.getInt(DataContract.UsersTable.COL_CITYID), r.getDate(DataContract.UsersTable.COL_JOINDATE),
+					userType.MENTEE, r.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+					r.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
+					r.getDate(DataContract.UsersTable.COL_JOINDATE),
 					r.getFloat(DataContract.MenteeTable.COL_REMAININGSEMESTERS),
 					r.getString(DataContract.MenteeTable.COL_GRADUATIONSTATUS),
 					r.getInt(DataContract.MenteeTable.COL_ACADEMICINSTITUTE),
@@ -969,6 +988,8 @@ public class DataAccess implements DataInterface {
 		stm.executeQuery(SQLStatements.getAllMentorsWithoutMentees);
 		ResultSet r = stm.getResultSet();
 		while (r.next()) {
+			City city = getCityById(r.getInt(DataContract.UsersTable.COL_CITYID));
+			Area area = getAreaById(r.getInt(DataContract.UsersTable.COL_AREAID));
 			u = new Mentor(r.getInt(DataContract.UsersTable.COL_ID), r.getString(DataContract.UsersTable.COL_FIRSTNAME),
 					r.getString(DataContract.UsersTable.COL_LASTNAME), r.getString(DataContract.UsersTable.COL_EMAIL),
 					r.getString(DataContract.UsersTable.COL_PHONENUMBER),
@@ -976,7 +997,8 @@ public class DataAccess implements DataInterface {
 					r.getString(DataContract.UsersTable.COL_ADDRESS), r.getString(DataContract.UsersTable.COL_NOTES),
 					r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 					r.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTOR,
-					r.getInt(DataContract.UsersTable.COL_AREAID), r.getInt(DataContract.UsersTable.COL_CITYID),
+					r.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+					r.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 					r.getDate(DataContract.UsersTable.COL_JOINDATE),
 					r.getString(DataContract.MentorsTable.COL_EXPERIENCE),
 					r.getString(DataContract.MentorsTable.COL_ROLE), r.getInt(DataContract.MentorsTable.COL_COMPANY),
@@ -1138,6 +1160,8 @@ public class DataAccess implements DataInterface {
 			cStmt.setString(5, null);
 		ResultSet r = cStmt.executeQuery();
 		while (r.next()) {
+			City city = getCityById(r.getInt(DataContract.UsersTable.COL_CITYID));
+			Area area = getAreaById(r.getInt(DataContract.UsersTable.COL_AREAID));
 			mentee = new Mentee(r.getInt(DataContract.UsersTable.COL_ID),
 					r.getString(DataContract.UsersTable.COL_FIRSTNAME),
 					r.getString(DataContract.UsersTable.COL_LASTNAME), r.getString(DataContract.UsersTable.COL_EMAIL),
@@ -1146,8 +1170,9 @@ public class DataAccess implements DataInterface {
 					r.getString(DataContract.UsersTable.COL_ADDRESS),
 					r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 					r.getString(DataContract.UsersTable.COL_NOTES), r.getBoolean(DataContract.UsersTable.COL_ACTIVE),
-					userType.MENTEE, r.getInt(DataContract.UsersTable.COL_AREAID),
-					r.getInt(DataContract.UsersTable.COL_CITYID), r.getDate(DataContract.UsersTable.COL_JOINDATE),
+					userType.MENTEE, r.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+					r.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
+					r.getDate(DataContract.UsersTable.COL_JOINDATE),
 					r.getFloat(DataContract.MenteeTable.COL_REMAININGSEMESTERS),
 					r.getString(DataContract.MenteeTable.COL_GRADUATIONSTATUS),
 					r.getInt(DataContract.MenteeTable.COL_ACADEMICINSTITUTE),
@@ -1193,6 +1218,8 @@ public class DataAccess implements DataInterface {
 		ResultSet r = cStmt.executeQuery();
 
 		while (r.next()) {
+			City city = getCityById(r.getInt(DataContract.UsersTable.COL_CITYID));
+			Area area = getAreaById(r.getInt(DataContract.UsersTable.COL_AREAID));
 			mentor = new Mentor(r.getInt(DataContract.UsersTable.COL_ID),
 					r.getString(DataContract.UsersTable.COL_FIRSTNAME),
 					r.getString(DataContract.UsersTable.COL_LASTNAME), r.getString(DataContract.UsersTable.COL_EMAIL),
@@ -1201,7 +1228,8 @@ public class DataAccess implements DataInterface {
 					r.getString(DataContract.UsersTable.COL_ADDRESS), r.getString(DataContract.UsersTable.COL_NOTES),
 					r.getString(DataContract.UsersTable.COL_PROFILEPICTURE),
 					r.getBoolean(DataContract.UsersTable.COL_ACTIVE), userType.MENTOR,
-					r.getInt(DataContract.UsersTable.COL_AREAID), r.getInt(DataContract.UsersTable.COL_CITYID),
+					r.getInt(DataContract.UsersTable.COL_AREAID), area.getName(),
+					r.getInt(DataContract.UsersTable.COL_CITYID), city.getName(),
 					r.getDate(DataContract.UsersTable.COL_JOINDATE),
 					r.getString(DataContract.MentorsTable.COL_EXPERIENCE),
 					r.getString(DataContract.MentorsTable.COL_ROLE), r.getInt(DataContract.MentorsTable.COL_COMPANY),
