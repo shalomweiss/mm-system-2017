@@ -81,7 +81,6 @@ function deactivate(param)
 	        });
 	row.parentNode.removeChild(row.nextSibling.nextSibling);
 	row.parentNode.removeChild(row);
-	
 }
 function sendAPK(param)
 {
@@ -149,11 +148,9 @@ function sendAPK(param)
 		
 		
 	}
-	function showStuff(hide, show) {
-		
-	     document.getElementById(show).style.display  = 'block';
+	function showStuff(hide, show) {	
+	    document.getElementById(show).style.display  = 'block';
 	    document.getElementById(hide).style.display  = 'none';
-	    
 	}
 	
 </script>
@@ -249,7 +246,7 @@ function sendAPK(param)
 								<td style="display: none">${ment.id}</td>
 								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
-								<td>${ment.companyName}</td>
+								<td>${ment.company}</td>
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td>
 									<a onclick="deactivate(this)" class="btn btn-block btn-primary topButton" href="" style="margin-top: 0px;" >
@@ -316,7 +313,7 @@ function sendAPK(param)
 															
 															</div>
 														
-<c:if test="${ment.gender == 1}">  
+										<c:if test="${ment.gender == 1}">  
 										<div id="input3${ment.id}" style="display: none;">
 												<input id="clickedGender" class="male" type="radio"
 															name="uGender" value="1"  checked > Male
@@ -402,6 +399,12 @@ function sendAPK(param)
 													<td>
 														<div id="div12${ment.id}"
 															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.companyName}</div>
+														<select name="uCompany" id="input12${ment.id}">
+																<option value="0"></option>
+																<c:forEach var="item" items="${NewWorkPlace}">
+																	<option value="${item.id}">   ${item.company}</option>
+																</c:forEach>
+														</select>
 														<input name="uCompany" id="input12${ment.id}" type="text"
 														value="${ment.company}" style="display: none;"
 														required>
@@ -429,25 +432,27 @@ function sendAPK(param)
 											style="background-color: rgba(108,136,225,0.9);">
 											<table>
 												<tr>
-													<th width="90%" class="inner">Notes</th>
-													
+												<th width="40%" class="inner">Notes</th>
+												<th width="25%" class="inner">City</th>	
+												<th width="25%" class="inner">Area</th>	
 												<th width="10%" class="inner">Actions</th>
 													
 												</tr>
 												<tr>
-													<td width="90%">
+													<td width="40%">
 														<div id="div10${ment.id}"
-															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">
-															
-															
-															${ment.note}
-															
-															</div>
-
+															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}</div>
 														<textarea id="input10${ment.id}" name="uNotes"
 															value="${ment.note}"
 															style="display: none; height: 100px;">${ment.note}</textarea>
 													</td>
+													<td width="25%">
+													
+													
+													
+													</td>
+													<td width="25%"></td>
+													
 													<td width="10%"><input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
 														onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
@@ -457,6 +462,7 @@ function sendAPK(param)
 														<input onclick="sendAPK(this)" type="button" id="submit${ment.id}" style="float: center;" value="Mail">
 
 													</td>
+												
 												</tr>
 
 											
@@ -515,9 +521,6 @@ function sendAPK(param)
 
 
 		<div id="openModal3" class="modalDialog">
-			<div>
-
-
 				<div class="container">
 					<a href="#close" title="Close" class="close"
 						style="position: absolute; background-color: red;">X</a>
@@ -537,7 +540,7 @@ function sendAPK(param)
 								<td class="form"><input type="number" name="phoneNumber" required></td>
 								<td class="form">Gender</td>
 								<td class="form">
-								
+									
 									<select name="gender" class="selectpicker reports" id="gender1" >
 		    	 	 					<option></option>
 		     							<option value="0">Male</option>
@@ -562,11 +565,13 @@ function sendAPK(param)
 							<td class="form">Company</td>
 								<td class="form">
 								<select name="company">
+										<option value=""></option>
 										<c:forEach var="item" items="${NewWorkPlace}">
 											<option value="${item.id}">   ${item.company}</option>
 										</c:forEach>
 								</select>
 								</td>
+								
 								<td class="form">volunteering</td>
 								<td class="form" colspan="3"><textarea name="volunteering"
 										style="height: 50px"></textarea></td>
@@ -575,16 +580,33 @@ function sendAPK(param)
 								
 							</tr>
 							<tr>
+								<td>City</td>
+								<td class="form">
+									<select name="city">
+											<option value=""></option>
+											<c:forEach var="item" items="${cities}">
+												<option value="${item.id}">   ${item.name}</option>
+											</c:forEach>
+									</select>
+								</td>
 								<td class="form">Work History</td>
-								<td class="form" colspan="5"><textarea name="history"
+								<td class="form" colspan="3"><textarea name="history"
 										style="height: 50px"></textarea></td>
 							</tr>
 							<tr>
+								<td>Area</td>
+								<td class="form">
+									<select name="area">
+										<option value=""></option>
+											<c:forEach var="item" items="${areas}">
+												<option value="${item.id}">   ${item.name}</option>
+											</c:forEach>
+									</select>
+								</td>
 								<td class="form">note</td>
-								<td class="form" colspan="4"><textarea name="notes"
+								<td class="form" colspan="2"><textarea name="notes"
 										style="height: 50px"></textarea></td>
 										<td><input class="saveButton" style="padding: 10px 20px;" type="submit" value="Add"><br>
-					
 							</tr>
 						</table>
 					</form>

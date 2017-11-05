@@ -59,6 +59,7 @@ public class UpdateMentor extends HttpServlet {
 		String profilePic = request.getParameter("uProfilePicture");
 		boolean isActive = Boolean.parseBoolean(request.getParameter("uIsActive"));
 		String role = request.getParameter("uRole");
+		System.out.println(request.getParameter("uCompany"));
 		int company = Integer.parseInt(request.getParameter("uCompany"));
 		String workHistory = request.getParameter("uWorkHistory");
 		String cityId=request.getParameter("cityId");
