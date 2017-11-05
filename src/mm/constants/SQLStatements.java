@@ -39,8 +39,7 @@ public class SQLStatements {
 			+ DataContract.UsersTable.COL_FIRSTNAME + "=?, " + DataContract.UsersTable.COL_LASTNAME + "=?, "
 			+ DataContract.UsersTable.COL_PHONENUMBER + "=?, " + DataContract.UsersTable.COL_GENDER + "=?, "
 			+ DataContract.UsersTable.COL_ADDRESS + "=?, " + DataContract.UsersTable.COL_NOTES + "=?, "
-			+ DataContract.UsersTable.COL_PROFILEPICTURE + "=?, " + DataContract.UsersTable.COL_ACTIVE + "=? WHERE "
-			+ DataContract.UsersTable.COL_ID + "=?";
+			+ DataContract.UsersTable.COL_PROFILEPICTURE + "=? WHERE " + DataContract.UsersTable.COL_ID + "=?";
 	public final static String updateMentorById = "UPDATE " + DataContract.MentorsTable.TABLE_NAME + " SET "
 			+ DataContract.MentorsTable.COL_EXPERIENCE + "=?, " + DataContract.MentorsTable.COL_ROLE + "=?, "
 			+ DataContract.MentorsTable.COL_COMPANY + "=?, " + DataContract.MentorsTable.COL_VOLUNTEERING + "=?, "
@@ -200,8 +199,12 @@ public class SQLStatements {
 
 	public final static String getCityById = "Select * From " + DataContract.CitiesTable.TABLE_NAME + " WHERE "
 			+ DataContract.CitiesTable.COL_ID + "=?";
-	
+
 	public final static String getAreaById = "Select * From " + DataContract.AreasTable.TABLE_NAME + " WHERE "
 			+ DataContract.AreasTable.COL_ID + "=?";
 	
+	public final static String getAllCities = "Select * From " + DataContract.CitiesTable.TABLE_NAME;
+	
+	public final static String getAllAreas = "Select * From " + DataContract.AreasTable.TABLE_NAME;
+
 }

@@ -1,5 +1,7 @@
 package mm.model;
 
+import java.sql.Date;
+
 public class Mentor extends User {
 	private String experience;
 	private String role;
@@ -24,9 +26,9 @@ public class Mentor extends User {
 	
 
 	public Mentor(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, String note, String profilePicture, boolean active, userType type, String experience,
+			int gender, String address, String note, String profilePicture, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String experience,
 			String role, int company, String volunteering, String workHistory) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
+		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type, areaId, area, cityId, city, date);
 		this.experience = experience;
 		this.role = role;
 		this.company = company;

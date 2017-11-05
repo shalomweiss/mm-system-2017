@@ -18,6 +18,7 @@ public final class DataContract {
 		public static final String COL_ACTIVE = "active";
 		public static final String COL_CITYID = "cityId";
 		public static final String COL_AREAID = "areaId";
+		public static final String COL_JOINDATE = "joinDate";
 	}
 	
 	public static class MentorsTable{
