@@ -16,6 +16,9 @@ import com.google.gson.Gson;
 
 import mm.da.DataAccess;
 import mm.model.Mentee;
+import mm.model.User;
+import mm.model.User.userType;
+
 import javax.servlet.RequestDispatcher;
 import mm.constants.*;
 @WebServlet("/MenteeReports")
@@ -28,19 +31,21 @@ public class MenteeReports extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("mentees reports");
 		DataAccess da = new DataAccess();
 		String address = request.getParameter("uAddress");
 		String gender1 = request.getParameter("uGender");
 		String academicInstitution1 = request.getParameter("uAcademicInstitution");
 		String inPair1 = request.getParameter("inPair");
 		String academicDicipline1 = request.getParameter("uAcademicDicipline1");
-		ArrayList<Mentee> allMentees=new ArrayList<Mentee>();
+		ArrayList<User> allMentees=new ArrayList<User>();
 		int  gender = Integer.parseInt(gender1);
 		int academicInstitution=Integer.parseInt(academicInstitution1 );
 		int inPair = Integer.parseInt(inPair1);
 		try {
-			allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
-					academicDicipline1);
+//			allMentees = da.getAllCorrespondingMentees(address, gender, academicInstitution, inPair,
+//					academicDicipline1);
+			allMentees=da.getUsers(userType.MENTEE);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -57,24 +62,7 @@ public class MenteeReports extends HttpServlet {
 		writer.println();
 		writer.close();
 
-		RequestDispatcher req=new RequestDispatcher() {
-			
-			@Override
-			public void include(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void forward(ServletRequest arg0, ServletResponse arg1) throws ServletException, IOException {
-				// TODO Auto-generated method stub
-				
-			}
-		} ;
-		req.forward(request, response);
-
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

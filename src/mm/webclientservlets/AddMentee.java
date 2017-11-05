@@ -107,6 +107,13 @@ public class AddMentee extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			try {
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			request.setAttribute("AddedSuc", 1);
 		}
 		if (resId==-1){

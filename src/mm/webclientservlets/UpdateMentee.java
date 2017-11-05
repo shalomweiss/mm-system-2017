@@ -76,6 +76,12 @@ public class UpdateMentee extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("status", status);
 	    RequestDispatcher req;

@@ -76,6 +76,13 @@ public class AddNewMentor extends HttpServlet {
 		    SendingMail.sendFromGMail(to,subject,body);
 
 		}
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if (res==-1)
 		response.getWriter().append("Failed in added Mentor");
 	
