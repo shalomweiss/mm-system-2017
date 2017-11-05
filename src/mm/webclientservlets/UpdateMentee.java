@@ -3,6 +3,7 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -63,14 +64,22 @@ public class UpdateMentee extends HttpServlet {
 		DataAccess da = new DataAccess();
 		Boolean status = false;
 		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
+		String cityId=request.getParameter("cityId");
+		String areaId=request.getParameter("areaId");		
+		int uCity= Integer.parseInt(cityId);
+		int uArea= Integer.parseInt(areaId);
+		
 		String password = null; // DB ignore it
 		String profilePic =null;
 		String resume = null;
 		String gradeSheet =null;
 		boolean isActive =true;
-		boolean signedEULA = true;
+		boolean signedEULA = true;     
+		long millis=System.currentTimeMillis();  
+        Date date=new Date(millis);
+		
 
-		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,password,gender,address,profilePic,notes,isActive,userType.MENTEE,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,resume,gradeSheet);
+		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,password,gender,address,profilePic,notes,isActive,userType.MENTEE,uArea,"",uCity,"",date ,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,resume,gradeSheet);
 		try {
 			status = da.editUser(mentee);
 		} catch (SQLException e) {

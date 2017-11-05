@@ -4,6 +4,7 @@
 package mm.webclientservlets;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -60,10 +61,18 @@ public class UpdateMentor extends HttpServlet {
 		String role = request.getParameter("uRole");
 		int company = Integer.parseInt(request.getParameter("uCompany"));
 		String workHistory = request.getParameter("uWorkHistory");
+		String cityId=request.getParameter("cityId");
+		String areaId=request.getParameter("areaId");
+		int uCity= Integer.parseInt(cityId);
+
+		int uArea= Integer.parseInt(areaId);
 		DataAccess da = new DataAccess();
 		Boolean status = false;
+		
+        long millis=System.currentTimeMillis();  
+        Date date=new Date(millis);
 		Mentor mentor = new Mentor(id,firstName, lastName, email, phoneNum, password, gender, address, notes, profilePic,
-				isActive, userType.MENTOR, experience, role, company, volunteering, workHistory);
+				isActive, userType.MENTOR,uArea,"",uCity,"",date, experience, role, company, volunteering, workHistory);
 		User u = (User) mentor;
 		try {
 			status = da.editUser(u);
