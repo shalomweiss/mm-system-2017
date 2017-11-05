@@ -217,7 +217,6 @@ public class DataAccess implements DataInterface {
 			stm4.executeUpdate();
 
 			stm4.close();
-
 			return true;
 		}
 
@@ -595,7 +594,6 @@ public class DataAccess implements DataInterface {
 		stm.executeUpdate();
 		rs.close();
 		stm.close();
-
 		return true;
 
 	}
@@ -1126,7 +1124,6 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		stm.close();
-
 		return workplace;
 	}
 
@@ -1293,7 +1290,6 @@ public class DataAccess implements DataInterface {
 		}
 		rs.close();
 		cStmt.close();
-
 		return pairs;
 	}
 
@@ -1386,7 +1382,6 @@ public class DataAccess implements DataInterface {
 			}
 			rs.close();
 			stm4.close();
-
 			return true;
 		}
 

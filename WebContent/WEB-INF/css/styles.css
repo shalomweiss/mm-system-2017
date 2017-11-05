@@ -414,11 +414,20 @@ outline: none !important;
     right: 2% !important;
 	margin-top:1.8% !important;
 	width:30% !important;
-	float:right;
-	width:30% !important;
-	float:right;
 	margin-bottom: 2vh;
 	bottom: 2vh;
+}
+.btn-print{
+	position: absolute;
+    left: 2% !important;
+	margin-top:1.8% !important;
+	width:8% !important;
+	margin-bottom: 2vh;
+	bottom: 0;
+	background-color: #ccc !important;
+	color:black;
+	border-radius:18px;
+	box-shadow: 2px 3px 4px #888888;
 }
 .btn-pairClick{
 	margin-top:1.8% !important;

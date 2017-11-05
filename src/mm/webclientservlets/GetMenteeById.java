@@ -41,7 +41,13 @@ public class GetMenteeById extends HttpServlet {
                 e.printStackTrace();
             }
         	
-      	
+          try {
+  			da.closeConnection();
+  		} catch (SQLException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  		
         request.setAttribute("MenteeById", mentee);	
         response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(jsp);

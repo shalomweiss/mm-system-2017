@@ -64,18 +64,15 @@ public class GetAllMentors extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
-
-//			ArrayList<Address> Address =new ArrayList<Address>();
-//			 try {
-//				 Address = da.getAllAddresses();
-//				 } catch (SQLException e) {
-//				 // TODO Auto-generated catch block
-//				 e.printStackTrace();
-//				 }
-//		 
-//		 
-//	    request.setAttribute("AddressList", Address);
 		 
+
+
+			try {
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		request.setAttribute("Mentors", ArrMentors);
 		request.setAttribute("NewWorkPlace", allWorkingPlace); 		
 		PrintWriter writer = response.getWriter();
