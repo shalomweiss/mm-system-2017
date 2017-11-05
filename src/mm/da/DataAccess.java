@@ -233,7 +233,7 @@ public class DataAccess implements DataInterface {
 			stm.close();
 			PreparedStatement stm2 = c.prepareStatement(SQLStatements.setUserDeactiveById);
 			stm2.setInt(1, id);
-			stm2.executeQuery();
+			stm2.executeUpdate();
 			stm2.close();
 
 			return true;
