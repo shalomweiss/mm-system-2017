@@ -26,14 +26,14 @@
 function sendAdded(param)
 {
 	var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-	//xmlhttp.open("POST", "/"+param.id);
-	//xmlhttp.setRequestHeader("Content-Type", "application/json");
+	console.log(param.id);
+	xmlhttp.open("POST", ""+param.id);
+	xmlhttp.setRequestHeader("Content-Type", "application/json");
 	console.log(param.parentNode.parentNode.getElementsByTagName("input")[0]); 
 	console.log(param.parentNode.parentNode.getElementsByTagName("input")[0].value); 
 	console.log(param.parentNode.parentNode.getElementsByTagName("input")[0].id); 
-	//xmlhttp.send(JSON.stringify({data: param.parentNode.parentNode.getElementByName}));	
+	xmlhttp.send(JSON.stringify({data: param.parentNode.parentNode.getElementByName}));	
 }
-
 function changeTable(param)
 {
 	var ps=document.getElementsByTagName("p");
@@ -119,7 +119,7 @@ function changeTable(param)
 								onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
 					</td>
 					<td width="20%">
-						<a id="addWorkplace" onclick="sendAdded(this)" style="width:80%" class="btn btn-primary" href="#">Add</a>
+						<a id="AddWorkingPlace" onclick="sendAdded(this)" style="width:80%" class="btn btn-primary" href="#">Add</a>
 					</td>
 				</tr>		
 		</table>
@@ -163,7 +163,7 @@ function changeTable(param)
 								onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
 					</td>
 					<td width="20%">
-						<a id="addAcademy" onclick="sendAdded(this)" style="width:80%" class="btn btn-primary" href="#">Add</a>
+						<a id="AddAcademinInstitute" onclick="sendAdded(this)" style="width:80%" class="btn btn-primary" href="#">Add</a>
 					</td>
 				</tr>		
 		</table>

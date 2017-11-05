@@ -41,15 +41,13 @@ public class AddWorkingPlace extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		int Id=Integer.parseInt(request.getParameter("id"));
 		String Company=request.getParameter("company");
 		String Area=request.getParameter("area");
 		String City=request.getParameter("city");
 		String Address=request.getParameter("address");
-		String nextPage = request.getParameter("jsp");
 		RequestDispatcher req = null;
 		 
-		WorkPlace newWorkPlace= new WorkPlace(Id,Company,Area,City,Address, 0, 0); //TODO: needs to be given proper city/area id
+		WorkPlace newWorkPlace= new WorkPlace(0,Company,Area,City,Address, 0, 0); //TODO: needs to be given proper city/area id
 		
 		DataAccess da = new DataAccess();
 	    boolean res=false;
@@ -60,9 +58,15 @@ public class AddWorkingPlace extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(res){
 			response.getWriter().append("Working Place Is Added");
-			req = request.getRequestDispatcher(nextPage);
 		}
 		if(!res)
 			response.getWriter().append("Failed in added Work Place");	

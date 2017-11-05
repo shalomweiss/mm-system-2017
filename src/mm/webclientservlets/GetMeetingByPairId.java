@@ -62,17 +62,20 @@ public class GetMeetingByPairId extends HttpServlet {
           PairDetails pairDetails=new PairDetails();
           pairDetails.setPair(pair);
           pairDetails.setMeetings(allMeetings);
-          
-       
-      
-          
-          
+               
           for (Meeting meeting : allMeetings) {
         	  Date meetingDate=new Date(meeting.getDate() * 1000);
         	 MeetingHelp p= new MeetingHelp( meeting.getMeetingId(),meeting.getPairId(), meeting.getMentorId(),meeting.getMenteeId(), meeting.getNote(), meeting.getStatus(),meeting.getMenteeReport(), meeting.getMentorReport(), meeting.getMenteePrivateReport(), meeting.getMentorPrivateReport(), meeting.getMeetingType(), meeting.getSubject(), meeting.getLocation(), meeting.getDate(), meeting.getStartingDate(), meeting.getEndingDate(), meeting.getMentorComplete(), meeting.getMenteeComplete(),meetingDate);
         	  allMeetings1.add(p);      	  
               
-          }          
+          }   
+      	try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
           
           request.setAttribute("Pairs", pairDetails);
           request.setAttribute("meetings", allMeetings1);
