@@ -1464,4 +1464,36 @@ public class DataAccess implements DataInterface {
 		if (c != null)
 			c.close();
 	}
+
+	@Override
+	public ArrayList<Area> getAllAreas() throws SQLException {
+		ArrayList<Area> areas = new ArrayList<Area>();
+		Area area = null;
+		PreparedStatement stm = c.prepareStatement(SQLStatements.getAllAreas);
+		ResultSet rs = stm.executeQuery();
+		while (rs.next()) {
+			area = new Area(rs.getInt(DataContract.AreasTable.COL_ID), rs.getString(DataContract.AreasTable.COL_NAME));
+			areas.add(area);
+		}
+		rs.close();
+		stm.close();
+
+		return areas;
+	}
+
+	@Override
+	public ArrayList<City> getAllCities() throws SQLException {
+		ArrayList<City> cities = new ArrayList<City>();
+		City city = null;
+		PreparedStatement stm = c.prepareStatement(SQLStatements.getAllCities);
+		ResultSet rs = stm.executeQuery();
+		while (rs.next()) {
+			city = new City(rs.getInt(DataContract.CitiesTable.COL_ID), rs.getString(DataContract.CitiesTable.COL_NAME));
+			cities.add(city);
+		}
+		rs.close();
+		stm.close();
+
+		return cities;
+	}
 }
