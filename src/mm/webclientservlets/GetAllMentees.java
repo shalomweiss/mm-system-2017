@@ -40,7 +40,6 @@ public class GetAllMentees extends HttpServlet {
 
 		HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<User> ArrMentees = new ArrayList<User>();
-	    
 		DataAccess da = new DataAccess();
 		 try {
 		 ArrMentees = da.getUsers(userType.MENTEE);

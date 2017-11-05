@@ -1412,4 +1412,10 @@ public class DataAccess implements DataInterface {
 		c.close();
 		return area;
 	}
+
+	@Override
+	public void closeConnection() throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -27,210 +27,13 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
-
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
-<style type="text/css"><%@include file="/WEB-INF/css/styles1.css"%></style>
-<script type="text/javascript">
-	
-$(document).ready(function(){
-	
-	$(".female").click(function(){
-		var female=document.getElementsByClassName("female")[0];
-		female.id="clickedGender";
-		var male=document.getElementsByClassName("male")[0];
-		male.id="noclickedGender";
-	});
-	$(".male").click(function(){
-		var female=document.getElementsByClassName("female")[0];
-		female.id="noclickedGender";
-		var male=document.getElementsByClassName("male")[0];
-		male.id="clickedGender";
-	});
-	
-	$(".Sign2").click(function(){
-		var sign2=document.getElementsByClassName("Sign1")[0];
-		sign2.id="clickedSign";
-		var sign1=document.getElementsByClassName("Sign2")[0];
-		sign1.id="noclickedclickedSign";
-	});
-	$(".Sign2").click(function(){
-		var sign2=document.getElementsByClassName("Sign1")[0];
-		sign2.id="noclickedclickedSign";
-		var sign1=document.getElementsByClassName("Sign2")[0];
-		sign1.id="clickedSign";
-	});
-	$(".stam1").click(function()
-			{
-		
-			}
-	
-	);
-});
-	function getMentorOfMentee(param) {
-		//.childNodes[1].childNodes[1].childNodes[1]
-		var mentId=param.parentNode.nextSibling.nextSibling.id.substr(4);
-		console.log(mentId);
-		var sendData={id1:mentId};
-		console.log(sendData);
-		$.post("GetMentorOfMentee",{
-			'id':mentId,
-		},
-		        function(data,status){
-		        	alert(data);
-		        });
-	}
-	function sendAPK(param)
-	{
-		var thisForm=param.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-		var rowColumns=thisForm.childNodes[1].childNodes[1].childNodes[1].childNodes[2].childNodes;
-		var fname=rowColumns[1].childNodes[1].innerHTML;
-		var lname=rowColumns[3].childNodes[1].innerHTML;
-		var email=rowColumns[11].childNodes[1].innerHTML;
-		console.log(fname+" "+lname+" "+email);
-		$.post("SendAPK",
-		        {
-					uFirstName: fname,
-					uLastName: lname,
-					uEmail:email
-		        },
-		        function(data,status){
-		        	alert(data);
-		        });
-	}
-	function goToEdit(firstName, lastName, phone, email, academicInstitution,
-			note, courseOfStudy, remainingSemesters, average, id) {
-		document.getElementById("fname").value = firstName;
-		document.getElementById("lname").value = lastName;
-		document.getElementById("phone").value = phone;
-		document.getElementById("email").value = email;
-
-		document.getElementById("academic").value = academicInstitution;
-		document.getElementById("note").value = note;
-		document.getElementById("course").value = courseOfStudy;
-		document.getElementById("semesters").value = remainingSemesters;
-		document.getElementById("average").value = average;
-		document.getElementById("id").value = id;
-	}
-
-	function openCity(evt, cityName) {
-		// Declare all variables
-
-		var i, tabcontent, tablinks;
-
-		// Get all elements with class="tabcontent" and hide them
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-
-		// Get all elements with class="tablinks" and remove the class "active"
-		tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className
-					.replace(" active", "");
-		}
-
-		// Show the current tab, and add an "active" class to the button that opened the tab
-		document.getElementById(cityName).style.display = "block";
-		evt.currentTarget.className += " active";
-		foo();
-	}
-</script>
 <script type="text/javascript" src="jquery.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-<script type="text/javascript">
-
-var prevRow;
-
-	function show_hide_row1(row,mentId,def) {
-		$("#" + prevRow).toggle();
-		$("#" + row).toggle();
-		
-		//window.location.hash = '#'+row;
-		document.getElementById(def).click();
-		prevRow=row;
-		
-		for(var i=1;i<=13;i++)  //length of inputs
-		{
-		showStuff("input"+i+mentId,"div"+i+mentId);
-		}
-		var row1=document.getElementById(row);
-		
-		var childrenOfTheTbody=document.getElementById(row).parentNode.children;
-		var numOfStams=0;
-		for(i=0;i<childrenOfTheTbody.length;i++)
-		{
-			if(childrenOfTheTbody[i].id==row)
-				break;
-			if(childrenOfTheTbody[i].className=="stam1")
-				numOfStams++;
-		}
-		var heightPX=(numOfStams-1)*(childrenOfTheTbody[0].clientHeight+1);
-		$( "div.tbl-header" ).scrollTop(heightPX);
-		
-		
-		
-		
-	backUpInputs(mentId);
-
-	}
-	function closeRow(row,mentId) {
-		//hide the row
-		$("#" + row).toggle();
-		prevRow=null;
-		
-		for(var i=1;i<=13;i++)  //length of inputs
-			{
-			showStuff("input"+i+mentId,"div"+i+mentId);
-			}
-		backUpInputs(mentId);
-		
-	}
-	function backUpInputs(mentId){
-		
-		for(var i=1;i<=13;i++)  //length of inputs
-		{
-			document.getElementById("input"+i+mentId).value =document.getElementById("div"+i+mentId).innerHTML;
-		}
-		
-		
-	}
-	function showStuff(hide, show) {
-		
-	     document.getElementById(show).style.display  = 'block';
-	    document.getElementById(hide).style.display  = 'none';
-	    
-	}
-	function showDetails(evt, Detail) {
-
-		var i, tabcontent, tablinks;
-		tabcontent = document.getElementsByClassName("tabcontent");
-		for (i = 0; i < tabcontent.length; i++) {
-			tabcontent[i].style.display = "none";
-		}
-		tablinks = document.getElementsByClassName("tablinks");
-		for (i = 0; i < tablinks.length; i++) {
-			tablinks[i].className = tablinks[i].className
-					.replace(" active", "");
-		}
-		document.getElementById(Detail).style.display = "block";
-		evt.currentTarget.className += " active";
-	}
-	function showStuff(hide, show) {
-		
-	     document.getElementById(show).style.display  = 'block';
-	    document.getElementById(hide).style.display  = 'none';
-	    
-	}
-	
-	
-</script>
+<style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
+<style type="text/css"><%@include file="/WEB-INF/css/styles1.css"%></style>
+<script type="text/javascript"><%@include file="/WEB-INF/scripts/index.js"%></script>
 <style>
 	input[type=text], select, textarea {
 		width: 100%; /* Full width */
@@ -302,10 +105,7 @@ var prevRow;
 						    	<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
 								<td>${ment.academiclnstitutionName}</td>
-								<td>
-									<c:if test="${ment.gender == 1}"> male </c:if>
-									<c:if test="${ment.gender == 0}"> female </c:if> 
-								</td>
+								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td>
 									<a class="btn btn-block btn-primary" href="" style="margin-top: 0px;" >
 			 							Deactivate
@@ -509,17 +309,22 @@ var prevRow;
 											style="background-color: rgba(250,178,58,0.8);">
 											<table>
 											<tr>
-												<th width="90%" class="inner">Notes</th>	
+												<th width="60%" class="inner">Notes</th>
+												<th width="15%" class="inner">Start Date</th>	
+												<th width="15%" class="inner">Pair Date</th>		
 												<th width="10%" class="inner">Actions</th>	
 											</tr>
 											<tr>
-												<td width="90%">
+												<td width="60%">
 													<div id="div12${ment.id}" ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">
 															${ment.note}
 													</div>
 													<textarea id="input12${ment.id}" name="uNotes"
 														style="display: none; height: 100px;">${ment.note}</textarea>
 												</td>
+												<td width="15%"></td>
+												<td width="15%"></td>
+												
 												<td width="10%">
 													<input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
@@ -536,8 +341,14 @@ var prevRow;
 											style="background-color: rgba(250,178,58,0.8);">
 											<table>
 												<tr>
+													<th width="60%" class="inner">Name</th>	
+													<th width="30%" class="inner">Workplace</th>	
+													<th width="10%" class="inner">Actions</th>	
+												</tr>
+												<tr>
 													<!--<td width="90%">${ment.note}</td>  --> 
-													<td width="90%"></td>
+													<td width="60%"></td>
+													<td width="30%"></td>
 													<td width="10%">
 														<input class="saveButton" type="submit" style="float: right;" value="Save">
 														<input type="button" style="float: right;" value="Mail">
@@ -562,7 +373,8 @@ var prevRow;
 			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
 			Mentee
 		</a>
-	
+		<a onclick="menteetTableToArray(this)" href="#" class="btn-print btn btn-block" >
+			<i class="fa fa-print"></i> print</a>
 		
 		<div id="openModal3" class="modalDialog">
 			<div>

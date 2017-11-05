@@ -237,10 +237,7 @@ function sendAPK(param)
 								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
 								<td>${ment.companyName}</td>
-								<td>
-									<c:if test="${ment.gender == 1}"> male </c:if>
-									<c:if test="${ment.gender == 0}"> female </c:if> 
-								</td>
+								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td>
 									<a class="btn btn-block btn-primary topButton" href="" style="margin-top: 0px;" >
 			 							Deactivate
