@@ -719,7 +719,7 @@ public class DataAccess implements DataInterface {
 	}
 
 	@SuppressWarnings("resource") // got warning about stm in case 3 not being closed
-	@Override // TODO: RECHECK CODE
+	@Override
 	public ArrayList<Meeting> getUserMeetings(int id) throws SQLException {
 		ArrayList<Meeting> meeting = new ArrayList<Meeting>();
 		Meeting meet = null;
