@@ -399,15 +399,13 @@ function sendAPK(param)
 													<td>
 														<div id="div12${ment.id}"
 															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.companyName}</div>
-														<select name="uCompany" id="input12${ment.id}">
+														<select name="uCompany" id="input12${ment.id}" style="display: none;" required >
 																<option value="0"></option>
 																<c:forEach var="item" items="${NewWorkPlace}">
 																	<option value="${item.id}">   ${item.company}</option>
 																</c:forEach>
 														</select>
-														<input name="uCompany" id="input12${ment.id}" type="text"
-														value="${ment.company}" style="display: none;"
-														required>
+
 													</td>
 													<td>
 														<div id="div9${ment.id}"
@@ -446,11 +444,7 @@ function sendAPK(param)
 															value="${ment.note}"
 															style="display: none; height: 100px;">${ment.note}</textarea>
 													</td>
-													<td width="25%">
-													
-													
-													
-													</td>
+													<td width="25%"></td>
 													<td width="25%"></td>
 													
 													<td width="10%"><input id="id:${ment.id}" name="uId" type="text"
