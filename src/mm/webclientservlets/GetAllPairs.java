@@ -72,6 +72,13 @@ public class GetAllPairs extends HttpServlet {
 				
 			}
 		}
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		request.setAttribute("pairs", activePairsArray);
 		response.setContentType("text/html");
 	    RequestDispatcher req = request.getRequestDispatcher("mainPair.jsp");

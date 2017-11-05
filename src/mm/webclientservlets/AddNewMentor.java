@@ -70,7 +70,9 @@ public class AddNewMentor extends HttpServlet {
 			String to = email;
 			String subject = "Thank you for registering to Mentorem project";
 			String apk="https://goo.gl/dbYx8R";
-		    String body = "Hi "+firstName+" "+lastName+",\nWe appreciate your registeration for Mentorem project,\n" +"Here is your login username and passwod: \n\nUsername: "+email+"\nPassword: " +pass+"\nDownload and Install the android client app  \n "+ apk+"\n\nHave a good day,\nTsofen team";	    
+		    String body = "Hi "+firstName+" "+lastName+",\nWe appreciate your registeration for Mentorem project,\n" +"Here is your login username and passwod: \n\nUsername: "+email+"\nPassword: " +pass+"\nDownload and Install the android client app  \n "+ apk+"\n\nHave a good day,\nTsofen team";
+			
+		    
 		    SendingMail.sendFromGMail(to,subject,body);
 
 		}

@@ -51,6 +51,8 @@ public class DisconnectPair extends HttpServlet {
 	    response.setContentType("text/html");
 	    
 		res = da.disconnectPair(id);
+		
+		
 		if(res){
 		//	response.getWriter().append("Disconnect Pair Successfull");
 			
