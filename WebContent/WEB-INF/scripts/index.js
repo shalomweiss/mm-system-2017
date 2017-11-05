@@ -32,6 +32,19 @@ $(document).ready(function(){
 	
 	);
 });
+	function deactivate(param)
+	{
+		var row=param.parentNode.parentNode;
+		$.post("DeactivateUser",{
+			'userId':row.firstChild.nextSibling.innerHTML,
+		},
+		        function(data,status){
+		        	alert(data);
+		        });
+		row.parentNode.removeChild(row.nextSibling.nextSibling);
+		row.parentNode.removeChild(row);
+		
+	}
 	function getMentorOfMentee(param) {
 		//.childNodes[1].childNodes[1].childNodes[1]
 		var mentId=param.parentNode.nextSibling.nextSibling.id.substr(4);

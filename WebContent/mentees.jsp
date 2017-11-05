@@ -107,7 +107,7 @@
 								<td>${ment.academiclnstitutionName}</td>
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td>
-									<a class="btn btn-block btn-primary" href="" style="margin-top: 0px;" >
+									<a onclick="deactivate(this)" class="btn btn-block btn-primary" href="#" style="margin-top: 0px;" >
 			 							Deactivate
     								</a><br>
 								</td>
