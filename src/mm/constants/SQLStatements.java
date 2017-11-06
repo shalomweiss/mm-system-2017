@@ -40,7 +40,7 @@ public class SQLStatements {
 			+ DataContract.UsersTable.COL_PHONENUMBER + "=?, " + DataContract.UsersTable.COL_GENDER + "=?, "
 			+ DataContract.UsersTable.COL_ADDRESS + "=?, " + DataContract.UsersTable.COL_NOTES + "=?, "
 			+ DataContract.UsersTable.COL_PROFILEPICTURE + "=?, " + DataContract.UsersTable.COL_AREAID + "=?, "
-			+ DataContract.UsersTable.COL_CITYID + "=? + WHERE " + DataContract.UsersTable.COL_ID + "=?";
+			+ DataContract.UsersTable.COL_CITYID + "=? WHERE " + DataContract.UsersTable.COL_ID + "=?";
 	public final static String updateMentorById = "UPDATE " + DataContract.MentorsTable.TABLE_NAME + " SET "
 			+ DataContract.MentorsTable.COL_EXPERIENCE + "=?, " + DataContract.MentorsTable.COL_ROLE + "=?, "
 			+ DataContract.MentorsTable.COL_COMPANY + "=?, " + DataContract.MentorsTable.COL_VOLUNTEERING + "=?, "
@@ -60,7 +60,9 @@ public class SQLStatements {
 			+ DataContract.UsersTable.COL_PHONENUMBER + ", " + DataContract.UsersTable.COL_PASSWORD + ", "
 			+ DataContract.UsersTable.COL_GENDER + ", " + DataContract.UsersTable.COL_ADDRESS + ", "
 			+ DataContract.UsersTable.COL_NOTES + ", " + DataContract.UsersTable.COL_PROFILEPICTURE + ", "
-			+ DataContract.UsersTable.COL_ACTIVE + ") VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			+ DataContract.UsersTable.COL_ACTIVE + ", " + DataContract.UsersTable.COL_CITYID + ", "
+			+ DataContract.UsersTable.COL_AREAID + ", " + DataContract.UsersTable.COL_JOINDATE
+			+ ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	public final static String insertMentee = "INSERT INTO " + DataContract.MenteeTable.TABLE_NAME + " ("
 			+ DataContract.MenteeTable.COL_ID + ", " + DataContract.MenteeTable.COL_REMAININGSEMESTERS + ", "
 			+ DataContract.MenteeTable.COL_GRADUATIONSTATUS + ", " + DataContract.MenteeTable.COL_ACADEMICINSTITUTE

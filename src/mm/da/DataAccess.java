@@ -226,19 +226,22 @@ public class DataAccess implements DataInterface {
 	}
 
 	public boolean deactivateUser(int id) throws SQLException {
+		Logger logger = Logger.getLogger(DataAccess.class.getName());
+		logger.log(Level.INFO, "deactivateUser starting...");
 		PreparedStatement stm = c.prepareStatement(SQLStatements.selectUserById);
 		stm.setInt(1, id);
 		ResultSet rs = stm.executeQuery();
 		if (rs.next()) {
+			logger.log(Level.INFO, "deactivateUser User found:" + id);
 			rs.close();
 			stm.close();
 			PreparedStatement stm2 = c.prepareStatement(SQLStatements.setUserDeactiveById);
 			stm2.setInt(1, id);
 			stm2.executeUpdate();
 			stm2.close();
-
 			return true;
 		}
+		logger.log(Level.WARNING, "deactivateUser User NOT found");
 		rs.close();
 		stm.close();
 
@@ -271,6 +274,9 @@ public class DataAccess implements DataInterface {
 		stm2.setString(9, u.getNote());
 		stm2.setString(10, u.getProfilePicture());
 		stm2.setInt(11, u.isActive() ? 1 : 0);
+		stm2.setInt(12, u.getCityId());
+		stm2.setInt(13, u.getAreaId());
+		stm2.setDate(14, u.getJoinDate());
 		stm2.executeUpdate();
 
 		stm = c.prepareStatement(SQLStatements.selectUserByEmail);
