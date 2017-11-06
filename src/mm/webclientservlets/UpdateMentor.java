@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mm.da.DataAccess;
 import mm.model.Mentor;
-import mm.model.User;
 import mm.model.User.userType;
 
 /**
@@ -55,8 +54,8 @@ public class UpdateMentor extends HttpServlet {
 		String profilePic = request.getParameter("uProfilePicture");
 		boolean isActive = Boolean.parseBoolean(request.getParameter("uIsActive"));
 		String role = request.getParameter("uRole");
-		System.out.println(request.getParameter("uCompany"));
-		int company = Integer.parseInt(request.getParameter("uCompany"));
+		String uCompany=request.getParameter("uCompany");
+		int company = Integer.parseInt(uCompany);
 		String workHistory = request.getParameter("uWorkHistory");
 		String cityId=request.getParameter("cityId");
 		String areaId=request.getParameter("areaId");
@@ -74,17 +73,14 @@ public class UpdateMentor extends HttpServlet {
         
         Mentor mentor = new Mentor(id,firstName, lastName, email, phoneNum, myMentor.getPassword(), gender, address, notes, myMentor.getProfilePicture(),
 				isActive, userType.MENTOR,uArea,"",uCity,"",myMentor.getJoinDate(), experience, role, company, volunteering, workHistory);
-		User u = (User) mentor;
 		try {
-			status = da.editUser(u);
+			status = da.editUser(mentor);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		request.setAttribute("status", status);
 		RequestDispatcher req ;
-		System.out.println("UUUUUUUUUPDATE");
 		req=request.getRequestDispatcher("GetAllMentors");
-		//req = request.getRequestDispatcher("mentors.jsp");
 		req.forward(request, response);
 
 	}

@@ -52,12 +52,9 @@ public class UpdateMentee extends HttpServlet {
 		String academicDicipline = request.getParameter("uAcademicDicipline");
 		String academicDicipline2 = request.getParameter("uAcademicDicipline2");
 		String email = request.getParameter("uEmail");
-	//	String resume = request.getParameter("uResume");
-	//	String gradeSheet = request.getParameter("uGradeSheet");
 		int gender = Integer.parseInt(request.getParameter("uGender"));
 		String address = request.getParameter("uAddress");
-		String graduationStatus = request.getParameter("uGraduationStatus");
-		
+		String graduationStatus = request.getParameter("uGraduationStatus");		
 		float remSemesters = Float.parseFloat(request.getParameter("uRemSemesters"));
 		float average = Float.parseFloat(request.getParameter("uAverage"));
 		String notes = request.getParameter("uNotes");
