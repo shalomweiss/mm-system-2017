@@ -1,5 +1,6 @@
 package mm.webclientservlets;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class GetAllMentees extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+		System.out.println("AREAS: "+ areas +"/n Cities:" + cities);	
 		request.setAttribute("areas", areas);
 		request.setAttribute("cities", cities);
 		request.setAttribute("Mentees", ArrMentees);
