@@ -64,7 +64,7 @@ public class GetMentorOfMentee extends HttpServlet {
 		
    
         Gson gson = new Gson();
-		String mentorGson = gson.toJson(mentor, Constants.MENTOR_Class);
+		String mentorGson = gson.toJson(mentor, User.class);
 		
 	    
 	    response.setContentType("Content-Type: application/json");

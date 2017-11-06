@@ -62,8 +62,9 @@ public class UpdateMentor extends HttpServlet {
 		System.out.println(request.getParameter("uCompany"));
 		int company = Integer.parseInt(request.getParameter("uCompany"));
 		String workHistory = request.getParameter("uWorkHistory");
-		String cityId=request.getParameter("cityId");
-		String areaId=request.getParameter("areaId");
+		//////////Daniel change so everything would work
+		String cityId="1";//request.getParameter("cityId");
+		String areaId="1";//request.getParameter("areaId");
 		int uCity= Integer.parseInt(cityId);
 
 		int uArea= Integer.parseInt(areaId);

@@ -64,8 +64,9 @@ public class UpdateMentee extends HttpServlet {
 		DataAccess da = new DataAccess();
 		Boolean status = false;
 		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
-		String cityId=request.getParameter("cityId");
-		String areaId=request.getParameter("areaId");		
+		///////////////////////daniel change please note
+		String cityId="1";//request.getParameter("cityId");
+		String areaId="1";//request.getParameter("areaId");		
 		int uCity= Integer.parseInt(cityId);
 		int uArea= Integer.parseInt(areaId);
 		

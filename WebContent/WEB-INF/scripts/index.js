@@ -210,7 +210,7 @@ var prevRow;
             }
         }
     }
-function menteetTableToArray(param)
+function menteeTableToArray(param)
 {
 	var matrix=[['id','name','phone','academy','Gender']];
 	var tbody=document.getElementsByTagName("tbody")[0];

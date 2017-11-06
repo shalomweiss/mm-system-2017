@@ -47,8 +47,6 @@ public class GetAllMentors extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-		
-		
 		for(User mentor: ArrMentors){
 			try {
 				((Mentor)mentor).setCompanyName((da.getWorkPlaceById(((Mentor)mentor).getCompany()).getCompany()));
@@ -64,9 +62,6 @@ public class GetAllMentors extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
-		 
-
-
 			try {
 				da.closeConnection();
 			} catch (SQLException e) {

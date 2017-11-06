@@ -148,11 +148,68 @@ function sendAPK(param)
 		
 		
 	}
-	function showStuff(hide, show) {	
+	function showStuff(hide, show) {
 	    document.getElementById(show).style.display  = 'block';
 	    document.getElementById(hide).style.display  = 'none';
 	}
-	
+	 function exportToCsv(filename, rows) {
+	        var processRow = function (row) {
+	            var finalVal = '';
+	            for (var j = 0; j < row.length; j++) {
+	                var innerValue = row[j] === null ? '' : row[j].toString();
+	                if (row[j] instanceof Date) {
+	                    innerValue = row[j].toLocaleString();
+	                };
+	                var result = innerValue.replace(/"/g, '""');
+	                if (result.search(/("|,|\n)/g) >= 0)
+	                    result = '"' + result + '"';
+	                if (j > 0)
+	                    finalVal += ',';
+	                finalVal += result;
+	            }
+	            return finalVal + '\n';
+	        };
+
+	        var csvFile = '';
+	        for (var i = 0; i < rows.length; i++) {
+	            csvFile += processRow(rows[i]);
+	        }
+	        var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+	        if (navigator.msSaveBlob) { // IE 10+
+	            navigator.msSaveBlob(blob, filename);
+	        } else {
+	            var link = document.createElement("a");
+	            if (link.download !== undefined) { // feature detection
+	                // Browsers that support HTML5 download attribute
+	                var url = URL.createObjectURL(blob);
+	                link.setAttribute("href", url);
+	                link.setAttribute("download", filename);
+	                link.style.visibility = 'hidden';
+	                document.body.appendChild(link);
+	                link.click();
+	                document.body.removeChild(link);
+	            }
+	        }
+	    }
+	function mentorTableToArray(param)
+	{
+		var matrix=[['id','name','phone','company','Gender']];
+		var tbody=document.getElementsByTagName("tbody")[0];
+		console.log(tbody.getElementsByClassName("stam")[0].getElementsByTagName("td")[4].innerHTML);
+		var rows=tbody.getElementsByClassName("stam");
+		for (var i = 0; i < rows.length; i++) {
+			var row=[];
+			var columns=rows[i].getElementsByTagName("td");
+			for (var j = 0; j < columns.length; j++) {
+				row.push(columns[j].innerHTML);
+			}
+			matrix.push(row);
+		}
+		console.log(matrix);
+		var thead=document.getElementsByTagName("thead")[0];
+		console.log(thead.getElementsByTagName("tr")[0]);
+		exportToCsv('Mentors.csv',matrix);
+	}
 </script>
 
 <script>
@@ -246,10 +303,10 @@ function sendAPK(param)
 								<td style="display: none">${ment.id}</td>
 								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
-								<td>${ment.company}</td>
+								<td>${ment.companyName}</td>
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td>
-									<a onclick="deactivate(this)" class="btn btn-block btn-primary topButton" href="" style="margin-top: 0px;" >
+									<a onclick="deactivate(this)" class="btn btn-block btn-primary topButton" href="#" style="margin-top: 0px;" >
 			 							Deactivate
     								</a><br>
 								</td>
@@ -269,9 +326,8 @@ function sendAPK(param)
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks" style="float: right;"
 											onclick="closeRow('hidden_row${ment.id}',${ment.id});">Close</button>
-
 									</div>
-									<form id="form${ment.id}" action="UpdateMentor" method="post">
+									<form id="form${ment.id}" action="UpdateMentor" method="post" novalidate>
 										<div id="info${ment.id}" class="tabcontent"
 											style="background-color: rgba(108,136,225,0.9);">
 
@@ -312,26 +368,10 @@ function sendAPK(param)
 															<c:if test="${ment.gender == 0}"> female </c:if> 
 															
 															</div>
-														
-										<c:if test="${ment.gender == 1}">  
-										<div id="input3${ment.id}" style="display: none;">
-												<input id="clickedGender" class="male" type="radio"
-															name="uGender" value="1"  checked > Male
-															<br>
-										<input id="noclickedGender" class="female" type="radio" name="uGender"
-														value="0" > female
-												
-												</div></c:if>
-												
-												<c:if test="${ment.gender == 0}">  
-										<div id="input3${ment.id}" style="display: none;">
-												<input id="clickedGender" class="male" type="radio"
-															name="uGender" value="1"   > male
-															<br>
-										<input id="noclickedGender" class="female" type="radio" name="uGender"
-														value="0" checked> female
-												
-												</div></c:if>
+														<select id="input3${ment.id}" style="display: none;" name="uGender" class="selectpicker reports" >
+							     							<option value="0">Male</option>
+							     		 					<option value="1">Female</option>
+					      								</select>				
 
 													</td>
 													<td width="12%">
@@ -430,23 +470,48 @@ function sendAPK(param)
 											style="background-color: rgba(108,136,225,0.9);">
 											<table>
 												<tr>
-												<th width="40%" class="inner">Notes</th>
-												<th width="25%" class="inner">City</th>	
-												<th width="25%" class="inner">Area</th>	
+												<th width="30%" class="inner">Notes</th>
+												<th width="15%" class="inner">City</th>	
+												<th width="15%" class="inner">Area</th>	
+												<th width="20%" class="inner">Date</th>	
 												<th width="10%" class="inner">Actions</th>
 													
 												</tr>
 												<tr>
-													<td width="40%">
+													<td width="30%">
 														<div id="div10${ment.id}"
 															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}</div>
-														<textarea id="input10${ment.id}" name="uNotes"
-															value="${ment.note}"
-															style="display: none; height: 100px;">${ment.note}</textarea>
+														<textarea id="input10${ment.id}" name="uNotes" value="${ment.note}"
+															style="display: none; ">${ment.note}</textarea>
 													</td>
-													<td width="25%"></td>
-													<td width="25%"></td>
-													
+													<td width="15%">
+														<div id="div13${ment.id}"
+															ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.address}</div>
+														<select name="uCompany" id="input13${ment.id}" style="display: none;" required >
+																<option value="0"></option>
+																<c:forEach var="item" items="${NewWorkPlace}">
+																	<option value="${item.id}">   ${item.company}</option>
+																</c:forEach>
+														</select>						
+													</td>
+													<td width="15%">
+														<div id="div14${ment.id}"
+															ondblclick="showStuff('div14${ment.id}','input14${ment.id}');">${ment.address}</div>
+														<select name="uCompany" id="input14${ment.id}" style="display: none;" required >
+																<option value="0"></option>
+																<c:forEach var="item" items="${NewWorkPlace}">
+																	<option value="${item.id}">   ${item.company}</option>
+																</c:forEach>
+														</select>										
+													</td>
+													<td width="20%">
+														<div id="div15${ment.id}"
+															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.id}</div>
+														<input id="input15${ment.id}" name="uWorkHistory"
+														type="text" value="${ment.id}"
+														style="display: none;"
+														required>
+													</td>
 													<td width="10%"><input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
 														onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
@@ -519,7 +584,7 @@ function sendAPK(param)
 					<a href="#close" title="Close" class="close"
 						style="position: absolute; background-color: red;">X</a>
 
-					<form action="AddNewMentor" method="post">
+					<form action="AddNewMentor" method="post" novalidate>
 						<table class="addMentorForm">
 							<tr>
 								<td class="form">First Name:</td>
@@ -576,8 +641,8 @@ function sendAPK(param)
 							<tr>
 								<td>City</td>
 								<td class="form">
-									<select name="city">
-											<option value=""></option>
+									<select name="cityId">
+											<option value="1"></option>
 											<c:forEach var="item" items="${cities}">
 												<option value="${item.id}">   ${item.name}</option>
 											</c:forEach>
@@ -590,8 +655,8 @@ function sendAPK(param)
 							<tr>
 								<td>Area</td>
 								<td class="form">
-									<select name="area">
-										<option value=""></option>
+									<select name="areaId">
+										<option value="1"></option>
 											<c:forEach var="item" items="${areas}">
 												<option value="${item.id}">   ${item.name}</option>
 											</c:forEach>
@@ -611,6 +676,8 @@ function sendAPK(param)
 			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
 			Mentor
 		</a>
+		<a onclick="mentorTableToArray(this)" href="#" class="btn-print btn btn-block" >
+			<i class="fa fa-print"></i> print</a>
 	</div>
 </body>
 </html>

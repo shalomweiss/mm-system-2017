@@ -81,7 +81,7 @@
 	<div class="inner">
 	<section class="Pairs">
 		<!--for demo wrap-->
-		<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+		<table id="table_detail" >
 		<thead class="tbl-header-mentee">
 					<tr>
 						<th>Name</th>
@@ -95,8 +95,7 @@
 		</table>
 		<div class="tbl-header" >
 
-			<table id="table_detail" cellpadding="0" cellspacing="0"  border="0">
-			<div class="tbl-content" style="height: 100%">
+			<table id="table_detail">
 				<tbody >
 					<c:forEach items="${Mentees}" var="ment">
 					
@@ -160,26 +159,10 @@
 															<c:if test="${ment.gender == 0}"> female </c:if> 
 															
 															</div>
-														
-<c:if test="${ment.gender == 1}">  
-										<div id="input3${ment.id}" style="display: none;">
-												<input id="clickedGender" class="male" type="radio"
-															name="uGender" value="1"  checked > Male
-															<br>
-										<input id="noclickedGender" class="female" type="radio" name="uGender"
-														value="0" > female
-												
-												</div></c:if>
-												
-												<c:if test="${ment.gender == 0}">  
-										<div id="input3${ment.id}" style="display: none;">
-												<input id="clickedGender" class="male" type="radio"
-															name="uGender" value="1"   > male
-													<br>		
-										<input id="noclickedGender" class="female" type="radio" name="uGender"
-														value="0" checked> female
-												
-												</div></c:if>
+														<select id="input3${ment.id}" style="display: none;" name="uGender" class="selectpicker reports" >
+							     							<option value="0">Male</option>
+							     		 					<option value="1">Female</option>
+					      								</select>							
 													</td>
 													<td width="12%">
 														<div id="div4${ment.id}"
@@ -373,11 +356,10 @@
 			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
 			Mentee
 		</a>
-		<a onclick="menteetTableToArray(this)" href="#" class="btn-print btn btn-block" >
+		<a onclick="menteeTableToArray(this)" href="#" class="btn-print btn btn-block" >
 			<i class="fa fa-print"></i> print</a>
 		
-		<div id="openModal3" class="modalDialog">
-			<div>
+		<div id="openModal3" class="modalDialog">			
 				<div class="container" >
 					<a href="#close" title="Close" class="close"
 						style="position: absolute;">X</a>
@@ -401,14 +383,11 @@
 							 required></td>
 							 <td class="form">Gender</td>
 								<td class="form">
-								
-								
-								<input id="clickedGender" class="male" type="radio"
-									name="uGender" value="1" checked> Male <input
-									id="noclickedGender" class="female" type="radio" name="uGender"
-									value="0"> Female
-						
-							  	
+									<select name="uGender" class="selectpicker reports" id="gender1" >
+		    	 	 					<option></option>
+		     							<option value="0">Male</option>
+		     		 					<option value="1">Female</option>
+	      							</select>
 							  	</td>
 								<td class="form">Address</td>
 								<td class="form"><input type="text" name="uAddress"
@@ -449,32 +428,48 @@
 
 								<td class="form">Signed</td>
 								<td class="form">
-								
-								<input id="clickedSign" class="Sign1" type="radio"
-									name="uSignedEULA" value="true" checked> YES <input
-									id="noclickedclickedSign" class="Sign2" type="radio" name="uSignedEULA"
-									value="false"> NO
-									
+									<select name="uSignedEULA" class="selectpicker reports" id="gender1" >
+		     							<option value="true">YES</option>
+		     		 					<option value="false">NO</option>
+	      							</select>
 								
 							  	
 							  	</td>
-								<td class="form">note</td>
-								<td class="form" colspan="3"><textarea name="uNotes" style="height: 50px"></textarea></td>
+							  	<td>City</td>
+								<td class="form">
+									<select name="cityId">
+											<option value="1"></option>
+											<c:forEach var="item" items="${cities}">
+												<option value="${item.id}">   ${item.name}</option>
+											</c:forEach>
+									</select>
+								</td>
+								<td>Area</td>
+								<td class="form">
+									<select name="areaId">
+										<option value="1"></option>
+											<c:forEach var="item" items="${areas}">
+												<option value="${item.id}">   ${item.name}</option>
+											</c:forEach>
+									</select>
+								</td>
 							</tr>
 							<tr >
-							<td colspan="4"></td>
-							<td class="form">
-								<input type="text" name="id" style="display: none"
-								onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
-								onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
-							</td>
-							<td class="form" ><input style="float:center" type="submit" value="Add">
-							</td>
-							
-							
+								<td class="form">note</td>
+								<td class="form" colspan="3"><textarea name="uNotes" style="height: 50px"></textarea></td>
+								<td class="form">
+									<input type="text" name="id" style="display: none"
+									onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
+									onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
+								</td>
+								<td class="form" >
+									<input style="float:center" type="submit" value="Add">
+								</td>
+								
+							</tr>
 							</tbody>
 							
-							</tr>
+							
 						</table>
 						
 					</form>
@@ -482,7 +477,7 @@
 
 
 			</div>
-		</div>
+		
 	</section>
 </div>
 </body>
