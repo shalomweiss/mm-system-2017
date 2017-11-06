@@ -48,14 +48,21 @@ $(document).ready(function(){
 	function getMentorOfMentee(param) {
 		//.childNodes[1].childNodes[1].childNodes[1]
 		var mentId=param.parentNode.nextSibling.nextSibling.id.substr(4);
-		console.log(mentId);
+		console.log(param);
 		var sendData={id1:mentId};
-		console.log(sendData);
+		document.getElementById("Mentor"+mentId).childNodes[1].id="mentorWaiting";
 		$.post("GetMentorOfMentee",{
 			'id':mentId,
 		},
 		        function(data,status){
-		        	alert(data);
+					console.log(data);
+					var table=document.getElementById("mentorWaiting");
+					table.removeAttribute("id");
+					console.log(table.childNodes[1].childNodes[2].childNodes[5]);
+					table.childNodes[1].childNodes[2].childNodes[3].innerHTML=data.firstName+" "+data.lastName;
+					
+					//console.log(document.getElementById("Mentor"+data.id));
+		        	alert(status);
 		        });
 	}
 	function sendAPK(param)

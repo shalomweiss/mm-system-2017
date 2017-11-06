@@ -292,9 +292,10 @@
 											style="background-color: rgba(250,178,58,0.8);">
 											<table>
 											<tr>
-												<th width="60%" class="inner">Notes</th>
-												<th width="15%" class="inner">Start Date</th>	
-												<th width="15%" class="inner">Pair Date</th>		
+												<th width="30%" class="inner">Notes</th>
+												<th width="15%" class="inner">City</th>	
+												<th width="15%" class="inner">Area</th>	
+												<th width="20%" class="inner">Join Date</th>			
 												<th width="10%" class="inner">Actions</th>	
 											</tr>
 											<tr>
@@ -305,8 +306,7 @@
 													<textarea id="input12${ment.id}" name="uNotes"
 														style="display: none; height: 100px;">${ment.note}</textarea>
 												</td>
-												<td width="15%"></td>
-												<td width="15%"></td>
+												<td width="30%">${ment.joinDate}</td>
 												
 												<td width="10%">
 													<input id="id:${ment.id}" name="uId" type="text"
@@ -325,7 +325,7 @@
 											<table>
 												<tr>
 													<th width="60%" class="inner">Name</th>	
-													<th width="30%" class="inner">Workplace</th>	
+													<th width="30%" class="inner"></th>	
 													<th width="10%" class="inner">Actions</th>	
 												</tr>
 												<tr>

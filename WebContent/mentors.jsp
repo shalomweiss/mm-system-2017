@@ -369,7 +369,7 @@ function sendAPK(param)
 															
 															</div>
 														<select id="input3${ment.id}" style="display: none;" name="uGender" class="selectpicker reports" >
-							     							<option value="0">Male</option>
+							     							<option value="0" selected="selected">Male</option>
 							     		 					<option value="1">Female</option>
 					      								</select>				
 
@@ -486,9 +486,9 @@ function sendAPK(param)
 													</td>
 													<td width="15%">
 														<div id="div13${ment.id}"
-															ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.address}</div>
-														<select name="uCompany" id="input13${ment.id}" style="display: none;" required >
-																<option value="0"></option>
+															ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.city}</div>
+														<select name="cityId" id="input13${ment.id}" style="display: none;" required >
+																<option value="${ment.cityId}"></option>
 																<c:forEach var="item" items="${NewWorkPlace}">
 																	<option value="${item.id}">   ${item.company}</option>
 																</c:forEach>
@@ -496,21 +496,16 @@ function sendAPK(param)
 													</td>
 													<td width="15%">
 														<div id="div14${ment.id}"
-															ondblclick="showStuff('div14${ment.id}','input14${ment.id}');">${ment.address}</div>
-														<select name="uCompany" id="input14${ment.id}" style="display: none;" required >
-																<option value="0"></option>
+															ondblclick="showStuff('div14${ment.id}','input14${ment.id}');">${ment.area}</div>
+														<select name="areaId" id="input14${ment.id}" style="display: none;" required >
+																<option value="${ment.areaId}"></option>
 																<c:forEach var="item" items="${NewWorkPlace}">
 																	<option value="${item.id}">   ${item.company}</option>
 																</c:forEach>
 														</select>										
 													</td>
 													<td width="20%">
-														<div id="div15${ment.id}"
-															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.id}</div>
-														<input id="input15${ment.id}" name="uWorkHistory"
-														type="text" value="${ment.id}"
-														style="display: none;"
-														required>
+														${ment.joinDate}
 													</td>
 													<td width="10%"><input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"

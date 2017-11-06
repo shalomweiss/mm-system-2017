@@ -66,7 +66,6 @@ public class UpdateMentor extends HttpServlet {
 		String cityId="1";//request.getParameter("cityId");
 		String areaId="1";//request.getParameter("areaId");
 		int uCity= Integer.parseInt(cityId);
-
 		int uArea= Integer.parseInt(areaId);
 		DataAccess da = new DataAccess();
 		Boolean status = false;
