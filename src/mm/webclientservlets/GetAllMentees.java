@@ -1,5 +1,6 @@
 package mm.webclientservlets;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
 import mm.model.AcademicInstitute;
+import mm.model.Area;
+import mm.model.City;
 import mm.model.Mentee;
 import mm.model.User;
 import mm.model.User.userType;
@@ -64,13 +67,32 @@ public class GetAllMentees extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
+			ArrayList<City> cities =new ArrayList<City>();
+			ArrayList<Area> areas =new ArrayList<Area>();
+
+		 try {
+			 cities = da.getAllCities();
+			 } catch (SQLException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 }
+		 try {
+			 areas = da.getAllAreas();
+			 } catch (SQLException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 }
+
+
 			try {
 				da.closeConnection();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+		System.out.println("AREAS: "+ areas +"/n Cities:" + cities);	
+		request.setAttribute("areas", areas);
+		request.setAttribute("cities", cities);
 		request.setAttribute("Mentees", ArrMentees);
 		request.setAttribute("AcadimicIn", AcadimicIn); 
 	

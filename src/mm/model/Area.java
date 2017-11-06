@@ -20,5 +20,10 @@ public class Area {
 	public void setName(String name) {
 		this.name = name;
 	}
+	@Override
+	public String toString() {
+		return "Area [id=" + id + ", name=" + name + "]";
+	}
+	
 	
 }

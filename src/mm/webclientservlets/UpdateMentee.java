@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
 import mm.model.Mentee;
+import mm.model.User;
 import mm.model.User.userType;
 
 /**
@@ -43,6 +44,7 @@ public class UpdateMentee extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("UPDATE MENTEE DETAILDS");
+		
 		int id = Integer.parseInt(request.getParameter("uId"));
 		String firstName = request.getParameter("uFirstName");
 		String lastName = request.getParameter("uLastName");
@@ -52,37 +54,31 @@ public class UpdateMentee extends HttpServlet {
 		String academicDicipline2 = request.getParameter("uAcademicDicipline2");
 		System.out.println("academicDicipline2"+academicDicipline2);
 		String email = request.getParameter("uEmail");
-	//	String resume = request.getParameter("uResume");
-	//	String gradeSheet = request.getParameter("uGradeSheet");
 		int gender = Integer.parseInt(request.getParameter("uGender"));
 		String address = request.getParameter("uAddress");
-		String graduationStatus = request.getParameter("uGraduationStatus");
-		
+		String graduationStatus = request.getParameter("uGraduationStatus");		
 		float remSemesters = Float.parseFloat(request.getParameter("uRemSemesters"));
 		float average = Float.parseFloat(request.getParameter("uAverage"));
 		String notes = request.getParameter("uNotes");
-	//	boolean isActive = Boolean.parseBoolean(request.getParameter("uActive"));
-	//	boolean signedEULA = Boolean.parseBoolean(request.getParameter("signedEULA"));
 		DataAccess da = new DataAccess();
 		Boolean status = false;
 		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
-		///////////////////////daniel change please note
-		String cityId="1";//request.getParameter("cityId");
-		String areaId="1";//request.getParameter("areaId");		
+		String cityId=request.getParameter("cityId");
+		String areaId=request.getParameter("areaId");		
 		int uCity= Integer.parseInt(cityId);
 		int uArea= Integer.parseInt(areaId);
-		
-		String password = null; // DB ignore it
-		String profilePic =null;
-		String resume = null;
-		String gradeSheet =null;
 		boolean isActive =true;
 		boolean signedEULA = true;     
 		long millis=System.currentTimeMillis();  
         Date date=new Date(millis);
-		
+        Mentee myUser=new Mentee();
+		try {
+			myUser = (Mentee) da.getUser(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,password,gender,address,profilePic,notes,isActive,userType.MENTEE,uArea,"",uCity,"",date ,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,resume,gradeSheet);
+		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,myUser.getPassword(),gender,address,myUser.getProfilePicture(),notes,isActive,userType.MENTEE,uArea,"",uCity,"",myUser.getJoinDate() ,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,myUser.getResume(),myUser.getGradeSheet());
 		try {
 			status = da.editUser(mentee);
 		} catch (SQLException e) {
