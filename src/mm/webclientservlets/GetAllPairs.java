@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
+import mm.model.Area;
+import mm.model.City;
 import mm.model.Mentee;
 import mm.model.Mentor;
 import mm.model.Pair;
@@ -72,13 +74,29 @@ public class GetAllPairs extends HttpServlet {
 				
 			}
 		}
+		ArrayList<City> cities =new ArrayList<City>();
+		ArrayList<Area> areas =new ArrayList<Area>();
+
+	 try {
+		 cities = da.getAllCities();
+		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
+	 try {
+		 areas = da.getAllAreas();
+		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
 		try {
 			da.closeConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	    request.setAttribute("areas", areas);
+	    request.setAttribute("cities", cities);
 		request.setAttribute("pairs", activePairsArray);
 		response.setContentType("text/html");
 	    RequestDispatcher req = request.getRequestDispatcher("mainPair.jsp");
