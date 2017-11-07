@@ -50,6 +50,7 @@ public class GetMentorOfMentee extends HttpServlet {
             }
           
         try {
+        	if(mentor.getCompany()!=0);
 			mentor.setCompanyName((da.getWorkPlaceById(mentor.getCompany())).getCompany());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -61,20 +62,12 @@ public class GetMentorOfMentee extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-   
         Gson gson = new Gson();
-		String mentorGson = gson.toJson(mentor, User.class);
-		
-	    
+		String mentorGson = gson.toJson(mentor, User.class);	    
 	    response.setContentType("Content-Type: application/json");
 	    PrintWriter writer = response.getWriter().append(mentorGson);
 		writer.println();
 		writer.close();
-
-        
-        
-    
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

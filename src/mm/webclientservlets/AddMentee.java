@@ -77,17 +77,51 @@ public class AddMentee extends HttpServlet {
 		String profilePicture=request.getParameter("profilePicture");
 		String cityId=request.getParameter("cityId");
 		String areaId=request.getParameter("areaId");
-		
-		Float avg = Float.valueOf(uAverage);
-		Float remSemesters= Float.valueOf(uRemSemesters);
 		int uGender= Integer.parseInt(gender);
-		int uCity= Integer.parseInt(cityId);
+		Float avg= null;
+		Float remSemesters= null;
+		int uCity=0;
+		int uArea=0;
+		int uAcademicInstitution= 0;
+		boolean SignedEULA=false;
+		System.out.println("ACADEMIC "+uAcademicIn+"city "+cityId +"area: "+ areaId);
 
-		int uArea= Integer.parseInt(areaId);
+		if(uAverage.equals(null) ||uAverage.equals("")){
+			avg=(float) 0;
+		}
+		else
+		{	
+			avg = Float.valueOf(uAverage);
+			System.out.println("AVGG" + avg);
+			}
+	    
+		if(uRemSemesters.equals(null) ||uRemSemesters.equals(""))
+		remSemesters=(float) 0;
+		else
+		remSemesters= Float.valueOf(uRemSemesters);
 		
-		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
-		boolean SignedEULA=Boolean.parseBoolean(Signed);
+		if(cityId.equals(null) ||cityId.equals(""))
+			uCity=0;
+		else
+			uCity= Integer.parseInt(cityId);
 
+		
+		if(areaId.equals(null) ||areaId.equals(""))
+		   uArea=0;
+		else
+		  uArea= Integer.parseInt(areaId);
+		
+		
+		if(uAcademicIn.equals(null) ||uAcademicIn.equals(""))
+			uAcademicInstitution=0;
+		else
+			uAcademicInstitution= Integer.parseInt(uAcademicIn);
+		
+		if(Signed.equals(null) ||Signed.equals(""))
+			 SignedEULA=false;
+		else
+			SignedEULA=Boolean.parseBoolean(Signed);
+        
 		String uPass= GeneratePass.getSaltString();	
         long millis=System.currentTimeMillis();  
         Date date=new Date(millis);

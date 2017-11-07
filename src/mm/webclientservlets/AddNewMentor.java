@@ -48,17 +48,32 @@ public class AddNewMentor extends HttpServlet {
 		String nextPage = request.getParameter("jsp");
 		String workHistory = request.getParameter("history");
 		String role = request.getParameter("role");
-		int company = Integer.parseInt(request.getParameter("company"));
 		String pass = GeneratePass.getSaltString();
 		String ProfilePicture = request.getParameter("profilePicture");
 		String cityId=request.getParameter("cityId");
-		String areaId=request.getParameter("areaId");
-
+		String areaId=request.getParameter("areaId");	
+		String comp=request.getParameter("company");
+		int uCity;
+		int uArea;
+		int company;
+		System.out.println("company: "+comp+"city "+cityId +"area: "+ areaId);
+		
+		if(cityId.equals(null) ||cityId.equals(""))
+			uCity=0;
+		else
+			uCity= Integer.parseInt(cityId);
 	
-		int uCity= Integer.parseInt(cityId);
+		if(areaId.equals(null) ||areaId.equals(""))
+		   uArea=0;
+		else
+		  uArea= Integer.parseInt(areaId);
+		if(comp.equals(null) ||comp.equals(""))
+			company=0;
+		else
+		    company = Integer.parseInt(comp);
 
-		int uArea= Integer.parseInt(areaId);
-	    long millis=System.currentTimeMillis();  
+		
+		long millis=System.currentTimeMillis();  
 	    java.sql.Date date=new java.sql.Date(millis);
 		
 		User newMentor = new Mentor(0, firstName, lastName, email, phoneNumber, pass, gender, address, notes,
@@ -67,8 +82,7 @@ public class AddNewMentor extends HttpServlet {
 		int res = -1;
 		RequestDispatcher req = null;
 
-		try {
-			
+		try {		
 			res = da.addUser(newMentor);
 
 		} catch (SQLException e) {
@@ -89,7 +103,6 @@ public class AddNewMentor extends HttpServlet {
 		try {
 			da.closeConnection();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

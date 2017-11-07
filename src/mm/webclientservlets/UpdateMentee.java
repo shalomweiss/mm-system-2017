@@ -50,9 +50,11 @@ public class UpdateMentee extends HttpServlet {
 		String lastName = request.getParameter("uLastName");
 		String phoneNum = request.getParameter("uPhoneNumber");
 		String academicDicipline = request.getParameter("uAcademicDicipline");
-		System.out.println("academicDicipline"+academicDicipline);
+		System.out.println("academicDicipline "+academicDicipline);
 		String academicDicipline2 = request.getParameter("uAcademicDicipline2");
-		System.out.println("academicDicipline2"+academicDicipline2);
+		
+		System.out.println("academicDicipline2 " +academicDicipline2.length());
+		
 		String email = request.getParameter("uEmail");
 		int gender = Integer.parseInt(request.getParameter("uGender"));
 		String address = request.getParameter("uAddress");
@@ -79,7 +81,10 @@ public class UpdateMentee extends HttpServlet {
 		}
 
 		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,myUser.getPassword(),gender,address,myUser.getProfilePicture(),notes,isActive,userType.MENTEE,uArea,"",uCity,"",myUser.getJoinDate() ,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,myUser.getResume(),myUser.getGradeSheet());
-		try {
+	    System.out.println(""+mentee+"/n number of string:  "+mentee.getAcademicDicipline2().length());
+	    System.out.println("String Lenghth: "+mentee.getAcademicDicipline2().length());
+
+	    try {
 			status = da.editUser(mentee);
 		} catch (SQLException e) {
 			e.printStackTrace();
