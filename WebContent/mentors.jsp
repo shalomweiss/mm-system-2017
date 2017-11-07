@@ -41,16 +41,7 @@
 <script> 
 
 $(document).ready(function(){
-	$( "form" ).submit(function( event ) {
-		  alert( "Handler for .submit() called." );
-		  console.log(this);
-		  event.preventDefault();
-		  var select=$(this).find( "Select:hidden" ).css('display','block');
-		  for (var i = 0; i < select.length; i++) {
-			  select[i].childNodes[1].selected= true;
-		} 
-		  this.submit();
-		});
+	
 	$(".para").click(function() {
 	    $(this).addClass('selected').siblings().removeClass("selected");
 	});
@@ -61,6 +52,16 @@ $(document).ready(function(){
 		var male=document.getElementsByClassName("male")[0];
 		male.id="noclickedGender";
 	});
+	$( "form" ).submit(function( event ) {
+		  alert( "Please wait for the data to loaded" );
+		  console.log(this);
+		  event.preventDefault();
+		  var select=$(this).find( "Select:hidden" ).css('display','block');
+		  for (var i = 0; i < select.length; i++) {
+			  select[i].childNodes[1].selected= true;
+		} 
+		  this.submit();
+		});
 	$(".male").click(function(){
 		var female=document.getElementsByClassName("female")[0];
 		female.id="noclickedGender";
@@ -136,7 +137,7 @@ function sendAPK(param)
 		$("#" + row).toggle();
 		prevRow=null;
 		
-		for(var i=1;i<=12;i++)  //length of inputs
+		for(var i=1;i<=14;i++)  //length of inputs
 			{
 			showStuff("input"+i+mentId,"div"+i+mentId);
 			}
@@ -144,13 +145,10 @@ function sendAPK(param)
 		
 	}
 	function backUpInputs(mentId){
-		
 		for(var i=1;i<=12;i++)  //length of inputs
 		{
 			document.getElementById("input"+i+mentId).value =document.getElementById("div"+i+mentId).innerHTML;
 		}
-		
-		
 	}
 	 function exportToCsv(filename, rows) {
 	        var processRow = function (row) {
@@ -229,20 +227,10 @@ function sendAPK(param)
 		evt.currentTarget.className += " active";
 	}
 	function showStuff(hide, show) {
-		//console.log(document.getElementById(show).tagName);
-		
-	/*	if(document.getElementById(show).tagName=='SELECT')
-		{
-			console.log(document.getElementById(show).childNodes[3]);
-			document.getElementById(show).childNodes[3].selected = "true";
-			console.log(document.getElementById(show).childNodes[3].selected);
-		}*/
-			
-			
-		
+		if(document.getElementById(show).tagName=='SELECT')
+			document.getElementById(show).childNodes[1].selected = "true";
 	    document.getElementById(show).style.display  = '';
-	    document.getElementById(hide).style.display  = 'none';
-	    
+	    document.getElementById(hide).style.display  = 'none'; 
 	}
 	
 	
@@ -310,13 +298,13 @@ function sendAPK(param)
 						<c:forEach items="${Mentors}" var="ment">
 							<tr class="stam"
 								onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
-								<td style="display:none" >${ment.id}</td>
+								<td style="display:none">${ment.id}</td>
 								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
 								<td>${ment.companyName}</td>
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td>
-									<a onclick="deactivate(this)" class="btn btn-block btn-primary topButton" href="#" style="margin-top: 0px;" >
+									<a onclick="deactivate(this)" class="btn btn-block btn-primary" href="#" style="margin-top: 0px;" >
 			 							Deactivate
     								</a><br>
 								</td>
@@ -499,8 +487,8 @@ function sendAPK(param)
 															ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.city}</div>
 														<select name="cityId" id="input13${ment.id}" style="display: none;" required >
 																<option value="${ment.cityId}"></option>
-																<c:forEach var="item" items="${NewWorkPlace}">
-																	<option value="${item.id}">   ${item.company}</option>
+																<c:forEach var="item" items="${cities}">
+																	<option value="${item.id}">   ${item.name}</option>
 																</c:forEach>
 														</select>						
 													</td>
@@ -509,8 +497,8 @@ function sendAPK(param)
 															ondblclick="showStuff('div14${ment.id}','input14${ment.id}');">${ment.area}</div>
 														<select name="areaId" id="input14${ment.id}" style="display: none;" required >
 																<option value="${ment.areaId}"></option>
-																<c:forEach var="item" items="${NewWorkPlace}">
-																	<option value="${item.id}">   ${item.company}</option>
+																<c:forEach var="item" items="${areas}">
+																	<option value="${item.id}">   ${item.name}</option>
 																</c:forEach>
 														</select>										
 													</td>

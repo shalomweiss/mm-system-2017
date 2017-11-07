@@ -12,7 +12,16 @@ $(document).ready(function(){
 		var male=document.getElementsByClassName("male")[0];
 		male.id="clickedGender";
 	});
-	
+	$( "form" ).submit(function( event ) {
+		  alert( "Please wait for the data to loaded" );
+		  console.log(this);
+		  event.preventDefault();
+		  var select=$(this).find( "Select:hidden" ).css('display','block');
+		  for (var i = 0; i < select.length; i++) {
+			  select[i].childNodes[1].selected= true;
+		} 
+		  this.submit();
+		});
 	$(".Sign2").click(function(){
 		var sign2=document.getElementsByClassName("Sign1")[0];
 		sign2.id="clickedSign";
@@ -237,12 +246,6 @@ function menteeTableToArray(param)
 	
 	exportToCsv('Mentees.csv',matrix);
 }
-	function showStuff(hide, show) {
-		
-	     document.getElementById(show).style.display  = 'block';
-	    document.getElementById(hide).style.display  = 'none';
-	    
-	}
 	function showDetails(evt, Detail) {
 
 		var i, tabcontent, tablinks;
@@ -259,8 +262,9 @@ function menteeTableToArray(param)
 		evt.currentTarget.className += " active";
 	}
 	function showStuff(hide, show) {
-		
-	     document.getElementById(show).style.display  = 'block';
+		if(document.getElementById(show).tagName=='SELECT')
+			document.getElementById(show).childNodes[1].selected = "true";
+	    document.getElementById(show).style.display  = 'block';
 	    document.getElementById(hide).style.display  = 'none';
 	    
 	}

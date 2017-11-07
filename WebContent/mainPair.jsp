@@ -35,10 +35,72 @@ $(document).ready(function(){
    			  }
    			);
 });
+function exportToCsv(filename, rows) {
+    var processRow = function (row) {
+        var finalVal = '';
+        for (var j = 0; j < row.length; j++) {
+            var innerValue = row[j] === null ? '' : row[j].toString();
+            if (row[j] instanceof Date) {
+                innerValue = row[j].toLocaleString();
+            };
+            var result = innerValue.replace(/"/g, '""');
+            if (result.search(/("|,|\n)/g) >= 0)
+                result = '"' + result + '"';
+            if (j > 0)
+                finalVal += ',';
+            finalVal += result;
+        }
+        return finalVal + '\n';
+    };
+
+    var csvFile = '';
+    for (var i = 0; i < rows.length; i++) {
+        csvFile += processRow(rows[i]);
+    }
+    var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, filename);
+    } else {
+        var link = document.createElement("a");
+        if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", filename);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+}
+function pairTableToArray(param)
+{
+	var matrix=[['Mentor Name','Phone Number','Workplace','Mentee Name','Phone Number','Academy']];
+	var tbody=document.getElementsByTagName("tbody")[0];
+	var rows=tbody.getElementsByTagName("TR");
+	for (var i = 0; i < rows.length; i++) {
+		var row=[];
+		var columns=rows[i].getElementsByTagName("td");
+		for (var j = 0; j < columns.length-1; j++) {
+			row.push(columns[j].innerHTML);
+		}
+		matrix.push(row);
+	}
+	console.log(matrix);
+	var thead=document.getElementsByTagName("thead")[0];
+	console.log(thead.getElementsByTagName("tr")[0]);
+	exportToCsv('Pairs.csv',matrix);
+}
 </script>
 <style>
 .icon-bar a {
        padding: 8px;
+}
+.btn-print
+{
+	border-radius:18px;
+	bottom: 2vh;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
@@ -108,7 +170,10 @@ $(document).ready(function(){
   </div>
 </section>
 <a class="btn btn-block btn-primary .btn-click btn-addClick" href="GetMentorsAndMentees"> <i class="fa fa-plus"></i><i class="fa fa-group"></i> New Pair </a>
+ <a onclick="pairTableToArray(this)" href="#" class="btn-print btn btn-block" >
+			<i class="fa fa-print"></i> print</a>
  </div>
+ 
 
  </body>
 </html> 

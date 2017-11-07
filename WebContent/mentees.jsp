@@ -160,6 +160,7 @@
 															
 															</div>
 														<select id="input3${ment.id}" style="display: none;" name="uGender" class="selectpicker reports" >
+							     							<option value="${ment.gender}"></option>
 							     							<option value="0">Male</option>
 							     		 					<option value="1">Female</option>
 					      								</select>							
@@ -242,9 +243,13 @@
 														required>
 													</td>
 													<td width="20%">
-														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitution}</div>
-												 		<input name="uAcademicInstitution" id="input13${ment.id}" type="text" value="${ment.academiclnstitution}"   style="display :none;"
-													 	required >													</td>
+														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitutionName}</div>
+													 	<select name="uAcademicInstitution" id="input13${ment.id}" value="${ment.academiclnstitution}" style="display :none;">
+																<option value="${ment.academiclnstitution}"></option>
+																<c:forEach var="item" items="${AcadimicIn}">
+																	<option value="${item.id}">  ${item.name}</option>
+																</c:forEach>
+														</select>   												</td>
 													<td width="10%">
 														<div id="div9${ment.id}"
 															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.average}</div>
@@ -299,14 +304,34 @@
 												<th width="10%" class="inner">Actions</th>	
 											</tr>
 											<tr>
-												<td width="60%">
+												<td width="30%">
 													<div id="div12${ment.id}" ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">
 															${ment.note}
 													</div>
 													<textarea id="input12${ment.id}" name="uNotes"
 														style="display: none; height: 100px;">${ment.note}</textarea>
 												</td>
-												<td width="30%">${ment.joinDate}</td>
+												<td width="15%">
+														<div id="div15${ment.id}"
+															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.city}</div>
+														<select name="cityId" id="input15${ment.id}" style="display: none;" required >
+																<option value="${ment.cityId}"></option>
+																<c:forEach var="item" items="${cities}">
+																	<option value="${item.id}">   ${item.name}</option>
+																</c:forEach>
+														</select>						
+													</td>
+													<td width="15%">
+														<div id="div16${ment.id}"
+															ondblclick="showStuff('div16${ment.id}','input16${ment.id}');">${ment.area}</div>
+														<select name="areaId" id="input16${ment.id}" style="display: none;" required >
+																<option value="${ment.areaId}"></option>
+																<c:forEach var="item" items="${areas}">
+																	<option value="${item.id}">   ${item.name}</option>
+																</c:forEach>
+														</select>										
+													</td>
+												<td width="20%">${ment.joinDate}</td>
 												
 												<td width="10%">
 													<input id="id:${ment.id}" name="uId" type="text"
@@ -379,8 +404,7 @@
 							</tr>
 							<tr>
 								<td class="form">Phone number</td>
-								<td class="form"><input type="number" name="uPhoneNumber" 
-							 required></td>
+								<td class="form"><input type="number" name="uPhoneNumber" ></td>
 							 <td class="form">Gender</td>
 								<td class="form">
 									<select name="uGender" class="selectpicker reports" id="gender1" >
@@ -390,14 +414,12 @@
 	      							</select>
 							  	</td>
 								<td class="form">Address</td>
-								<td class="form"><input type="text" name="uAddress"
-								required>
+								<td class="form"><input type="text" name="uAddress">
 								
 							</tr>
 							<tr>
 								<td class="form">Graduation status</td>
-								<td class="form"><input type="text" name="uGraduationStatus"
-								required></td>
+								<td class="form"><input type="text" name="uGraduationStatus"></td>
 								<td class="form">Academic institution</td>
 								<td>
 								
@@ -409,15 +431,15 @@
 								</td>
 								<td class="form">Average</td>			
 								<td class="form"><input type="number" name="uAverage" min="0" max="100" 
-								style="color:#BBB;" required></td>	
+								style="color:#BBB;"></td>	
 															
 								
 							</tr>
 							<tr>
 								<td class="form">Remaining semesters</td>
-								<td class="form"><input type="number" name="uRemSemesters" required></td>
+								<td class="form"><input type="number" name="uRemSemesters"></td>
 								<td class="form">Dicipline</td>
-								<td class="form"><input type="text" name="uAcademicDicipline" required ></td>
+								<td class="form"><input type="text" name="uAcademicDicipline"></td>
 
 								<td class="form">Dicipline 2</td>
 								<td class="form"><input type="text" name="uAcademicDicipline2">
