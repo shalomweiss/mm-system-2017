@@ -39,21 +39,23 @@ div.mentorMeetings{
 }
 
 .tsofen{
+	z-index: 2;
 	position: fixed;
-	right:0;
-	left:90px;
-	font-size: 30px;
- 	color: #fff;
- 	text-transform: uppercase;
- 	font-weight: 300;
- 	text-align: center;
+	margin-left:auto;
+	margin-right:auto;
  	margin-bottom: 15px;
- 	top:15%;
+ 	top:0;
+ 	max-width:700px;
+ 	max-height:700px;
+ 	width:700px;
+ 	height:700px;
  	bottom:0;
 	  text-align: center;
 	  font-size: 200px;
 	  font-family:AR DARLING;
 	  color: #fff;
+	left: calc( 50% - 390px);
+    right: calc( 50% - 390px);
 }
 th.mentor{
 	background-color: rgb(108,136,225)

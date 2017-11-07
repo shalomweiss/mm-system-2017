@@ -71,6 +71,6 @@
 </nav>
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
-	<h1 class="tsofen">MENTORIM</h1>
+	<img class="tsofen" src="DownloadFile?logo=MP-LOGO-10.png" alt="W3Schools.com">
 </body>
 </html> 
