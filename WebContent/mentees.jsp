@@ -102,8 +102,8 @@
 						<tr class="stam1" onclick="show_hide_row1('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 							    <td style="display: none">${ment.id}</td>
 						    	<td>${ment.firstName} ${ment.lastName}</td>
-								<td>${ment.phoneNumber}</td>
-								<td>${ment.academiclnstitutionName}</td>
+								<td>${ment.phoneNumber}<c:if test="${empty ment.phoneNumber}">No Data</c:if></td>
+								<td>${ment.academiclnstitutionName}<c:if test="${empty ment.academiclnstitutionName}">No Data</c:if></td>
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td>
 									<a onclick="deactivate(this)" class="btn btn-block btn-primary" href="#" style="margin-top: 0px;" >
@@ -167,7 +167,7 @@
 													</td>
 													<td width="12%">
 														<div id="div4${ment.id}"
-															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
+															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}<c:if test="${empty ment.address}">No Data</c:if></div>
 														<input id="input4${ment.id}" name="uAddres" type="text"
 														value="${ment.address}" style="display: none;"
 														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
@@ -175,7 +175,7 @@
 													</td>
 													<td width="12%">
 														<div id="div5${ment.id}"
-															ondblclick="showStuff('div5${ment.id}','input5${ment.id}');">${ment.phoneNumber}</div>
+															ondblclick="showStuff('div5${ment.id}','input5${ment.id}');">${ment.phoneNumber}<c:if test="${empty ment.phoneNumber}">No Data</c:if></div>
 														<input id="input5${ment.id}" name="uPhoneNumber"
 														type="text" value="${ment.phoneNumber}"
 														style="display: none;"
@@ -228,7 +228,7 @@
 												</td>
 													<td width="10%">
 														<div id="div7${ment.id}"
-															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.remainingSemesters}</div>
+															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.remainingSemesters}<c:if test="${empty ment.remainingSemesters}">No Data</c:if></div>
 														<input id="input7${ment.id}" name="uRemSemesters"
 														type="number" value="${ment.remainingSemesters}"
 														style="display: none;" min="0" required
@@ -236,14 +236,14 @@
 													</td>
 													<td width="10%">
 														<div id="div8${ment.id}"
-															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.graduationStatus}</div>
+															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.graduationStatus}<c:if test="${empty ment.graduationStatus}">No Data</c:if></div>
 														<input id="input8${ment.id}" name="uGraduationStatus"
 														type="text" value="${ment.graduationStatus}"
 														style="display: none;"
 														required>
 													</td>
 													<td width="20%">
-														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitutionName}</div>
+														 <div id="div13${ment.id}" ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.academiclnstitutionName}<c:if test="${empty ment.academiclnstitutionName}">No Data</c:if></div>
 													 	<select name="uAcademicInstitution" id="input13${ment.id}" value="${ment.academiclnstitution}" style="display :none;">
 																<option value="${ment.academiclnstitution}"></option>
 																<c:forEach var="item" items="${AcadimicIn}">
@@ -252,14 +252,14 @@
 														</select>   												</td>
 													<td width="10%">
 														<div id="div9${ment.id}"
-															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.average}</div>
+															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.average}<c:if test="${empty ment.average}">No Data</c:if></div>
 														<input id="input9${ment.id}" name="uAverage" type="number"
 														value="${ment.average}" style="display: none;" min="0" max="100"
 														required>
 													</td>
 													<td width="15%">
 														<div id="div10${ment.id}"
-															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.academicDicipline}</div>
+															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.academicDicipline}<c:if test="${empty ment.academicDicipline}">No Data</c:if></div>
 														<input id="input10${ment.id}" name="uAcademicDicipline"
 														type="text" value="${ment.academicDicipline}"
 														style="display: none;"
@@ -268,16 +268,8 @@
 													<td width="15%">
 														<div id="div11${ment.id}"
 															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">
-															
-															
-															
-															<c:if test="${empty ment.academicDicipline2}">
-															NO VALUE
-															</c:if>
-																<c:if test="${not empty ment.academicDicipline2}">
+															<c:if test="${empty ment.academicDicipline2}">No Data</c:if>
 															${ment.academicDicipline2}
-															
-															</c:if>
 															</div>
 														<input id="input11${ment.id}" name="uAcademicDicipline2"
 														type="text" value="${ment.academicDicipline2}"
@@ -305,15 +297,13 @@
 											</tr>
 											<tr>
 												<td width="30%">
-													<div id="div12${ment.id}" ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">
-															${ment.note}
-													</div>
+													<div id="div12${ment.id}" ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.note}<c:if test="${empty ment.note}">No Data</c:if></div>
 													<textarea id="input12${ment.id}" name="uNotes"
-														style="display: none; height: 100px;">${ment.note}</textarea>
+														style="display: none; ">${ment.note}</textarea>
 												</td>
 												<td width="15%">
 														<div id="div15${ment.id}"
-															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.city}</div>
+															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.city}<c:if test="${empty ment.city}">No Data</c:if></div>
 														<select name="cityId" id="input15${ment.id}" style="display: none;" required >
 																<option value="${ment.cityId}"></option>
 																<c:forEach var="item" items="${cities}">
@@ -323,7 +313,7 @@
 													</td>
 													<td width="15%">
 														<div id="div16${ment.id}"
-															ondblclick="showStuff('div16${ment.id}','input16${ment.id}');">${ment.area}</div>
+															ondblclick="showStuff('div16${ment.id}','input16${ment.id}');">${ment.area}<c:if test="${empty ment.area}">No Data</c:if></div>
 														<select name="areaId" id="input16${ment.id}" style="display: none;" required >
 																<option value="${ment.areaId}"></option>
 																<c:forEach var="item" items="${areas}">
@@ -331,7 +321,7 @@
 																</c:forEach>
 														</select>										
 													</td>
-												<td width="20%">${ment.joinDate}</td>
+												<td width="20%">${ment.joinDate}<c:if test="${empty ment.joinDate}">No Data</c:if></td>
 												
 												<td width="10%">
 													<input id="id:${ment.id}" name="uId" type="text"

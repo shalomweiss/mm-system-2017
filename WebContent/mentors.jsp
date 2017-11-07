@@ -400,7 +400,8 @@ function sendAPK(param)
 													<td width="10%"><input class="saveButton" id="submit${ment.id}" type="submit"
 														value="Save"><br>
 														<input onclick="sendAPK(this)" id="submit${ment.id}" type="button"
-														value="Mail"></td>
+														value="Mail">
+													</td>
 												</tr>
 											</table>
 
@@ -479,7 +480,7 @@ function sendAPK(param)
 													<td width="30%">
 														<div id="div10${ment.id}"
 															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}</div>
-														<textarea id="input10${ment.id}" name="uNotes" value="${ment.note}"
+														<textarea id="input10${ment.id}" name="uNotes"
 															style="display: none; ">${ment.note}</textarea>
 													</td>
 													<td width="15%">
