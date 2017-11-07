@@ -41,6 +41,16 @@
 <script> 
 
 $(document).ready(function(){
+	$( "form" ).submit(function( event ) {
+		  alert( "Handler for .submit() called." );
+		  console.log(this);
+		  event.preventDefault();
+		  var select=$(this).find( "Select:hidden" ).css('display','block');
+		  for (var i = 0; i < select.length; i++) {
+			  select[i].childNodes[1].selected= true;
+		} 
+		  this.submit();
+		});
 	$(".para").click(function() {
 	    $(this).addClass('selected').siblings().removeClass("selected");
 	});
@@ -60,12 +70,6 @@ $(document).ready(function(){
 	
 	
 });
-
-
-
-
-
-
 </script>
 <script type="text/javascript">
 
@@ -148,10 +152,6 @@ function sendAPK(param)
 		
 		
 	}
-	function showStuff(hide, show) {
-	    document.getElementById(show).style.display  = 'block';
-	    document.getElementById(hide).style.display  = 'none';
-	}
 	 function exportToCsv(filename, rows) {
 	        var processRow = function (row) {
 	            var finalVal = '';
@@ -229,8 +229,18 @@ function sendAPK(param)
 		evt.currentTarget.className += " active";
 	}
 	function showStuff(hide, show) {
+		//console.log(document.getElementById(show).tagName);
 		
-	     document.getElementById(show).style.display  = 'block';
+	/*	if(document.getElementById(show).tagName=='SELECT')
+		{
+			console.log(document.getElementById(show).childNodes[3]);
+			document.getElementById(show).childNodes[3].selected = "true";
+			console.log(document.getElementById(show).childNodes[3].selected);
+		}*/
+			
+			
+		
+	    document.getElementById(show).style.display  = '';
 	    document.getElementById(hide).style.display  = 'none';
 	    
 	}
@@ -300,7 +310,7 @@ function sendAPK(param)
 						<c:forEach items="${Mentors}" var="ment">
 							<tr class="stam"
 								onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
-								<td style="display: none">${ment.id}</td>
+								<td style="display:none" >${ment.id}</td>
 								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
 								<td>${ment.companyName}</td>
@@ -364,14 +374,14 @@ function sendAPK(param)
 													<td width="10%">
 														<div id="div3${ment.id}"
 															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
-															<c:if test="${ment.gender == 1}"> male </c:if>
-															<c:if test="${ment.gender == 0}"> female </c:if> 
-															
-															</div>
-														<select id="input3${ment.id}" style="display: none;" name="uGender" class="selectpicker reports" >
-							     							<option value="0" selected="selected">Male</option>
+															<c:if test="${ment.gender == 0}">fe</c:if>male
+														</div>
+														
+														<select name="uGender" id="input3${ment.id}">
+							     							<option selected value="${ment.gender}"></option>
+							     							<option  value="0">Male</option>
 							     		 					<option value="1">Female</option>
-					      								</select>				
+					      								</select>					
 
 													</td>
 													<td width="12%">
@@ -440,7 +450,7 @@ function sendAPK(param)
 														<div id="div12${ment.id}"
 															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.companyName}</div>
 														<select name="uCompany" id="input12${ment.id}" style="display: none;" required >
-																<option value="0"></option>
+																<option value="${ment.company}" selected="selected"></option>
 																<c:forEach var="item" items="${NewWorkPlace}">
 																	<option value="${item.id}">   ${item.company}</option>
 																</c:forEach>
