@@ -42,16 +42,15 @@ public class GetMentorOfMentee extends HttpServlet {
 		int menteeId =Integer.parseInt(request.getParameter("id"));
     
           DataAccess da = new DataAccess();
-            Mentor mentor = new Mentor();
+          Mentor mentor = new Mentor();
           try {
                 mentor = da.getMentorOfMentee(menteeId);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-          
         try {
-        	if(mentor.getCompany()!=0);
-			mentor.setCompanyName((da.getWorkPlaceById(mentor.getCompany())).getCompany());
+        	if(mentor!=null && mentor.getCompany()!=0)
+				mentor.setCompanyName((da.getWorkPlaceById(mentor.getCompany())).getCompany());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,12 +61,22 @@ public class GetMentorOfMentee extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        Gson gson = new Gson();
-		String mentorGson = gson.toJson(mentor, User.class);	    
-	    response.setContentType("Content-Type: application/json");
-	    PrintWriter writer = response.getWriter().append(mentorGson);
-		writer.println();
-		writer.close();
+        if(mentor==null)
+        {
+        	response.getWriter().append("No Mentor");
+        } 
+        else
+        {
+        	Gson gson = new Gson();
+    		String mentorGson = gson.toJson(mentor, User.class);	    
+    	    response.setContentType("Content-Type: application/json");
+    	    PrintWriter writer = response.getWriter().append(mentorGson);
+    	    writer.println();
+    		writer.close();
+        }
+			
+        
+		
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

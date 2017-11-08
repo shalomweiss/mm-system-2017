@@ -65,14 +65,16 @@ $(document).ready(function(){
 		},
 		        function(data,status){
 					console.log(data);
+					console.log(typeof data);
 					var table=document.getElementById("mentorWaiting");
 					table.removeAttribute("id");
-					console.log(table.childNodes[1].childNodes[2].childNodes[5]);
-					table.childNodes[1].childNodes[2].childNodes[3].innerHTML=data.firstName+" "+data.lastName;
-					
-					//console.log(document.getElementById("Mentor"+data.id));
-		        	alert(status);
+					if (typeof data == 'string' || data instanceof String) 
+						table.childNodes[1].childNodes[2].childNodes[3].innerHTML=data;
+					else
+						table.childNodes[1].childNodes[2].childNodes[3].innerHTML=data.firstName+" "+data.lastName;	
+		        	alert('Done');
 		        });
+		alert('Please Wait for the data to arrive');
 	}
 	function sendAPK(param)
 	{
