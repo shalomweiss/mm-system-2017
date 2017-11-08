@@ -56,6 +56,51 @@ public class DownloadFile extends HttpServlet {
 		}
 	
 		
+
+
+		String id = null;
+		
+		if (request.getParameterMap().containsKey("img") || request.getParameterMap().containsKey("cv") || request.getParameterMap().containsKey("grade")) {
+
+			if (request.getParameterMap().containsKey("img"))
+				id = request.getParameter("img");
+
+			if (request.getParameterMap().containsKey("grade"))
+				id = request.getParameter("grade");
+
+			if (request.getParameterMap().containsKey("cv"))
+				id = request.getParameter("cv");
+			
+
+			try {
+				if ( id != null ) {
+					if (request.getParameterMap().containsKey("img") && request.getParameter("img") != null) {
+						if (!ClientDownloadFile.downloadFile(id, ClientDownloadFile.PIC_BUCKET, response)) {
+							ClientDownloadFile.downloadFile("defaultImage", ClientDownloadFile.PIC_BUCKET, response);
+		
+						}
+					}
+
+					if (request.getParameterMap().containsKey("cv") && request.getParameter("cv") != null) {
+						ClientDownloadFile.downloadFile(id, ClientDownloadFile.CV_BUCKET, response);
+			
+					}
+
+					if (request.getParameterMap().containsKey("grade") && request.getParameter("grade") != null) {
+						ClientDownloadFile.downloadFile(id, ClientDownloadFile.GRADE_BUCKET, response);
+			
+					}
+
+				} 
+			} catch (NumberFormatException e) {
+
+				e.printStackTrace();
+				
+			}
+		}
+
+	
+		
 		
 		
 	}
