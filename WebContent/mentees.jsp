@@ -271,10 +271,7 @@
 															<c:if test="${empty ment.academicDicipline2}">No Data</c:if>
 															${ment.academicDicipline2}
 															</div>
-														<input id="input11${ment.id}" name="uAcademicDicipline2"
-														type="text" value="${ment.academicDicipline2}"
-														style="display: none;"
-														>
+														<input id="input11${ment.id}" name="uAcademicDicipline2" type="text" value="${ment.academicDicipline2}" style="display: none;">
 													</td>
 													<td width="10%">
 														<input class="saveButton" type="submit" value="Save">

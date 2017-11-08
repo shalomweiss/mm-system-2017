@@ -231,9 +231,9 @@ $(function(){
 			<tr class="mentee" id="tabletest">
 			<td width="18%">${mentee.firstName} ${mentee.lastName}</td>
 			<td width="18%">${mentee.phoneNumber}</td>
-			<td width="16%">${mentee.gender}</td>
-			<td width="18%">${mentee.address}</td>
-			<td width="20%">${mentee.academiclnstitution}</td>
+			<td width="16%"><c:if test="${ment.gender == 0}">fe</c:if>male</td>
+			<td width="18%">${mentee.area}</td>
+			<td width="20%">${mentee.academiclnstitutionName}</td>
 			<td width="8%"><i class="fa fa-file-text-o"></i></td>
 			<td style="display:none;" class="menteeId"><c:out value="${mentee.id}"></c:out></td>
 			<td style="display:none;" class="menteeAddress"><c:out value="${mentee.address}"></c:out></td>
@@ -341,9 +341,9 @@ $(function(){
 			<tr class="mentor">
 				<td>${mentor.firstName} ${mentor.lastName}</td>
 				<td>${mentor.phoneNumber}</td>
-				<td>${mentor.gender}</td>
-				<td>${mentor.address}</td>
-				<td>${mentor.company}</td>
+				<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
+				<td>${mentor.area}</td>
+				<td>${mentor.companyName}</td>
 				<td style="display:none;" class="mentorId"><c:out value="${mentor.id}"></c:out></td>
 				<td style="display:none;" class="mentorAddress"><c:out value="${mentor.address}"></c:out></td>
 				<td style="display:none;" class="mentorCompany"><c:out value="${mentor.company}"></c:out></td>
