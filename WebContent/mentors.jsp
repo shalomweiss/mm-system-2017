@@ -34,10 +34,14 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
+<style type="text/css"><%@include file="/WEB-INF/css/styles1.css"%></style>
+
 <script> 
 
 $(document).ready(function(){
+	
 	$(".para").click(function() {
 	    $(this).addClass('selected').siblings().removeClass("selected");
 	});
@@ -48,6 +52,16 @@ $(document).ready(function(){
 		var male=document.getElementsByClassName("male")[0];
 		male.id="noclickedGender";
 	});
+	$( "form" ).submit(function( event ) {
+		  alert( "Please wait for the data to loaded" );
+		  console.log(this);
+		  event.preventDefault();
+		  var select=$(this).find( "Select:hidden" ).css('display','block');
+		  for (var i = 0; i < select.length; i++) {
+			  select[i].childNodes[1].selected= true;
+		} 
+		  this.submit();
+		});
 	$(".male").click(function(){
 		var female=document.getElementsByClassName("female")[0];
 		female.id="noclickedGender";
@@ -57,17 +71,40 @@ $(document).ready(function(){
 	
 	
 });
-
-
-
-
-
-
 </script>
 <script type="text/javascript">
 
 var prevRow;
-
+function deactivate(param)
+{
+	var row=param.parentNode.parentNode;
+	$.post("DeactivateUser",{
+		'userId':row.firstChild.nextSibling.innerHTML,
+	},
+	        function(data,status){
+	        	alert(data);
+	        });
+	row.parentNode.removeChild(row.nextSibling.nextSibling);
+	row.parentNode.removeChild(row);
+}
+function sendAPK(param)
+{
+	var thisForm=param.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+	var rowColumns=thisForm.childNodes[1].childNodes[1].childNodes[1].childNodes[2].childNodes;
+	var fname=rowColumns[1].childNodes[1].innerHTML;
+	var lname=rowColumns[3].childNodes[1].innerHTML;
+	var email=rowColumns[11].childNodes[1].innerHTML;
+	console.log(fname+" "+lname+" "+email);
+	$.post("SendAPK",
+	        {
+				uFirstName: fname,
+				uLastName: lname,
+				uEmail:email
+	        },
+	        function(data,status){
+	        	alert(data);
+	        });
+}
 	function show_hide_row(row,mentId,def) {
 		$("#" + prevRow).toggle();
 		$("#" + row).toggle();
@@ -80,23 +117,16 @@ var prevRow;
 		}
 		
 		var row1=document.getElementById(row);
-		console.log(document.getElementById(row).parentNode.parentNode.parentNode);
 		var childrenOfTheTbody=document.getElementById(row).parentNode.children;
 		var numOfStams=0;
-		
-		console.log(childrenOfTheTbody[0].clientHeight);
 		for(i=0;i<childrenOfTheTbody.length;i++)
 		{
 			if(childrenOfTheTbody[i].id==row)
 				break;
 			if(childrenOfTheTbody[i].className=="stam")
-		
-				
 				numOfStams++;
 		}
 		var heightPX=(numOfStams-1)*(childrenOfTheTbody[0].clientHeight+1);
-		console.log('height is '+heightPX);
-		console.log(row1.parentNode.parentNode.parentNode);
 		$( "div.tbl-header" ).scrollTop(heightPX);
 		
 	backUpInputs(mentId);
@@ -107,7 +137,7 @@ var prevRow;
 		$("#" + row).toggle();
 		prevRow=null;
 		
-		for(var i=1;i<=12;i++)  //length of inputs
+		for(var i=1;i<=14;i++)  //length of inputs
 			{
 			showStuff("input"+i+mentId,"div"+i+mentId);
 			}
@@ -115,21 +145,69 @@ var prevRow;
 		
 	}
 	function backUpInputs(mentId){
-		
 		for(var i=1;i<=12;i++)  //length of inputs
 		{
 			document.getElementById("input"+i+mentId).value =document.getElementById("div"+i+mentId).innerHTML;
 		}
-		
-		
 	}
-	function showStuff(hide, show) {
-		
-	     document.getElementById(show).style.display  = 'block';
-	    document.getElementById(hide).style.display  = 'none';
-	    
+	 function exportToCsv(filename, rows) {
+	        var processRow = function (row) {
+	            var finalVal = '';
+	            for (var j = 0; j < row.length; j++) {
+	                var innerValue = row[j] === null ? '' : row[j].toString();
+	                if (row[j] instanceof Date) {
+	                    innerValue = row[j].toLocaleString();
+	                };
+	                var result = innerValue.replace(/"/g, '""');
+	                if (result.search(/("|,|\n)/g) >= 0)
+	                    result = '"' + result + '"';
+	                if (j > 0)
+	                    finalVal += ',';
+	                finalVal += result;
+	            }
+	            return finalVal + '\n';
+	        };
+
+	        var csvFile = '';
+	        for (var i = 0; i < rows.length; i++) {
+	            csvFile += processRow(rows[i]);
+	        }
+	        var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+	        if (navigator.msSaveBlob) { // IE 10+
+	            navigator.msSaveBlob(blob, filename);
+	        } else {
+	            var link = document.createElement("a");
+	            if (link.download !== undefined) { // feature detection
+	                // Browsers that support HTML5 download attribute
+	                var url = URL.createObjectURL(blob);
+	                link.setAttribute("href", url);
+	                link.setAttribute("download", filename);
+	                link.style.visibility = 'hidden';
+	                document.body.appendChild(link);
+	                link.click();
+	                document.body.removeChild(link);
+	            }
+	        }
+	    }
+	function mentorTableToArray(param)
+	{
+		var matrix=[['id','name','phone','company','Gender']];
+		var tbody=document.getElementsByTagName("tbody")[0];
+		console.log(tbody.getElementsByClassName("stam")[0].getElementsByTagName("td")[4].innerHTML);
+		var rows=tbody.getElementsByClassName("stam");
+		for (var i = 0; i < rows.length; i++) {
+			var row=[];
+			var columns=rows[i].getElementsByTagName("td");
+			for (var j = 0; j < columns.length; j++) {
+				row.push(columns[j].innerHTML);
+			}
+			matrix.push(row);
+		}
+		console.log(matrix);
+		var thead=document.getElementsByTagName("thead")[0];
+		console.log(thead.getElementsByTagName("tr")[0]);
+		exportToCsv('Mentors.csv',matrix);
 	}
-	
 </script>
 
 <script>
@@ -149,447 +227,30 @@ var prevRow;
 		evt.currentTarget.className += " active";
 	}
 	function showStuff(hide, show) {
-		
-	     document.getElementById(show).style.display  = 'block';
-	    document.getElementById(hide).style.display  = 'none';
-	    
+		if(document.getElementById(show).tagName=='SELECT')
+			document.getElementById(show).childNodes[1].selected = "true";
+	    document.getElementById(show).style.display  = '';
+	    document.getElementById(hide).style.display  = 'none'; 
 	}
 	
 	
 </script>
-
-
 <style>
-/* Style inputs with type="text", select elements and textareas */
-input[type=text], select, textarea {
-	width: 100%; /* Full width */
-	padding: 12px; /* Some padding */
-	border: 1px solid #ccc; /* Gray border */
-	border-radius: 4px; /* Rounded borders */
-	box-sizing: border-box;
-	/* Make sure that padding and width stays in place */
-	margin-top: 6px; /* Add a top margin */
-	margin-bottom: 16px; /* Bottom margin */
-	resize: vertical
-		/* Allow the user to vertically resize the textarea (not horizontally) */
-}
-
-/* Style the submit button with a specific background color etc */
-input[type=submit] {
-	background-color: #4CAF50;
-	color: white;
-	padding: 12px 20px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-}
-
-/* When moving the mouse over the submit button, add a darker green color */
-input[type=submit]:hover {
-	background-color: #45a049;
-}
+	input[type=text], select, textarea {
+		width: 100%; /* Full width */
+		padding: 12px; /* Some padding */
+		border: 1px solid #ccc; /* Gray border */
+		border-radius: 4px; /* Rounded borders */
+		box-sizing: border-box;
+		/* Make sure that padding and width stays in place */
+		margin-top: 6px; /* Add a top margin */
+		margin-bottom: 16px; /* Bottom margin */
+		resize: vertical
+			/* Allow the user to vertically resize the textarea (not horizontally) */
+	}
 
 
-/* Style the tab */
-div.tab {
-	overflow: hidden;
-	border: 1px solid #ccc;
-	background-color: rgba(108,136,225,0.9);
-}
-
-/* Style the buttons inside the tab */
-div.tab button {
-	background-color: inherit;
-	float: left;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	padding: 14px 16px;
-	transition: 0.3s;
-}
-
-/* Change background color of buttons on hover */
-div.tab button:hover {
-	background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-div.tab button.active {
-	background-color: white;
-}
-
-/* Style the tab content */
-.tabcontent {
-	display: none;
-	padding: 6px 12px;
-	border: 1px solid #ccc;
-	border-top: none;
-}
-
-table tr:nth-child(4n-1), table tr:nth-child(4n)  {
-    background: #ccc;
-}
-.container {
-	border-radius: 5px;
-	background-color: #f2f2f2;
-	/*padding: 20px;*/
-	    padding-top: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 20px;
-}
-
-th.inner
-{
-	color: black !important;
-	background-color: white;
-
-}
-.close {
-	background: #606061;
-	color: #FFFFFF;
-	line-height: 25px;
-	position: absolute;
-	right: -12px;
-	text-align: center;
-	top: -10px;
-	width: 24px;
-	opacity:10 !important;
-	text-decoration: none;
-	font-weight: bold;
-	-webkit-border-radius: 12px;
-	-moz-border-radius: 12px;
-	border-radius: 12px;
-	-moz-box-shadow: 1px 1px 3px #000;
-	-webkit-box-shadow: 1px 1px 3px #000;
-	box-shadow: 1px 1px 3px #000;
-}
-
-.close:hover {
-	background: #00d9ff;
-}
-
-.modalDialog:target {
-	opacity: 1;
-	pointer-events: auto;
-}
-
-.modalDialog>div {
-	width: 60%;
-	margin: auto;
-	border-radius: 10px;
-	background: #fff;
-	background: -moz-linear-gradient(#fff, #999);
-	background: -webkit-linear-gradient(#fff, #999);
-	background: -o-linear-gradient(#fff, #999);
-}
-
-.addMentorForm td{
-background-color: #ccc;
-
-}
-
-.modalDialog {
-
-	position: fixed;
-	font-family: Arial, Helvetica, sans-serif;
-	top: 20px;
-	right: 0;
-	left: 0;
-	buttom: 0;
-	background: rgba(0, 0, 0, 0.3);
-	z-index: 99;
-	opacity: 0;
-	-webkit-transition: opacity 400ms ease-in;
-	-moz-transition: opacity 400ms ease-in;
-	transition: opacity 400ms ease-in;
-	pointer-events: none;
-}
-
-.button:hover {
-	background-color: #4CAF50; /* Green */
-	color: white;
-}
-
-h1{
-  z-index: 2;
-  position: fixed;
-  top:5%;
-  right:0;
-  left:90px;
-  font-size: 32px;
-  letter-spacing: 8px;
-  text-shadow: 2px 4px 4px #CCCCCC;
-  color: #fff !important;
-  text-transform: uppercase;
-  font-weight: 300;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-table {
-	width: 100%;
-	table-layout: fixed;
-}
-
-.tbl-header {
-    background-color: rgba(255, 255, 255, 0.3);
-    max-height: 48vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-	background-color: rgba(255, 255, 255, 0.3);
-	
-}
-.btn-addClick{
-	margin-top:1.8% !important;
-	width:30% !important;
-	float:right;
-}
-section.Pairs {
-   	width: 90% !important;
-    margin-right: auto !important;
-    margin-left: auto !important;
-    margin-top: 3vh !important;
-}
-.tbl-content {
-	height: 300px;
-	overflow-x: auto;
-	margin-top: 0px;
-	border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-th {
-	padding: 20px 15px;
-	font-weight: 500;
-	font-size: 12px;
-	color: #000;
-	text-transform: uppercase;
-}
-th.inner
-{
-	
-}
-
-td {
-	vertical-align: middle;
-	font-weight: 700;
-	font-size: 14px;
-	color: #000;
-	border-bottom: solid 1px rgba(255, 255, 255, 0.1);
-}
-
-
-
-/* follow me template */
-.made-with-love {
-	margin-top: 40px;
-	padding: 10px;
-	clear: left;
-	text-align: center;
-	font-size: 10px;
-	font-family: arial;
-	color: #fff;
-}
-
-.made-with-love i {
-	font-style: normal;
-	color: #F50057;
-	font-size: 14px;
-	position: relative;
-	top: 2px;
-}
-.made-with-love a {
-	color: #fff;
-	text-decoration: none;
-}
-
-.made-with-love a:hover {
-	text-decoration: underline;
-}
-
-/* for custom scrollbar for webkit browser*/
-::-webkit-scrollbar {
-	width: 6px;
-}
-::-webkit-scrollbar-track {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-::-webkit-scrollbar-thumb {
-	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-.icon-bar {
-	top: 30vh;
-	width: 90px;
-	background-color: #555;
-}
-.icon-bar a {
-	display: block;
-	text-align: center;
-	    padding: 8px;
-	transition: all 0.3s ease;
-	color: white;
-	font-size: 36px;
-}
-.icon-bar a:hover {
-	background-color: #000;
-}
-i {
-	margin-right: 2px;
-}
-html {
-	overflow-y: hidden;
-	height: 100%;
-}
-
-nav.icon-bar {
-	top: 0;
-	position: fixed;
-	height: 100%;
-	background-color: #555;
-}
-
-div.icon-bar {
-	margin-left: auto;
-	margin-right: auto;
-	display: table-cell;
-	vertical-align: middle;
-	position: fixed;
-	top: calc(( 100% - 490px)/2);
-	bottom: 0;
-}
-button {
-	outline: none !important;
-}
-
-.button {
-	background-color: #4CAF50;
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-}
-
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited,
-	.btn-primary:focus {
-	margin-top:20px;
-    background-color: rgba(255,255,255,0.3);
-	outline: none !important;
-	color: white !important;
-	cursor: pointer !important;
-	border-color: rgba(255,255,255,0.1);}
-.btn-primary:hover{
-	margin-top:20px;
-    background-color: rgba(255,255,255,0.5);
-	outline: none !important;
-	color: white !important;
-	cursor: pointer !important;
-	border-color: rgba(255,255,255,0.1);
-}
-
-button {
-	outline: none !important;
-}
-
-
-
-* {
-	font-family: 'Open Sans', sans-serif;
-}
-
-.button-fill {
-	text-align: center;
-	background: #ccc;
-	display: inline-block;
-	position: relative;
-	text-transform: uppercase;
-	margin: 25px;
-}
-
-.button-fill.grey {
-	background: #445561;
-	color: white;
-	text-align: center;
-}
-
-.button-text {
-	padding: 0 25px;
-	line-height: 56px;
-	letter-spacing: .1em;
-	text-align: center;
-}
-
-.button-inside {
-	width: 0px;
-	height: 54px;
-	margin: 0;
-	float: left;
-	position: absolute;
-	top: 1px;
-	left: 50%;
-	line-height: 54px;
-	color: #fff;
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-	text-align: center;
-	overflow: hidden;
-	-webkit-transition: width 0.5s, left 0.5s, margin 0.5s;
-	-moz-transition: width 0.5s, left 0.5s, margin 0.5s;
-	-o-transition: width 0.5s, left 0.5s, margin 0.5s;
-	transition: width 0.5s, left 0.5s, margin 0.5s;
-}
-
-.button-inside.full {
-	width: 100%;
-	text-align: center;
-	left: 0%;
-	top: 0;
-	margin-right: -50px;
-	border: 1px solid #445561;
-}
-
-.inside-text {
-	text-align: center;
-	position: absolute;
-	right: 50%;
-	letter-spacing: .1em;
-	-webkit-transform: translateX(50%);
-	-moz-transform: translateX(50%);
-	-ms-transform: translateX(50%);
-	transform: translateX(50%);
-}
-
-tr.stam:hover {
-	background-color:rgba(108,136,225,0.9);
-	opacity: 0.9;
-	cursor: pointer;
-}
-td {
-	height: 20%;
-}
-
-
-#table_detail .hidden_row {
-	display: none;
-}
-
-input[type=text] , input[type=radio] , select{
-
-    padding-top: 5px;
-    padding-bottom: 5x;
-    padding-right: 3px;
-    padding-left: 3px;
-
-}
-textarea{
-
-resize: none;
-}
 </style>
-
 <body>
 
 
@@ -597,12 +258,12 @@ resize: none;
 	<!-- welcome bar -->
 	<nav class="icon-bar">
 		<div class="icon-bar">
-		  	  <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
+		  <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
 		  <a class="active" href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
 		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
 		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
-		  <a href="#"><i class="fa fa-bell" title="Notifications"></i></a>
-		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
+		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>
+		  <a href="AddingDataServlet" title="AddingStuff"><i class="fa fa-cogs"></i></a>	
 		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>  		  
 	</div>
 	</nav>
@@ -613,14 +274,14 @@ resize: none;
 	<div class="inner">
 	
 	<section class="Pairs">
-<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
-	
-	<thead class="tbl-header-mentor">
+		<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+			<thead class="tbl-header-mentor">
 					<tr>
 						<th>Name</th>
-						<th>Last Name</th>
 						<th>Phone</th>
-						<th>Email</th>
+						<th>Workplace</th>
+						<th>Gender</th>
+						<th>Actions</th>
 					</tr>
 
 				</thead>
@@ -637,16 +298,21 @@ resize: none;
 						<c:forEach items="${Mentors}" var="ment">
 							<tr class="stam"
 								onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
-								<td style="display: none">${ment.id}</td>
-								<td>${ment.firstName}</td>
-								<td>${ment.lastName}</td>
+								<td style="display:none">${ment.id}</td>
+								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
-								<td>${ment.email}</td>
+								<td>${ment.companyName}</td>
+								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
+								<td>
+									<a onclick="deactivate(this)" class="btn btn-block btn-primary" href="#" style="margin-top: 0px;" >
+			 							Deactivate
+    								</a><br>
+								</td>
 							</tr>
 
 							<tr id="hidden_row${ment.id}" class="hidden_row">
-								<td colspan=4>
-									<div class="tab">
+								<td colspan=5>
+									<div class="tab tabMentor">
 
 										<button class="tablinks" id="defultOpen${ment.id}"
 											onclick="showDetails(event, 'info${ment.id}')">Info</button>
@@ -657,81 +323,85 @@ resize: none;
 										<button class="tablinks"
 											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
 										<button class="tablinks" style="float: right;"
-											onclick="closeRow('hidden_row${ment.id}',${ment.id});">X</button>
-
+											onclick="closeRow('hidden_row${ment.id}',${ment.id});">Close</button>
 									</div>
-									<form id="form${ment.id}" action="UpdateMentor" method="post">
+									<form id="form${ment.id}" action="UpdateMentor" method="post" novalidate>
 										<div id="info${ment.id}" class="tabcontent"
 											style="background-color: rgba(108,136,225,0.9);">
 
 
 
 											<table class="w3-table-all w3-card-4">
-
 												<tr>
-													<th class="inner">First name</th>
-													<th class="inner">Last name</th>
-													<th class="inner">Gender</th>
-													<th class="inner">Address</th>
-													<th class="inner">Phone</th>
-													<th class="inner">Email</th>
-																										<th class="inner">submit</th>
+													<th width="14%" class="inner">First name</th>
+													<th width="14%" class="inner">Last name</th>
+													<th width="10%" class="inner">Gender</th>
+													<th width="12%" class="inner">Address</th>
+													<th width="12%" class="inner">Phone</th>
+													<th width="18%" class="inner">Email</th>
+													<th width="10%" class="inner">Picture</th>
+													<th width="10%" class="inner">Actions</th>
 													
 												</tr>
 												<tr>
-													<td>
+													<td width="14%">
 														<div id="div1${ment.id}"
 															ondblclick="showStuff('div1${ment.id}','input1${ment.id}');">${ment.firstName}</div>
 														<input id="input1${ment.id}" name="uFirstName" type="text"
 														value="${ment.firstName}" style="display: none;"
-														onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 
-													<td>
+													<td width="14%">
 														<div id="div2${ment.id}"
 															ondblclick="showStuff('div2${ment.id}','input2${ment.id}');">${ment.lastName}</div>
 														<input id="input2${ment.id}" name="uLastName" type="text"
 														value="${ment.lastName}" style="display: none;"
-														onblur="if(this.value==''){ this.value='lastname'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='lastname'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
-													<td>
+													<td width="10%">
 														<div id="div3${ment.id}"
-															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">${ment.gender}</div>
-														<input id="input3${ment.id}" name="uGender" type="text"
-														value="${ment.gender}" style="display: none;"
-														onblur="if(this.value==''){ this.value='gender'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='gender'){this.value=''; this.style.color='#000';}">
+															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
+															<c:if test="${ment.gender == 0}">fe</c:if>male
+														</div>
+														
+														<select name="uGender" id="input3${ment.id}">
+							     							<option selected value="${ment.gender}"></option>
+							     							<option  value="0">Male</option>
+							     		 					<option value="1">Female</option>
+					      								</select>					
 
 													</td>
-													<td>
+													<td width="12%">
 														<div id="div4${ment.id}"
 															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
 														<input id="input4${ment.id}" name="uAddress" type="text"
 														value="${ment.address}" style="display: none;"
-														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
-													<td>
+													<td width="12%">
 														<div id="div5${ment.id}"
 															ondblclick="showStuff('div5${ment.id}','input5${ment.id}');">${ment.phoneNumber}</div>
 														<input id="input5${ment.id}" name="uPhoneNumber"
 														type="text" value="${ment.phoneNumber}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='number'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='number'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
-													<td>
+													<td width="18%">
 														<div id="div6${ment.id}"
 															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
 														<input id="input6${ment.id}" name="uEmail" type="text"
 														value="${ment.email}" style="display: none;"
-														onblur="if(this.value==''){ this.value='example@example.com'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='example@example.com'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
-													<td><input id="submit${ment.id}" type="submit"
-														value="Done"></td>
+													<td width="10%">
+														<img src="DownloadFile?id=${ment.id}&type=img" alt="W3Schools.com">
+													</td>
+													<td width="10%"><input class="saveButton" id="submit${ment.id}" type="submit"
+														value="Save"><br>
+														<input onclick="sendAPK(this)" id="submit${ment.id}" type="button"
+														value="Mail">
+													</td>
 												</tr>
 											</table>
 
@@ -743,13 +413,11 @@ resize: none;
 
 											<table class="w3-table-all w3-card-4">
 												<tr>
-													<th class="inner">Experience</th>
-													<th class="inner">Role</th>
-													<th class="inner">company</th>
-													<th class="inner">workHistory</th>
-																										<th class="inner">submit</th>
-													
-
+													<th width="30%" class="inner">Experience</th>
+													<th width="15%" class="inner">Role</th>
+													<th width="15%" class="inner">company</th>
+													<th width="30%" class="inner">workHistory</th>
+													<th width="10%" class="inner">Actions</th>
 												</tr>
 												<tr>
 													<td>
@@ -758,24 +426,25 @@ resize: none;
 														<input id="input7${ment.id}" name="uExperience"
 														type="text" value="${ment.experience}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='exp'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='exp'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div8${ment.id}"
 															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.role}</div>
 														<input id="input8${ment.id}" name="uRole" type="text"
 														value="${ment.role}" style="display: none;"
-														onblur="if(this.value==''){ this.value='role'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='role'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 													<td>
 														<div id="div12${ment.id}"
-															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.company}</div>
-														<input name="uCompany" id="input12${ment.id}" type="text"
-														value="${ment.company}" style="display: none;"
-														onblur="if(this.value==''){ this.value='company'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='company'){this.value=''; this.style.color='#000';}">
+															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.companyName}</div>
+														<select name="uCompany" id="input12${ment.id}" style="display: none;" required >
+																<option value="${ment.company}" selected="selected"></option>
+																<c:forEach var="item" items="${NewWorkPlace}">
+																	<option value="${item.id}">   ${item.company}</option>
+																</c:forEach>
+														</select>
+
 													</td>
 													<td>
 														<div id="div9${ment.id}"
@@ -783,12 +452,14 @@ resize: none;
 														<input id="input9${ment.id}" name="uWorkHistory"
 														type="text" value="${ment.workHistory}"
 														style="display: none;"
-														onblur="if(this.value==''){ this.value='workHis'; this.style.color='#BBB';}" 
-							  							onfocus="if(this.value=='workHis'){this.value=''; this.style.color='#000';}">
+														required>
 													</td>
 
 
-													<td><input id="submit${ment.id}" type="submit" value="Done"></td>
+													<td>
+														<input class="saveButton" id="submit${ment.id}" type="submit" value="Save"><br>
+														<input onclick="sendAPK(this)" id="submit${ment.id}" type="button" value="Mail">
+													</td>
 												</tr>
 											</table>
 
@@ -798,27 +469,53 @@ resize: none;
 											style="background-color: rgba(108,136,225,0.9);">
 											<table>
 												<tr>
-													<th class="inner">Notes</th>
-													
-																										<th class="inner">submit</th>
+												<th width="30%" class="inner">Notes</th>
+												<th width="15%" class="inner">City</th>	
+												<th width="15%" class="inner">Area</th>	
+												<th width="20%" class="inner">Date</th>	
+												<th width="10%" class="inner">Actions</th>
 													
 												</tr>
 												<tr>
-													<td>
+													<td width="30%">
 														<div id="div10${ment.id}"
 															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}</div>
-
 														<textarea id="input10${ment.id}" name="uNotes"
-															value="${ment.note}"
-															style="display: none; height: 100px;">${ment.note}</textarea>
+															style="display: none; ">${ment.note}</textarea>
 													</td>
-																					<td><input id="id:${ment.id}" name="uId" type="text"
+													<td width="15%">
+														<div id="div13${ment.id}"
+															ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.city}</div>
+														<select name="cityId" id="input13${ment.id}" style="display: none;" required >
+																<option value="${ment.cityId}"></option>
+																<c:forEach var="item" items="${cities}">
+																	<option value="${item.id}">   ${item.name}</option>
+																</c:forEach>
+														</select>						
+													</td>
+													<td width="15%">
+														<div id="div14${ment.id}"
+															ondblclick="showStuff('div14${ment.id}','input14${ment.id}');">${ment.area}</div>
+														<select name="areaId" id="input14${ment.id}" style="display: none;" required >
+																<option value="${ment.areaId}"></option>
+																<c:forEach var="item" items="${areas}">
+																	<option value="${item.id}">   ${item.name}</option>
+																</c:forEach>
+														</select>										
+													</td>
+													<td width="20%">
+														${ment.joinDate}
+													</td>
+													<td width="10%"><input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
 														onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='id'){this.value=''; this.style.color='#000';}">
-														<input type="submit" id="submit${ment.id}" style="float: center;" value="Done">
+														<input class="saveButton" type="submit" id="submit${ment.id}" style="float: center;" value="Save">
+														<br>
+														<input onclick="sendAPK(this)" type="button" id="submit${ment.id}" style="float: center;" value="Mail">
 
 													</td>
+												
 												</tr>
 
 											
@@ -833,13 +530,13 @@ resize: none;
 
 
 												<tr>
-													<th class="inner">Volunteering</th>
-													<th class="inner">submit</th>
+													<th width="90%" class="inner">Volunteering</th>
+													<th width="10%" class="inner">Actions</th>
 													
 												</tr>
 												
 												<tr>
-													<td>
+													<td width="90%">
 														<div id="div11${ment.id}"
 															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">${ment.volunteering}</div>
 
@@ -847,8 +544,13 @@ resize: none;
 															value="${ment.volunteering}"
 															style="display: none; height: 100px;">${ment.volunteering}</textarea>
 													</td>
-													<td><input type="submit" id="submit${ment.id}"
-														style="float: center;" value="Done"></td>
+													<td width="10%">
+													<input type="submit" id="submit${ment.id}"
+													class="saveButton"
+														style="float: center;" value="Save">
+														<br>
+													<input onclick="sendAPK(this)" type="button" id="submit${ment.id}"
+														style="float: center;" value="Mail"></td>
 												</tr>
 												
 													
@@ -871,98 +573,105 @@ resize: none;
 
 
 
-		<a href="#openModal3" class="btn btn-block btn-primary"> <i
-			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
-			Mentor
-		</a>
-		
-
-
 		<div id="openModal3" class="modalDialog">
-			<div>
-
-
 				<div class="container">
 					<a href="#close" title="Close" class="close"
 						style="position: absolute; background-color: red;">X</a>
 
-					<form action="AddNewMentor" method="post">
+					<form action="AddNewMentor" method="post" novalidate>
 						<table class="addMentorForm">
 							<tr>
-								<td>First Name:</td>
-								<td><input type="text" name="firstName" required></td>
-								<td>Last Name:</td>
-								<td><input type="text" name="lastName" required></td>
+								<td class="form">First Name:</td>
+								<td class="form"><input type="text" name="firstName" required></td>
+								<td class="form">Last Name:</td>
+								<td class="form"><input type="text" name="lastName" required></td>
+								<td class="form">Email</td>
+								<td class="form"><input type="text" name="email" required></td>
 							</tr>
 							<tr>
-								<td>Email</td>
-								<td><input type="text" name="email" required></td>
-								<td>Phone number</td>
-								<td><input type="number" name="phoneNumber" required></td>
-							</tr>
-							<tr>
-								<td>Gender</td>
-								<td>
-								
-								<input id="clickedGender" class="male" type="radio"
-									name="gender" value="1" checked> Male <input
-									id="noclickedGender" class="female" type="radio" name="gender"
-									value="0"> Female
+								<td class="form">Phone number</td>
+								<td class="form"><input type="number" name="phoneNumber" required></td>
+								<td class="form">Gender</td>
+								<td class="form">
+									
+									<select name="gender" class="selectpicker reports" id="gender1" >
+		    	 	 					<option></option>
+		     							<option value="1">Male</option>
+		     		 					<option value="0">Female</option>
+	      							</select>
 									
 									
-									</td>
-								<td>Address</td>
-								<td><input type="text" name="address" required></td>
+								</td>
+								<td class="form">Address</td>
+								<td class="form"><input type="text" name="address" required></td>
+									
 							</tr>
-
 							<tr>
-								<td>Company</td>
-								<td>
 								
+								<td>Role</td>
+								<td class="form"><input type="text" name="role" required></td>
+								<td class="form">Experience</td>
+								<td class="form" colspan="3"><textarea name="experience"
+										style="height: 50px"></textarea></td>
+							</tr>
+							<tr>
+							<td class="form">Company</td>
+								<td class="form">
 								<select name="company">
+										<option value=""></option>
 										<c:forEach var="item" items="${NewWorkPlace}">
 											<option value="${item.id}">   ${item.company}</option>
 										</c:forEach>
 								</select>
-								
-								
 								</td>
-								<td>Role</td>
-								<td><input type="text" name="role" required></td>
-							</tr>
-
-							<tr>
-								<td>Experience</td>
-								<td colspan="3"><textarea name="experience"
-										style="height: 50px"></textarea></td>
-
-							</tr>
-							<tr>
-								<td>volunteering</td>
-								<td colspan="3"><textarea name="volunteering"
+								
+								<td class="form">volunteering</td>
+								<td class="form" colspan="3"><textarea name="volunteering"
 										style="height: 50px"></textarea></td>
 							</tr>
 							<tr>
-								<td>Work History</td>
-								<td colspan="3"><textarea name="history"
-										style="height: 50px"></textarea></td>
-
+								
 							</tr>
 							<tr>
-								<td>note</td>
-								<td colspan="2"><textarea name="notes"
+								<td>City</td>
+								<td class="form">
+									<select name="cityId">
+											<option value="1"></option>
+											<c:forEach var="item" items="${cities}">
+												<option value="${item.id}">   ${item.name}</option>
+											</c:forEach>
+									</select>
+								</td>
+								<td class="form">Work History</td>
+								<td class="form" colspan="3"><textarea name="history"
 										style="height: 50px"></textarea></td>
-										<td><input style="float:right" type="submit" value="Done"></td>
 							</tr>
-							
-
+							<tr>
+								<td>Area</td>
+								<td class="form">
+									<select name="areaId">
+										<option value="1"></option>
+											<c:forEach var="item" items="${areas}">
+												<option value="${item.id}">   ${item.name}</option>
+											</c:forEach>
+									</select>
+								</td>
+								<td class="form">note</td>
+								<td class="form" colspan="2"><textarea name="notes"
+										style="height: 50px"></textarea></td>
+										<td><input class="saveButton" style="padding: 10px 20px;" type="submit" value="Add"><br>
+							</tr>
 						</table>
 					</form>
 				</div>
 			</div>
-		
 	</section>
+	<a href="#openModal3" class="btn btn-block btn-primary btn-addClick"> <i
+			class="fa fa-plus"></i><i class="fa fa-graduation-cap"></i> Add
+			Mentor
+		</a>
+		<a onclick="mentorTableToArray(this)" href="#" class="btn-print btn btn-block" >
+			<i class="fa fa-print"></i> print</a>
 	</div>
-
 </body>
 </html>

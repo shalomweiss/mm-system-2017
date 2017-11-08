@@ -1,5 +1,6 @@
 package mm.webclientservlets;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
 import mm.model.AcademicInstitute;
+import mm.model.Area;
+import mm.model.City;
+import mm.model.Mentee;
 import mm.model.User;
 import mm.model.User.userType;
 
@@ -39,7 +43,6 @@ public class GetAllMentees extends HttpServlet {
 
 		HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<User> ArrMentees = new ArrayList<User>();
-	    
 		DataAccess da = new DataAccess();
 		 try {
 		 ArrMentees = da.getUsers(userType.MENTEE);
@@ -47,8 +50,16 @@ public class GetAllMentees extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-
-		request.setAttribute("Mentees", ArrMentees);
+        
+		 for(User mentee: ArrMentees){
+			try {
+				((Mentee)mentee).setAcademiclnstitutionName((da.getAcademicInstituteById(((Mentee)mentee).getAcademiclnstitution()).getName()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		 }
+		
 		ArrayList<AcademicInstitute> AcadimicIn =new ArrayList<AcademicInstitute>();
 		 try {
 			 AcadimicIn = da.getAllAcademiclnstitution();
@@ -56,8 +67,33 @@ public class GetAllMentees extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
-			
+			ArrayList<City> cities =new ArrayList<City>();
+			ArrayList<Area> areas =new ArrayList<Area>();
 
+		 try {
+			 cities = da.getAllCities();
+			 } catch (SQLException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 }
+		 try {
+			 areas = da.getAllAreas();
+			 } catch (SQLException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 }
+
+
+			try {
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		System.out.println("AREAS: "+ areas +"/n Cities:" + cities);	
+		request.setAttribute("areas", areas);
+		request.setAttribute("cities", cities);
+		request.setAttribute("Mentees", ArrMentees);
 		request.setAttribute("AcadimicIn", AcadimicIn); 
 	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");

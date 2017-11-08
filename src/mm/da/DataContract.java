@@ -16,6 +16,9 @@ public final class DataContract {
 		public static final String COL_NOTES = "notes";
 		public static final String COL_PROFILEPICTURE = "profilePicture";
 		public static final String COL_ACTIVE = "active";
+		public static final String COL_CITYID = "cityId";
+		public static final String COL_AREAID = "areaId";
+		public static final String COL_JOINDATE = "joinDate";
 	}
 	
 	public static class MentorsTable{
@@ -100,5 +103,17 @@ public final class DataContract {
 		public static final String COL_AREA = "area";
 		public static final String COL_CITY = "city";
 		public static final String COL_ADDRESS = "address";
+	}
+	
+	public static class CitiesTable{
+		public static final String TABLE_NAME = "cities";
+		public static final String COL_ID = "id";
+		public static final String COL_NAME = "name";
+	}
+	
+	public static class AreasTable{
+		public static final String TABLE_NAME = "areas";
+		public static final String COL_ID = "id";
+		public static final String COL_NAME = "name";
 	}
 }

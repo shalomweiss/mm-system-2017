@@ -47,7 +47,7 @@ public class AddAcademinInstitute extends HttpServlet {
 		
 		RequestDispatcher req = null;
 		 
-		AcademicInstitute acadimicIn= new AcademicInstitute(0,name,Area,City);
+		AcademicInstitute acadimicIn= new AcademicInstitute(0,name,Area,City, 0, 0); //TODO: set proper area/city id
 		
 		DataAccess da = new DataAccess();
 	    boolean res=false;
@@ -59,6 +59,13 @@ public class AddAcademinInstitute extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(res){
 			response.getWriter().append("AcadimicInstitute Added");
 			req = request.getRequestDispatcher("");

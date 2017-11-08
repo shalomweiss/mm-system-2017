@@ -9,7 +9,10 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+
+import mm.androidservice.common.JsonKeyMapper;
 
 
 public class ClientUploadFile {
@@ -19,12 +22,12 @@ public class ClientUploadFile {
 	public final static String GRADE_BUCKET     = "tsofengrade";
 	
 
-	private static final  String awsId = "AKIAJDNJD2EUPO5NGVMA";
+	private static final  String awsId = JsonKeyMapper.ID;
 
-	private static final  String awsKey = "dJfPvvni02d7jISPYZTNNPXN0yZB0Hd0oCFsInsC";
+	private static final  String awsKey = JsonKeyMapper.KEY;
 	
 	
-	public ClientUploadFile(){}
+	private ClientUploadFile(){}
 
 	/**
 	 * Use UploadFile.BucketName
@@ -32,21 +35,22 @@ public class ClientUploadFile {
 	 * @param filePathToUpload
 	 * @param BUCKET_NAME
 	 */
-	public static void uploadFile(String keyName,File fileToUpload,String BUCKET_NAME) {
+	public static void uploadFile(String keyName,File fileToUpload,String BUCKET_NAME,String contentType) {
 		
 		
 
         AmazonS3 s3Client = s3client(); 
-        //s3Client.setRegion(Region.getRegion(Regions.US_EAST_2));
-    
-        // Use Amazon S3 Transfer Acceleration endpoint.           
-        //s3Client.setS3ClientOptions(S3ClientOptions.builder().setAccelerateModeEnabled(true).build());
+
+        System.out.println(s3Client);
         
         try {
         	System.out.println("Uploading a new object to S3 from a file\n");
             File file = fileToUpload;
-            s3Client.putObject(new PutObjectRequest(
-            		BUCKET_NAME, keyName, file));
+            PutObjectRequest objectToPut = new PutObjectRequest(BUCKET_NAME, keyName, file);
+            ObjectMetadata meta = new ObjectMetadata();
+            meta.setContentType(contentType);
+            objectToPut.setMetadata(meta);
+            s3Client.putObject(objectToPut);
 
          } catch (AmazonServiceException ase) {
             System.out.println("Caught an AmazonServiceException, which " +

@@ -2,6 +2,7 @@ package mm.webclientservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -56,7 +57,7 @@ public class AddMentee extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		System.out.println("here to stay");
+		System.out.println("ADD MENTEE");
     	String uFirstName = request.getParameter("uFirstName");
 		String uLastName = request.getParameter("uLastName");
 		String uPhoneNumber = request.getParameter("uPhoneNumber");
@@ -74,15 +75,57 @@ public class AddMentee extends HttpServlet {
 		String resume=request.getParameter("uResume");
 		String gradeSheet=request.getParameter("uGradeSheet");
 		String profilePicture=request.getParameter("profilePicture");
-		
-		Float avg = Float.valueOf(uAverage);
-		Float remSemesters= Float.valueOf(uRemSemesters);
+		String cityId=request.getParameter("cityId");
+		String areaId=request.getParameter("areaId");
 		int uGender= Integer.parseInt(gender);
-		int uAcademicInstitution= Integer.parseInt(uAcademicIn);
-		boolean SignedEULA=Boolean.parseBoolean(Signed);
+		Float avg= null;
+		Float remSemesters= null;
+		int uCity=0;
+		int uArea=0;
+		int uAcademicInstitution= 0;
+		boolean SignedEULA=false;
+		System.out.println("ACADEMIC "+academicDicipline2+"city "+cityId +"area: "+ areaId);
 
-		String uPass= GeneratePass.getSaltString();	 
-		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
+		if(uAverage.equals(null) ||uAverage.equals("")){
+			avg=(float) 0;
+		}
+		else
+		{	
+			avg = Float.valueOf(uAverage);
+			System.out.println("AVGG" + avg);
+			}
+	    
+		if(uRemSemesters.equals(null) ||uRemSemesters.equals(""))
+		remSemesters=(float) 0;
+		else
+		remSemesters= Float.valueOf(uRemSemesters);
+		
+		if(cityId.equals(null) ||cityId.equals(""))
+			uCity=0;
+		else
+			uCity= Integer.parseInt(cityId);
+
+		
+		if(areaId.equals(null) ||areaId.equals(""))
+		   uArea=0;
+		else
+		  uArea= Integer.parseInt(areaId);
+		
+		
+		if(uAcademicIn.equals(null) ||uAcademicIn.equals(""))
+			uAcademicInstitution=0;
+		else
+			uAcademicInstitution= Integer.parseInt(uAcademicIn);
+		
+		if(Signed.equals(null) ||Signed.equals(""))
+			 SignedEULA=false;
+		else
+			SignedEULA=Boolean.parseBoolean(Signed);
+        
+		String uPass= GeneratePass.getSaltString();	
+        long millis=System.currentTimeMillis();  
+        Date date=new Date(millis);
+		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,uArea,"",uCity,"",date,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
 		
 		User user=new User();
 		DataAccess da = new DataAccess();
@@ -99,13 +142,21 @@ public class AddMentee extends HttpServlet {
 				user=da.getUser(resId);
 				String to = uEmail;
 			    String subject = "Thank you for registering to Mentorem project";
-			    String body = "Hi "+uFirstName+" "+uLastName+",\nWe appreciate your registeration for Mentorem project,\n" +"Here is your login username and passwod: \n\nUsername: "+uEmail+"\nPassword: " +uPass+"\n\nHave a good day,\nTsofen team";
+			    String apk="https://goo.gl/dbYx8R";
+			    String body = "Hi "+uFirstName+" "+uLastName+",\nWe appreciate your registeration for Mentorem project,\n" +"Here is your login username and passwod: \n\nUsername: "+uEmail+"\nPassword: " +uPass+"\nDownload and Install the android client app \n "+ apk+"\n\nHave a good day,\nTsofen team";
 				SendingMail.sendFromGMail(to,subject,body);
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			try {
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			request.setAttribute("AddedSuc", 1);
 		}
 		if (resId==-1){

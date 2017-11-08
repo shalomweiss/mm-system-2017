@@ -42,11 +42,11 @@ public class DeactivateUser extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String userId=request.getParameter("userId");
-		String nextPage=request.getParameter("jsp");
+		//String nextPage=request.getParameter("jsp");
 		int id=Integer.parseInt(userId);
 		DataAccess da = new DataAccess();
 	    boolean res=false;
-	    RequestDispatcher req = null;
+	    //RequestDispatcher req = null;
 	    response.setContentType("text/html");
 	    
 		try {
@@ -55,12 +55,18 @@ public class DeactivateUser extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(res){
-		req = request.getRequestDispatcher(nextPage);			
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else
-		response.getWriter().append("User is not deactivate-Failure");
 		
-		req.forward(request, response);	
+		if(res)
+			response.getWriter().append("Success");			
+		else
+			response.getWriter().append("Failure");
+		
+		//req.forward(request, response);	
 	}
 }

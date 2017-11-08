@@ -1,6 +1,3 @@
-//// why is company of type int???
-/// Casting 
-
 package mm.webclientservlets;
 
 import java.io.IOException;
@@ -14,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mm.da.DataAccess;
 import mm.model.Mentor;
-import mm.model.User;
 import mm.model.User.userType;
 
 /**
@@ -58,23 +54,33 @@ public class UpdateMentor extends HttpServlet {
 		String profilePic = request.getParameter("uProfilePicture");
 		boolean isActive = Boolean.parseBoolean(request.getParameter("uIsActive"));
 		String role = request.getParameter("uRole");
-		int company = Integer.parseInt(request.getParameter("uCompany"));
+		String uCompany=request.getParameter("uCompany");
+		int company = Integer.parseInt(uCompany);
 		String workHistory = request.getParameter("uWorkHistory");
-		DataAccess da = new DataAccess();
+		String cityId=request.getParameter("cityId");
+		String areaId=request.getParameter("areaId");
+		int uCity= Integer.parseInt(cityId);
+		int uArea= Integer.parseInt(areaId);
 		Boolean status = false;
-		Mentor mentor = new Mentor(id,firstName, lastName, email, phoneNum, password, gender, address, notes, profilePic,
-				isActive, userType.MENTOR, experience, role, company, volunteering, workHistory);
-		User u = (User) mentor;
+
+		DataAccess da = new DataAccess();
+        Mentor myMentor=new Mentor();
+        try {
+			myMentor = (Mentor) da.getUser(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+        Mentor mentor = new Mentor(id,firstName, lastName, email, phoneNum, myMentor.getPassword(), gender, address, notes, myMentor.getProfilePicture(),
+				isActive, userType.MENTOR,uArea,"",uCity,"",myMentor.getJoinDate(), experience, role, company, volunteering, workHistory);
 		try {
-			status = da.editUser(u);
+			status = da.editUser(mentor);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		request.setAttribute("status", status);
 		RequestDispatcher req ;
-		System.out.println("UUUUUUUUUPDATE");
 		req=request.getRequestDispatcher("GetAllMentors");
-		//req = request.getRequestDispatcher("mentors.jsp");
 		req.forward(request, response);
 
 	}

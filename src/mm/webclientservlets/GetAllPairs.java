@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mm.da.DataAccess;
+import mm.model.Area;
+import mm.model.City;
+import mm.model.Mentee;
+import mm.model.Mentor;
 import mm.model.Pair;
 import mm.model.PairsInfo;
 
@@ -45,13 +49,12 @@ public class GetAllPairs extends HttpServlet {
 		System.out.println("Get AllPairs Servlet");
 
 		ArrayList<Pair> pairsArray = new ArrayList<Pair>();
-		ArrayList<PairsInfo> pairsMainInfo = new ArrayList<PairsInfo>();
-
+		ArrayList<Pair> activePairsArray= new ArrayList<Pair>();
 		DataAccess da = new DataAccess();
 		 try {
 			 pairsArray = da.getAllPairs();
 			 } catch (SQLException e) {
-			 // TODO Auto-generated catch block
+			
 			 e.printStackTrace();
 			 }
 		
@@ -60,19 +63,41 @@ public class GetAllPairs extends HttpServlet {
 				try {
 					pair.setMentee(da.getUser(pair.getMenteeId()));
 					pair.setMentor(da.getUser(pair.getMentorId()));
+					((Mentee)pair.getMentee()).setAcademiclnstitutionName((da.getAcademicInstituteById(((Mentee)pair.getMentee()).getAcademiclnstitution()).getName()));
+					((Mentor)pair.getMentor()).setCompanyName((da.getWorkPlaceById(((Mentor)pair.getMentor()).getCompany()).getCompany()));
+
+					activePairsArray.add(pair);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-				PairsInfo tmpPairInfo = new PairsInfo(pair.getMentee().getFirstName(), pair.getMentor().getFirstName(),
-						pair.getPairId(), pair.getActiveStatus());
-				pairsMainInfo.add(tmpPairInfo);
-				
 			}
 		}
-		
-		request.setAttribute("pairs", pairsMainInfo);
+		ArrayList<City> cities =new ArrayList<City>();
+		ArrayList<Area> areas =new ArrayList<Area>();
+
+	 try {
+		 cities = da.getAllCities();
+		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
+	 try {
+		 areas = da.getAllAreas();
+		 } catch (SQLException e) {
+		 // TODO Auto-generated catch block
+		 e.printStackTrace();
+		 }
+		try {
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    request.setAttribute("areas", areas);
+	    request.setAttribute("cities", cities);
+		request.setAttribute("pairs", activePairsArray);
 		response.setContentType("text/html");
 	    RequestDispatcher req = request.getRequestDispatcher("mainPair.jsp");
 	    req.forward(request, response);

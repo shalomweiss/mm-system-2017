@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mm.da.DataAccess;
-
+import mm.model.Area;
+import mm.model.City;
+import mm.model.Mentor;
 import mm.model.User;
 import mm.model.User.userType;
 import mm.model.WorkPlace;
@@ -47,8 +49,14 @@ public class GetAllMentors extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-		request.setAttribute("Mentors", ArrMentors);
-		
+		for(User mentor: ArrMentors){
+			try {
+				((Mentor)mentor).setCompanyName((da.getWorkPlaceById(((Mentor)mentor).getCompany()).getCompany()));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}
 		ArrayList<WorkPlace> allWorkingPlace =new ArrayList<WorkPlace>();
 		 try {
 			 allWorkingPlace = da.getAllWorkingPlace();
@@ -56,9 +64,31 @@ public class GetAllMentors extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
-		request.setAttribute("NewWorkPlace", allWorkingPlace); 
-		
-		
+			ArrayList<City> cities =new ArrayList<City>();
+			ArrayList<Area> areas =new ArrayList<Area>();
+
+		 try {
+			 cities = da.getAllCities();
+			 } catch (SQLException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 }
+		 try {
+			 areas = da.getAllAreas();
+			 } catch (SQLException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+			 }
+			try {
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		request.setAttribute("areas", areas);
+		request.setAttribute("cities", cities);
+		request.setAttribute("Mentors", ArrMentors);
+		request.setAttribute("NewWorkPlace", allWorkingPlace); 		
 		PrintWriter writer = response.getWriter();
 		writer.println(ArrMentors);
 		RequestDispatcher req ;

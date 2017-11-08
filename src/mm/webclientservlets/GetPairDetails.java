@@ -56,6 +56,13 @@ public class GetPairDetails extends HttpServlet {
                // TODO Auto-generated catch block
                e.printStackTrace();
            }
+          try {
+  			da.closeConnection();
+  		} catch (SQLException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  		
 
         response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);

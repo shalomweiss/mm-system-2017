@@ -1,6 +1,7 @@
 
 package mm.androidservice;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,13 @@ public class AndroidIOManager {
 	private JsonObject requestObject;
 	private HttpServletRequest request;
 	private HttpServletResponse response;
+	
+	
+	public AndroidIOManager(HttpServletResponse response) throws IOException {
+		this.da = new DataAccess();
+		this.responseMap = new HashMap<String,Object>();
+		this.response=response;
+	}
 
 	public AndroidIOManager(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		this.da = new DataAccess();
@@ -74,6 +82,16 @@ public class AndroidIOManager {
 	
 	
 	public void SendJsonResponse() throws IOException {
+		
+		if(da!=null) {
+			try {
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		ServerUtils.respondJsonMap(response, this.responseMap);
 	}
 	

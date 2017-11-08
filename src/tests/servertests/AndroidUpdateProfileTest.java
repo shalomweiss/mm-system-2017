@@ -9,18 +9,22 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
 
 import com.google.gson.Gson;
 
 import mm.model.User;
+import util.GeneratePass;
 
 
 public class AndroidUpdateProfileTest {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-
-		User myUser = new User(1,"testMan","ok","gmail.com","12345","abc",0, "male","Antractica","good test",true,User.userType.MENTEE);
+		String uPass= GeneratePass.getSaltString();	
+        long millis=System.currentTimeMillis();  
+        Date date=new Date(millis);
+		User myUser = new User(1,"testMan","ok","gmail.com","12345","abc",0, "male","Antractica","good test",true,User.userType.MENTEE,1,"",1,"",date);
 		
 		Gson myJ = new Gson();
 		String jsonInString = myJ.toJson(myUser);

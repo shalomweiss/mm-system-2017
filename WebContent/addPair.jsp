@@ -25,23 +25,23 @@
 		});
 		$("#createPair").click(function(){
 			var trs= document.getElementsByClassName("selected");
-			if(trs.length>1)
+			if(trs.length==2)
 			{
-				var menteeId=trs[0].childNodes[10].innerHTML;
-				var mentorId=trs[1].childNodes[10].innerHTML;
+				var menteeId=trs[0].getElementsByClassName("menteeId")[0].innerHTML;
+				var mentorId=trs[1].getElementsByClassName("mentorId")[0].innerHTML;
 				$.post("CreateNewPair",
 				        {
 				          menteeID: menteeId,
 				          mentorID: mentorId
 				        },
 				        function(data,status){
-				        	alert(data);
 				        	location.reload();
-				        	
-				        	//window.location.href = window.location.pathname + window.location.search + window.location.hash;
-				            
 				        });
+				var body=document.getElementsByTagName("body")[0];
+				body.innerHTML='<div class="waiting"><div class="loader">Loading...</div><p class="sorry">Sorry, Please wait...<br>We are making the world a better place one pair at a time :)</p>';
+				
 			}
+			
 	});
 	});
 	</script>
@@ -118,25 +118,37 @@
 </head>
 
 <style>
-
+div.inner--left1{
+		width:40%;
+       	left: 100px;
+}
+div.inner--right{
+	left : calc( 100px + 50%);
+}
+th{
+	font-size: 12px;
+}
+tr:nth-child(even) {
+    background-color: #ccc !important;
+}
 </style>
 <body>
 <nav class="icon-bar">
 	<div class="icon-bar">
 			<a  href="GetAllPairs" title="Back"><i class="fa fa-arrow-circle-left"></i></a> 
-		 <a  href="ForwardPath" title="Home"><i class="fa fa-home"></i></a> 
+		 <a class="active" title="Home" href="ForwardPath"><i class="fa fa-home"></i></a> 
 		  <a href="GetAllMentors" title="Mentors"><i class="fa fa-black-tie"></i></a> 
-		  <a href="GetAllMentees"title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
-		  <a class="active" href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
-		 
-		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>	
-		  <a href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
+		  <a href="GetAllMentees" title="Mentees"><i class="fa fa-graduation-cap"></i></a> 
+		  <a href="GetAllPairs" title="Pairs"><i class="fa fa-group"></i></a>
+		  <a href="GetAllAcademicInstitution" title="Reports"><i class="fa fa-clipboard"></i></a>
+		  <a href="AddingDataServlet" title="AddingStuff"><i class="fa fa-cogs"></i></a>
+		  <a onclick="logout()" href="#" title="Logout"><i class="fa glyphicon">&#xe163;</i></a>	  
 		   
 	</div>
 </nav>
 <div class="topPart"> </div>
 	<div class="bottomPart"> </div>
-	<div class="inner inner--left">
+	<div class="inner inner--left1">
 	<section class="Pairs">
 		<div class="container-fluid" >
 			 <div style= "padding-left: 0px;">
@@ -202,24 +214,27 @@ $(function(){
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Last Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Gender</th>
+          <th width="18%">Name</th>
+          <th width="18%">Phone</th>
+          <th width="17%">Gender</th>
+          <th width="18%">Area</th>
+          <th width="21%">Academy</th>
+          <th width="8%"><i class="fa fa-file-text-o"></i></th>
         </tr>
       </thead>
     </table>
   </div>
   <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable">
-      <tbody class="mentee">
+      <tbody>
       <c:forEach var="mentee" items="${Mentees}" >
-			<tr class="para" id="tabletest"><td><c:out value="${mentee.firstName}"></c:out></td>
-			<td ><c:out value="${mentee.lastName}"></c:out></td>
-			<td><c:out value="${mentee.phoneNumber}"></c:out></td>
-			<td><c:out value="${mentee.email}"></c:out></td>
-			<td><c:out value="${mentee.gender}"></c:out></td>
+			<tr class="mentee" id="tabletest">
+			<td width="18%">${mentee.firstName} ${mentee.lastName}</td>
+			<td width="18%">${mentee.phoneNumber}</td>
+			<td width="16%"><c:if test="${ment.gender == 0}">fe</c:if>male</td>
+			<td width="18%">${mentee.area}</td>
+			<td width="20%">${mentee.academiclnstitutionName}</td>
+			<td width="8%"><i class="fa fa-file-text-o"></i></td>
 			<td style="display:none;" class="menteeId"><c:out value="${mentee.id}"></c:out></td>
 			<td style="display:none;" class="menteeAddress"><c:out value="${mentee.address}"></c:out></td>
 			<td style="display:none;" class="menteeUniversity"><c:out value="${mentee.academiclnstitution}"></c:out></td></tr>
@@ -310,27 +325,29 @@ $(function(){
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Last Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Gender</th>
+          <th width="18%">Name</th>
+          <th width="18%">Phone</th>
+          <th width="17%">Gender</th>
+          <th width="18%">Area</th>
+          <th width="21%">company</th>
         </tr>
       </thead>
     </table>
   </div>
   <div class="tbl-content tbl-content-pair">
     <table cellpadding="0" cellspacing="0" border="0" id="myTable1">
-      <tbody class="mentor">
+      <tbody >
        <c:forEach items="${Mentors}" var="mentor">
-			<tr class="para"><td><c:out value="${mentor.firstName}"></c:out></td>
-			<td><c:out value="${mentor.lastName}"></c:out></td>
-			<td><c:out value="${mentor.phoneNumber}"></c:out></td>
-			<td><c:out value="${mentor.email}"></c:out></td>
-			<td><c:out value="${mentor.gender}"></c:out></td>
-			<td style="display:none;" class="mentorId"><c:out value="${mentor.id}"></c:out></td>
-			<td style="display:none;" class="mentorAddress"><c:out value="${mentor.address}"></c:out></td>
-			<td style="display:none;" class="mentorCompany"><c:out value="${mentor.company}"></c:out></td></tr>
+			<tr class="mentor">
+				<td>${mentor.firstName} ${mentor.lastName}</td>
+				<td>${mentor.phoneNumber}</td>
+				<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
+				<td>${mentor.area}</td>
+				<td>${mentor.companyName}</td>
+				<td style="display:none;" class="mentorId"><c:out value="${mentor.id}"></c:out></td>
+				<td style="display:none;" class="mentorAddress"><c:out value="${mentor.address}"></c:out></td>
+				<td style="display:none;" class="mentorCompany"><c:out value="${mentor.company}"></c:out></td>
+			</tr>
 		</c:forEach>
       </tbody>
     </table>

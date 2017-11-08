@@ -1,6 +1,6 @@
 package mm.model;
 
-import mm.model.User.userType;
+import java.sql.Date;
 
 public class Mentor extends User {
 	private String experience;
@@ -8,6 +8,7 @@ public class Mentor extends User {
 	private int company;
 	private String volunteering;
 	private String workHistory;
+	private String companyName;
 	
 	
 	public Mentor(){
@@ -25,14 +26,15 @@ public class Mentor extends User {
 	
 
 	public Mentor(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, String note, String profilePicture, boolean active, userType type, String experience,
+			int gender, String address, String note, String profilePicture, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String experience,
 			String role, int company, String volunteering, String workHistory) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type);
+		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type, areaId, area, cityId, city, date);
 		this.experience = experience;
 		this.role = role;
 		this.company = company;
 		this.volunteering = volunteering;
 		this.workHistory = workHistory;
+		
 	}
 
 	public String getRole() {
@@ -73,6 +75,14 @@ public class Mentor extends User {
 
 	public void setVolunteering(String volunteering) {
 		this.volunteering = volunteering;
+	}
+	
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 	@Override

@@ -18,9 +18,10 @@ import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
-
-
-
+import mm.androidservice.AndroidIOManager;
+import mm.androidservice.RESPONSE_STATUS;
+import mm.androidservice.common.UnsupportedFormatException;
+import util.ServerUtils;
 
 /**
  * Servlet implementation class UploadFile
@@ -29,157 +30,88 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 public class UploadImage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ServletFileUpload uploader = null;
-	
-	
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UploadImage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-    @Override
-	public void init() throws ServletException{
-//    	DiskFileItemFactory fileFactory = new DiskFileItemFactory();
-//		File filesDir = (File) getServletContext().getAttribute("C:\\Users\\Foad\\Music\\folder");
-//		fileFactory.setRepository(filesDir);
-//		this.uploader = new ServletFileUpload(fileFactory);
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UploadImage() {
+		super();
 	}
 
-    @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
-    	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-//    	
-//    	int flag=0;
-//    	JsonObject myJson = iom.getJsonRequest();
-//    	int id = (myJson.get("id").isJsonNull() ? flag=1 : myJson.get("id").getAsInt());
-//		String token = (String) (myJson.get("token").isJsonNull()? flag=1 :myJson.get("token").getAsString());
-//		
-//    	
-    
-    	PrintWriter out = response.getWriter();
-    	
-    	String id = request.getHeader("id");
-    	String token = request.getHeader("token");
-    	
-    	System.out.println(token.length());
-    	System.out.println(id);
-        FileItemFactory itemFactory = new DiskFileItemFactory();
-        ServletFileUpload upload = new ServletFileUpload(itemFactory);
+		String id = request.getHeader("id");
+		String token = request.getHeader("token");
+		AndroidIOManager iom = new AndroidIOManager(response);
 
-//        if (!contentType.equals("image/png")) {
-//            out.println("Only PNG image files supported.");
-//            continue;
-//        }
-        File file =null;
-        try {
-            List<FileItem> items = upload.parseRequest( new ServletRequestContext(request));
-            for (FileItem item : items) {
-                String contentType = item.getContentType();
-                //save file in temporary directory on the server before sending it to a bucket
-                
-                file = File.createTempFile("img", ".jpg");
 
-                item.write(file);//write to temp
+		FileItemFactory itemFactory = new DiskFileItemFactory();
+		ServletFileUpload upload = new ServletFileUpload(itemFactory);
 
-                //upload to bucket
-                //System.out.println(com.fasterxml.jackson.databind.ObjectMapper.class.getProtectionDomain().getCodeSource().getLocation());
-           
-                ClientUploadFile.uploadFile(id, file, ClientUploadFile.PIC_BUCKET);
-                System.out.println("oneoenoeneoneoneoenoenoeneoneoneoenoenoeneone");
-                //success
-                file.deleteOnExit();
-                
-            }
-        } catch (FileUploadException e) {
-            out.println("Upload failed.");
-      
-            return;
-        } catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			if(file!=null)
-		     file.deleteOnExit();
+		// if (!contentType.equals("image/png")) {
+		// out.println("Only PNG image files supported.");
+		// continue;
+		// }
+		File file = null;
+		try {
+			if (id != null) {
+				if (ServerUtils.validateUserSession(Integer.parseInt(id), token, iom.getDataAccess())) {
+					List<FileItem> items = upload.parseRequest(new ServletRequestContext(request));
+
+					for (FileItem item : items) {
+
+						String contentType = item.getContentType();
+						// save file in temporary directory on the server before sending it to a bucket
+
+						if(contentType.equals("image/png") || contentType.equals("image/jpeg")) {
+							if (contentType.equals("image/png"))
+								file = File.createTempFile("img", ".png");
+							if (contentType.equals("image/jpeg"))
+								file = File.createTempFile("img", ".jpg");
+						}else {
+							UnsupportedFormatException.invalidFormat("Unsupported Image Format.(Only .png .jpg allowed)");
+						
+						}
+						
+					
+
+						item.write(file);// write to temp
+
+						// upload to bucket
+						ClientUploadFile.uploadFile(id, file, ClientUploadFile.PIC_BUCKET,contentType);
+						iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+						// success
+						file.deleteOnExit();
+					}
+				} else {
+					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
+				}
+			} else {
+				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
+			}
+		} catch (NullPointerException e) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
+
+			return;
+		} catch (FileUploadException e) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+
+			return;
+		}catch (UnsupportedFormatException e) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
+		} 
+		
+		catch (Exception e) {
+			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+		} finally {
+			if (file != null)
+				file.deleteOnExit();
+
+			iom.SendJsonResponse();
 		}
-    	
-    	
-    }
-    	 
-    	
-    
-    
-    
-    
 
-    
-    
-    
-    
-    
-    
-//    
-//    private static String getSubmittedFileName(Part part) {
-//        for (String cd : part.getHeader("content-disposition").split(";")) {
-//            if (cd.trim().startsWith("filename")) {
-//                String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-//                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
-//            }
-//        }
-//        return null;
-//    }
-//    
-//    private static File inputToFile(InputStream inputStream,String path) {
-//    	
-//    	File fileToSend = new File(path);
-//    	OutputStream outputStream = null;
-//
-//    	try {
-//    		// write the inputStream to a FileOutputStream
-//    		outputStream =
-//                        new FileOutputStream(fileToSend);
-//
-//    		int read = 0;
-//    		byte[] bytes = new byte[1024];
-//
-//    		while ((read = inputStream.read(bytes)) != -1) {
-//    			outputStream.write(bytes, 0, read);
-//    		}
-//
-//    		System.out.println("Done!");
-//    		return fileToSend;
-//
-//    	} catch (IOException e) {
-//    		//TODO
-//    		e.printStackTrace();
-//    	} finally {
-//    		if (inputStream != null) {
-//    			try {
-//    				inputStream.close();
-//    			} catch (IOException e) {
-//    				e.printStackTrace();
-//    			}
-//    		}
-//    		if (outputStream != null) {
-//    			try {
-//    				// outputStream.flush();
-//    				outputStream.close();
-//    				//return fileToSend;
-//    			} catch (IOException e) {
-//    				e.printStackTrace();
-//    				//return null;
-//    			
-//    			}
-//
-//    		}
-//    		
-//    	}
-//    	return null;
-//    }
-    
+	}
 
 }

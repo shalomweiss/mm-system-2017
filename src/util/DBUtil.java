@@ -4,42 +4,57 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import org.apache.tomcat.dbcp.dbcp2.*;
+
+
 public class DBUtil {
-	private static Connection conn;
+	
+	private BasicDataSource ds;
+	
+	
+	 private static DBUtil instance = null;
+	   private DBUtil() {
+			
+			Logger logger = Logger.getLogger(DBUtil.class.getName());
+			logger.log(Level.INFO,"No open connection");
+		   
+		   Context initContext;
+
+				try {
+					initContext = new InitialContext();
+					Context envContext = (Context) initContext.lookup("java:comp/env");
+					ds = (BasicDataSource) envContext.lookup("jdbc/UsersDB");
+				} catch (NamingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
+			
+	   }
+
+	   public static DBUtil getInstance() {
+	      if(instance == null) {
+	         instance = new DBUtil();
+	      }
+	      return instance;
+	   }
+	   
+	   
 
 	public static Connection getConnection() {
-		Logger logger = Logger.getLogger(DBUtil.class.getName());
-		logger.log(Level.INFO,"No open connection");
-		if (conn != null)
-			return conn;
+	
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
-		} catch (ClassNotFoundException e) {
+			return DBUtil.getInstance().ds.getConnection();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-
 		}
-////
-		String url = "jdbc:mysql://aa16lmxbq1txb0j.coi6zcmnhpte.us-east-2.rds.amazonaws.com:3306/db";
-		String username = "tsofendbmaster2";
-		String password = "ESEahn57327";
+		return null;
 
-	//	 DEBUG VALUES
-//		 String url = "jdbc:mysql://localhost:3306/db";
-//		 String username = "root";
-//		 String password = "1234";
-		try {
-			logger.log(Level.INFO,"Attempting to connection to: " + url + " with user: " + username + " password: " +password);
-			conn = DriverManager.getConnection(url, username, password);
-		}
-
-		catch (java.sql.SQLException e) {
-			logger.log(Level.SEVERE,"Connection not opened");
-			System.out.println(e.getMessage());
-		}
-
-		return conn;
 	}
 
 	public static void closeConnection(Connection toBeClosed) {
