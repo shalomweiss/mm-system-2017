@@ -596,8 +596,8 @@ function sendAPK(param)
 									
 									<select name="gender" class="selectpicker reports" id="gender1" >
 		    	 	 					<option></option>
-		     							<option value="0">Male</option>
-		     		 					<option value="1">Female</option>
+		     							<option value="1">Male</option>
+		     		 					<option value="0">Female</option>
 	      							</select>
 									
 									

@@ -84,7 +84,7 @@ public class AddMentee extends HttpServlet {
 		int uArea=0;
 		int uAcademicInstitution= 0;
 		boolean SignedEULA=false;
-		System.out.println("ACADEMIC "+uAcademicIn+"city "+cityId +"area: "+ areaId);
+		System.out.println("ACADEMIC "+academicDicipline2+"city "+cityId +"area: "+ areaId);
 
 		if(uAverage.equals(null) ||uAverage.equals("")){
 			avg=(float) 0;

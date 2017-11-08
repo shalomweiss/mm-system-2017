@@ -399,8 +399,8 @@
 								<td class="form">
 									<select name="uGender" class="selectpicker reports" id="gender1" >
 		    	 	 					<option></option>
-		     							<option value="0">Male</option>
-		     		 					<option value="1">Female</option>
+		     							<option value="1">Male</option>
+		     		 					<option value="0">Female</option>
 	      							</select>
 							  	</td>
 								<td class="form">Address</td>
@@ -430,7 +430,6 @@
 								<td class="form"><input type="number" name="uRemSemesters"></td>
 								<td class="form">Dicipline</td>
 								<td class="form"><input type="text" name="uAcademicDicipline"></td>
-
 								<td class="form">Dicipline 2</td>
 								<td class="form"><input type="text" name="uAcademicDicipline2">
 								</td>
