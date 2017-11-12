@@ -40,6 +40,7 @@ public class UpdateMentor extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("Update Mentor");
 		int id = Integer.parseInt(request.getParameter("uId"));
 		String email = request.getParameter("uEmail");
 		String firstName = request.getParameter("uFirstName");

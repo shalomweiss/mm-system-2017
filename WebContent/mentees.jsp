@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -101,16 +102,16 @@
 				<tbody >
 					<c:forEach items="${Mentees}" var="ment">
 					
-						<tr class="stam1" onclick="show_hide_row1('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+						<tr id="row${ment.id}" class="stam1" onclick="show_hide_row1('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 							    <td style="display: none">${ment.id}</td>
 						    	<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}<c:if test="${empty ment.phoneNumber}">No Data</c:if></td>
 								<td>${ment.academiclnstitutionName}<c:if test="${empty ment.academiclnstitutionName}">No Data</c:if></td>
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td>
-									<button class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal" style="margin-top: 0px;" >
+									<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
 			 							Deactivate
-    								</button><br>
+    								</button>
 								</td>
 						</tr>
 						<tr id="hidden_row${ment.id}" class="hidden_row"  >
@@ -133,7 +134,7 @@
 													<th width="14%" class="inner">First name</th>
 													<th width="14%" class="inner">Last name</th>
 													<th width="10%" class="inner">Gender</th>
-													<th width="12%" class="inner">Address</th>
+													<th width="12%" class="inner">ID(il)</th>
 													<th width="12%" class="inner">Phone</th>
 													<th width="18%" class="inner">Email</th>
 													<th width="10%" class="inner">Picture</th>
@@ -155,12 +156,7 @@
 													</td>
 													<td width="10%">
 														<div id="div3${ment.id}"
-															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
-															
-															<c:if test="${ment.gender == 1}"> male </c:if> 
-															<c:if test="${ment.gender == 0}"> female </c:if> 
-															
-															</div>
+															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');"><c:if test="${ment.gender == 0}">fe</c:if>male</div>
 														<select id="input3${ment.id}" style="display: none;" name="uGender" class="selectpicker reports" >
 							     							<option value="${ment.gender}"></option>
 							     							<option value="0">Male</option>
@@ -168,9 +164,9 @@
 					      								</select>							
 													</td>
 													<td width="12%">
-														<div id="div4${ment.id}"
-															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}<c:if test="${empty ment.address}">No Data</c:if></div>
-														<input id="input4${ment.id}" name="uAddres" type="text"
+														<div id="div17${ment.id}"
+															ondblclick="showStuff('div17${ment.id}','input17${ment.id}');">${ment.address}<c:if test="${empty ment.address}">No Data</c:if></div>
+														<input id="input17${ment.id}" name="uAddres" type="text"
 														value="${ment.address}" style="display: none;"
 														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
@@ -265,10 +261,7 @@
 													</td>
 													<td width="15%">
 														<div id="div11${ment.id}"
-															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">
-															<c:if test="${empty ment.academicDicipline2}">No Data</c:if>
-															${ment.academicDicipline2}
-															</div>
+															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');"><c:if test="${empty ment.academicDicipline2}">No Data</c:if>${ment.academicDicipline2}</div>
 														<input id="input11${ment.id}" name="uAcademicDicipline2" type="text" value="${ment.academicDicipline2}" style="display: none;">
 													</td>
 													<td width="10%">
@@ -285,9 +278,10 @@
 											<table>
 											<tr>
 												<th width="30%" class="inner">Notes</th>
+												<th width="15%" class="inner">Address</th>	
 												<th width="15%" class="inner">City</th>	
 												<th width="15%" class="inner">Area</th>	
-												<th width="20%" class="inner">Join Date</th>			
+												<th width="15%" class="inner">Join Date</th>			
 												<th width="10%" class="inner">Actions</th>	
 											</tr>
 											<tr>
@@ -296,6 +290,14 @@
 													<textarea id="input12${ment.id}" name="uNotes"
 														style="display: none; ">${ment.note}</textarea>
 												</td>
+												<td width="15%">
+														<div id="div4${ment.id}"
+															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}<c:if test="${empty ment.address}">No Data</c:if></div>
+														<input id="input4${ment.id}" name="uIlID" type="text"
+														value="${ment.address}" style="display: none;"
+														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
+							  							onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
+													</td>
 												<td width="15%">
 														<div id="div15${ment.id}"
 															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.city}<c:if test="${empty ment.city}">No Data</c:if></div>
@@ -486,6 +488,17 @@
 		
 	</section>
 </div>
+<div id="dannyZ" class="DannyModal" style="display:none;">
+	<div class="DannyModalIn">
+		<header><h5>Are you Sure you want to deactivate</h5></header>
+		<footer>
+			<div onclick="da(this)" class="decision yes">YES</div>
+			<div onclick="nyet(this)" class="decision no">NO</div>
+		</footer>
+		
+	</div>
+</div>
+
 </body>
 </html>
 

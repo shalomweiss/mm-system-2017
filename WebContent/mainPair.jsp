@@ -16,15 +16,10 @@
 <script>
 $(document).ready(function(){
 	$(".disB").click(function(){
-		console.log($(this).attr('id'));
-		$.post("DisconnectPair",
-		        {
-		          pairId: $(this).attr('id'),
-		        },
-		        function(data,status){
-		        	//if data is -1 something is wrong
-		            $("#"+data).parent().parent().remove();
-		        });
+		var areYouSure=document.getElementById("dannyZ");
+		areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to delete the pair ?";
+		areYouSure.style.display="";
+		areYouSure.getElementsByTagName("FOOTER")[0].id=""+$(this).attr('id');
 	});
 	 $(".button-fill").hover(
    		  function() {
@@ -53,7 +48,7 @@ function exportToCsv(filename, rows) {
         return finalVal + '\n';
     };
 
-    var csvFile = '';
+    var csvFile = "\ufeff"+'';
     for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
     }
@@ -92,6 +87,25 @@ function pairTableToArray(param)
 	console.log(thead.getElementsByTagName("tr")[0]);
 	exportToCsv('Pairs.csv',matrix);
 }
+function da(param)
+{
+	disconnect(param.parentNode.id);
+	nyet(param);
+}
+function nyet(param){
+	param.parentNode.parentNode.parentNode.style.display="none";
+}
+function disconnect(param)
+{
+	$.post("DisconnectPair",
+	        {
+	          pairId: param,
+	        },
+	        function(data,status){
+	        	//if data is -1 something is wrong
+	            $("#"+data).parent().parent().remove();
+	        });
+}
 </script>
 <style>
 .icon-bar a {
@@ -101,6 +115,16 @@ function pairTableToArray(param)
 {
 	border-radius:18px;
 	bottom: 2vh;
+}
+h5{
+	color:#8f9cb5;
+	margin-top: 8vh !important;
+	display: block;
+    margin: auto;
+	text-align:center;
+	font-size:4vh;
+	margin-top: 20px;
+	
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
@@ -182,7 +206,15 @@ function pairTableToArray(param)
  <a onclick="pairTableToArray(this)" href="#" class="btn-print btn btn-block" >
 			<i class="fa fa-print"></i> print</a>
  </div>
- 
+ 	<div id="dannyZ" class="DannyModal" style="display:none;">
+	<div class="DannyModalIn">
+		<header><h5>Are you Sure you want to deactivate</h5></header>
+		<footer>
+			<div onclick="da(this)" class="decision yes">YES</div>
+			<div onclick="nyet(this)" class="decision no">NO</div>
+		</footer>
+	</div>
+</div>
 
  </body>
 </html> 
