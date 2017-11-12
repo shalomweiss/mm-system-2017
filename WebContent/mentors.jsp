@@ -395,7 +395,7 @@ function sendAPK(param)
 														required>
 													</td>
 													<td width="10%">
-														<img src="DownloadFile?id=${ment.id}&type=img" alt="W3Schools.com">
+														<img src="DownloadFile?img=${ment.id}" alt="profilePic">
 													</td>
 													<td width="10%"><input class="saveButton" id="submit${ment.id}" type="submit"
 														value="Save"><br>

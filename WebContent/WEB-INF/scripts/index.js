@@ -37,9 +37,10 @@ $(document).ready(function(){
 	$(".stam1").click(function()
 			{
 		
-			}
-	
-	);
+			});
+	$(".btn-deactivate").click(function() {
+		
+	});
 });
 	function deactivate(param)
 	{

@@ -83,15 +83,15 @@ function changeTable(param)
 		<table id="City" cellpadding="0" cellspacing="0" border="0">
 				<tr>
 					<td width="15%">Existing Cities:</td>
-					<td width="25%">
+					<td width="15%">
 						<select class="selectpicker reports" style="width:100%"  >
 							<c:forEach var="item" items="${Cities}">
 									<option>${item.name}</option>
 							</c:forEach>
       					</select>
 					</td>
-					<td width="15%">Add Cities:</td>
-					<td width="25%">
+					<td width="15%">New City:</td>
+					<td width="15%">
 							<input name="uAddress"  class="reports"  type="text" id="city1"
 				  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
 								onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
@@ -134,7 +134,7 @@ function changeTable(param)
 							</c:forEach>
       					</select>
 					</td>
-					<td width="15%">Add Area:</td>
+					<td width="15%">New Area:</td>
 					<td width="25%">
 							<input name="uArea"  class="reports"  type="text" id="city1"
 				  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
@@ -149,7 +149,7 @@ function changeTable(param)
 				<br>
 				<tr colspan="4">
 					<td width="15%">Existing Academies:</td>
-					<td width="25%">
+					<td width="15%">
 						<select class="selectpicker reports" style="width:100%"  >
 							<c:forEach var="item" items="${Workplaces}">
 									<option>${item.name}</option>
@@ -157,12 +157,12 @@ function changeTable(param)
       					</select>
 					</td>
 					<td width="15%">Add Academy:</td>
-					<td width="25%">
+					<td width="15%">
 							<input name="uAcademy"  class="reports"  type="text" id="city1"
 				  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
 								onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
 					</td>
-					<td width="20%">
+					<td width="40%">
 						<a id="AddAcademinInstitute" onclick="sendAdded(this)" style="width:80%" class="btn btn-primary" href="#">Add</a>
 					</td>
 				</tr>		

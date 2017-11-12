@@ -149,11 +149,11 @@ tr:nth-child(even) {
 <div class="topPart"> </div>
 	<div class="bottomPart"> </div>
 	<div class="inner inner--left1">
-	<section class="Pairs">
+	<section class="Pairs" style="width: 100% !important;">
 		<div class="container-fluid" >
 			 <div style= "padding-left: 0px;">
-    <h5 id="mentee">MENTEE</h5>
-<nav class="navbar navbar-default">
+    	<h5 id="mentee">MENTEE</h5>
+		<nav class="navbar navbar-default">
         <div class="">
  
             <form class="navbar-form navbar-search" role="search">
@@ -255,7 +255,7 @@ $(function(){
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
 	<div class="inner inner--right">
-	<section class="Pairs">
+	<section class="Pairs" style="width: 100% !important;">
 
 <div class="container-fluid" >
 

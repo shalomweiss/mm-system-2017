@@ -127,19 +127,26 @@ function pairTableToArray(param)
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
        <tr>
-          <th>Mentor</th>
-          <th></th>
-          <th></th>
-          <th>Mentee</th>
+          <th width="15.2%">Mentor</th>
+          <th width="12.7%"></th>
+          <th width="10%"></th>
+          <th width="15.2%">Mentee</th>
+          <th width="12.7%"></th>
+          <th width="10%"></th>
+          <th width="5%"></th>
+          <th width="5%"></th>
+          <th width="14.2%"></th>
         </tr>
         <tr>
-          <th class="mentor">Name</th>
-          <th class="mentor">Phone</th>
-          <th class="mentor">Workplace</th>
-          <th class="mentee">Name</th>
-          <th class="mentee">Phone</th>
-          <th class="mentee">Academy</th>
-          <th >Actions</th>
+          <th width="15.2%" class="mentor">Name</th>
+          <th width="12.7%" class="mentor">Phone</th>
+          <th width="10%" class="mentor">Company</th>
+          <th width="15.2%" class="mentee">Name</th>
+          <th width="12.7%" class="mentee">Phone</th>
+          <th width="10%" class="mentee">Academy</th>
+          <th width="5%" ><i class="fa fa-handshake-o"></i></th>
+          <th width="5%" ><i class="fa fa-flag-o"></i></th>
+          <th width="14.2%">Actions</th>
         </tr>
       </thead>
     </table>
@@ -149,13 +156,15 @@ function pairTableToArray(param)
       <tbody>
    <c:forEach var="pair" items="${pairs}" >
         <tr>
-        	<td id="mentor">${pair.mentor.firstName} ${pair.mentor.lastName}</td>
-        	<td id="mentorPhone">${pair.mentor.phoneNumber}</td>
-			<td id="mentee"><c:out value="${pair.mentor.companyName}"></c:out></td>
-			<td id="mentor">${pair.mentee.firstName} ${pair.mentee.lastName}</td>
-        	<td id="mentorPhone">${pair.mentee.phoneNumber}</td>
-			<td id="mentee"><c:out value="${pair.mentee.academiclnstitutionName}"></c:out></td>
-          	<td class="but"> 
+        	<td width="15.2%" id="mentor">${pair.mentor.firstName} ${pair.mentor.lastName}</td>
+        	<td width="12.7%" id="mentorPhone">${pair.mentor.phoneNumber}</td>
+			<td width="10%" id="mentee"><c:out value="${pair.mentor.companyName}"></c:out></td>
+			<td width="15.2%" id="mentor">${pair.mentee.firstName} ${pair.mentee.lastName}</td>
+        	<td width="12.7%" id="mentorPhone">${pair.mentee.phoneNumber}</td>
+			<td width="10%" id="mentee"><c:out value="${pair.mentee.academiclnstitutionName}"></c:out></td>
+			<td width="5%" class="but"> <i title="Is Scheduled Meeting" class="fa fa-handshake-o"></i></td> 
+			<td width="5%" class="but"> <i title="Has Finished" class="fa fa-flag-o"></i></td> 
+          	<td width="14.2%" class="but"> 
           		<a class="btn btn-block btn-primary topButton" href="GetMeetingByPairId?id=${pair.pairId}" style="margin-top: 0px;" >
 			 		Meetings
     			</a>  <br>
