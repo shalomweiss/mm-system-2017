@@ -106,8 +106,107 @@ function disconnect(param)
 	            $("#"+data).parent().parent().remove();
 	        });
 }
+function showDetails(evt, Detail) {
+
+	var i, tabcontent, tablinks;
+	tabcontent = document.getElementsByClassName("tabcontent");
+	for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	}
+	tablinks = document.getElementsByClassName("tablinks");
+	for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className
+				.replace(" active", "");
+	}
+	document.getElementById(Detail).style.display = "block";
+	evt.currentTarget.className += " active";
+}
+function showStuff(hide, show) {
+	if(document.getElementById(show).tagName=='SELECT')
+		document.getElementById(show).childNodes[1].selected = "true";
+    document.getElementById(show).style.display  = 'block';
+    document.getElementById(hide).style.display  = 'none';
+    
+}
+var even=1;
+var colnum=3;
+function sortTable(compare)
+{
+	colnum=compare;
+	var rows=document.getElementsByClassName("stam1");
+	var args = Array.prototype.slice.call(rows);
+	args.sort(compareRows);
+	even=even*(-1);
+	var tbody=document.getElementsByClassName("rightTable")[0].childNodes[1];
+	for (var i = 0; i < args.length; i++) {
+		var hr1=args[i].nextSibling;
+		var hr=hr1.nextSibling;
+		tbody.appendChild(args[i]);
+		tbody.appendChild(hr1);
+		tbody.appendChild(hr);
+	}
+}
+function compareRows(tr1,tr2)
+{
+	var name1=tr1.childNodes[colnum].innerHTML;
+	var name2=tr2.childNodes[colnum].innerHTML;
+	if(even==1)
+		return name1.localeCompare(name2);
+	else
+		return (name2.localeCompare(name1));
+}
+function dynamicSearch()
+{
+	$(".nono").removeClass("nono");
+	$(".stam").show();
+	var search1=document.getElementById("searchkey1").value.toUpperCase();
+	var search2=document.getElementById("searchkey2").value.toUpperCase();
+	var search3=document.getElementById("searchkey3").value.toUpperCase();
+	var search4=document.getElementById("searchkey4").value.toUpperCase();
+	var search5=document.getElementById("searchkey5").value.toUpperCase();
+	var search6=document.getElementById("searchkey6").value.toUpperCase();
+	console.log(search1);
+	console.log(search2);
+	console.log(search3);
+	console.log(search4);
+	console.log(search5);
+	console.log(search6);
+	var rows=document.getElementsByClassName("stam");
+	for (var i = 0; i < rows.length; i++) {
+		console.log(rows[i].childNodes);
+		//console.log(rows[i])
+		var val=rows[i].childNodes;
+		/*console.log(val[3].innerHTML.toUpperCase()+" "+" "+search1+" "+val[3].innerHTML.toUpperCase().indexOf(search1));
+		console.log(val[5].innerHTML.toUpperCase().indexOf(search2));
+		console.log(val[7].innerHTML.toUpperCase().indexOf(search3));
+		console.log(val[9].innerHTML.toUpperCase().indexOf(search4));*/
+		if(val[1].innerHTML.toUpperCase().indexOf(search1)<=-1)
+			val[1].className="nono"
+
+		else if(val[3].innerHTML.toUpperCase().indexOf(search2)==-1)
+			val[1].className="nono"
+		
+		else if(val[5].innerHTML.toUpperCase().indexOf(search3)==-1)
+			val[1].className="nono"
+		
+		else if(val[7].innerHTML.toUpperCase().indexOf(search4)==-1)
+			val[1].className="nono"
+		else if(val[9].innerHTML.toUpperCase().indexOf(search5)==-1)
+			val[1].className="nono"
+		else if(val[11].innerHTML.toUpperCase().indexOf(search6)==-1)
+			val[1].className="nono"
+		$(".nono").parent().hide();
+	}
+}
 </script>
 <style>
+.tbl-content{
+   max-height: 36vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
 .icon-bar a {
        padding: 8px;
 }
@@ -125,6 +224,16 @@ h5{
 	font-size:4vh;
 	margin-top: 20px;
 	
+}
+input[type=text] {
+	width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
@@ -147,10 +256,10 @@ h5{
 	<div class="inner">
 		<section class="Pairs">
   <!--for demo wrap--> 
-  <div class="tbl-header">
+  <div >
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
-       <tr>
+       <tr style="background-color: rgb(60,78,176);">
           <th width="15.2%">Mentor</th>
           <th width="12.7%"></th>
           <th width="10%"></th>
@@ -172,6 +281,17 @@ h5{
           <th width="5%" ><i class="fa fa-flag-o"></i></th>
           <th width="14.2%">Actions</th>
         </tr>
+        <tr>
+			<td class="searchtab mentor"> <input id="searchkey1" onkeyup="dynamicSearch()" placeholder="name..." class="serchInput" type="text" ></td>
+			<td class="searchtab mentor"> <input id="searchkey2" onkeyup="dynamicSearch()" placeholder="phone..." class="serchInput" name="eeee" type="text"></td>
+			<td class="searchtab mentor"> <input id="searchkey3" onkeyup="dynamicSearch()" placeholder="company..." class="serchInput" name="eeee" type="text"></td>
+			<td class="searchtab mentee"> <input id="searchkey4" onkeyup="dynamicSearch()" placeholder="name..." class="serchInput" type="text" ></td>
+			<td class="searchtab mentee"> <input id="searchkey5" onkeyup="dynamicSearch()" placeholder="phone..." class="serchInput" name="eeee" type="text"></td>
+			<td class="searchtab mentee"> <input id="searchkey6" onkeyup="dynamicSearch()" placeholder="academy..." class="serchInput" name="eeee" type="text"></td>
+			<td class="searchtab" style="background-color: #ccc"></td>
+			<td class="searchtab" style="background-color: #ccc"></td>
+			<td class="searchtab" style="background-color: #ccc"></td>
+		</tr>
       </thead>
     </table>
   </div>
@@ -179,7 +299,7 @@ h5{
     <table cellpadding="0" cellspacing="0" border="0">
       <tbody>
    <c:forEach var="pair" items="${pairs}" >
-        <tr>
+        <tr class="stam">
         	<td width="15.2%" id="mentor">${pair.mentor.firstName} ${pair.mentor.lastName}</td>
         	<td width="12.7%" id="mentorPhone">${pair.mentor.phoneNumber}</td>
 			<td width="10%" id="mentee"><c:out value="${pair.mentor.companyName}"></c:out></td>

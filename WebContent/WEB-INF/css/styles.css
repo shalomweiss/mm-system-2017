@@ -14,6 +14,22 @@ p.clicked{
 p.add:hover{
 	background-color: 	rgb(191,196,226);
 }
+.serchInput{ 
+	padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    border-right-width: 0px;
+    font-weight: lighter;
+}
+th.smaller{
+	cursor: pointer;
+    padding-bottom: 4px !important;
+    padding-top: 15px !important;
+}
+.searchtab{
+	padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    border-right-width: 0px;
+}
 div.nameTags{
 	top:4vh;
 	height:17.5vh;
@@ -63,6 +79,12 @@ th.mentor{
 	background-color: rgb(108,136,225)
 }
 th.mentee{
+	background-color: #FFC107;
+}
+td.mentor{
+	background-color: rgb(108,136,225)
+}
+td.mentee{
 	background-color: #FFC107;
 }
 .glyphicon {
@@ -255,18 +277,19 @@ div.bottomPart{
 	width:100%;
 }
 div.inner{
-border-radius: 20px;
+	border-radius: 20px;
     z-index: 4;
     background-color: white;
     position: fixed;
     right: 20px;
     left: 100px;
     /* width: 85%; */
-    top: 25%;
+    top: 22%;
     bottom: 5%;
-    max-height: 70%;
+    max-height: 80%;
     background-color: white;
     box-shadow: 5px 5px 5px #888888;
+
 }
  
 div.inner--left{
@@ -786,15 +809,15 @@ a.reports
     background-color: rgba(94, 110, 141, 0.9);
 }
 .DannyModalIn{
-	border-radius: 12px !important;
+    border-radius: 12px !important;
     position: absolute;
     margin: auto;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    width: 50%;
-    height: 30%;
+    width: 35%;
+    height: 22%;
     background-color: white;
 }
 footer{
@@ -814,13 +837,11 @@ header{
     height: 70%;
 }
 h5{
-	color:#8f9cb5;
-	margin-top: 8vh !important;
-	display: block;
+    display: block;
     margin: auto;
-	text-align:center;
-	font-size:4vh;
-	margin-top: 20px;
+    text-align: center;
+    font-size: 3vh;
+    margin-top: 4vh;
 	
 }
 .decision{
@@ -840,15 +861,17 @@ h5{
 .yes{
 	border-bottom-left-radius:12px;
 	left:0;
-	background-color: rgb(182,190,206);
+	background-color: rgb(46,204,64);
+	    font-size: 3vh;
 }
 .no{
 	border-bottom-right-radius:12px;
 	right:0;
 	background-color:rgb(252,113,105);
+	    font-size: 3vh;
 }
 .yes:hover{
-	background-color: rgb(152,160,176);
+	background-color: rgb(16,174,34);
 }
 .no:hover{
 	background-color:rgb(222,83,75);

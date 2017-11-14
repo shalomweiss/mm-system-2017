@@ -50,8 +50,6 @@
 		resize: vertical
 			/* Allow the user to vertically resize the textarea (not horizontally) */
 	}
-
-
 </style>
 <body>
 	<!-- add successfully alert -->
@@ -87,19 +85,26 @@
 		<table id="table_detail" >
 		<thead class="tbl-header-mentee">
 					<tr>
-						<th>Name</th>
-						<th>Phone</th>
-						<th>Academy</th>
-						<th>Gender</th>
-						<th>Actions</th>
+						<th class="smaller" onclick="sortTable(3)">Name</th>
+						<th class="smaller" onclick="sortTable(5)">Phone</th>
+						<th class="smaller" onclick="sortTable(7)">Academy</th>
+						<th class="smaller" onclick="sortTable(9)">Gender</th>
+						<th class="smaller" id="activeStuff" onclick="activeOrNot(this)" class="odin" >Actions</th>
 					</tr>
-
+					<tr>
+						<td class="searchtab"> <input id="searchkey1" onkeyup="dynamicSearch()" placeholder="search by name..." class="serchInput" type="text" ></td>
+						<td class="searchtab"> <input id="searchkey2" onkeyup="dynamicSearch()" placeholder="search by phone..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"> <input id="searchkey3" onkeyup="dynamicSearch()" placeholder="search by academy..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"> <input id="searchkey4" onkeyup="dynamicSearch()" placeholder="search by gender..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"></td>
+					</tr>
 				</thead>
 		</table>
 		<div class="tbl-header" >
 
-			<table id="table_detail">
-				<tbody >
+			<table class="rightTable" id="table_detail">
+				<tbody>
+				
 					<c:forEach items="${Mentees}" var="ment">
 					
 						<tr id="row${ment.id}" class="stam1" onclick="show_hide_row1('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
@@ -108,10 +113,17 @@
 								<td>${ment.phoneNumber}<c:if test="${empty ment.phoneNumber}">No Data</c:if></td>
 								<td>${ment.academiclnstitutionName}<c:if test="${empty ment.academiclnstitutionName}">No Data</c:if></td>
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
-								<td>
+								<td class="${ment.active}">
+								<c:if test="${ment.active}">
 									<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
 			 							Deactivate
     								</button>
+								</c:if>
+								<c:if test="${!ment.active}">
+									<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
+			 							Activate
+    								</button>
+								</c:if>	
 								</td>
 						</tr>
 						<tr id="hidden_row${ment.id}" class="hidden_row"  >
@@ -225,8 +237,7 @@
 															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.remainingSemesters}<c:if test="${empty ment.remainingSemesters}">No Data</c:if></div>
 														<input id="input7${ment.id}" name="uRemSemesters"
 														type="number" value="${ment.remainingSemesters}"
-														style="display: none;" min="0" required
-														>
+														style="display: none;" min="0" required>
 													</td>
 													<td width="10%">
 														<div id="div8${ment.id}"

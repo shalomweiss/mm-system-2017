@@ -256,7 +256,120 @@ function sendAPK(param)
 	    document.getElementById(show).style.display  = '';
 	    document.getElementById(hide).style.display  = 'none'; 
 	}
-	
+	function showDetails(evt, Detail) {
+
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+		}
+		document.getElementById(Detail).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+	function showStuff(hide, show) {
+		if(document.getElementById(show).tagName=='SELECT')
+			document.getElementById(show).childNodes[1].selected = "true";
+	    document.getElementById(show).style.display  = 'block';
+	    document.getElementById(hide).style.display  = 'none';
+	    
+	}
+	var even=1;
+	var colnum=3;
+	function sortTable(compare)
+	{
+		colnum=compare;
+		var rows=document.getElementsByClassName("stam");
+		var args = Array.prototype.slice.call(rows);
+		args.sort(compareRows);
+		even=even*(-1);
+		var tbody=document.getElementsByClassName("rightTable")[0].childNodes[1];
+		for (var i = 0; i < args.length; i++) {
+			var hr1=args[i].nextSibling;
+			var hr=hr1.nextSibling;
+			tbody.appendChild(args[i]);
+			tbody.appendChild(hr1);
+			tbody.appendChild(hr);
+		}
+	}
+	function compareRows(tr1,tr2)
+	{
+		var name1=tr1.childNodes[colnum].innerHTML;
+		var name2=tr2.childNodes[colnum].innerHTML;
+		if(even==1)
+			return name1.localeCompare(name2);
+		else
+			return (name2.localeCompare(name1));
+	}
+	function activeOrNot(param){
+		console.log('zdes');
+		if(param.className=="odin")
+		{
+			param.className="dva";
+			dynamicSearch();
+		}
+		else if(param.className=="dva")
+		{
+			param.className="tri";
+			dynamicSearch();
+		}
+		else
+		{
+			param.className="odin";
+			dynamicSearch();
+		}
+	}
+	function dynamicSearch()
+	{
+
+		$(".nono").removeClass("nono");
+		var active=document.getElementById("activeStuff").className;
+		var search1=document.getElementById("searchkey1").value.toUpperCase();
+		var search2=document.getElementById("searchkey2").value.toUpperCase();
+		var search3=document.getElementById("searchkey3").value.toUpperCase();
+		var search4=document.getElementById("searchkey4").value.toUpperCase();
+		var rows=document.getElementsByClassName("stam");
+		for (var i = 0; i < rows.length; i++) {
+			//console.log(rows[i])
+			var val=rows[i].childNodes;
+			if(active=="odin")
+			{
+				$(".true").parent().show();
+				$(".false").parent().hide();
+			}
+			else if(active=="dva")
+			{
+				$(".true").parent().hide();
+				$(".false").parent().show();
+			}
+			else
+			{
+				console.log('here');
+				$(".true").parent().show();
+				$(".false").parent().show();
+			}
+			/*console.log(val[3].innerHTML.toUpperCase()+" "+" "+search1+" "+val[3].innerHTML.toUpperCase().indexOf(search1));
+			console.log(val[5].innerHTML.toUpperCase().indexOf(search2));
+			console.log(val[7].innerHTML.toUpperCase().indexOf(search3));
+			console.log(val[9].innerHTML.toUpperCase().indexOf(search4));*/
+			if(val[3].innerHTML.toUpperCase().indexOf(search1)<=-1)
+				val[1].className="nono"
+
+			else if(val[5].innerHTML.toUpperCase().indexOf(search2)<=-1)
+				val[1].className="nono"
+			
+			else if(val[7].innerHTML.toUpperCase().indexOf(search3)<=-1)
+				val[1].className="nono"
+			
+			else if(val[9].innerHTML.toUpperCase().indexOf(search4)<=-1)
+				val[1].className="nono"
+			$(".nono").parent().hide();
+		}
+	}
 	
 </script>
 <style>
@@ -301,11 +414,18 @@ function sendAPK(param)
 		<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
 			<thead class="tbl-header-mentor">
 					<tr>
-						<th>Name</th>
-						<th>Phone</th>
-						<th>Workplace</th>
-						<th>Gender</th>
-						<th>Actions</th>
+						<th class="smaller" onclick="sortTable(3)">Name</th>
+						<th class="smaller" onclick="sortTable(5)">Phone</th>
+						<th class="smaller" onclick="sortTable(7)">Company</th>
+						<th class="smaller" onclick="sortTable(9)">Gender</th>
+						<th class="smaller" id="activeStuff" onclick="activeOrNot(this)" class="odin" >Actions</th>
+					</tr>
+					<tr>
+						<td class="searchtab"> <input id="searchkey1" onkeyup="dynamicSearch()" placeholder="search by name..." class="serchInput" type="text" ></td>
+						<td class="searchtab"> <input id="searchkey2" onkeyup="dynamicSearch()" placeholder="search by phone..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"> <input id="searchkey3" onkeyup="dynamicSearch()" placeholder="search by academy..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"> <input id="searchkey4" onkeyup="dynamicSearch()" placeholder="search by gender..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"></td>
 					</tr>
 
 				</thead>
@@ -313,7 +433,7 @@ function sendAPK(param)
 		<!--for demo wrap-->
 		<div class="tbl-header">
 
-			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+			<table class="rightTable" id="table_detail" cellpadding="0" cellspacing="0" border="0">
 				
 				
 
@@ -326,10 +446,18 @@ function sendAPK(param)
 								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
 								<td>${ment.companyName}</td>
-								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td><td>
-									<button onclick="areYouSure(this)" class="btn btn-block btn-primary"  style="margin-top: 0px;" >
-			 							Deactivate
-    								</button><br>
+								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
+								<td class="${ment.active}">
+									<c:if test="${ment.active}">
+										<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
+				 							Deactivate
+	    								</button>
+									</c:if>
+									<c:if test="${!ment.active}">
+										<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
+				 							Activate
+	    								</button>
+									</c:if>	
 								</td>
 							</tr>
 
