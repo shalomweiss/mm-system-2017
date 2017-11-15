@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,6 +30,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script type="text/javascript" src="jquery.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <style type="text/css"><%@include file="/WEB-INF/css/styles.css"%></style>
@@ -47,8 +50,6 @@
 		resize: vertical
 			/* Allow the user to vertically resize the textarea (not horizontally) */
 	}
-
-
 </style>
 <body>
 	<!-- add successfully alert -->
@@ -84,31 +85,45 @@
 		<table id="table_detail" >
 		<thead class="tbl-header-mentee">
 					<tr>
-						<th>Name</th>
-						<th>Phone</th>
-						<th>Academy</th>
-						<th>Gender</th>
-						<th>Actions</th>
+						<th class="smaller" onclick="sortTable(3)">Name</th>
+						<th class="smaller" onclick="sortTable(5)">Phone</th>
+						<th class="smaller" onclick="sortTable(7)">Academy</th>
+						<th class="smaller" onclick="sortTable(9)">Gender</th>
+						<th class="smaller" id="activeStuff" onclick="activeOrNot(this)" class="odin" >Actions</th>
 					</tr>
-
+					<tr>
+						<td class="searchtab"> <input id="searchkey1" onkeyup="dynamicSearch()" placeholder="search by name..." class="serchInput" type="text" ></td>
+						<td class="searchtab"> <input id="searchkey2" onkeyup="dynamicSearch()" placeholder="search by phone..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"> <input id="searchkey3" onkeyup="dynamicSearch()" placeholder="search by academy..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"> <input id="searchkey4" onkeyup="dynamicSearch()" placeholder="search by gender..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"></td>
+					</tr>
 				</thead>
 		</table>
 		<div class="tbl-header" >
 
-			<table id="table_detail">
-				<tbody >
+			<table class="rightTable" id="table_detail">
+				<tbody>
+				
 					<c:forEach items="${Mentees}" var="ment">
 					
-						<tr class="stam1" onclick="show_hide_row1('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
+						<tr id="row${ment.id}" class="stam1" onclick="show_hide_row1('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 							    <td style="display: none">${ment.id}</td>
 						    	<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}<c:if test="${empty ment.phoneNumber}">No Data</c:if></td>
 								<td>${ment.academiclnstitutionName}<c:if test="${empty ment.academiclnstitutionName}">No Data</c:if></td>
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
-								<td>
-									<a onclick="deactivate(this)" class="btn btn-block btn-primary" href="#" style="margin-top: 0px;" >
+								<td class="${ment.active}">
+								<c:if test="${ment.active}">
+									<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
 			 							Deactivate
-    								</a><br>
+    								</button>
+								</c:if>
+								<c:if test="${!ment.active}">
+									<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
+			 							Activate
+    								</button>
+								</c:if>	
 								</td>
 						</tr>
 						<tr id="hidden_row${ment.id}" class="hidden_row"  >
@@ -131,7 +146,7 @@
 													<th width="14%" class="inner">First name</th>
 													<th width="14%" class="inner">Last name</th>
 													<th width="10%" class="inner">Gender</th>
-													<th width="12%" class="inner">Address</th>
+													<th width="12%" class="inner">ID(il)</th>
 													<th width="12%" class="inner">Phone</th>
 													<th width="18%" class="inner">Email</th>
 													<th width="10%" class="inner">Picture</th>
@@ -153,12 +168,7 @@
 													</td>
 													<td width="10%">
 														<div id="div3${ment.id}"
-															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
-															
-															<c:if test="${ment.gender == 1}"> male </c:if> 
-															<c:if test="${ment.gender == 0}"> female </c:if> 
-															
-															</div>
+															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');"><c:if test="${ment.gender == 0}">fe</c:if>male</div>
 														<select id="input3${ment.id}" style="display: none;" name="uGender" class="selectpicker reports" >
 							     							<option value="${ment.gender}"></option>
 							     							<option value="0">Male</option>
@@ -166,9 +176,9 @@
 					      								</select>							
 													</td>
 													<td width="12%">
-														<div id="div4${ment.id}"
-															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}<c:if test="${empty ment.address}">No Data</c:if></div>
-														<input id="input4${ment.id}" name="uAddres" type="text"
+														<div id="div17${ment.id}"
+															ondblclick="showStuff('div17${ment.id}','input17${ment.id}');">${ment.address}<c:if test="${empty ment.address}">No Data</c:if></div>
+														<input id="input17${ment.id}" name="uAddres" type="text"
 														value="${ment.address}" style="display: none;"
 														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
@@ -189,7 +199,7 @@
 														required>
 													</td>
 													<td width="10%">
-														<img src="DownloadFile?id=${ment.id}&type=img">
+														<img src="DownloadFile?img=${ment.id}" alt="profilePic">
 													</td>
 													<td width="10%">
 														<input class="saveButton" id="submit${ment.id}" type="submit" value="Save">
@@ -220,19 +230,14 @@
 												</tr>
 												<tr>
 												<td width="10%">
-												
-														<a href="https://drive.google.com/open?id=0B_QS8uk1BPLYSkxxTWpRSDd0eDg"><img class="icon icons8-Profile" width="50" height="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAABTBJREFUaAXtmHuon3Mcx2djx1y2uf5BMUPkbsScOBllpImVlKaJWi6R5A8ltSVMhvwhd/vDcvlrmctGhlAsl2kKq7WzOWtDzC7YMI7X63e+33r2eJ7v73mO8+zs5LzrdZ7v5fO9fL733xkxYljDI9DICOxRs9ajsJ8eOKxm2armOzB8BR6FnqqF6jjSRaVvw16h8tf5/hnCA/mx/gthOXQOZMXWpRNbYS0sgF4YD01pLhXbxtiqDYysYKgTjv5GOB9WQdPaHhqo0r+WaTvDvBPdTXvQ3/pTjgwZJ3S+zJEh5USZI0POiSJHvCcWQdzYRXvC02S30565Ht1NfBy8BjNzeUZHw/XgybUZdlutpGeOeIqPyB/wiyo3IrNDHyrfVfkZccS9M2ZAkf4mcUtRxmCn5R2xPz47Ng12x+q2X3b81q1n0O2LZqSsUz4w58EFZQa5dA8Dl+g6mAOXgXL/3QHvGBko1XHENn+FqsvOvfSXhVC2nI780Upt8E83dS9ssP6qVc/GUIf7fWqlGnJp3QlnpYwK8t4jzR9JKXla+kPNmfspZViWV2dpeTAcA6eVVVaS/i3pDoIjnJUdnwaXwxToALUN4hFvuX5pVyytyfTMu8o7yb3yOTwFt8EDsAQ2gI6/AWOhtpp25GJ6pANr4SGYCGXyKfQ7LIP9y4zK0pt2xNF3qe1b1oFc+hXEd8BLufS20ZQj/lNgKTjlVdiE3SSI8jFqOZePuhZsz2V1BJTJg8Jy55YZmF5nszsyL8AKC1bQb9j0ZOwODOH1fM+Ep8H868Bl5HL7JvAj31XgK/wAUFfCh61QwZ86jjgqzxbUUTUpXo6jKHAs2NlOcM+cB12BqXxHwmr4Aa4B23a/VJZTXXYh2gEd0aaMD8g7BIo0hkQ7fV/I9O4o0t4kHgraO4s+Yh+D5FFcZ0bshNMdlwjBf+l7UspGbnqwjm169BZpO4mivFO+gqvgCfgSKik1I5UqKDE6nHQ754mV3LQF5W8mzdt+BSRnJVu2KUe8P3rhhmxjNcIvhvIuu0K5qXaFltGIp158ytdp0ztnCngHxSXXtnxTM2LDD4OzMtdIRe2D3VtguVqD0KQjbvKXwWP4SKiiGRjpxK1VjLM2TTpiOzrgadXuWa+ty/4L+DqE+VRX047YEzeuzkwyktAt5DkbNyVsSrOadMTZ8C7wnrGDK6EDinQCiT5xtPPNdg+k7i+yd1YTjkygiSdBBzy5fK95DBteDtMg3g8er+6HDfAdeInGzb6Z8L1wELRV1pFZWPvfjqi7CMyMEb6PwKUhbkfmwzkh7mcC+DB0GdnpBXA8RF1EwJdAL6yBV+FnMP4pHA1RnQSWgHlb4H5IOtSNQXxrvUvYEYty0y2OEb42Oj/EHUkbsQF1CdigDjwPx0GRDibRNiwbeY6wPxmKNJlE+6BtD5wKLaUuxPVYSFQq7sPOl6o2p8BCWAMngq9X90ORfAGPAd9QN4LLz7qkSB+T6CB1wSh4Ewofqd1k2AllA/u1Qn1//LnpyEeNJxAfgKY51Q7MM+BymgjtNBYD75UHg+EnfKWKpmLkzNyucWpGtpH/i0ZBW/lmnwieJi6dKB92vpAdoXWwGtrpdAzsw2fB0O/JMDrEU5/3Q2ZrRvKO2BFn4r/IOuIp1K6eM4JB1pEO0k5qV5D82Ibt7bQ0jHvUzYKl4Gbtj86m0DiISzRVh/tJzQM7FNf744Tdbym5R1TLkehVX1JfB7xJr4bs/oj5Vb9uWke2aS2igTmwsemGhuv/347AP28HPrB11U7wAAAAAElFTkSuQmCC"></a>
-
-												
-												
+														<a href="https://drive.google.com/open?id=0B_QS8uk1BPLYSkxxTWpRSDd0eDg" target="_blank"><img class="icon icons8-Profile" width="50" height="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAABTBJREFUaAXtmHuon3Mcx2djx1y2uf5BMUPkbsScOBllpImVlKaJWi6R5A8ltSVMhvwhd/vDcvlrmctGhlAsl2kKq7WzOWtDzC7YMI7X63e+33r2eJ7v73mO8+zs5LzrdZ7v5fO9fL733xkxYljDI9DICOxRs9ajsJ8eOKxm2armOzB8BR6FnqqF6jjSRaVvw16h8tf5/hnCA/mx/gthOXQOZMXWpRNbYS0sgF4YD01pLhXbxtiqDYysYKgTjv5GOB9WQdPaHhqo0r+WaTvDvBPdTXvQ3/pTjgwZJ3S+zJEh5USZI0POiSJHvCcWQdzYRXvC02S30565Ht1NfBy8BjNzeUZHw/XgybUZdlutpGeOeIqPyB/wiyo3IrNDHyrfVfkZccS9M2ZAkf4mcUtRxmCn5R2xPz47Ng12x+q2X3b81q1n0O2LZqSsUz4w58EFZQa5dA8Dl+g6mAOXgXL/3QHvGBko1XHENn+FqsvOvfSXhVC2nI780Upt8E83dS9ssP6qVc/GUIf7fWqlGnJp3QlnpYwK8t4jzR9JKXla+kPNmfspZViWV2dpeTAcA6eVVVaS/i3pDoIjnJUdnwaXwxToALUN4hFvuX5pVyytyfTMu8o7yb3yOTwFt8EDsAQ2gI6/AWOhtpp25GJ6pANr4SGYCGXyKfQ7LIP9y4zK0pt2xNF3qe1b1oFc+hXEd8BLufS20ZQj/lNgKTjlVdiE3SSI8jFqOZePuhZsz2V1BJTJg8Jy55YZmF5nszsyL8AKC1bQb9j0ZOwODOH1fM+Ep8H868Bl5HL7JvAj31XgK/wAUFfCh61QwZ86jjgqzxbUUTUpXo6jKHAs2NlOcM+cB12BqXxHwmr4Aa4B23a/VJZTXXYh2gEd0aaMD8g7BIo0hkQ7fV/I9O4o0t4kHgraO4s+Yh+D5FFcZ0bshNMdlwjBf+l7UspGbnqwjm169BZpO4mivFO+gqvgCfgSKik1I5UqKDE6nHQ754mV3LQF5W8mzdt+BSRnJVu2KUe8P3rhhmxjNcIvhvIuu0K5qXaFltGIp158ytdp0ztnCngHxSXXtnxTM2LDD4OzMtdIRe2D3VtguVqD0KQjbvKXwWP4SKiiGRjpxK1VjLM2TTpiOzrgadXuWa+ty/4L+DqE+VRX047YEzeuzkwyktAt5DkbNyVsSrOadMTZ8C7wnrGDK6EDinQCiT5xtPPNdg+k7i+yd1YTjkygiSdBBzy5fK95DBteDtMg3g8er+6HDfAdeInGzb6Z8L1wELRV1pFZWPvfjqi7CMyMEb6PwKUhbkfmwzkh7mcC+DB0GdnpBXA8RF1EwJdAL6yBV+FnMP4pHA1RnQSWgHlb4H5IOtSNQXxrvUvYEYty0y2OEb42Oj/EHUkbsQF1CdigDjwPx0GRDibRNiwbeY6wPxmKNJlE+6BtD5wKLaUuxPVYSFQq7sPOl6o2p8BCWAMngq9X90ORfAGPAd9QN4LLz7qkSB+T6CB1wSh4Ewofqd1k2AllA/u1Qn1//LnpyEeNJxAfgKY51Q7MM+BymgjtNBYD75UHg+EnfKWKpmLkzNyucWpGtpH/i0ZBW/lmnwieJi6dKB92vpAdoXWwGtrpdAzsw2fB0O/JMDrEU5/3Q2ZrRvKO2BFn4r/IOuIp1K6eM4JB1pEO0k5qV5D82Ibt7bQ0jHvUzYKl4Gbtj86m0DiISzRVh/tJzQM7FNf744Tdbym5R1TLkehVX1JfB7xJr4bs/oj5Vb9uWke2aS2igTmwsemGhuv/347AP28HPrB11U7wAAAAAElFTkSuQmCC"></a>
 												</td>
 													<td width="10%">
 														<div id="div7${ment.id}"
 															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.remainingSemesters}<c:if test="${empty ment.remainingSemesters}">No Data</c:if></div>
 														<input id="input7${ment.id}" name="uRemSemesters"
 														type="number" value="${ment.remainingSemesters}"
-														style="display: none;" min="0" required
-														>
+														style="display: none;" min="0" required>
 													</td>
 													<td width="10%">
 														<div id="div8${ment.id}"
@@ -267,10 +272,7 @@
 													</td>
 													<td width="15%">
 														<div id="div11${ment.id}"
-															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">
-															<c:if test="${empty ment.academicDicipline2}">No Data</c:if>
-															${ment.academicDicipline2}
-															</div>
+															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');"><c:if test="${empty ment.academicDicipline2}">No Data</c:if>${ment.academicDicipline2}</div>
 														<input id="input11${ment.id}" name="uAcademicDicipline2" type="text" value="${ment.academicDicipline2}" style="display: none;">
 													</td>
 													<td width="10%">
@@ -287,9 +289,10 @@
 											<table>
 											<tr>
 												<th width="30%" class="inner">Notes</th>
+												<th width="15%" class="inner">Address</th>	
 												<th width="15%" class="inner">City</th>	
 												<th width="15%" class="inner">Area</th>	
-												<th width="20%" class="inner">Join Date</th>			
+												<th width="15%" class="inner">Join Date</th>			
 												<th width="10%" class="inner">Actions</th>	
 											</tr>
 											<tr>
@@ -298,6 +301,14 @@
 													<textarea id="input12${ment.id}" name="uNotes"
 														style="display: none; ">${ment.note}</textarea>
 												</td>
+												<td width="15%">
+														<div id="div4${ment.id}"
+															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}<c:if test="${empty ment.address}">No Data</c:if></div>
+														<input id="input4${ment.id}" name="uIlID" type="text"
+														value="${ment.address}" style="display: none;"
+														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
+							  							onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
+													</td>
 												<td width="15%">
 														<div id="div15${ment.id}"
 															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.city}<c:if test="${empty ment.city}">No Data</c:if></div>
@@ -488,6 +499,17 @@
 		
 	</section>
 </div>
+<div id="dannyZ" class="DannyModal" style="display:none;">
+	<div class="DannyModalIn">
+		<header><h5>Are you Sure you want to deactivate</h5></header>
+		<footer>
+			<div onclick="da(this)" class="decision yes">YES</div>
+			<div onclick="nyet(this)" class="decision no">NO</div>
+		</footer>
+		
+	</div>
+</div>
+
 </body>
 </html>
 

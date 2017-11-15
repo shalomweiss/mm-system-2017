@@ -21,6 +21,8 @@ $(document).ready(function(){
 			  select[i].childNodes[1].selected= true;
 		} 
 		  this.submit();
+		  var body=document.getElementsByTagName("body")[0];
+			body.innerHTML='<div class="waiting"><div class="loader">Loading...</div><p class="sorry">Sorry, Please wait...<br>We are making the world a better place one pair at a time :)</p>';
 		});
 	$(".Sign2").click(function(){
 		var sign2=document.getElementsByClassName("Sign1")[0];
@@ -37,13 +39,32 @@ $(document).ready(function(){
 	$(".stam1").click(function()
 			{
 		
-			}
-	
-	);
+			});
+	$(".btn-deactivate").click(function() {
+		
+	});
 });
-	function deactivate(param)
+	function areYouSure(param)
 	{
+		console.log(param.parentNode.parentNode.childNodes[1].innerHTML);
 		var row=param.parentNode.parentNode;
+		console.log(document.getElementById("dannyZ").getElementsByTagName("H5")[0]);
+		var areYouSure=document.getElementById("dannyZ");
+		areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to delete: <br>"+row.childNodes[3].innerHTML+" ?";
+		areYouSure.style.display="";
+		areYouSure.getElementsByTagName("FOOTER")[0].id=""+row.childNodes[1].innerHTML;
+	}
+	function da(param)
+	{
+		var row=document.getElementById("row"+param.parentNode.id);
+		deactivate(row);
+		nyet(param);
+	}
+	function nyet(param){
+		param.parentNode.parentNode.parentNode.style.display="none";
+	}
+	function deactivate(row)
+	{
 		$.post("DeactivateUser",{
 			'userId':row.firstChild.nextSibling.innerHTML,
 		},
@@ -207,7 +228,7 @@ var prevRow;
             return finalVal + '\n';
         };
 
-        var csvFile = '';
+        var csvFile = "\ufeff"+'';
         for (var i = 0; i < rows.length; i++) {
             csvFile += processRow(rows[i]);
         }
@@ -230,22 +251,26 @@ var prevRow;
     }
 function menteeTableToArray(param)
 {
-	var matrix=[['id','name','phone','academy','Gender']];
+	var matrix=[['First Name','Last Name','Gender','ID','Phone Number','Email','Remaining Semesters','Graduation Status','Academy','Avarage','Academic Decipline','Sec. Academic Decipline','Notes','Address','City','Area','Joining Date',]];
 	var tbody=document.getElementsByTagName("tbody")[0];
-	console.log(tbody.getElementsByClassName("stam1")[0].getElementsByTagName("td")[4].innerHTML);
-	var rows=tbody.getElementsByClassName("stam1");
+	var rows=tbody.getElementsByClassName("hidden_row");
+	console.log(rows[0].previousSibling.previousSibling.style.display=="none");
 	for (var i = 0; i < rows.length; i++) {
-		var row=[];
-		var columns=rows[i].getElementsByTagName("td");
-		for (var j = 0; j < columns.length; j++) {
-			row.push(columns[j].innerHTML);
+		if(rows[i].previousSibling.previousSibling.style.display!="none")
+		{
+			var columns=rows[i].childNodes[1].getElementsByTagName("td");
+			var row=[];
+			for (var j = 0; j < columns.length; j++) {
+				var ob= columns[j].childNodes[1];
+				if(typeof ob=="object")
+					if(ob.tagName=="DIV")
+						row.push(columns[j].childNodes[1].innerHTML);
+			}
+			row.push(columns[20].innerHTML)
+			matrix.push(row);
 		}
-		matrix.push(row);
+
 	}
-	console.log(matrix);
-	var thead=document.getElementsByTagName("thead")[0];
-	console.log(thead.getElementsByTagName("tr")[0]);
-	
 	exportToCsv('Mentees.csv',matrix);
 }
 	function showDetails(evt, Detail) {
@@ -270,5 +295,93 @@ function menteeTableToArray(param)
 	    document.getElementById(hide).style.display  = 'none';
 	    
 	}
-	
-	
+	var even=1;
+	var colnum=3;
+	function sortTable(compare)
+	{
+		colnum=compare;
+		var rows=document.getElementsByClassName("stam1");
+		var args = Array.prototype.slice.call(rows);
+		args.sort(compareRows);
+		even=even*(-1);
+		var tbody=document.getElementsByClassName("rightTable")[0].childNodes[1];
+		for (var i = 0; i < args.length; i++) {
+			var hr1=args[i].nextSibling;
+			var hr=hr1.nextSibling;
+			tbody.appendChild(args[i]);
+			tbody.appendChild(hr1);
+			tbody.appendChild(hr);
+		}
+	}
+	function compareRows(tr1,tr2)
+	{
+		var name1=tr1.childNodes[colnum].innerHTML;
+		var name2=tr2.childNodes[colnum].innerHTML;
+		if(even==1)
+			return name1.localeCompare(name2);
+		else
+			return (name2.localeCompare(name1));
+	}
+	function activeOrNot(param){
+		if(param.className=="odin")
+		{
+			param.className="dva";
+			dynamicSearch();
+		}
+		else if(param.className=="dva")
+		{
+			param.className="tri";
+			dynamicSearch();
+		}
+		else
+		{
+			param.className="odin";
+			dynamicSearch();
+		}
+	}
+	function dynamicSearch()
+	{
+		$(".nono").removeClass("nono");
+		var active=document.getElementById("activeStuff").className;
+		var search1=document.getElementById("searchkey1").value.toUpperCase();
+		var search2=document.getElementById("searchkey2").value.toUpperCase();
+		var search3=document.getElementById("searchkey3").value.toUpperCase();
+		var search4=document.getElementById("searchkey4").value.toUpperCase();
+		var rows=document.getElementsByClassName("stam1");
+		for (var i = 0; i < rows.length; i++) {
+			//console.log(rows[i])
+			var val=rows[i].childNodes;
+			if(active=="odin")
+			{
+				$(".true").parent().show();
+				$(".false").parent().hide();
+			}
+			else if(active=="dva")
+			{
+				$(".true").parent().hide();
+				$(".false").parent().show();
+			}
+			else
+			{
+				console.log('here');
+				$(".true").parent().show();
+				$(".false").parent().show();
+			}
+			/*console.log(val[3].innerHTML.toUpperCase()+" "+" "+search1+" "+val[3].innerHTML.toUpperCase().indexOf(search1));
+			console.log(val[5].innerHTML.toUpperCase().indexOf(search2));
+			console.log(val[7].innerHTML.toUpperCase().indexOf(search3));
+			console.log(val[9].innerHTML.toUpperCase().indexOf(search4));*/
+			if(val[3].innerHTML.toUpperCase().indexOf(search1)<=-1)
+				val[1].className="nono"
+
+			else if(val[5].innerHTML.toUpperCase().indexOf(search2)<=-1)
+				val[1].className="nono"
+			
+			else if(val[7].innerHTML.toUpperCase().indexOf(search3)<=-1)
+				val[1].className="nono"
+			
+			else if(val[9].innerHTML.toUpperCase().indexOf(search4)<=-1)
+				val[1].className="nono"
+			$(".nono").parent().hide();
+		}
+	}
