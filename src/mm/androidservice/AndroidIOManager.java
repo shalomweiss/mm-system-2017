@@ -95,5 +95,16 @@ public class AndroidIOManager {
 		ServerUtils.respondJsonMap(response, this.responseMap);
 	}
 	
+	public void closeConnection() {
+		if(da!=null) {
+			try {
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 }
