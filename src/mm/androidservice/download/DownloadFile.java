@@ -41,6 +41,19 @@ public class DownloadFile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		if(request.getParameter("file")!=null) {
+			String imgName = request.getParameter("file");
+			if(imgName.equals("tos")) {
+				ClientDownloadFile.downloadFile("TOS.pdf", ClientDownloadFile.GRADE_BUCKET, response);
+			}
+			
+		
+			return;
+		}
+		
+		
+		
 		if(request.getParameter("logo")!=null) {
 			String imgName = request.getParameter("logo");
 			if(imgName.equals("MP-LOGO-10.png")) {
@@ -58,6 +71,7 @@ public class DownloadFile extends HttpServlet {
 				ClientDownloadFile.downloadFile("defaultImage", ClientDownloadFile.PIC_BUCKET, response);
 				
 			}
+			return;
 		}
 	
 		
@@ -70,12 +84,6 @@ public class DownloadFile extends HttpServlet {
 
 			if (request.getParameterMap().containsKey("img"))
 				id = request.getParameter("img");
-
-			if (request.getParameterMap().containsKey("grade"))
-				id = request.getParameter("grade");
-
-			if (request.getParameterMap().containsKey("cv"))
-				id = request.getParameter("cv");
 		
 			
 			try {
@@ -88,16 +96,6 @@ public class DownloadFile extends HttpServlet {
 		
 						}
 					}
-
-//					if (request.getParameterMap().containsKey("cv") && request.getParameter("cv") != null && (user.getType() == userType.MENTOR || user.getType() == userType.TSOFEN) ) {
-//						ClientDownloadFile.downloadFile(id, ClientDownloadFile.CV_BUCKET, response);
-//			
-//					}
-//
-//					if (request.getParameterMap().containsKey("grade") && request.getParameter("grade") != null && (user.getType() == userType.MENTOR || user.getType() == userType.TSOFEN) ) {
-//						ClientDownloadFile.downloadFile(id, ClientDownloadFile.GRADE_BUCKET, response);
-//			
-//					}
 
 				} 
 			} catch (NumberFormatException e) {
@@ -125,8 +123,7 @@ public class DownloadFile extends HttpServlet {
 		AndroidIOManager iom = new AndroidIOManager(request, response);
 		JsonObject jsonRequest = iom.getJsonRequest();
 		
-		User user = null;
-		int typeFlag = -1; // 0 tsofen , 1 mentor, 2 mentee
+		
 		int userIdToValidate = -1;
 		boolean isValid = false;
 		
