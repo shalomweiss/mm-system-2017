@@ -34,7 +34,8 @@ public class SendingMail {
             message.addRecipient(Message.RecipientType.TO, toAddress);
 
             message.setSubject(subject);
-            message.setText(body);
+
+            message.setText(body,"UTF-8");
             Transport transport = session.getTransport("smtp");
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());

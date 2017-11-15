@@ -51,7 +51,7 @@ public class UpdateMentee extends HttpServlet {
 		String phoneNum = request.getParameter("uPhoneNumber");
 		String academicDicipline = request.getParameter("uAcademicDicipline");
 		System.out.println("academicDicipline "+academicDicipline);
-		String academicDicipline2 = request.getParameter("uAcademicDicipline2");
+		String academicDicipline2 = request.getParameter("uAcademicDicipline2").replaceAll("\\s+","");
 		
 		System.out.println("academicDicipline2 " +academicDicipline2.length());
 		

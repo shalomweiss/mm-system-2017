@@ -38,7 +38,7 @@ function changeSearch(param)
 				list[i].className+=" clicked";	
 		}
 	var id=param.childNodes[0].innerHTML;
-	var forms=document.getElementsByTagName("form");
+	var forms=document.getElementsByTagName("table").getElementsByClassName("reports");;
 	for(i=0;i<forms.length;i++)
 	{
 		forms[i].style.display="none";
@@ -46,30 +46,19 @@ function changeSearch(param)
 			forms[i].style.display="";
 	}
 }
-
-
 function showMentorTable() {
-
-
-	 t1 = document.getElementById('mentee');
-	 t2 = document.getElementById('mentor');
-	 t3 = document.getElementById('pair');
-
-
-
-    t1.style.display = "none";
-    t2.style.display = "";
-    t3.style.display = "none";
-
-
+	 t1 = document.getElementById('Mentee');
+	 t2 = document.getElementById('Mentor');
+	 t3 = document.getElementById('Pair');
+	    t1.style.display = "none";
+	    t2.style.display = "";
+	    t3.style.display = "none";
 }
 function showMenteeTable() {
 	
     t1 = document.getElementById('mentee');
     t2 = document.getElementById('mentor');
     t3 = document.getElementById('pair');
-  
-
     t1.style.display = "";
     t2.style.display = "none";
     t3.style.display = "none";
@@ -236,83 +225,138 @@ $("#submit3").click(function() {
 	  	<li id="menteeLI" class="reports" onclick="changeSearch(this)"><a class="" >Mentees</a></li>
 	  	<li id="pairLI" class="reports" onclick="changeSearch(this)"><a class="" >Pairs</a></li>	
 	</ul>
-	<form class="reports" id="Mentors" style="display: none;">
-	  	<label class="control-label reports">Address: </label>  
-	  	<input name="uAddress"  class="reports"  type="text" id="city1"
-	  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
-					onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
-		<label class="control-label reports">Gender: </label>  
-    	<select name="uGender" class="selectpicker reports" id="gender1" >
-    	 	 <option></option>
-     		 <option value="0">Male</option>
-     		 <option value="1">Female</option>
-      	</select>
-      	<label class="control-label reports">Company: </label>  
-      	<select name="uCompany" class="selectpicker reports">
-      		<option></option>
-			<c:forEach var="item" items="${AllWorkPlaces}">
-				<option id="work" value="${item.id}">${item.company}</option>
-			</c:forEach>
-		</select>
-		<br>
-		<label class="control-label reports">Is in a pair: </label> 
-		<select name="uGender" class="selectpicker reports" id="gender1" >
-    	 	 <option></option>
-     		 <option value="0">No</option>
-     		 <option value="1">Yes</option>
-      	</select>
-      	<br>
-      	<a class="reportsSendButton btn"  onclick="showMentorTable()"  id="submit1">Search <span class="glyphicon glyphicon-send"></span></a>
-  	
-  	</form>
-	<form class="reports" id="Mentees" style="display: none;">
-	  	<label class="control-label reports">Address: </label>  
-	  	<input name="uAddress"  class="reports"  type="text" id="city1"
-	  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
-					onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
-		<label class="control-label reports">Gender: </label>  
-    	<select name="uGender" class="selectpicker reports" id="gender1" >
-    	 	 <option></option>
-     		 <option value="0">Male</option>
-     		 <option value="1">Female</option>
-      	</select>
-      	<label class="control-label reports">Academy: </label>  
-      	<select name="uAcademicInstitution" class="selectpicker reports">
-      		<option></option>
-			<c:forEach var="item" items="${AllAcademicInstitutes}">
-				<option id="institution" value="${item.id}">  ${item.name}</option>
-			</c:forEach>
-		</select>
-		<br>
-		<label class="control-label reports">Is in a pair: </label> 
-		<select name="uGender" class="selectpicker reports" id="gender1" >
-    	 	 <option></option>
-     		 <option value="0">No</option>
-     		 <option value="1">Yes</option>
-      	</select>
-      	<br>
-      	<a class="reportsSendButton btn"  onclick="showMentorTable()"  id="submit1">Search <span class="glyphicon glyphicon-send"></span></a>
-  	
-  	</form>
-	<form class="reports" id="Pairs">
-	  	<label class="control-label reports">Mentor First Name: </label>  
-	  	<input name="MentorName"  class="reports" id="mentorN"  type="text"
-  				onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-				onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
-				
-	  	<label class="control-label reports">Mentor Last Name: </label>  
-	  	<input name="MentorLast"  class="reports" id="mentorLast"  type="text"
-  				onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
-				onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
-				
-		<label class="control-label reports">Number of meetings: </label>  
-    	 <input name="" class="reports" id="numberOfMeets" type="number" min="1"
-  				onblur="if(this.value==''){ this.value='0'; this.style.color='#BBB';}" 
-				onfocus="if(this.value=='0'){this.value=''; this.style.color='#000';}">
-				<br>
-      	<a class="reportsSendButton btn"  onclick="showMentorTable()"  id="submit1">Search <span class="glyphicon glyphicon-send"></span></a>
-  	
-  	</form>
+	<table class="reports" id="Mentors">
+		<tbody>
+			<tr>
+				<td class="reports">City: </td>
+				<td align="right" class="reports">
+						<select class="selectpicker reports" name="cityId">
+								<option value="0"></option>
+								<c:forEach var="item" items="${cities}">
+									<option value="${item.id}">   ${item.name}</option>
+								</c:forEach>
+						</select>		
+				</td>
+				<td class="reports">Gender:</td>
+				<td class="reports">
+					<select name="uGender" class="selectpicker reports" id="gender1" >
+			    	 	 <option></option>
+			     		 <option value="0">Male</option>
+			     		 <option value="1">Female</option>
+			      	</select>
+		      	</td>
+			</tr>
+			<tr>
+				<td class="reports">Company</td>
+				<td  class="reports">
+					<select name="uCompany" class="selectpicker reports">
+			      		<option></option>
+						<c:forEach var="item" items="${AllWorkPlaces}">
+							<option id="work" value="${item.id}">${item.company}</option>
+						</c:forEach>
+					</select>
+				<td class="reports">In a pair</td>
+				<td class="reports">
+					<select name="uGender" class="selectpicker reports" id="gender1" >
+			    	 	 <option></option>
+			     		 <option value="0">No</option>
+			     		 <option value="1">Yes</option>
+			      	</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="reports"></td>
+				<td class="reports"></td>
+				<td class="reports"></td>
+				<td class="reports"></td>
+			</tr>
+		</tbody>
+	</table>
+		<table style="display:none;" class="reports" id="Mentees">
+		<tbody>
+			<tr>
+				<td class="reports">City: </td>
+				<td align="right" class="reports">
+						<select class="selectpicker reports" name="cityId">
+								<option value="0"></option>
+								<c:forEach var="item" items="${cities}">
+									<option value="${item.id}">   ${item.name}</option>
+								</c:forEach>
+						</select>		
+				</td>
+				<td class="reports">Gender:</td>
+				<td class="reports">
+					<select name="uGender" class="selectpicker reports" id="gender1" >
+			    	 	 <option></option>
+			     		 <option value="0">Male</option>
+			     		 <option value="1">Female</option>
+			      	</select>
+		      	</td>
+			</tr>
+			<tr>
+				<td class="reports">Academy</td>
+				<td  class="reports">
+					<select name="uAcademicInstitution" class="selectpicker reports">
+			      		<option></option>
+						<c:forEach var="item" items="${AllAcademicInstitutes}">
+							<option id="institution" value="${item.id}">  ${item.name}</option>
+						</c:forEach>
+					</select>
+				<td class="reports">In a pair</td>
+				<td class="reports">
+					<select name="uGender" class="selectpicker reports" id="gender1" >
+			    	 	 <option></option>
+			     		 <option value="0">No</option>
+			     		 <option value="1">Yes</option>
+			      	</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="reports"></td>
+				<td class="reports"></td>
+				<td class="reports"></td>
+				<td class="reports"></td>
+			</tr>
+		</tbody>
+		
+	</table>
+	<table style="display:none;" class="reports" id="Pairs">
+		<tbody>
+			<tr>
+				<td class="reports">Mentor's First Name </td>
+				<td align="right" class="reports">
+					<input name="MentorName"  class="reports" id="mentorN"  type="text"
+		  				onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
+						onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
+				</td>
+				<td class="reports">Mentor's Last Name:</td>
+				<td class="reports">
+					<input name="MentorLast"  class="reports" id="mentorLast"  type="text"
+		  				onblur="if(this.value==''){ this.value='name'; this.style.color='#BBB';}" 
+						onfocus="if(this.value=='name'){this.value=''; this.style.color='#000';}">
+		      	</td>
+			</tr>
+			<tr>
+				<td class="reports">Number of Meeting</td>
+				<td  class="reports">
+					<input name="" class="reports" id="numberOfMeets" type="number" min="1"
+		  				onblur="if(this.value==''){ this.value='0'; this.style.color='#BBB';}" 
+						onfocus="if(this.value=='0'){this.value=''; this.style.color='#000';}">
+				</td>
+				<td class="reports"></td>
+				<td class="reports">
+					
+				</td>
+			</tr>
+			<tr>
+				<td class="reports"></td>
+				<td class="reports"></td>
+				<td class="reports"></td>
+				<td class="reports"></td>
+			</tr>
+		</tbody>
+		
+	</table>
 </div>	
 <div class="topPart"> </div>
 <div class="bottomPart"> </div>
@@ -404,7 +448,7 @@ $("#submit3").click(function() {
 															
 															</div>
 														
-<c:if test="${ment.gender == 1}">  
+										<c:if test="${ment.gender == 1}">  
 										<div id="input3${ment.id}" style="display: none;">
 												<input id="clickedGender" class="male" type="radio"
 															name="uGender" value="1"  checked > Male
@@ -696,7 +740,7 @@ $("#submit3").click(function() {
 															
 															</div>
 														
-<c:if test="${ment.gender == 1}">  
+											<c:if test="${ment.gender == 1}">  
 										<div id="input3${ment.id}" style="display: none;">
 												<input id="clickedGender" class="male" type="radio"
 															name="uGender" value="1"  checked > Male
