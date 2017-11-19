@@ -144,7 +144,7 @@ input[type=button]:hover {
 
 @CHARSET "windows-1255";
 body::-webkit-scrollbar {
-    width: 1em;
+    width: 1%;
 }
  
 body::-webkit-scrollbar-track {
@@ -156,7 +156,7 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 div::-webkit-scrollbar {
-    width: 1em;
+    width: 1%;
 }
  
 div::-webkit-scrollbar-track {

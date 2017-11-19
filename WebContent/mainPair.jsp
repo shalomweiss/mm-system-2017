@@ -196,12 +196,17 @@ function dynamicSearch()
 }
 </script>
 <style>
+th{
+	    padding: 10px 15px !important;
+}
+
 .tbl-content{
-   max-height: 36vh;
+   	height: 42vh;
+    max-height: 42vh;
     overflow-y: auto;
     overflow-x: hidden;
-  margin-top: 0px;
-  border: 1px solid rgba(255,255,255,0.3);
+	margin-top: 0px;
+	border: 1px solid rgba(255,255,255,0.3);
 }
 .icon-bar a {
        padding: 8px;
@@ -228,8 +233,14 @@ input[type=text] {
     border-radius: 4px;
     box-sizing: border-box;
     margin-top: 6px;
-    margin-bottom: 16px;
+    margin-bottom: 6px;
     resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */;
+}
+.paddDiv{
+	position: absolute;
+	right:0;
+	width:1%;
+	top:0;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
@@ -251,8 +262,9 @@ input[type=text] {
 	<div class="bottomPart"> </div>
 	<div class="inner">
 		<section class="Pairs">
-  <!--for demo wrap--> 
-  <div >
+  <!--style="padding-right: 1%;"-->
+  <div class="paddDiv"></div> 
+  <div>
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
        <tr style="background-color: rgb(60,78,176);">
@@ -265,6 +277,7 @@ input[type=text] {
           <th width="5%"></th>
           <th width="5%"></th>
           <th width="14.2%"></th>
+          <th width="1%"></th>
         </tr>
         <tr>
           <th width="15.2%" class="mentor smaller" onclick="sortTable(1)">Name</th>
@@ -276,6 +289,7 @@ input[type=text] {
           <th width="5%" ><i class="fa fa-handshake-o"></i></th>
           <th width="5%" ><i class="fa fa-flag-o"></i></th>
           <th width="14.2%">Actions</th>
+          <th width="1"></th>
         </tr>
         <tr>
 			<td class="searchtab mentor"> <input id="searchkey1" onkeyup="dynamicSearch()" placeholder="name..." class="serchInput" type="text" ></td>
@@ -287,10 +301,12 @@ input[type=text] {
 			<td class="searchtab" style="background-color: #ccc"></td>
 			<td class="searchtab" style="background-color: #ccc"></td>
 			<td class="searchtab" style="background-color: #ccc"></td>
+			<td class="searchtab" style="background-color: #ccc"></td>
 		</tr>
       </thead>
     </table>
   </div>
+
   <div class="tbl-content">
     <table class="rightTable">
       <tbody>

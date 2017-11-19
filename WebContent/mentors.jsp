@@ -431,7 +431,6 @@ function sendAPK(param)
 				
 				
 
-				<div class="tbl-content" style="height: 100%">
 					<tbody>
 						<c:forEach items="${Mentors}" var="ment">
 							<tr id="row${ment.id}" class="stam"
