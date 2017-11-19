@@ -117,8 +117,10 @@ public class ClientDownloadFile {
 			System.out.println("AWS Error Code:   " + ase.getErrorCode());
 			System.out.println("Error Type:       " + ase.getErrorType());
 			System.out.println("Request ID:       " + ase.getRequestId());
-			if(ase.getErrorCode().equals("NoSuchKey") && bucketName.equals(PIC_BUCKET))
+			if(ase.getErrorCode().equals("NoSuchKey")) {
 				return false;
+			}
+				
 		} catch (AmazonClientException ace) {
 			System.out.println("Caught an AmazonClientException, which means" + " the client encountered "
 					+ "an internal error while trying to " + "communicate with S3, "

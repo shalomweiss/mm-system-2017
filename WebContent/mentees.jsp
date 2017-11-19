@@ -89,7 +89,7 @@
 						<th class="smaller" onclick="sortTable(5)">Phone</th>
 						<th class="smaller" onclick="sortTable(7)">Academy</th>
 						<th class="smaller" onclick="sortTable(9)">Gender</th>
-						<th class="smaller" id="activeStuff" onclick="activeOrNot(this)" class="odin" style="cursor: pointer; padding-bottom: 4px !important; padding-top: 15px !important;">Actions</th>
+						<th class="smaller" id="activeStuff" onclick="activeOrNot(this)" class="odin" >Actions</th>
 					</tr>
 					<tr>
 						<td class="searchtab"> <input id="searchkey1" onkeyup="dynamicSearch()" placeholder="search by name..." class="serchInput" type="text" ></td>
@@ -235,6 +235,7 @@
 												</td>
 												<td width="10%">
 														<a href="https://drive.google.com/open?id=0B_QS8uk1BPLYSkxxTWpRSDd0eDg" target="_blank"><img class="icon icons8-Profile" width="50px" height="50px" src="https://i.pinimg.com/originals/fd/d9/db/fdd9db5ba55e78edf31e62b2a175eb3a.png"></a>
+
 												</td>
 													<td width="10%">
 														<div id="div7${ment.id}"
