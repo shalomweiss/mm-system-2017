@@ -16,15 +16,10 @@
 <script>
 $(document).ready(function(){
 	$(".disB").click(function(){
-		console.log($(this).attr('id'));
-		$.post("DisconnectPair",
-		        {
-		          pairId: $(this).attr('id'),
-		        },
-		        function(data,status){
-		        	//if data is -1 something is wrong
-		            $("#"+data).parent().parent().remove();
-		        });
+		var areYouSure=document.getElementById("dannyZ");
+		areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to delete the pair ?";
+		areYouSure.style.display="";
+		areYouSure.getElementsByTagName("FOOTER")[0].id=""+$(this).attr('id');
 	});
 	 $(".button-fill").hover(
    		  function() {
@@ -53,7 +48,7 @@ function exportToCsv(filename, rows) {
         return finalVal + '\n';
     };
 
-    var csvFile = '';
+    var csvFile = "\ufeff"+'';
     for (var i = 0; i < rows.length; i++) {
         csvFile += processRow(rows[i]);
     }
@@ -92,8 +87,122 @@ function pairTableToArray(param)
 	console.log(thead.getElementsByTagName("tr")[0]);
 	exportToCsv('Pairs.csv',matrix);
 }
+function da(param)
+{
+	disconnect(param.parentNode.id);
+	nyet(param);
+}
+function nyet(param){
+	param.parentNode.parentNode.parentNode.style.display="none";
+}
+function disconnect(param)
+{
+	$.post("DisconnectPair",
+	        {
+	          pairId: param,
+	        },
+	        function(data,status){
+	        	//if data is -1 something is wrong
+	            $("#"+data).parent().parent().remove();
+	        });
+}
+function showDetails(evt, Detail) {
+
+	var i, tabcontent, tablinks;
+	tabcontent = document.getElementsByClassName("tabcontent");
+	for (i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].style.display = "none";
+	}
+	tablinks = document.getElementsByClassName("tablinks");
+	for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className
+				.replace(" active", "");
+	}
+	document.getElementById(Detail).style.display = "block";
+	evt.currentTarget.className += " active";
+}
+function showStuff(hide, show) {
+	if(document.getElementById(show).tagName=='SELECT')
+		document.getElementById(show).childNodes[1].selected = "true";
+    document.getElementById(show).style.display  = 'block';
+    document.getElementById(hide).style.display  = 'none';
+    
+}
+var even=1;
+var colnum=3;
+function sortTable(compare)
+{
+	colnum=compare;
+	var rows=document.getElementsByClassName("stam");
+	var args = Array.prototype.slice.call(rows);
+	args.sort(compareRows);
+	even=even*(-1);
+	var tbody=document.getElementsByClassName("rightTable")[0].childNodes[1];
+	for (var i = 0; i < args.length; i++) {
+		tbody.appendChild(args[i]);
+	}
+}
+function compareRows(tr1,tr2)
+{
+	var name1=tr1.childNodes[colnum].innerHTML;
+	var name2=tr2.childNodes[colnum].innerHTML;
+	if(even==1)
+		return name1.localeCompare(name2);
+	else
+		return (name2.localeCompare(name1));
+}
+function dynamicSearch()
+{
+	$(".nono").removeClass("nono");
+	$(".stam").show();
+	var search1=document.getElementById("searchkey1").value.toUpperCase();
+	var search2=document.getElementById("searchkey2").value.toUpperCase();
+	var search3=document.getElementById("searchkey3").value.toUpperCase();
+	var search4=document.getElementById("searchkey4").value.toUpperCase();
+	var search5=document.getElementById("searchkey5").value.toUpperCase();
+	var search6=document.getElementById("searchkey6").value.toUpperCase();
+	console.log(search1);
+	console.log(search2);
+	console.log(search3);
+	console.log(search4);
+	console.log(search5);
+	console.log(search6);
+	var rows=document.getElementsByClassName("stam");
+	for (var i = 0; i < rows.length; i++) {
+		console.log(rows[i].childNodes);
+		//console.log(rows[i])
+		var val=rows[i].childNodes;
+		/*console.log(val[3].innerHTML.toUpperCase()+" "+" "+search1+" "+val[3].innerHTML.toUpperCase().indexOf(search1));
+		console.log(val[5].innerHTML.toUpperCase().indexOf(search2));
+		console.log(val[7].innerHTML.toUpperCase().indexOf(search3));
+		console.log(val[9].innerHTML.toUpperCase().indexOf(search4));*/
+		if(val[1].innerHTML.toUpperCase().indexOf(search1)<=-1)
+			val[1].className="nono"
+
+		else if(val[3].innerHTML.toUpperCase().indexOf(search2)==-1)
+			val[1].className="nono"
+		
+		else if(val[5].innerHTML.toUpperCase().indexOf(search3)==-1)
+			val[1].className="nono"
+		
+		else if(val[7].innerHTML.toUpperCase().indexOf(search4)==-1)
+			val[1].className="nono"
+		else if(val[9].innerHTML.toUpperCase().indexOf(search5)==-1)
+			val[1].className="nono"
+		else if(val[11].innerHTML.toUpperCase().indexOf(search6)==-1)
+			val[1].className="nono"
+		$(".nono").parent().hide();
+	}
+}
 </script>
 <style>
+.tbl-content{
+   max-height: 36vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
 .icon-bar a {
        padding: 8px;
 }
@@ -101,6 +210,26 @@ function pairTableToArray(param)
 {
 	border-radius:18px;
 	bottom: 2vh;
+}
+h5{
+	color:#8f9cb5;
+	margin-top: 8vh !important;
+	display: block;
+    margin: auto;
+	text-align:center;
+	font-size:4vh;
+	margin-top: 20px;
+	
+}
+input[type=text] {
+	width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
@@ -123,39 +252,59 @@ function pairTableToArray(param)
 	<div class="inner">
 		<section class="Pairs">
   <!--for demo wrap--> 
-  <div class="tbl-header">
+  <div >
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
-       <tr>
-          <th>Mentor</th>
-          <th></th>
-          <th></th>
-          <th>Mentee</th>
+       <tr style="background-color: rgb(60,78,176);">
+          <th width="15.2%">Mentor</th>
+          <th width="12.7%"></th>
+          <th width="10%"></th>
+          <th width="15.2%">Mentee</th>
+          <th width="12.7%"></th>
+          <th width="10%"></th>
+          <th width="5%"></th>
+          <th width="5%"></th>
+          <th width="14.2%"></th>
         </tr>
         <tr>
-          <th class="mentor">Name</th>
-          <th class="mentor">Phone</th>
-          <th class="mentor">Workplace</th>
-          <th class="mentee">Name</th>
-          <th class="mentee">Phone</th>
-          <th class="mentee">Academy</th>
-          <th >Actions</th>
+          <th width="15.2%" class="mentor smaller" onclick="sortTable(1)">Name</th>
+          <th width="12.7%" class="mentor smaller" onclick="sortTable(3)">Phone</th>
+          <th width="10%" class="mentor smaller" onclick="sortTable(5)">Company</th>
+          <th width="15.2%" class="mentee smaller" onclick="sortTable(7)">Name</th>
+          <th width="12.7%" class="mentee smaller" onclick="sortTable(9)">Phone</th>
+          <th width="10%" class="mentee smaller" onclick="sortTable(11)">Academy</th>
+          <th width="5%" ><i class="fa fa-handshake-o"></i></th>
+          <th width="5%" ><i class="fa fa-flag-o"></i></th>
+          <th width="14.2%">Actions</th>
         </tr>
+        <tr>
+			<td class="searchtab mentor"> <input id="searchkey1" onkeyup="dynamicSearch()" placeholder="name..." class="serchInput" type="text" ></td>
+			<td class="searchtab mentor"> <input id="searchkey2" onkeyup="dynamicSearch()" placeholder="phone..." class="serchInput" name="eeee" type="text"></td>
+			<td class="searchtab mentor"> <input id="searchkey3" onkeyup="dynamicSearch()" placeholder="company..." class="serchInput" name="eeee" type="text"></td>
+			<td class="searchtab mentee"> <input id="searchkey4" onkeyup="dynamicSearch()" placeholder="name..." class="serchInput" type="text" ></td>
+			<td class="searchtab mentee"> <input id="searchkey5" onkeyup="dynamicSearch()" placeholder="phone..." class="serchInput" name="eeee" type="text"></td>
+			<td class="searchtab mentee"> <input id="searchkey6" onkeyup="dynamicSearch()" placeholder="academy..." class="serchInput" name="eeee" type="text"></td>
+			<td class="searchtab" style="background-color: #ccc"></td>
+			<td class="searchtab" style="background-color: #ccc"></td>
+			<td class="searchtab" style="background-color: #ccc"></td>
+		</tr>
       </thead>
     </table>
   </div>
   <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
+    <table class="rightTable">
       <tbody>
    <c:forEach var="pair" items="${pairs}" >
-        <tr>
-        	<td id="mentor">${pair.mentor.firstName} ${pair.mentor.lastName}</td>
-        	<td id="mentorPhone">${pair.mentor.phoneNumber}</td>
-			<td id="mentee"><c:out value="${pair.mentor.companyName}"></c:out></td>
-			<td id="mentor">${pair.mentee.firstName} ${pair.mentee.lastName}</td>
-        	<td id="mentorPhone">${pair.mentee.phoneNumber}</td>
-			<td id="mentee"><c:out value="${pair.mentee.academiclnstitutionName}"></c:out></td>
-          	<td class="but"> 
+        <tr class="stam">
+        	<td width="15.2%" id="mentor">${pair.mentor.firstName} ${pair.mentor.lastName}</td>
+        	<td width="12.7%" id="mentorPhone">${pair.mentor.phoneNumber}</td>
+			<td width="10%" id="mentee"><c:out value="${pair.mentor.companyName}"></c:out></td>
+			<td width="15.2%" id="mentor">${pair.mentee.firstName} ${pair.mentee.lastName}</td>
+        	<td width="12.7%" id="mentorPhone">${pair.mentee.phoneNumber}</td>
+			<td width="10%" id="mentee"><c:out value="${pair.mentee.academiclnstitutionName}"></c:out></td>
+			<td width="5%" class="but"> <i title="Is Scheduled Meeting" class="fa fa-handshake-o"></i></td> 
+			<td width="5%" class="but"> <i title="Has Finished" class="fa fa-flag-o"></i></td> 
+          	<td width="14.2%" class="but"> 
           		<a class="btn btn-block btn-primary topButton" href="GetMeetingByPairId?id=${pair.pairId}" style="margin-top: 0px;" >
 			 		Meetings
     			</a>  <br>
@@ -173,7 +322,15 @@ function pairTableToArray(param)
  <a onclick="pairTableToArray(this)" href="#" class="btn-print btn btn-block" >
 			<i class="fa fa-print"></i> print</a>
  </div>
- 
+ 	<div id="dannyZ" class="DannyModal" style="display:none;">
+	<div class="DannyModalIn">
+		<header><h5>Are you Sure you want to deactivate</h5></header>
+		<footer>
+			<div onclick="da(this)" class="decision yes">YES</div>
+			<div onclick="nyet(this)" class="decision no">NO</div>
+		</footer>
+	</div>
+</div>
 
  </body>
 </html> 

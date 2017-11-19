@@ -58,7 +58,6 @@ div.tabMentee {
 }
 /* Style the buttons inside the tab */
 div.tab button {
-	background-color: inherit;
 	float: left;
 	border: none;
 	outline: none;
@@ -69,7 +68,7 @@ div.tab button {
 
 /* Change background color of buttons on hover */
 div.tab button:hover {
-	background-color: #ddd;
+	    background-color: #ddd !important;
 }
 
 /* Create an active/current tablink class */
@@ -84,7 +83,18 @@ div.tab button.active {
 	border: 1px solid #ccc;
 	border-top: none;
 }
-
+button.tablinks1{
+	box-shadow: 10px 5px 5px -2px #888 !important;
+    border-top-right-radius: 1em;
+     border-top-left-radius: 0.5em;
+     margin-top:3px;
+    margin-left:5px;
+    position: relative;
+    background-color: rgba(158,186,255,0.9);
+}
+button.tablinks2{
+    background-color: rgba(255,208,88,1);
+}
 table tr:nth-child(4n-1), table tr:nth-child(4n)  {
     background: #ccc;
 }
@@ -101,6 +111,9 @@ th.inner
 {
 	color: black !important;
 	background-color: white;
+	    padding: 10px 4px !important;
+    color: black !important;
+    background-color: white;
 }
 .close {
 	background: #606061;
@@ -184,7 +197,7 @@ table {
 }
 .tbl-header {
     background-color: rgba(255, 255, 255, 0.3);
-    max-height: 46vh;
+    max-height: calc( 45vh );
     overflow-y: scroll;
     overflow-x: hidden;
 	background-color: rgba(255, 255, 255, 0.3);
@@ -395,7 +408,8 @@ tr.stam:hover {
 	color:white !important;
 }
 td {
- 	padding: 9px !important;
+ 	padding: 2px !important;
+ 	 padding-left:4px !important;
 	height: 20%;
 }
 td.form {

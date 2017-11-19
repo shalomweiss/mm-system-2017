@@ -16,10 +16,56 @@
 <title>Add work place academy or city</title>
 <style type="text/css">
 	td{
-		text-align: center;
+		padding-left: 20px !important;
+		padding-top: 6px !important;
+    padding-bottom: 6px !important;
+	}
+	.btn-primary
+	{
+		width:100%;
+	    margin-top: 2px;
+    	margin-bottom: 2px;
+   	    padding-top: 4px;
+    	padding-bottom: 4px;
+	}
+	td.in1{
+		border: 1px solid #ddd;
+		text-align: left;
+		padding: 8px;
+	}
+	td.in{
+		width:100%;
+		text-align: left;
+		 border: 1px solid #ddd;
+		 padding: 8px;
 	}
 	input{
-		width:100%;
+		padding:0px !important;
+		float: right;
+	}
+	th.in{
+	padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    text-align: left;
+    background-color: rgb(46,61,154);
+    color: white;
+	}
+	tbody.in{
+	
+    overflow-y: auto;
+    height:200px;
+	}
+	table.in{
+	overflow: scroll;
+	}
+	tr.in:nth-child(even){background-color: #f2f2f2;}
+ 	tr.in:hover {background-color: #ddd;}
+	div.in{
+		border-left: 1px solid #ddd;
+		height: calc( 25vh );
+	    overflow-y: scroll;
+	    overflow-x: hidden;
+	    background-color: rgba(255, 255, 255, 0.3);
 	}
 </style>
 <script type="text/javascript">
@@ -40,9 +86,7 @@ function changeTable(param)
 	for(i=0;i<ps.length;i++)
 		ps[i].className="add";
 	param.className+=" clicked";
-	var tables=document.getElementsByTagName("table");
-	for(i=0;i<tables.length;i++)
-		tables[i].style.display="none";
+	$(".opTable").hide();
 	var chosenTable=document.getElementById(param.innerHTML);
 	chosenTable.style.display="";
 	var chosenTable1=document.getElementById("mainTable");
@@ -70,100 +114,107 @@ function changeTable(param)
 	<div class="topPart"> </div>
 	<div class="bottomPart"> </div>
 	<h1>Data Attribute</h1>
-	<div class="inner" style="bottom: 42%;">
+	<div class="inner" style="bottom: 22%;">
 		<section class="Pairs">
-		<table id="mainTable" cellpadding="0" cellspacing="0" border="0">
-				<tr colspan="3">
+		<!--
+			<table id="mainTable" cellpadding="0" cellspacing="0" border="0">
+				<tr>
 					<td><p onclick="changeTable(this)" class="add clicked">City</p></td>
 					<td><p onclick="changeTable(this)" class="add">Workplace</p></td>
 					<td><p onclick="changeTable(this)" class="add">Area</p></td>
 					<td><p onclick="changeTable(this)" class="add">Academy</p></td>
 				</tr>
-		</table>
-		<table id="City" cellpadding="0" cellspacing="0" border="0">
+			</table>
+		  -->
+		<table style=" margin-top: 2vh;" class="opTable" id="City" cellpadding="0" cellspacing="0" border="0">
 				<tr>
-					<td width="15%">Existing Cities:</td>
 					<td width="25%">
-						<select class="selectpicker reports" style="width:100%"  >
-							<c:forEach var="item" items="${Cities}">
-									<option>${item.name}</option>
+						<table><tr class="in"><th class="in">Existing Cities</th></tr></table>
+					<div class="in">
+						<table class="in" >
+							<tbody class="in">
+								<c:forEach var="item" items="${cities}">
+									<tr class="in"><td class="in">${item.name}</td></tr>
+								</c:forEach>		
+							</tbody>
+						</table>
+					</div>
+					<table class="in"> 
+							<tr>
+									<td class="in1" width="70%" style=" border-right-width: 0px;">
+										<input id="textfield" name="textfield" type="text" placeholder="Add city..">
+									</td>
+									<td class="in1" style=" border-left-width: 0px;" width="30%">
+										<a id="addCity" onclick="sendAdded(this)" class="btn btn-primary" href="#">Add</a>
+									</td>
+							</tr>
+						</table>	
+					</td>
+					<td width="25%">
+						<table><tr class="in"><th class="in">Existing Companies</th></tr></table>
+					<div class="in">
+						<table class="in" >
+							<tbody class="in">
+								<c:forEach var="item" items="${workplaces}">
+									<tr class="in"><td class="in">${item.company}</td></tr>
+								</c:forEach>		
+							</tbody>
+						</table>
+					</div>
+					<table class="in"> 
+							<tr>
+									<td class="in1" width="70%" style=" border-right-width: 0px;">
+										<input id="textfield" name="textfield" type="text" placeholder="Add Company..">
+									</td>
+									<td class="in1" style=" border-left-width: 0px;" width="30%">
+										<a id="addCity" onclick="sendAdded(this)" class="btn btn-primary" href="#">Add</a>
+									</td>
+							</tr>
+						</table>	
+					</td>
+					<td width="25%">
+						<table><tr class="in"><th class="in">Existing Areas</th></tr></table>
+					<div class="in">
+						<table class="in" >
+							<tbody class="in">
+							<c:forEach var="item" items="${areas}">
+								<tr class="in"><td class="in">${item.name}</td></tr>
 							</c:forEach>
-      					</select>
+							</tbody>
+						</table>
+					</div>
+					<table class="in"> 
+							<tr>
+									<td class="in1" width="70%" style=" border-right-width: 0px;">
+										<input id="textfield" name="textfield" type="text" placeholder="Add area..">
+									</td>
+									<td class="in1" style=" border-left-width: 0px;" width="30%">
+										<a id="addCity" onclick="sendAdded(this)" class="btn btn-primary" href="#">Add</a>
+									</td>
+							</tr>
+						</table>	
 					</td>
-					<td width="15%">Add Cities:</td>
 					<td width="25%">
-							<input name="uAddress"  class="reports"  type="text" id="city1"
-				  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
-								onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
-					</td>
-					<td width="20%">
-						<a id="addCity" onclick="sendAdded(this)" style="width:80%" class="btn btn-primary" href="#">Add</a>
-					</td>
-				</tr>		
-		</table>
-		<table style="display:none" id="Workplace" cellpadding="0" cellspacing="0" border="0">
-				<br>
-				<tr colspan="4">
-					<td width="15%">Existing Workplaces:</td>
-					<td width="25%">
-						<select class="selectpicker reports" style="width:100%"  >
-							<c:forEach var="item" items="${Workplaces}">
-									<option>${item.name}</option>
-							</c:forEach>
-      					</select>
-					</td>
-					<td width="15%">Add Workplace:</td>
-					<td width="25%">
-							<input name="uCompany"  class="reports"  type="text" id="city1"
-				  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
-								onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
-					</td>
-					<td width="20%">
-						<a id="AddWorkingPlace" onclick="sendAdded(this)" style="width:80%" class="btn btn-primary" href="#">Add</a>
-					</td>
-				</tr>		
-		</table>
-		<table style="display:none" id="Area" cellpadding="0" cellspacing="0" border="0">
-				<br>
-				<tr colspan="4">
-					<td width="15%">Existing Areas:</td>
-					<td width="25%">
-						<select class="selectpicker reports" style="width:100%"  >
-							<c:forEach var="item" items="${Workplaces}">
-									<option>${item.name}</option>
-							</c:forEach>
-      					</select>
-					</td>
-					<td width="15%">Add Area:</td>
-					<td width="25%">
-							<input name="uArea"  class="reports"  type="text" id="city1"
-				  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
-								onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
-					</td>
-					<td width="20%">
-						<a id="addArea" onclick="sendAdded(this)" style="width:80%" class="btn btn-primary" href="#">Add</a>
-					</td>
-				</tr>		
-		</table>
-		<table style="display:none" id="Academy" cellpadding="0" cellspacing="0" border="0">
-				<br>
-				<tr colspan="4">
-					<td width="15%">Existing Academies:</td>
-					<td width="25%">
-						<select class="selectpicker reports" style="width:100%"  >
-							<c:forEach var="item" items="${Workplaces}">
-									<option>${item.name}</option>
-							</c:forEach>
-      					</select>
-					</td>
-					<td width="15%">Add Academy:</td>
-					<td width="25%">
-							<input name="uAcademy"  class="reports"  type="text" id="city1"
-				  				onblur="if(this.value==''){ this.value='city'; this.style.color='#BBB';}" 
-								onfocus="if(this.value=='city'){this.value=''; this.style.color='#000';}"/>
-					</td>
-					<td width="20%">
-						<a id="AddAcademinInstitute" onclick="sendAdded(this)" style="width:80%" class="btn btn-primary" href="#">Add</a>
+						<table><tr class="in"><th class="in">Existing Academies</th></tr></table>
+					<div class="in">
+						<table class="in" >
+							<tbody class="in">
+								<c:forEach var="item" items="${AcadimicIn}">
+									<tr class="in"><td class="in">${item.name}</td></tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+					<table class="in"> 
+							<tr>
+									<td class="in1" width="70%" style=" border-right-width: 0px;">
+										<input id="textfield" name="textfield" type="text" placeholder="Add academy..">
+									</td>
+									<td class="in1" style=" border-left-width: 0px;" width="30%">
+										<a id="addCity" onclick="sendAdded(this)" class="btn btn-primary" href="#">Add</a>
+									</td>
+							</tr>
+						</table>	
 					</td>
 				</tr>		
 		</table>

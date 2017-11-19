@@ -41,7 +41,6 @@
 <script> 
 
 $(document).ready(function(){
-	
 	$(".para").click(function() {
 	    $(this).addClass('selected').siblings().removeClass("selected");
 	});
@@ -61,6 +60,8 @@ $(document).ready(function(){
 			  select[i].childNodes[1].selected= true;
 		} 
 		  this.submit();
+		  var body=document.getElementsByTagName("body")[0];
+			body.innerHTML='<div class="waiting"><div class="loader">Loading...</div><p class="sorry">Sorry, Please wait...<br>We are making the world a better place one pair at a time :)</p>';
 		});
 	$(".male").click(function(){
 		var female=document.getElementsByClassName("female")[0];
@@ -75,9 +76,28 @@ $(document).ready(function(){
 <script type="text/javascript">
 
 var prevRow;
-function deactivate(param)
+
+function areYouSure(param)
 {
+	console.log(param.parentNode.parentNode.childNodes[1].innerHTML);
 	var row=param.parentNode.parentNode;
+	console.log(document.getElementById("dannyZ").getElementsByTagName("H5")[0]);
+	var areYouSure=document.getElementById("dannyZ");
+	areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to delete: <br>"+row.childNodes[3].innerHTML+" ?";
+	areYouSure.style.display="";
+	areYouSure.getElementsByTagName("FOOTER")[0].id=""+row.childNodes[1].innerHTML;
+}
+function da(param)
+{
+	var row=document.getElementById("row"+param.parentNode.id);
+	deactivate(row);
+	nyet(param);
+}
+function nyet(param){
+	param.parentNode.parentNode.parentNode.style.display="none";
+}
+function deactivate(row)
+{
 	$.post("DeactivateUser",{
 		'userId':row.firstChild.nextSibling.innerHTML,
 	},
@@ -86,6 +106,7 @@ function deactivate(param)
 	        });
 	row.parentNode.removeChild(row.nextSibling.nextSibling);
 	row.parentNode.removeChild(row);
+	
 }
 function sendAPK(param)
 {
@@ -168,7 +189,7 @@ function sendAPK(param)
 	            return finalVal + '\n';
 	        };
 
-	        var csvFile = '';
+	        var csvFile = "\ufeff"+'';
 	        for (var i = 0; i < rows.length; i++) {
 	            csvFile += processRow(rows[i]);
 	        }
@@ -191,21 +212,24 @@ function sendAPK(param)
 	    }
 	function mentorTableToArray(param)
 	{
-		var matrix=[['id','name','phone','company','Gender']];
+		
+		var matrix=[['First Name','Last Name','Gender','ID','Phone Number','Email','Experience','Role','Company','Work History','Volunteering','Notes','Address','City','Area','Joining Date',]];
 		var tbody=document.getElementsByTagName("tbody")[0];
-		console.log(tbody.getElementsByClassName("stam")[0].getElementsByTagName("td")[4].innerHTML);
-		var rows=tbody.getElementsByClassName("stam");
+		var rows=tbody.getElementsByClassName("hidden_row");
 		for (var i = 0; i < rows.length; i++) {
+			var columns=rows[i].childNodes[1].getElementsByTagName("td");
 			var row=[];
-			var columns=rows[i].getElementsByTagName("td");
 			for (var j = 0; j < columns.length; j++) {
-				row.push(columns[j].innerHTML);
+				var ob= columns[j].childNodes[1];
+				console.log(ob);
+				if(typeof ob=="object")
+					if(ob.tagName=="DIV")
+						row.push(columns[j].childNodes[1].innerHTML);
 			}
+			row.push(columns[17].innerHTML)
 			matrix.push(row);
 		}
-		console.log(matrix);
-		var thead=document.getElementsByTagName("thead")[0];
-		console.log(thead.getElementsByTagName("tr")[0]);
+		//console.log(matrix);
 		exportToCsv('Mentors.csv',matrix);
 	}
 </script>
@@ -232,7 +256,114 @@ function sendAPK(param)
 	    document.getElementById(show).style.display  = '';
 	    document.getElementById(hide).style.display  = 'none'; 
 	}
-	
+	function showDetails(evt, Detail) {
+
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className
+					.replace(" active", "");
+		}
+		document.getElementById(Detail).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
+	function showStuff(hide, show) {
+		if(document.getElementById(show).tagName=='SELECT')
+			document.getElementById(show).childNodes[1].selected = "true";
+	    document.getElementById(show).style.display  = 'block';
+	    document.getElementById(hide).style.display  = 'none';
+	    
+	}
+	var even=1;
+	var colnum=3;
+	function sortTable(compare)
+	{
+		colnum=compare;
+		var rows=document.getElementsByClassName("stam");
+		var args = Array.prototype.slice.call(rows);
+		args.sort(compareRows);
+		even=even*(-1);
+		var tbody=document.getElementsByClassName("rightTable")[0].childNodes[1];
+		for (var i = 0; i < args.length; i++) {
+			var hr1=args[i].nextSibling;
+			var hr=hr1.nextSibling;
+			tbody.appendChild(args[i]);
+			tbody.appendChild(hr1);
+			tbody.appendChild(hr);
+		}
+	}
+	function compareRows(tr1,tr2)
+	{
+		var name1=tr1.childNodes[colnum].innerHTML;
+		var name2=tr2.childNodes[colnum].innerHTML;
+		if(even==1)
+			return name1.localeCompare(name2);
+		else
+			return (name2.localeCompare(name1));
+	}
+	function activeOrNot(param){
+		console.log('zdes');
+		if(param.className=="odin")
+		{
+			param.className="dva";
+			dynamicSearch();
+		}
+		else if(param.className=="dva")
+		{
+			param.className="tri";
+			dynamicSearch();
+		}
+		else
+		{
+			param.className="odin";
+			dynamicSearch();
+		}
+	}
+	function dynamicSearch()
+	{
+
+		$(".nono").removeClass("nono");
+		var active=document.getElementById("activeStuff").className;
+		var search1=document.getElementById("searchkey1").value.toUpperCase();
+		var search2=document.getElementById("searchkey2").value.toUpperCase();
+		var search3=document.getElementById("searchkey3").value.toUpperCase();
+		var search4=document.getElementById("searchkey4").value.toUpperCase();
+		var rows=document.getElementsByClassName("stam");
+		for (var i = 0; i < rows.length; i++) {
+			var val=rows[i].childNodes;
+			if(active=="odin")
+			{
+				$(".true").parent().show();
+				$(".false").parent().hide();
+			}
+			else if(active=="dva")
+			{
+				$(".true").parent().hide();
+				$(".false").parent().show();
+			}
+			else
+			{
+				$(".true").parent().show();
+				$(".false").parent().show();
+			}
+			if(val[3].innerHTML.toUpperCase().indexOf(search1)<=-1)
+				val[1].className="nono"
+
+			else if(val[5].innerHTML.toUpperCase().indexOf(search2)<=-1)
+				val[1].className="nono"
+			
+			else if(val[7].innerHTML.toUpperCase().indexOf(search3)<=-1)
+				val[1].className="nono"
+			
+			else if(val[9].innerHTML.toUpperCase().indexOf(search4)<=-1)
+				val[1].className="nono"
+			$(".nono").parent().hide();
+		}
+	}
 	
 </script>
 <style>
@@ -277,11 +408,18 @@ function sendAPK(param)
 		<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
 			<thead class="tbl-header-mentor">
 					<tr>
-						<th>Name</th>
-						<th>Phone</th>
-						<th>Workplace</th>
-						<th>Gender</th>
-						<th>Actions</th>
+						<th class="smaller" onclick="sortTable(3)">Name</th>
+						<th class="smaller" onclick="sortTable(5)">Phone</th>
+						<th class="smaller" onclick="sortTable(7)">Company</th>
+						<th class="smaller" onclick="sortTable(9)">Gender</th>
+						<th class="smaller" id="activeStuff" onclick="activeOrNot(this)" class="odin" style="cursor: pointer; padding-bottom: 4px !important; padding-top: 15px !important;">Actions</th>
+					</tr>
+					<tr>
+						<td class="searchtab"> <input id="searchkey1" onkeyup="dynamicSearch()" placeholder="search by name..." class="serchInput" type="text" ></td>
+						<td class="searchtab"> <input id="searchkey2" onkeyup="dynamicSearch()" placeholder="search by phone..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"> <input id="searchkey3" onkeyup="dynamicSearch()" placeholder="search by academy..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"> <input id="searchkey4" onkeyup="dynamicSearch()" placeholder="search by gender..." class="serchInput" name="eeee" type="text"></td>
+						<td class="searchtab"></td>
 					</tr>
 
 				</thead>
@@ -289,24 +427,31 @@ function sendAPK(param)
 		<!--for demo wrap-->
 		<div class="tbl-header">
 
-			<table id="table_detail" cellpadding="0" cellspacing="0" border="0">
+			<table class="rightTable" id="table_detail" cellpadding="0" cellspacing="0" border="0">
 				
 				
 
 				<div class="tbl-content" style="height: 100%">
 					<tbody>
 						<c:forEach items="${Mentors}" var="ment">
-							<tr class="stam"
+							<tr id="row${ment.id}" class="stam"
 								onclick="show_hide_row('hidden_row${ment.id}',${ment.id},'defultOpen${ment.id}');">
 								<td style="display:none">${ment.id}</td>
 								<td>${ment.firstName} ${ment.lastName}</td>
 								<td>${ment.phoneNumber}</td>
 								<td>${ment.companyName}</td>
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
-								<td>
-									<a onclick="deactivate(this)" class="btn btn-block btn-primary" href="#" style="margin-top: 0px;" >
-			 							Deactivate
-    								</a><br>
+								<td class="${ment.active}">
+									<c:if test="${ment.active}">
+										<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
+				 							Deactivate
+	    								</button>
+									</c:if>
+									<c:if test="${!ment.active}">
+										<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
+				 							Activate
+	    								</button>
+									</c:if>	
 								</td>
 							</tr>
 
@@ -314,16 +459,16 @@ function sendAPK(param)
 								<td colspan=5>
 									<div class="tab tabMentor">
 
-										<button class="tablinks" id="defultOpen${ment.id}"
-											onclick="showDetails(event, 'info${ment.id}')">Info</button>
-										<button class="tablinks"
-											onclick="showDetails(event, 'Experience${ment.id}')">Experience</button>
-										<button class="tablinks"
-											onclick="showDetails(event, 'Volunteering${ment.id}')">Volunteering</button>
-										<button class="tablinks"
-											onclick="showDetails(event, 'Notes${ment.id}')">Notes</button>
-										<button class="tablinks" style="float: right;"
-											onclick="closeRow('hidden_row${ment.id}',${ment.id});">Close</button>
+										<button class="tablinks1 tablinks " id="defultOpen${ment.id}"
+											onclick="showDetails(event, 'info${ment.id}')" style="z-index:5; margin-left: 0px;">Info</button>
+										<button class="tablinks tablinks1"
+											onclick="showDetails(event, 'Experience${ment.id}')" style="z-index:4" >Experience</button>
+										<button class="tablinks tablinks1"
+											onclick="showDetails(event, 'Volunteering${ment.id}')" style="z-index:3">Volunteering</button>
+										<button class="tablinks tablinks1"
+											onclick="showDetails(event, 'Notes${ment.id}')" style="z-index:2">Notes</button>
+										<button class="tablinks tablinks1" style="float: right; background-color: rgba(108,136,225,0.9);"
+											onclick="closeRow('hidden_row${ment.id}',${ment.id});" >Close</button>
 									</div>
 									<form id="form${ment.id}" action="UpdateMentor" method="post" novalidate>
 										<div id="info${ment.id}" class="tabcontent"
@@ -336,7 +481,7 @@ function sendAPK(param)
 													<th width="14%" class="inner">First name</th>
 													<th width="14%" class="inner">Last name</th>
 													<th width="10%" class="inner">Gender</th>
-													<th width="12%" class="inner">Address</th>
+													<th width="12%" class="inner">ID</th>
 													<th width="12%" class="inner">Phone</th>
 													<th width="18%" class="inner">Email</th>
 													<th width="10%" class="inner">Picture</th>
@@ -360,11 +505,7 @@ function sendAPK(param)
 														required>
 													</td>
 													<td width="10%">
-														<div id="div3${ment.id}"
-															ondblclick="showStuff('div3${ment.id}','input3${ment.id}');">
-															<c:if test="${ment.gender == 0}">fe</c:if>male
-														</div>
-														
+														<div id="div3${ment.id}" ondblclick="showStuff('div3${ment.id}','input3${ment.id}');"><c:if test="${ment.gender == 0}">fe</c:if>male</div>
 														<select name="uGender" id="input3${ment.id}">
 							     							<option selected value="${ment.gender}"></option>
 							     							<option  value="0">Male</option>
@@ -395,7 +536,7 @@ function sendAPK(param)
 														required>
 													</td>
 													<td width="10%">
-														<img src="DownloadFile?id=${ment.id}&type=img" alt="W3Schools.com">
+														<img src="DownloadFile?img=${ment.id}" alt="profilePic">
 													</td>
 													<td width="10%"><input class="saveButton" id="submit${ment.id}" type="submit"
 														value="Save"><br>
@@ -470,9 +611,10 @@ function sendAPK(param)
 											<table>
 												<tr>
 												<th width="30%" class="inner">Notes</th>
+												<th width="15%" class="inner">Address</th>	
 												<th width="15%" class="inner">City</th>	
 												<th width="15%" class="inner">Area</th>	
-												<th width="20%" class="inner">Date</th>	
+												<th width="15%" class="inner">Date</th>	
 												<th width="10%" class="inner">Actions</th>
 													
 												</tr>
@@ -482,6 +624,13 @@ function sendAPK(param)
 															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}</div>
 														<textarea id="input10${ment.id}" name="uNotes"
 															style="display: none; ">${ment.note}</textarea>
+													</td>
+													<td width="15%">
+														<div id="div15${ment.id}"
+															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.address}</div>
+														<input id="input15${ment.id}" name="uAddress" type="text"
+														value="${ment.address}" style="display: none;"
+														required>		
 													</td>
 													<td width="15%">
 														<div id="div13${ment.id}"
@@ -503,9 +652,7 @@ function sendAPK(param)
 																</c:forEach>
 														</select>										
 													</td>
-													<td width="20%">
-														${ment.joinDate}
-													</td>
+													<td width="20%">${ment.joinDate}</td>
 													<td width="10%"><input id="id:${ment.id}" name="uId" type="text"
 														value="${ment.id}" style="display: none;"
 														onblur="if(this.value==''){ this.value='id'; this.style.color='#BBB';}" 
@@ -581,52 +728,53 @@ function sendAPK(param)
 					<form action="AddNewMentor" method="post" novalidate>
 						<table class="addMentorForm">
 							<tr>
-								<td class="form">First Name:</td>
+								<td class="form">First Name*:</td>
 								<td class="form"><input type="text" name="firstName" required></td>
-								<td class="form">Last Name:</td>
+								<td width="5%" class="form"> </td>
+								<td class="form">Last Name*:</td>
 								<td class="form"><input type="text" name="lastName" required></td>
-								<td class="form">Email</td>
+								<td width="5%" class="form"> </td>
+								<td class="form">Email*:</td>
 								<td class="form"><input type="text" name="email" required></td>
 							</tr>
 							<tr>
-								<td class="form">Phone number</td>
+								<td class="form">Phone number*:</td>
 								<td class="form"><input type="number" name="phoneNumber" required></td>
-								<td class="form">Gender</td>
+								<td width="5%" class="form"> </td>
+								<td class="form">Gender*:</td>
 								<td class="form">
-									
-									<select name="gender" class="selectpicker reports" id="gender1" >
+									<select name="gender" class="selectpicker reports" id="gender1" required>
 		    	 	 					<option></option>
 		     							<option value="1">Male</option>
 		     		 					<option value="0">Female</option>
 	      							</select>
-									
-									
 								</td>
+								<td width="5%" class="form"> </td>
 								<td class="form">Address</td>
 								<td class="form"><input type="text" name="address" required></td>
-									
 							</tr>
 							<tr>
 								
 								<td>Role</td>
 								<td class="form"><input type="text" name="role" required></td>
+								<td width="5%" class="form"> </td>
 								<td class="form">Experience</td>
-								<td class="form" colspan="3"><textarea name="experience"
+								<td class="form" colspan="4"><textarea name="experience"
 										style="height: 50px"></textarea></td>
 							</tr>
 							<tr>
-							<td class="form">Company</td>
+							<td class="form">Company*:</td>
 								<td class="form">
-								<select name="company">
+								<select name="company" required>
 										<option value=""></option>
 										<c:forEach var="item" items="${NewWorkPlace}">
 											<option value="${item.id}">   ${item.company}</option>
 										</c:forEach>
 								</select>
 								</td>
-								
+								<td width="5%" class="form"> </td>
 								<td class="form">volunteering</td>
-								<td class="form" colspan="3"><textarea name="volunteering"
+								<td class="form" colspan="4"><textarea name="volunteering"
 										style="height: 50px"></textarea></td>
 							</tr>
 							<tr>
@@ -642,22 +790,24 @@ function sendAPK(param)
 											</c:forEach>
 									</select>
 								</td>
+								<td width="5%" class="form"> </td>
 								<td class="form">Work History</td>
-								<td class="form" colspan="3"><textarea name="history"
+								<td class="form" colspan="4"><textarea name="history"
 										style="height: 50px"></textarea></td>
 							</tr>
 							<tr>
-								<td>Area</td>
+								<td>Area*:</td>
 								<td class="form">
-									<select name="areaId">
+									<select name="areaId" required>
 										<option value="1"></option>
 											<c:forEach var="item" items="${areas}">
 												<option value="${item.id}">   ${item.name}</option>
 											</c:forEach>
 									</select>
 								</td>
+								<td width="5%" class="form"> </td>
 								<td class="form">note</td>
-								<td class="form" colspan="2"><textarea name="notes"
+								<td class="form" colspan="3"><textarea name="notes"
 										style="height: 50px"></textarea></td>
 										<td><input class="saveButton" style="padding: 10px 20px;" type="submit" value="Add"><br>
 							</tr>
@@ -673,5 +823,15 @@ function sendAPK(param)
 		<a onclick="mentorTableToArray(this)" href="#" class="btn-print btn btn-block" >
 			<i class="fa fa-print"></i> print</a>
 	</div>
+	<div id="dannyZ" class="DannyModal" style="display:none;">
+	<div class="DannyModalIn">
+		<header><h5>Are you Sure you want to deactivate</h5></header>
+		<footer>
+			<div onclick="da(this)" class="decision yes">YES</div>
+			<div onclick="nyet(this)" class="decision no">NO</div>
+		</footer>
+		
+	</div>
+</div>
 </body>
 </html>
