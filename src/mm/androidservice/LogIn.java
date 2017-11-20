@@ -72,7 +72,6 @@ public class LogIn extends HttpServlet {
 					}
 
 				} else {
-					iom.addResponseParameter("user", user);
 					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PASSWORD_ERROR));
 				}
 
