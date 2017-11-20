@@ -80,7 +80,7 @@ public class UpdateMentee extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,myUser.getPassword(),gender,address,myUser.getProfilePicture(),notes,isActive,userType.MENTEE,uArea,"",uCity,"",myUser.getJoinDate() ,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,myUser.getResume(),myUser.getGradeSheet());
+		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,myUser.getPassword(),gender,address,myUser.getProfilePicture(),notes,isActive,userType.MENTEE,uArea,"",uCity,"",myUser.getJoinDate(),"",remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,myUser.getResume(),myUser.getGradeSheet());
 	    System.out.println(""+mentee+"/n number of string:  "+mentee.getAcademicDicipline2().length());
 	    System.out.println("String Lenghth: "+mentee.getAcademicDicipline2().length());
 

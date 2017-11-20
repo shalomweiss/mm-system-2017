@@ -19,6 +19,7 @@ public final class DataContract {
 		public static final String COL_CITYID = "cityId";
 		public static final String COL_AREAID = "areaId";
 		public static final String COL_JOINDATE = "joinDate";
+		public static final String COL_PERSONALID = "personalId";
 	}
 	
 	public static class MentorsTable{
