@@ -20,10 +20,10 @@ public class Mentee extends User {
 		super();
 	}
 	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, String profilePicture, String note, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, float remainingSemesters,
+			int gender, String address, String profilePicture, String note, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String personalId, float remainingSemesters,
 			String graduationStatus, int academiclnstitution, float average, String academicDicipline,
 			String academicDicipline2, boolean signedEULA, String resume, String gradeSheet) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type, areaId, area, cityId, city, date);
+		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type, areaId, area, cityId, city, date, personalId);
 		this.remainingSemesters = remainingSemesters;
 		this.graduationStatus = graduationStatus;
 		this.academiclnstitution = academiclnstitution;

@@ -73,7 +73,7 @@ public class UpdateMentor extends HttpServlet {
 		}
         
         Mentor mentor = new Mentor(id,firstName, lastName, email, phoneNum, myMentor.getPassword(), gender, address, notes, myMentor.getProfilePicture(),
-				isActive, userType.MENTOR,uArea,"",uCity,"",myMentor.getJoinDate(), experience, role, company, volunteering, workHistory);
+				isActive, userType.MENTOR,uArea,"",uCity,"",myMentor.getJoinDate(),"", experience, role, company, volunteering, workHistory);
 		try {
 			status = da.editUser(mentor);
 		} catch (SQLException e) {

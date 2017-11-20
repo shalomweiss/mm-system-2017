@@ -20,6 +20,7 @@ public class User {
 	private int cityId;
 	private String city;
 	private Date joinDate;
+	private String personalId;
 
 	public enum userType {
 		ADMIN(0), TSOFEN(1), MENTOR(2), MENTEE(3);
@@ -40,7 +41,7 @@ public class User {
 
 	public User(String firstName, String lastName, String email, String phoneNumber, String pass, int gender,
 			String address, String note, String profilePicture, boolean active, userType type, int areaId, String area, int cityId, String city,
-			Date date) {
+			Date date, String personalId) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -58,6 +59,7 @@ public class User {
 		this.setCityId(cityId);
 		this.setCity(city);
 		this.setJoinDate(date);
+		this.setPersonalId(personalId);
 	}
 
 	public User(String firstName, String lastName) {
@@ -68,7 +70,7 @@ public class User {
 
 	public User(int id, String firstName, String lastName, String email, String phoneNumber, String password,
 			int gender, String address, String note, String profilePicture, boolean active, userType type, int areaId, String area,
-			int cityId, String city, Date date) {
+			int cityId, String city, Date date, String personalId) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -87,6 +89,7 @@ public class User {
 		this.setCityId(cityId);
 		this.setCity(city);
 		this.setJoinDate(date);
+		this.setPersonalId(personalId);
 	}
 
 	public userType getType() {
@@ -252,6 +255,14 @@ public class User {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getPersonalId() {
+		return personalId;
+	}
+
+	public void setPersonalId(String personalId) {
+		this.personalId = personalId;
 	}
 
 }

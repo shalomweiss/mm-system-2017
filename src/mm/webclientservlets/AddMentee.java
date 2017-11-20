@@ -125,7 +125,7 @@ public class AddMentee extends HttpServlet {
 		String uPass= GeneratePass.getSaltString();	
         long millis=System.currentTimeMillis();  
         Date date=new Date(millis);
-		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,uArea,"",uCity,"",date,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
+		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,uArea,"",uCity,"",date,"",remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
 		
 		User user=new User();
 		DataAccess da = new DataAccess();

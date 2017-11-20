@@ -77,7 +77,7 @@ public class AddNewMentor extends HttpServlet {
 	    java.sql.Date date=new java.sql.Date(millis);
 		
 		User newMentor = new Mentor(0, firstName, lastName, email, phoneNumber, pass, gender, address, notes,
-				ProfilePicture, true, userType.MENTOR,uArea,"",uCity,"",date, experience, role, company, volunteering, workHistory);
+				ProfilePicture, true, userType.MENTOR,uArea,"",uCity,"",date,"", experience, role, company, volunteering, workHistory);
 		DataAccess da = new DataAccess();
 		int res = -1;
 		RequestDispatcher req = null;
