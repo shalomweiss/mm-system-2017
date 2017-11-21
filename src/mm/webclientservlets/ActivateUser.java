@@ -43,12 +43,12 @@ public class ActivateUser extends HttpServlet {
 		DataAccess da = new DataAccess();
 	    boolean res=false;
 	    response.setContentType("text/html");   
-//		try {
-//			res = da.activateUser(id);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			res = da.activateUser(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try {
 			da.closeConnection();
 		} catch (SQLException e) {
