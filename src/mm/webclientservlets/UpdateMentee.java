@@ -53,7 +53,7 @@ public class UpdateMentee extends HttpServlet {
 		System.out.println("academicDicipline "+academicDicipline);
 		String academicDicipline2 = request.getParameter("uAcademicDicipline2").replaceAll("\\s+","");
 		
-		System.out.println("academicDicipline2 " +academicDicipline2.length());
+		System.out.println("academicDicipline2 Lenght" +academicDicipline2.length());
 		
 		String email = request.getParameter("uEmail");
 		int gender = Integer.parseInt(request.getParameter("uGender"));
