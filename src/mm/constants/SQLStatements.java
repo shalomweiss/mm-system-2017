@@ -54,6 +54,8 @@ public class SQLStatements {
 			+ "=? WHERE " + DataContract.MenteeTable.COL_ID + "=?";
 	public final static String setUserDeactiveById = "UPDATE " + DataContract.UsersTable.TABLE_NAME + " SET "
 			+ DataContract.UsersTable.COL_ACTIVE + "=0 WHERE " + DataContract.UsersTable.COL_ID + "=?";
+	public final static String setUserActiveById = "UPDATE " + DataContract.UsersTable.TABLE_NAME + " SET "
+			+ DataContract.UsersTable.COL_ACTIVE + "=1 WHERE " + DataContract.UsersTable.COL_ID + "=?";
 	public final static String insertUser = "INSERT INTO " + DataContract.UsersTable.TABLE_NAME + " ("
 			+ DataContract.UsersTable.COL_TYPE + ", " + DataContract.UsersTable.COL_FIRSTNAME + ", "
 			+ DataContract.UsersTable.COL_LASTNAME + ", " + DataContract.UsersTable.COL_EMAIL + ", "

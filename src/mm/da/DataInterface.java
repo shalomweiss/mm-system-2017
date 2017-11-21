@@ -26,6 +26,8 @@ public interface DataInterface {
 	public User login(String email) throws SQLException;
 
 	public boolean deactivateUser(int id) throws SQLException;
+	
+	public boolean activateUser(int id) throws SQLException;
 
 	public ArrayList<User> getUsers(userType type) throws SQLException;
 

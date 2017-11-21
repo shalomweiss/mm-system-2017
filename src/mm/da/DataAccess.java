@@ -1512,4 +1512,29 @@ public class DataAccess implements DataInterface {
 
 		return cities;
 	}
+
+	@Override
+	public boolean activateUser(int id) throws SQLException {
+		//TODO: identical to deactivateUser, merge into one method
+		Logger logger = Logger.getLogger(DataAccess.class.getName());
+		logger.log(Level.INFO, "activateUser starting...");
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectUserById);
+		stm.setInt(1, id);
+		ResultSet rs = stm.executeQuery();
+		if (rs.next()) {
+			logger.log(Level.INFO, "activateUser User found:" + id);
+			rs.close();
+			stm.close();
+			PreparedStatement stm2 = c.prepareStatement(SQLStatements.setUserActiveById);
+			stm2.setInt(1, id);
+			stm2.executeUpdate();
+			stm2.close();
+			return true;
+		}
+		logger.log(Level.WARNING, "activateUser User NOT found");
+		rs.close();
+		stm.close();
+
+		return false;
+	}
 }
