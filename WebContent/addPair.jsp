@@ -20,7 +20,23 @@
 	<script>
 	$(document).ready(function(){
 		$("tr").click(function() {
-		    $(this).addClass('selected').siblings().removeClass("selected");
+			if($(this).find(".noCV").length>0)
+				alert("Sorry, this mentee does not have a CV so we can not pair him/her.");
+			
+			else
+				{
+					if($(this).hasClass("selected"))
+					{
+						$(this).removeClass("selected");
+					}
+				else
+					{
+						$(this).addClass('selected').siblings().removeClass("selected");
+					}
+				}
+				
+				
+		   
 		});
 		$("#createPair").click(function(){
 			var trs= document.getElementsByClassName("selected");
@@ -225,7 +241,8 @@ h4{
 			<td width="16%"><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 			<td width="16%">${mentee.area}</td>
 			<td width="18%">${mentee.academiclnstitutionName}</td>
-			<td width="8%" ><i class="fa fa-file-text-o"></i></td>
+			<c:if test="${empty mentee.resume}"> <td width="8%" class="noCV"><i class="fa fa-ban"></i></td> </c:if>
+			<c:if test="${not empty mentee.resume}"> <td width="8%"><i class="fa fa-file-text-o"></i></td> </c:if>
 			<td width="8%" class="${mentee.signedEULA}">
 				<c:if test="${mentee.signedEULA}"> <i class="fa fa-pencil-square-o"></i></c:if>
 				<c:if test="${!mentee.signedEULA}"> <i class="fa fa-ban"></i></c:if>
