@@ -41,6 +41,7 @@ public class UpdateMentor extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Update Mentor");
+		String personalId = request.getParameter("personalId");
 		int id = Integer.parseInt(request.getParameter("uId"));
 		String email = request.getParameter("uEmail");
 		String firstName = request.getParameter("uFirstName");
@@ -73,7 +74,7 @@ public class UpdateMentor extends HttpServlet {
 		}
         
         Mentor mentor = new Mentor(id,firstName, lastName, email, phoneNum, myMentor.getPassword(), gender, address, notes, myMentor.getProfilePicture(),
-				isActive, userType.MENTOR,uArea,"",uCity,"",myMentor.getJoinDate(),"", experience, role, company, volunteering, workHistory);
+				isActive, userType.MENTOR,uArea,"",uCity,"",myMentor.getJoinDate(),personalId, experience, role, company, volunteering, workHistory);
 		try {
 			status = da.editUser(mentor);
 		} catch (SQLException e) {

@@ -59,6 +59,8 @@ public class UpdateMentee extends HttpServlet {
 		float remSemesters = Float.parseFloat(request.getParameter("uRemSemesters"));
 		float average = Float.parseFloat(request.getParameter("uAverage"));
 		String notes = request.getParameter("uNotes");
+		String personalId = request.getParameter("personalId");
+
 		DataAccess da = new DataAccess();
 		Boolean status = false;
 		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
@@ -77,9 +79,7 @@ public class UpdateMentee extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,myUser.getPassword(),gender,address,myUser.getProfilePicture(),notes,isActive,userType.MENTEE,uArea,"",uCity,"",myUser.getJoinDate(),"",remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,myUser.getResume(),myUser.getGradeSheet());
-	    System.out.println(""+mentee+"/n number of string:  "+mentee.getAcademicDicipline2().length());
-	    System.out.println("String Lenghth: "+mentee.getAcademicDicipline2().length());
+		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,myUser.getPassword(),gender,address,myUser.getProfilePicture(),notes,isActive,userType.MENTEE,uArea,"",uCity,"",myUser.getJoinDate(),personalId,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,myUser.getResume(),myUser.getGradeSheet());
 
 	    try {
 			status = da.editUser(mentee);
