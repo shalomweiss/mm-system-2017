@@ -44,20 +44,29 @@ $(document).ready(function(){
 		
 	});
 });
-	function areYouSure(param)
+	function areYouSure(param,action)
 	{
-		console.log(param.parentNode.parentNode.childNodes[1].innerHTML);
 		var row=param.parentNode.parentNode;
-		console.log(document.getElementById("dannyZ").getElementsByTagName("H5")[0]);
 		var areYouSure=document.getElementById("dannyZ");
-		areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to delete: <br>"+row.childNodes[3].innerHTML+" ?";
 		areYouSure.style.display="";
 		areYouSure.getElementsByTagName("FOOTER")[0].id=""+row.childNodes[1].innerHTML;
+		if(action=="de")
+			{
+				areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to delete: <br>"+row.childNodes[3].innerHTML+" ?";
+				areYouSure.getElementsByTagName("HEADER")[0].id="de";
+			}
+		else{
+			areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to activate: <br>"+row.childNodes[3].innerHTML+" ?";
+			areYouSure.getElementsByTagName("HEADER")[0].id="ac";
+		}
 	}
 	function da(param)
 	{
 		var row=document.getElementById("row"+param.parentNode.id);
-		deactivate(row);
+		if(param.parentNode.parentNode.getElementsByTagName("HEADER")[0].id=="de")
+			deactivate(row);
+		else
+			activate(row);
 		nyet(param);
 	}
 	function nyet(param){
@@ -69,10 +78,17 @@ $(document).ready(function(){
 			'userId':row.firstChild.nextSibling.innerHTML,
 		},
 		        function(data,status){
-
 		        	location.reload();
 		        });
-		
+	}
+	function activate(row)
+	{
+		$.post("ActivateUser",{
+			'userId':row.firstChild.nextSibling.innerHTML,
+		},
+		        function(data,status){
+		        	location.reload();
+		        });
 	}
 	function getMentorOfMentee(param) {
 		//.childNodes[1].childNodes[1].childNodes[1]
