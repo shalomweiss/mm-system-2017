@@ -238,7 +238,7 @@ h4{
 			<tr class="mentee stam" id="tabletest">
 			<td width="18%">${mentee.firstName} ${mentee.lastName}</td>
 			<td width="16%">${mentee.phoneNumber}</td>
-			<td width="16%"><c:if test="${ment.gender == 0}">fe</c:if>male</td>
+			<td width="16%" id="${ment.gender == 0}"><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 			<td width="16%">${mentee.area}</td>
 			<td width="18%">${mentee.academiclnstitutionName}</td>
 			<c:if test="${empty mentee.resume}"> <td width="8%" class="noCV"><i class="fa fa-ban"></i></td> </c:if>
@@ -296,7 +296,7 @@ h4{
 			<tr class="mentor stam1">
 				<td  width="18%">${mentor.firstName} ${mentor.lastName}</td>
 				<td  width="18%">${mentor.phoneNumber}</td>
-				<td  width="17%"><c:if test="${ment.gender == 0}">fe</c:if>male</td>
+				<td  width="17%" id="${ment.gender}"><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 				<td  width="18%">${mentor.area}</td>
 				<td  width="21%">${mentor.companyName}</td>
 				<td style="display:none;" class="mentorId"><c:out value="${mentor.id}"></c:out></td>

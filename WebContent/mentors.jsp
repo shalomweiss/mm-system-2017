@@ -77,20 +77,29 @@ $(document).ready(function(){
 
 var prevRow;
 
-function areYouSure(param)
+function areYouSure(param,action)
 {
-	console.log(param.parentNode.parentNode.childNodes[1].innerHTML);
 	var row=param.parentNode.parentNode;
-	console.log(document.getElementById("dannyZ").getElementsByTagName("H5")[0]);
 	var areYouSure=document.getElementById("dannyZ");
-	areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to delete: <br>"+row.childNodes[3].innerHTML+" ?";
 	areYouSure.style.display="";
 	areYouSure.getElementsByTagName("FOOTER")[0].id=""+row.childNodes[1].innerHTML;
+	if(action=="de")
+		{
+			areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to delete: <br>"+row.childNodes[3].innerHTML+" ?";
+			areYouSure.getElementsByTagName("HEADER")[0].id="de";
+		}
+	else{
+		areYouSure.getElementsByTagName("H5")[0].innerHTML="Are you sure yo want to activate: <br>"+row.childNodes[3].innerHTML+" ?";
+		areYouSure.getElementsByTagName("HEADER")[0].id="ac";
+	}
 }
 function da(param)
 {
 	var row=document.getElementById("row"+param.parentNode.id);
-	deactivate(row);
+	if(param.parentNode.parentNode.getElementsByTagName("HEADER")[0].id=="de")
+		deactivate(row);
+	else
+		activate(row);
 	nyet(param);
 }
 function nyet(param){
@@ -102,11 +111,17 @@ function deactivate(row)
 		'userId':row.firstChild.nextSibling.innerHTML,
 	},
 	        function(data,status){
-	        	alert(data);
+	        	location.reload();
 	        });
-	row.parentNode.removeChild(row.nextSibling.nextSibling);
-	row.parentNode.removeChild(row);
-	
+}
+function activate(row)
+{
+	$.post("ActivateUser",{
+		'userId':row.firstChild.nextSibling.innerHTML,
+	},
+	        function(data,status){
+	        	location.reload();
+	        });
 }
 function sendAPK(param)
 {
@@ -514,9 +529,9 @@ function sendAPK(param)
 													</td>
 													<td width="12%">
 														<div id="div4${ment.id}"
-															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.address}</div>
-														<input id="input4${ment.id}" name="uAddress" type="text"
-														value="${ment.address}" style="display: none;"
+															ondblclick="showStuff('div4${ment.id}','input4${ment.id}');">${ment.personalId}<c:if test="${empty ment.personalId}">No Data</c:if></div>
+														<input id="input4${ment.id}" name="personalId" type="text"
+														value="${ment.personalId}" style="display: none;"
 														required>
 													</td>
 													<td width="12%">
@@ -562,7 +577,7 @@ function sendAPK(param)
 												<tr>
 													<td>
 														<div id="div7${ment.id}"
-															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.experience}</div>
+															ondblclick="showStuff('div7${ment.id}','input7${ment.id}');">${ment.experience}<c:if test="${empty ment.experience}">No Data</c:if></div>
 														<input id="input7${ment.id}" name="uExperience"
 														type="text" value="${ment.experience}"
 														style="display: none;"
@@ -570,14 +585,14 @@ function sendAPK(param)
 													</td>
 													<td>
 														<div id="div8${ment.id}"
-															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.role}</div>
+															ondblclick="showStuff('div8${ment.id}','input8${ment.id}');">${ment.role}<c:if test="${empty ment.role}">No Data</c:if></div>
 														<input id="input8${ment.id}" name="uRole" type="text"
 														value="${ment.role}" style="display: none;"
 														required>
 													</td>
 													<td>
 														<div id="div12${ment.id}"
-															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.companyName}</div>
+															ondblclick="showStuff('div12${ment.id}','input12${ment.id}');">${ment.companyName}<c:if test="${empty ment.companyName}">No Data</c:if></div>
 														<select name="uCompany" id="input12${ment.id}" style="display: none;" required >
 																<option value="${ment.company}" selected="selected"></option>
 																<c:forEach var="item" items="${NewWorkPlace}">
@@ -588,7 +603,7 @@ function sendAPK(param)
 													</td>
 													<td>
 														<div id="div9${ment.id}"
-															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.workHistory}</div>
+															ondblclick="showStuff('div9${ment.id}','input9${ment.id}');">${ment.workHistory}<c:if test="${empty ment.workHistory}">No Data</c:if></div>
 														<input id="input9${ment.id}" name="uWorkHistory"
 														type="text" value="${ment.workHistory}"
 														style="display: none;"
@@ -620,20 +635,20 @@ function sendAPK(param)
 												<tr>
 													<td width="30%">
 														<div id="div10${ment.id}"
-															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}</div>
+															ondblclick="showStuff('div10${ment.id}','input10${ment.id}');">${ment.note}<c:if test="${empty ment.note}">No Data</c:if></div>
 														<textarea id="input10${ment.id}" name="uNotes"
 															style="display: none; ">${ment.note}</textarea>
 													</td>
 													<td width="15%">
 														<div id="div15${ment.id}"
-															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.address}</div>
+															ondblclick="showStuff('div15${ment.id}','input15${ment.id}');">${ment.address}<c:if test="${empty ment.address}">No Data</c:if></div>
 														<input id="input15${ment.id}" name="uAddress" type="text"
 														value="${ment.address}" style="display: none;"
 														required>		
 													</td>
 													<td width="15%">
 														<div id="div13${ment.id}"
-															ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.city}</div>
+															ondblclick="showStuff('div13${ment.id}','input13${ment.id}');">${ment.city}<c:if test="${empty ment.city}">No Data</c:if></div>
 														<select name="cityId" id="input13${ment.id}" style="display: none;" required >
 																<option value="${ment.cityId}"></option>
 																<c:forEach var="item" items="${cities}">
@@ -643,7 +658,7 @@ function sendAPK(param)
 													</td>
 													<td width="15%">
 														<div id="div14${ment.id}"
-															ondblclick="showStuff('div14${ment.id}','input14${ment.id}');">${ment.area}</div>
+															ondblclick="showStuff('div14${ment.id}','input14${ment.id}');">${ment.area}<c:if test="${empty ment.area}">No Data</c:if></div>
 														<select name="areaId" id="input14${ment.id}" style="display: none;" required >
 																<option value="${ment.areaId}"></option>
 																<c:forEach var="item" items="${areas}">
@@ -684,7 +699,7 @@ function sendAPK(param)
 												<tr>
 													<td width="90%">
 														<div id="div11${ment.id}"
-															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">${ment.volunteering}</div>
+															ondblclick="showStuff('div11${ment.id}','input11${ment.id}');">${ment.volunteering}<c:if test="${empty ment.volunteering}">No Data</c:if></div>
 
 														<textarea id="input11${ment.id}" name="uVolunteering"
 															value="${ment.volunteering}"

@@ -89,7 +89,7 @@
 						<th class="smaller" onclick="sortTable(5)">Phone</th>
 						<th class="smaller" onclick="sortTable(7)">Academy</th>
 						<th class="smaller" onclick="sortTable(9)">Gender</th>
-						<th class="smaller" id="activeStuff" onclick="activeOrNot(this)" class="odin" >Actions</th>
+						<th class="smaller" style="cursor: pointer;padding-bottom: 4px !important;padding-top: 15px !important;" id="activeStuff" onclick="activeOrNot(this)" class="odin" >Actions</th>
 					</tr>
 					<tr>
 						<td class="searchtab"> <input id="searchkey1" onkeyup="dynamicSearch()" placeholder="search by name..." class="serchInput" type="text" ></td>
@@ -115,12 +115,12 @@
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td class="${ment.active}">
 								<c:if test="${ment.active}">
-									<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
+									<button onclick="areYouSure(this,'de')" class="btn btn-block btn-primary" style="margin-top: 0px;" >
 			 							Deactivate
     								</button>
 								</c:if>
 								<c:if test="${!ment.active}">
-									<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
+									<button onclick="areYouSure(this,'ac')" class="btn btn-block btn-primary" style="margin-top: 0px;" >
 			 							Activate
     								</button>
 								</c:if>	
@@ -177,9 +177,9 @@
 													</td>
 													<td width="12%">
 														<div id="div17${ment.id}"
-															ondblclick="showStuff('div17${ment.id}','input17${ment.id}');">${ment.personalId}<c:if test="${empty ment.address}">No Data</c:if></div>
-														<input id="input17${ment.id}" name="uAddres" type="text"
-														value="${ment.address}" style="display: none;"
+															ondblclick="showStuff('div17${ment.id}','input17${ment.id}');">${ment.personalId}<c:if test="${empty ment.personalId}">No Data</c:if></div>
+														<input id="input17${ment.id}" name="personalId" type="text"
+														value="${ment.personalId}" style="display: none;"
 														onblur="if(this.value==''){ this.value='address'; this.style.color='#BBB';}" 
 							  							onfocus="if(this.value=='address'){this.value=''; this.style.color='#000';}">
 													</td>
@@ -456,7 +456,7 @@
 							</tr>
 							<tr>
 								<td class="form">ID</td>			
-								<td class="form"><input type="number" name="uId" min="0" max="999999999" 
+								<td class="form"><input type="number" name="personalId" min="0" max="999999999" 
 								style="color:#BBB;"></td>
 							  	<td width="5%" class="form"> </td>
 							  	<td>City</td>
