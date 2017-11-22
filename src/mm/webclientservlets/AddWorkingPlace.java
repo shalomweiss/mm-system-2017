@@ -41,13 +41,26 @@ public class AddWorkingPlace extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		String Company=request.getParameter("company");
-		String Area=request.getParameter("area");
-		String City=request.getParameter("city");
-		String Address=request.getParameter("address");
+		String company=request.getParameter("company");
+		String city=request.getParameter("cityId");
+		String area=request.getParameter("areaId");	
+		String address=request.getParameter("address");
+		int cityId,areaId=0;
+		if(city.equals(null) ||city.equals(""))
+			cityId=0;
+		else
+			cityId= Integer.parseInt(city);
+
+		
+		if(area.equals(null) ||area.equals(""))
+		   areaId=0;
+		else
+		  areaId= Integer.parseInt(area);
+		
 		RequestDispatcher req = null;
+		
 		 
-		WorkPlace newWorkPlace= new WorkPlace(0,Company,Area,City,Address, 0, 0); //TODO: needs to be given proper city/area id
+		WorkPlace newWorkPlace= new WorkPlace(0,company,"","",address, areaId, cityId); //TODO: needs to be given proper city/area id
 		
 		DataAccess da = new DataAccess();
 	    boolean res=false;

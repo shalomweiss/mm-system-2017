@@ -41,13 +41,24 @@ public class AddAcademicInstitute extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String name=request.getParameter("name");
-		String Area=request.getParameter("area");
-		String City=request.getParameter("city");
+		String city=request.getParameter("cityId");
+		String area=request.getParameter("areaId");	
+		int cityId,areaId=0;
+		if(city.equals(null) ||city.equals(""))
+			cityId=0;
+		else
+			cityId= Integer.parseInt(city);
+	
+		if(area.equals(null) ||area.equals(""))
+		   areaId=0;
+		else
+		  areaId= Integer.parseInt(area);
+		
 	
 		
 		RequestDispatcher req = null;
 		 
-		AcademicInstitute acadimicIn= new AcademicInstitute(0,name,Area,City, 0, 0); //TODO: set proper area/city id
+		AcademicInstitute acadimicIn= new AcademicInstitute(0,name,"","", areaId, cityId); //TODO: set proper area/city id
 		
 		DataAccess da = new DataAccess();
 	    boolean res=false;
