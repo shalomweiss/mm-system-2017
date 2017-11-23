@@ -83,8 +83,6 @@ public class AddWorkingPlace extends HttpServlet {
 		}
 		if(!res)
 			response.getWriter().append("Failed in added Work Place");	
-		
-		req.forward(request, response);
 	}	
 	}
 
