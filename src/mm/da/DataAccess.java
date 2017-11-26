@@ -1537,4 +1537,32 @@ public class DataAccess implements DataInterface {
 
 		return false;
 	}
+
+	@Override
+	public boolean addCity(String name) throws SQLException {
+		Logger logger = Logger.getLogger(DataAccess.class.getName());
+		logger.log(Level.INFO, "addCity starting...");
+		PreparedStatement stm = c.prepareStatement(SQLStatements.insertCity);
+		stm.setString(1, name);
+		int result = stm.executeUpdate();
+		stm.close();
+		if(result==0) {//if row update count is 0, insertion failed
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean addArea(String name) throws SQLException {
+		Logger logger = Logger.getLogger(DataAccess.class.getName());
+		logger.log(Level.INFO, "addArea starting...");
+		PreparedStatement stm = c.prepareStatement(SQLStatements.insertArea);
+		stm.setString(1, name);
+		int result = stm.executeUpdate();
+		stm.close();
+		if(result==0) {//if row update count is 0, insertion failed
+			return false;
+		}
+		return true;
+	}
 }
