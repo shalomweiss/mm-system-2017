@@ -79,14 +79,23 @@ public class AddMentee extends HttpServlet {
 		String areaId=request.getParameter("areaId");
 		String personalId=request.getParameter("personalId");
 		int uGender= Integer.parseInt(gender);
-		Float avg= null;
-		Float remSemesters= null;
 		int uCity=0;
 		int uArea=0;
 		int uAcademicInstitution= 0;
 		boolean SignedEULA=false;
-		System.out.println("ACADEMIC "+academicDicipline2+"city "+cityId +"area: "+ areaId);
-
+		boolean booleanPro=false;
+		boolean booleanResume=false;
+		boolean booleanGrade=false;
+		Float avg= null;
+		Float remSemesters= null;
+        
+		if (profilePicture!=null)
+		     booleanPro=true;
+		if (resume!=null)
+		     booleanResume=true;
+		if (gradeSheet!=null)
+		     booleanGrade=true;
+		
 		if(uAverage.equals(null) ||uAverage.equals("")){
 			avg=(float) 0;
 		}
@@ -126,7 +135,7 @@ public class AddMentee extends HttpServlet {
 		String uPass= GeneratePass.getSaltString();	
         long millis=System.currentTimeMillis();  
         Date date=new Date(millis);
-		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,profilePicture,uNotes,true,userType.MENTEE,uArea,"",uCity,"",date,personalId,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,resume,gradeSheet );
+		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,uNotes,booleanPro,true,userType.MENTEE,uArea,"",uCity,"",date,personalId,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,booleanResume,booleanGrade );
 		
 		User user=new User();
 		DataAccess da = new DataAccess();

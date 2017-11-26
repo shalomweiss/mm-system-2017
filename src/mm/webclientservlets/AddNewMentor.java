@@ -44,22 +44,25 @@ public class AddNewMentor extends HttpServlet {
 		String notes = request.getParameter("notes");
 		String experience = request.getParameter("experience");
 		String volunteering = request.getParameter("volunteering");
-		int gender = Integer.parseInt(request.getParameter("gender"));
-		String nextPage = request.getParameter("jsp");
 		String workHistory = request.getParameter("history");
 		String role = request.getParameter("role");
 		String pass = GeneratePass.getSaltString();
-		String ProfilePicture = request.getParameter("profilePicture");
+		String profilePicture = request.getParameter("profilePicture");
 		String cityId=request.getParameter("cityId");
 		String areaId=request.getParameter("areaId");	
 		String comp=request.getParameter("company");
 		String personalId=request.getParameter("personalId");
+		int gender = Integer.parseInt(request.getParameter("gender"));
 
+		boolean booleanPro=false;
 		int uCity;
 		int uArea;
-		int company;
-		System.out.println("company: "+comp+"city "+cityId +"area: "+ areaId);
+		int company;	
 		
+		
+		if (profilePicture!=null)
+		     booleanPro=true;
+
 		if(cityId.equals(null) ||cityId.equals(""))
 			uCity=0;
 		else
@@ -79,7 +82,7 @@ public class AddNewMentor extends HttpServlet {
 	    java.sql.Date date=new java.sql.Date(millis);
 		
 		User newMentor = new Mentor(0, firstName, lastName, email, phoneNumber, pass, gender, address, notes,
-				ProfilePicture, true, userType.MENTOR,uArea,"",uCity,"",date,personalId, experience, role, company, volunteering, workHistory);
+				booleanPro, true, userType.MENTOR,uArea,"",uCity,"",date,personalId, experience, role, company, volunteering, workHistory);
 		DataAccess da = new DataAccess();
 		int res = -1;
 		RequestDispatcher req = null;
@@ -92,7 +95,6 @@ public class AddNewMentor extends HttpServlet {
 		}
 		if (res>0) {
 			response.getWriter().append("Mentor Added");
-			req = request.getRequestDispatcher(nextPage);
 			String to = email;
 			String subject = "Thank you for registering to Mentorem project";
 			String apk="https://goo.gl/dbYx8R";
