@@ -20,7 +20,7 @@ public class Mentee extends User {
 		super();
 	}
 	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, boolean profilePicture, String note, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String personalId, float remainingSemesters,
+			int gender, String address, String note, boolean profilePicture, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String personalId, float remainingSemesters,
 			String graduationStatus, int academiclnstitution, float average, String academicDicipline,
 			String academicDicipline2, boolean signedEULA, boolean resume, boolean gradeSheet) {
 		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type, areaId, area, cityId, city, date, personalId);
