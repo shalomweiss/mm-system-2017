@@ -119,5 +119,8 @@ public interface DataInterface {
 	
 	public ArrayList<City> getAllCities() throws SQLException;
 	
+	public boolean addCity(String name) throws SQLException;
+	
+	public boolean addArea(String name) throws SQLException;
 
 }
