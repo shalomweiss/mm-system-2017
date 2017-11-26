@@ -212,4 +212,9 @@ public class SQLStatements {
 
 	public final static String getAllAreas = "Select * From " + DataContract.AreasTable.TABLE_NAME;
 
+	public final static String insertCity = "INSERT INTO " + DataContract.CitiesTable.TABLE_NAME + " ("
+			+ DataContract.CitiesTable.COL_NAME + ") VALUES (?)";
+	
+	public final static String insertArea = "INSERT INTO " + DataContract.AreasTable.TABLE_NAME + " ("
+			+ DataContract.AreasTable.COL_NAME + ") VALUES (?)";
 }
