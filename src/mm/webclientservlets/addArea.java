@@ -72,7 +72,6 @@ String area=request.getParameter("area");
 		
 		req.forward(request, response);
 	
-	
 	}
 
 }
