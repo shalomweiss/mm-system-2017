@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class TsofenT extends User{
 	public TsofenT(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, String profilePicture, String note, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String personalId) {
-		super(id, firstName, lastName, email, phoneNumber, password, gender, address, profilePicture, note, active, type, areaId, area, cityId, city, date, personalId);
+			int gender, String address, boolean profilePicture, String note, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String personalId) {
+		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type, areaId, area, cityId, city, date, personalId);
 		// TODO Auto-generated constructor stub
 	}
 }

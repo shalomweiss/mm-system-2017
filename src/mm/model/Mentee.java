@@ -11,8 +11,8 @@ public class Mentee extends User {
 	private String academicDicipline;
 	private String academicDicipline2;
 	private boolean signedEULA;
-	private String resume;
-	private String gradeSheet;
+	private boolean resume;
+	private boolean gradeSheet;
 	private String academiclnstitutionName;
 	
 
@@ -20,9 +20,9 @@ public class Mentee extends User {
 		super();
 	}
 	public Mentee(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, String profilePicture, String note, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String personalId, float remainingSemesters,
+			int gender, String address, boolean profilePicture, String note, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String personalId, float remainingSemesters,
 			String graduationStatus, int academiclnstitution, float average, String academicDicipline,
-			String academicDicipline2, boolean signedEULA, String resume, String gradeSheet) {
+			String academicDicipline2, boolean signedEULA, boolean resume, boolean gradeSheet) {
 		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type, areaId, area, cityId, city, date, personalId);
 		this.remainingSemesters = remainingSemesters;
 		this.graduationStatus = graduationStatus;
@@ -92,19 +92,19 @@ public class Mentee extends User {
 		this.signedEULA = signedEULA;
 	}
 
-	public String getGradeSheet() {
+	public boolean getGradeSheet() {
 		return gradeSheet;
 	}
 
-	public String getResume() {
+	public boolean getResume() {
 		return resume;
 	}
 
-	public void setResume(String resume) {
+	public void setResume(boolean resume) {
 		this.resume = resume;
 	}
 
-	public void setGradeSheet(String gradeSheet) {
+	public void setGradeSheet(boolean gradeSheet) {
 		this.gradeSheet = gradeSheet;
 	}
 	
