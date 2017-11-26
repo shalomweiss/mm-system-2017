@@ -97,7 +97,9 @@ function da(param)
 {
 	var row=document.getElementById("row"+param.parentNode.id);
 	if(param.parentNode.parentNode.getElementsByTagName("HEADER")[0].id=="de")
+	{
 		deactivate(row);
+	}
 	else
 		activate(row);
 	nyet(param);
@@ -140,6 +142,7 @@ function sendAPK(param)
 	        function(data,status){
 	        	alert(data);
 	        });
+	alert('Please wait for the data to be send');
 }
 	function show_hide_row(row,mentId,def) {
 		$("#" + prevRow).toggle();
@@ -203,7 +206,6 @@ function sendAPK(param)
 	            }
 	            return finalVal + '\n';
 	        };
-
 	        var csvFile = "\ufeff"+'';
 	        for (var i = 0; i < rows.length; i++) {
 	            csvFile += processRow(rows[i]);
@@ -228,24 +230,39 @@ function sendAPK(param)
 	function mentorTableToArray(param)
 	{
 		
-		var matrix=[['First Name','Last Name','Gender','ID','Phone Number','Email','Experience','Role','Company','Work History','Volunteering','Notes','Address','City','Area','Joining Date',]];
+		var matrix=[['First Name','Last Name','Gender','ID','Phone Number','Email','Experience','Role','Company','Work History','Volunteering','Notes','City','Area','Address','Joining Date',]];
 		var tbody=document.getElementsByTagName("tbody")[0];
 		var rows=tbody.getElementsByClassName("hidden_row");
 		for (var i = 0; i < rows.length; i++) {
-			var columns=rows[i].childNodes[1].getElementsByTagName("td");
-			var row=[];
-			for (var j = 0; j < columns.length; j++) {
-				var ob= columns[j].childNodes[1];
-				console.log(ob);
-				if(typeof ob=="object")
-					if(ob.tagName=="DIV")
-						row.push(columns[j].childNodes[1].innerHTML);
+			if(rows[i].previousSibling.previousSibling.style.display!="none")
+			{
+				var columns=rows[i].childNodes[1].getElementsByTagName("td");
+				var row=[];
+				for (var j = 0; j < columns.length; j++) {
+					var ob= columns[j].childNodes[1];
+					console.log(ob);
+					if(typeof ob=="object")
+						if(ob.tagName=="DIV")
+							row.push(columns[j].childNodes[1].innerHTML);
+				}
+				row.push(columns[17].innerHTML)
+				matrix.push(row);
 			}
-			row.push(columns[17].innerHTML)
-			matrix.push(row);
 		}
 		//console.log(matrix);
-		exportToCsv('Mentors.csv',matrix);
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+
+		var yyyy = today.getFullYear();
+		if(dd<10){
+		    dd='0'+dd;
+		} 
+		if(mm<10){
+		    mm='0'+mm;
+		} 
+		var today = dd+'/'+mm+'/'+yyyy;
+		exportToCsv('Mentors'+today+'.csv',matrix);
 	}
 </script>
 
@@ -457,7 +474,7 @@ function sendAPK(param)
 								<td><c:if test="${ment.gender == 0}">fe</c:if>male</td>
 								<td class="${ment.active}">
 									<c:if test="${ment.active}">
-										<button onclick="areYouSure(this)" class="btn btn-block btn-primary" style="margin-top: 0px;" >
+										<button onclick="areYouSure(this,'de')" class="btn btn-block btn-primary" style="margin-top: 0px;" >
 				 							Deactivate
 	    								</button>
 									</c:if>
@@ -543,11 +560,9 @@ function sendAPK(param)
 														required>
 													</td>
 													<td width="18%">
-														<div id="div6${ment.id}"
-															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
+														<div id="div6${ment.id}">${ment.email}</div>
 														<input id="input6${ment.id}" name="uEmail" type="text"
-														value="${ment.email}" style="display: none;"
-														required>
+														value="${ment.email}" style="display: none;">
 													</td>
 													<td width="10%">
 														<img src="DownloadFile?img=${ment.id}" alt="profilePic">

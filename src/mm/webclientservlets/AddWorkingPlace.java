@@ -39,8 +39,6 @@ public class AddWorkingPlace extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		String company=request.getParameter("company");
 		String city=request.getParameter("cityId");
 		String area=request.getParameter("areaId");	
@@ -83,6 +81,8 @@ public class AddWorkingPlace extends HttpServlet {
 		}
 		if(!res)
 			response.getWriter().append("Failed in added Work Place");	
+		
+		//req.forward(request, response);
 	}	
 	}
 

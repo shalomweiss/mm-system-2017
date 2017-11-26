@@ -95,6 +95,32 @@ h5{
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
+	$("#addCity").click(function() {
+		//city
+		var city=$("#cityInput").val();
+		$.post("addCity",
+		        {
+					city:city,
+		        },
+		        function(data,status){
+		        	alert(data);
+		        	location.reload();
+		        });
+	});
+	$("#addArea").click(function() {
+		console.log("here");
+		//city
+		var area=$("#areaInput").val();
+		console.log("here "+area);
+		$.post("addArea",
+		        {
+					area:area,
+		        },
+		        function(data,status){
+		        	alert(data);
+		        	location.reload();
+		        });
+	});
 	$(".addB").click(function(){
 		$("#danAcad").show();
 		$("#addSend").parent().attr('id',this.id);
@@ -115,12 +141,13 @@ $(document).ready(function(){
 			if($(this).parent().attr('id')=="addWork"){
 				$.post("AddWorkingPlace",
 				        {
-						  name: inputs[0].value,
+						  company: inputs[0].value,
 						  cityId: selects[1].value,
 						  areaId: selects[0].value,
 						  address:""
 				        },
 				        function(data,status){
+				        	alert(data);
 				        	location.reload();
 				        });
 			}
@@ -214,7 +241,7 @@ function changeTable(param)
 					<table class="in"> 
 							<tr>
 									<td class="in1" width="70%" style=" border-right-width: 0px;">
-										<input id="textfield" name="textfield" type="text" placeholder="Add city..">
+										<input id="cityInput" name="textfield" type="text" placeholder="Add city..">
 									</td>
 									<td class="in1" style=" border-left-width: 0px;" width="30%">
 										<a id="addCity" class="btn btn-primary" href="#">Add</a>
@@ -258,10 +285,10 @@ function changeTable(param)
 					<table class="in"> 
 							<tr>
 									<td class="in1" width="70%" style=" border-right-width: 0px;">
-										<input id="textfield" name="textfield" type="text" placeholder="Add area..">
+										<input id="areaInput" name="textfield" type="text" placeholder="Add area..">
 									</td>
 									<td class="in1" style=" border-left-width: 0px;" width="30%">
-										<a id="addCity" class="btn btn-primary" href="#">Add</a>
+										<a id="addArea" class="btn btn-primary" href="#">Add</a>
 									</td>
 							</tr>
 						</table>	

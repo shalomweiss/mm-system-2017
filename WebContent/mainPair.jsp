@@ -85,7 +85,19 @@ function pairTableToArray(param)
 	console.log(matrix);
 	var thead=document.getElementsByTagName("thead")[0];
 	console.log(thead.getElementsByTagName("tr")[0]);
-	exportToCsv('Pairs.csv',matrix);
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	    dd='0'+dd;
+	} 
+	if(mm<10){
+	    mm='0'+mm;
+	} 
+	var today = dd+'/'+mm+'/'+yyyy;
+	exportToCsv('Pairs.'+today+'.csv',matrix);
 }
 function da(param)
 {

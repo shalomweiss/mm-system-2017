@@ -192,8 +192,7 @@
 														required>
 													</td>
 													<td width="18%">
-														<div id="div6${ment.id}"
-															ondblclick="showStuff('div6${ment.id}','input6${ment.id}');">${ment.email}</div>
+														<div id="div6${ment.id}">${ment.email}</div>
 														<input id="input6${ment.id}" name="uEmail" type="text"
 														value="${ment.email}" style="display: none;"
 														required>

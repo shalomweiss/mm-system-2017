@@ -129,6 +129,7 @@ $(document).ready(function(){
 		        function(data,status){
 		        	alert(data);
 		        });
+		alert('Please wait for the data to be send');
 	}
 	function goToEdit(firstName, lastName, phone, email, academicInstitution,
 			note, courseOfStudy, remainingSemesters, average, id) {
@@ -286,7 +287,19 @@ function menteeTableToArray(param)
 		}
 
 	}
-	exportToCsv('Mentees.csv',matrix);
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	    dd='0'+dd;
+	} 
+	if(mm<10){
+	    mm='0'+mm;
+	} 
+	var today = dd+'/'+mm+'/'+yyyy;
+	exportToCsv('Mentees.'+today+'.csv',matrix);
 }
 	function showDetails(evt, Detail) {
 

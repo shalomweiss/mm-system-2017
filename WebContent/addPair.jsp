@@ -94,7 +94,7 @@ function compareRows(tr1,tr2)
 		return (name2.localeCompare(name1));
 }
 var sign=1;
-
+var cv=1;
 function sigmed()
 {
 	if(sign==1)
@@ -105,7 +105,16 @@ function sigmed()
 		sign=1;
 	dynamicSearch('');
 }
-
+function hasCV()
+{
+	if(cv==1)
+		cv=2;
+	else if(cv==2)
+		cv=3
+	else
+		cv=1;
+	dynamicSearch('');
+}
 function dynamicSearch(param)
 {
 	$(".nono").removeClass("nono");
@@ -127,10 +136,25 @@ function dynamicSearch(param)
 		$(".true").parent().hide();
 	}
 	else
-		{
+	{
 		$(".false").parent().show();
 		$(".true").parent().show();
-		}
+	}
+	if(cv==1)
+	{
+		$(".noCV").parent().hide();
+		$(".yesCV").parent().show();
+	}
+	else if(cv==2)
+	{
+		$(".noCV").parent().show();
+		$(".yesCV").parent().hide();
+	}
+	else
+	{
+		$(".noCV").parent().show();
+		$(".yesCV").parent().show();
+	}
 	for (var i = 0; i < rows.length; i++) {
 		var val=rows[i].childNodes;
 		if(val[1].innerHTML.toUpperCase().indexOf(search1)<=-1)
@@ -216,7 +240,7 @@ h4{
 	      <th width="16%" class="smaller" onclick="sortTable1(5)">Gender</th>
 	      <th width="16%" class="smaller" onclick="sortTable1(7)">Area</th>
 		  <th width="18%" class="smaller" onclick="sortTable1(9)">Academy</th>
-          <th width="8%"  class="smaller" title="Does have CV?"><i class="fa fa-file-text-o"></i></th>
+          <th width="8%"  class="smaller" onclick="hasCV()" title="Does have CV?"><i class="fa fa-file-text-o"></i></th>
           <th width="8%"  class="smaller" onclick="sigmed()" title="Did signed?"><i class="fa fa-pencil-square-o"></i></th>
         </tr>
         <tr style="background-color: #FFC107 !important;">
@@ -242,7 +266,7 @@ h4{
 			<td width="16%">${mentee.area}</td>
 			<td width="18%">${mentee.academiclnstitutionName}</td>
 			<c:if test="${empty mentee.resume}"> <td width="8%" class="noCV"><i class="fa fa-ban"></i></td> </c:if>
-			<c:if test="${not empty mentee.resume}"> <td width="8%"><i class="fa fa-file-text-o"></i></td> </c:if>
+			<c:if test="${not empty mentee.resume}"> <td width="8%" class="yesCV"><i class="fa fa-file-text-o"></i></td> </c:if>
 			<td width="8%" class="${mentee.signedEULA}">
 				<c:if test="${mentee.signedEULA}"> <i class="fa fa-pencil-square-o"></i></c:if>
 				<c:if test="${!mentee.signedEULA}"> <i class="fa fa-ban"></i></c:if>
