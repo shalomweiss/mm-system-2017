@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.base.CharMatcher;
 import com.google.gson.JsonObject;
 
 import mm.androidservice.AndroidIOManager;
@@ -126,7 +127,7 @@ public class DownloadFile extends HttpServlet {
 		
 		int userIdToValidate = -1;
 		boolean isValid = false;
-		
+		boolean isDoc = false;
 		
 		try {
 		token = jsonRequest.get("token").getAsString();
@@ -141,10 +142,15 @@ public class DownloadFile extends HttpServlet {
 			if (jsonRequest.has("grade"))
 				id = jsonRequest.get("grade").getAsString();
 
-			if (jsonRequest.has("cv"))
+			if (jsonRequest.has("cv")) {
 				id = jsonRequest.get("cv").getAsString();
-			
-			
+				if(id.contains("doc")) {
+					//if id is id.docx .. get only the id.
+					id = CharMatcher.DIGIT.retainFrom(id);
+					isDoc=true;
+					
+				}
+			}
 				if(jsonRequest.has("MENTOR") || jsonRequest.has("MENTEE") || jsonRequest.has("TSOFEN")) {
 					//Check if the id of the file to get is of a mentor's mentee
 						if (jsonRequest.has("MENTOR")) {
@@ -359,6 +365,10 @@ public class DownloadFile extends HttpServlet {
 					}
 
 					if (jsonRequest.has("cv") && jsonRequest.get("cv").getAsString() != null) {
+						if(isDoc) {
+							//bringing back the docx.
+							id+=".docx";
+						}
 						if(!ClientDownloadFile.downloadFile(id, ClientDownloadFile.CV_BUCKET, response)) {
 							iom.setResponseMessage(new ErrorModel() {
 								

@@ -19,8 +19,10 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 
 import mm.androidservice.AndroidIOManager;
+import mm.androidservice.ErrorModel;
 import mm.androidservice.RESPONSE_STATUS;
 import mm.androidservice.common.UnsupportedFormatException;
+import mm.androidservice.common.WordToPDF;
 import mm.da.DataAccess;
 import util.ServerUtils;
 
@@ -30,7 +32,6 @@ import util.ServerUtils;
 @WebServlet("/UploadCV")
 public class UploadCV extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ServletFileUpload uploader = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -55,42 +56,66 @@ public class UploadCV extends HttpServlet {
 		// continue;
 		// }
 		File file = null;
+		File outPdf = null;
+		boolean isConverted = false;
 		try {
 			if (id != null) {
-				if (token.equals("TSOFEN")||ServerUtils.validateUserSession(Integer.parseInt(id), token, iom.getDataAccess())) {
+				if (token.equals("TSOFEN")
+						|| ServerUtils.validateUserSession(Integer.parseInt(id), token, iom.getDataAccess())) {
 					List<FileItem> items = upload.parseRequest(new ServletRequestContext(request));
 					for (FileItem item : items) {
 						System.out.println(request.getHeader("Content-Type"));
 						System.out.println(item.getContentType());
 						String contentType = item.getContentType();
 						// save file in temporary directory on the server before sending it to a bucket
-						
-						if(contentType.equals("text/plain") || contentType.equals("application/pdf") || contentType
-								.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
-							if (contentType.equals("text/plain"))
+
+						if (contentType.equals("text/plain") || contentType.equals("application/pdf") || contentType
+								.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+								||
+								contentType.equals("application/msword")) {
+							if (contentType.equals("text/plain")) {
 								file = File.createTempFile("cvtoupload", ".txt");
-							if (contentType.equals("application/pdf"))
+							}
+							if (contentType.equals("application/pdf")) {
 								file = File.createTempFile("cvtoupload", ".pdf");
-							if (contentType
-									.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+							}
+							if (contentType.equals(
+									"application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+									||
+									contentType.equals("application/msword")) {
+							
 								file = File.createTempFile("cvtoupload", ".docx");
-						}else {
-							UnsupportedFormatException.invalidFormat("Unsupported File Format.(Only .txt .pdf .docx allowed)");
-						
+								outPdf = File.createTempFile("doctopdf", ".pdf");
+
+								isConverted = true;
+							}
+
+						} else {
+							UnsupportedFormatException
+									.invalidFormat("Unsupported File Format.(Only .txt .pdf .docx allowed)");
+
 						}
-						
-			
 
 						item.write(file);// write to temp
 
 						// upload to bucket
-						if (file != null) {
-							ClientUploadFile.uploadFile(id, file, ClientUploadFile.CV_BUCKET,contentType);
+						if (isConverted && file != null) {
+							WordToPDF.ConvertToPDF(file, outPdf);
+							ClientUploadFile.uploadFile(id + ".docx", file, ClientUploadFile.CV_BUCKET, contentType);
+							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+						}
+						if (outPdf != null) {
+							ClientUploadFile.uploadFile(id, outPdf, ClientUploadFile.CV_BUCKET, "application/pdf");
+							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
+						}
+						if(!isConverted && file != null){
+							ClientUploadFile.uploadFile(id, file, ClientUploadFile.CV_BUCKET, contentType);
 							iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.SUCCESS));
 						}
 						// success
 						file.deleteOnExit();
-
+						if (outPdf != null)
+							outPdf.deleteOnExit();
 					}
 				} else {
 					iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.INVALID_SESSION));
@@ -100,17 +125,28 @@ public class UploadCV extends HttpServlet {
 			}
 		} catch (NullPointerException e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
-			
-			return;
+
 		} catch (FileUploadException e) {
+
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
-	
-			return;
-		}catch (UnsupportedFormatException e) {
-			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
-		} 
-		
-		catch (Exception e) {
+
+		} catch (UnsupportedFormatException e) {
+
+			e.printStackTrace();
+			iom.setResponseMessage(new ErrorModel() {
+
+				@Override
+				public String getMessage() {
+					return "Error converting doc to pdf.";
+				}
+
+				@Override
+				public int getCode() {
+					return 404;
+				}
+			});
+
+		} catch (Exception e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
 
 		} finally {
