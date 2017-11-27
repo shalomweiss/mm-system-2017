@@ -76,7 +76,7 @@ public class UpdateProfile extends HttpServlet {
 						System.out.println("note == null");
 						updatedMentee.setNote(originalUser.getNote());
 					}
-					if (updatedMentee.getProfilePicture() == (null))
+					if (updatedMentee.getProfilePicture()==false)
 						updatedMentee.setProfilePicture(originalUser.getProfilePicture());
 					if (updatedMentee.getEmail() == (null))
 						updatedMentee.setEmail(originalUser.getEmail());
@@ -95,9 +95,9 @@ public class UpdateProfile extends HttpServlet {
 						updatedMentee.setAcademicDicipline(((Mentee) originalUser).getAcademicDicipline());
 					if (updatedMentee.getAcademicDicipline2() == (null))
 						updatedMentee.setAcademicDicipline2(((Mentee) originalUser).getAcademicDicipline2());
-					if (updatedMentee.getResume() == (null))
+					if (updatedMentee.getResume() == false)
 						updatedMentee.setResume(((Mentee) originalUser).getResume());
-					if (updatedMentee.getGradeSheet() == (null))
+					if (updatedMentee.getGradeSheet() == false)
 						updatedMentee.setGradeSheet(((Mentee) originalUser).getGradeSheet());
 
 					sendToDB = updatedMentee;
@@ -121,7 +121,7 @@ public class UpdateProfile extends HttpServlet {
 						updatedMentor.setAddress(originalUser.getAddress());
 					if (updatedMentor.getNote() == (null))
 						updatedMentor.setNote(originalUser.getNote());
-					if (updatedMentor.getProfilePicture() == (null))
+					if (updatedMentor.getProfilePicture()==false)
 						updatedMentor.setProfilePicture(originalUser.getProfilePicture());
 					if (updatedMentor.getEmail() == (null))
 						updatedMentor.setEmail(originalUser.getEmail());

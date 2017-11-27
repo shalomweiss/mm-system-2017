@@ -26,7 +26,7 @@ public class Mentor extends User {
 	
 
 	public Mentor(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, String note, String profilePicture, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String personalId, String experience,
+			int gender, String address, String note, boolean profilePicture, boolean active, userType type, int areaId, String area, int cityId, String city, Date date, String personalId, String experience,
 			String role, int company, String volunteering, String workHistory) {
 		super(id, firstName, lastName, email, phoneNumber, password, gender, address, note, profilePicture, active, type, areaId, area, cityId, city, date, personalId);
 		this.experience = experience;

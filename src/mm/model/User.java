@@ -12,7 +12,7 @@ public class User {
 	private int gender;
 	private String address;
 	private String note;
-	private String profilePicture;
+	private boolean profilePicture;
 	private boolean active;
 	private userType type;
 	private int areaId;
@@ -40,7 +40,7 @@ public class User {
 	}
 
 	public User(String firstName, String lastName, String email, String phoneNumber, String pass, int gender,
-			String address, String note, String profilePicture, boolean active, userType type, int areaId, String area, int cityId, String city,
+			String address, String note, boolean profilePicture, boolean active, userType type, int areaId, String area, int cityId, String city,
 			Date date, String personalId) {
 		super();
 		this.firstName = firstName;
@@ -69,7 +69,7 @@ public class User {
 	}
 
 	public User(int id, String firstName, String lastName, String email, String phoneNumber, String password,
-			int gender, String address, String note, String profilePicture, boolean active, userType type, int areaId, String area,
+			int gender, String address, String note, boolean profilePicture, boolean active, userType type, int areaId, String area,
 			int cityId, String city, Date date, String personalId) {
 		super();
 		this.id = id;
@@ -180,11 +180,11 @@ public class User {
 		this.active = active;
 	}
 
-	public String getProfilePicture() {
+	public boolean getProfilePicture() {
 		return profilePicture;
 	}
 
-	public void setProfilePicture(String profilePicture) {
+	public void setProfilePicture(boolean profilePicture) {
 		this.profilePicture = profilePicture;
 	}
 

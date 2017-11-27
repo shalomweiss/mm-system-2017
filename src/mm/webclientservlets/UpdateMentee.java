@@ -79,7 +79,7 @@ public class UpdateMentee extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,myUser.getPassword(),gender,address,myUser.getProfilePicture(),notes,isActive,userType.MENTEE,uArea,"",uCity,"",myUser.getJoinDate(),personalId,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,myUser.getResume(),myUser.getGradeSheet());
+		Mentee mentee = new Mentee(id,firstName,lastName,email,phoneNum,myUser.getPassword(),gender,address,notes,myUser.getProfilePicture(),isActive,userType.MENTEE,uArea,"",uCity,"",myUser.getJoinDate(),personalId,remSemesters,graduationStatus,academicInstitution,average,academicDicipline,academicDicipline2,signedEULA,myUser.getResume(),myUser.getGradeSheet());
 
 	    try {
 			status = da.editUser(mentee);
