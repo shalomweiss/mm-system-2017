@@ -3,6 +3,7 @@ package mm.androidservice.upload;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -24,6 +25,7 @@ import mm.androidservice.RESPONSE_STATUS;
 import mm.androidservice.common.UnsupportedFormatException;
 import mm.androidservice.common.WordToPDF;
 import mm.da.DataAccess;
+import mm.model.Mentee;
 import util.ServerUtils;
 
 /**
@@ -44,8 +46,22 @@ public class UploadCV extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String isForUser = null;
+		boolean forUser = false;
+		//forUserId - int
 		String id = request.getHeader("id");
 		String token = request.getHeader("token");
+		
+		try {
+			isForUser =request.getHeader("forUserId");
+		}catch(NullPointerException e) {
+			forUser = false;
+		}
+		
+		if(isForUser!=null) {
+			forUser = true;
+		}
+
 		AndroidIOManager iom = new AndroidIOManager(response);
 
 		FileItemFactory itemFactory = new DiskFileItemFactory();
@@ -58,10 +74,32 @@ public class UploadCV extends HttpServlet {
 		File file = null;
 		File outPdf = null;
 		boolean isConverted = false;
+		boolean isValidForUser = false;
 		try {
 			if (id != null) {
 				if (token.equals("TSOFEN")
 						|| ServerUtils.validateUserSession(Integer.parseInt(id), token, iom.getDataAccess())) {
+					
+					
+					if(forUser) {
+						ArrayList<Mentee> listOfMentees = iom.getDataAccess().getMenteesOfMentor(Integer.parseInt(id));
+						int menteeId = Integer.parseInt(isForUser);
+						if(listOfMentees!= null)
+						for(Mentee m : listOfMentees) {
+							if(m.getId() == menteeId) {
+								System.out.println(m.getId());
+								isValidForUser = true;
+								break;
+							}
+							
+						}
+						if(!isValidForUser) {
+							UnsupportedFormatException
+							.invalidFormat("This is mentee is not in mentor's list.");
+							return;
+						}
+					}
+					
 					List<FileItem> items = upload.parseRequest(new ServletRequestContext(request));
 					for (FileItem item : items) {
 						System.out.println(request.getHeader("Content-Type"));
@@ -98,6 +136,8 @@ public class UploadCV extends HttpServlet {
 
 						item.write(file);// write to temp
 
+						
+						
 						// upload to bucket
 						if (isConverted && file != null) {
 							WordToPDF.ConvertToPDF(file, outPdf);
@@ -123,7 +163,8 @@ public class UploadCV extends HttpServlet {
 			} else {
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.PARAM_FAILED));
 			}
-		} catch (NullPointerException e) {
+		} 
+		catch (NullPointerException e) {
 			iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.UNSUPPORTED_FORMAT));
 
 		} catch (FileUploadException e) {
@@ -155,7 +196,12 @@ public class UploadCV extends HttpServlet {
 
 			iom.SendJsonResponse();
 		}
-
+		
+		
+		
 	}
+	
+
+
 
 }

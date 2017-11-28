@@ -160,7 +160,7 @@ public class DownloadFile extends HttpServlet {
 								Mentee menteeToCheck = (Mentee) iom.getDataAccess().getUser(Integer.parseInt(id));
 								if(menteeToCheck !=null) {
 									if( ServerUtils.validateUserSession(userIdToValidate, token, iom.getDataAccess()) ){
-										if(listOfMentees.contains(menteeToCheck)) {
+										if(listOfMentees!=null && listOfMentees.contains(menteeToCheck)) {
 											isValid = true;
 										}else {
 											iom.setResponseMessage(new ErrorModel() {
