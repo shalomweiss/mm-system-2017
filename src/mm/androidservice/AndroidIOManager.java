@@ -82,7 +82,7 @@ public class AndroidIOManager {
 	
 	
 	public void SendJsonResponse() throws IOException {
-		
+		System.out.println("Closing connection");
 		if(da!=null) {
 			try {
 				da.closeConnection();

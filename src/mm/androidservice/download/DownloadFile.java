@@ -123,17 +123,15 @@ public class DownloadFile extends HttpServlet {
 		String token = null;
 		AndroidIOManager iom = new AndroidIOManager(request, response);
 		JsonObject jsonRequest = iom.getJsonRequest();
-		
+		try {
 		
 		int userIdToValidate = -1;
 		boolean isValid = false;
 		boolean isDoc = false;
 		
-		try {
+		
 		token = jsonRequest.get("token").getAsString();
-		}catch(NullPointerException e) {
-			
-		}
+		
 		if (jsonRequest.has("img") || jsonRequest.has("cv") || jsonRequest.has("grade")) {
 
 			if (jsonRequest.has("img"))
@@ -292,9 +290,37 @@ public class DownloadFile extends HttpServlet {
 						} catch (NumberFormatException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							iom.setResponseMessage(new ErrorModel() {
+								
+								@Override
+								public String getMessage() {
+									
+									return "Invalid file id";
+								}
+								
+								@Override
+								public int getCode() {
+									
+									return 404;
+								}
+							});
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+							iom.setResponseMessage(new ErrorModel() {
+								
+								@Override
+								public String getMessage() {
+									
+									return "Wrong wrong wrong";
+								}
+								
+								@Override
+								public int getCode() {
+									
+									return 404;
+								}
+							});
 						}
 					}
 						
@@ -438,7 +464,24 @@ public class DownloadFile extends HttpServlet {
 				iom.SendJsonResponse();
 			}
 		}
-
+		}catch (Exception e) {
+			// TODO: handle exception
+			iom.setResponseMessage(new ErrorModel() {
+				
+				@Override
+				public String getMessage() {
+					// TODO Auto-generated method stub
+					return "Something is wrong ;/";
+				}
+				
+				@Override
+				public int getCode() {
+					// TODO Auto-generated method stub
+					return 404;
+				}
+			});
+			iom.SendJsonResponse();
+		}
 	}
 
 }

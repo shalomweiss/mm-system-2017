@@ -38,6 +38,8 @@ public class LogIn extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
+		//response.addHeader("Content-Type", "application/json; charset=UTF-8"); 
 
 		AndroidIOManager iom = new AndroidIOManager(request, response);
 

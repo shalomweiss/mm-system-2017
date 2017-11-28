@@ -45,24 +45,25 @@ public class UploadCV extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		AndroidIOManager iom = new AndroidIOManager(response);
+		File file = null;
+		File outPdf = null;
+		try {
 		String isForUser = null;
 		boolean forUser = false;
 		//forUserId - int
 		String id = request.getHeader("id");
 		String token = request.getHeader("token");
 		
-		try {
+	
 			isForUser =request.getHeader("forUserId");
-		}catch(NullPointerException e) {
-			forUser = false;
-		}
+		
 		
 		if(isForUser!=null) {
 			forUser = true;
 		}
 
-		AndroidIOManager iom = new AndroidIOManager(response);
+	
 
 		FileItemFactory itemFactory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(itemFactory);
@@ -71,11 +72,10 @@ public class UploadCV extends HttpServlet {
 		// out.println("Only PNG image files supported.");
 		// continue;
 		// }
-		File file = null;
-		File outPdf = null;
+		
 		boolean isConverted = false;
 		boolean isValidForUser = false;
-		try {
+		
 			if (id != null) {
 				if (token.equals("TSOFEN")
 						|| ServerUtils.validateUserSession(Integer.parseInt(id), token, iom.getDataAccess())) {
@@ -193,6 +193,9 @@ public class UploadCV extends HttpServlet {
 		} finally {
 			if (file != null)
 				file.deleteOnExit();
+			
+			if (outPdf != null)
+				outPdf.deleteOnExit();
 
 			iom.SendJsonResponse();
 		}
