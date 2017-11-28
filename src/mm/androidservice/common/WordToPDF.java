@@ -39,7 +39,9 @@ public class WordToPDF {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}finally {
+					if(doc!=null)
 					doc.close();
+					if(out!=null)
 		        	out.close();
 				}
 	         
