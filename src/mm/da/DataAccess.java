@@ -1573,7 +1573,7 @@ public class DataAccess implements DataInterface {
 		
 		Date now = Date.valueOf(LocalDate.now());
 		ArrayList<Pair> pairs = new ArrayList<Pair>();
-		PreparedStatement stm = c.prepareStatement(SQLStatements.selectPairsWithMeetingsInDateRange);
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectPairsWithoutMeetingsInDateRange);
 		stm.setDate(1,now);
 		stm.setDate(2, date);
 		
