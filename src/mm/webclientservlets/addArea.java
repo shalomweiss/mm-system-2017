@@ -40,29 +40,22 @@ public class addArea extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-String area=request.getParameter("area");
+		DataAccess da = null;
+		try {
+			da = new DataAccess();
+		String area=request.getParameter("area");
 		
 		
 		RequestDispatcher req = null;
 		 
 		
-		DataAccess da = new DataAccess();
+		
 	    boolean res=false;
 	    
-	    
-		try {
+	 
 			res = da.addArea(area);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
+	
 		if(res){
 			response.getWriter().append("Area added");
 			req = request.getRequestDispatcher("");
@@ -71,7 +64,19 @@ String area=request.getParameter("area");
 			response.getWriter().append("Failed in added Area");	
 		
 		req.forward(request, response);
-	
+		} catch (SQLException e) {
+			response.getWriter().append("Failed in added Area");	
+			e.printStackTrace();
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 }

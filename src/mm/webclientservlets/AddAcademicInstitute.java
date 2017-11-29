@@ -40,6 +40,9 @@ public class AddAcademicInstitute extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		DataAccess da = null;
+		try {
+			da = new DataAccess();
 		String name=request.getParameter("name");
 		String city=request.getParameter("cityId");
 		String area=request.getParameter("areaId");	
@@ -60,22 +63,14 @@ public class AddAcademicInstitute extends HttpServlet {
 		 
 		AcademicInstitute acadimicIn= new AcademicInstitute(0,name,"","", areaId, cityId); //TODO: set proper area/city id
 		
-		DataAccess da = new DataAccess();
+
 	    boolean res=false;
 	    
 	    
-		try {
+
 			res = da.addAcademicInstitute(acadimicIn);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 
+		
 		
 		if(res){
 			response.getWriter().append("AcadimicInstitute Added");
@@ -85,7 +80,19 @@ public class AddAcademicInstitute extends HttpServlet {
 			response.getWriter().append("Failed in added Work Place");	
 		
 		req.forward(request, response);
-	
+		} catch (SQLException e) {
+			response.getWriter().append("Failed in added Work Place");	
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

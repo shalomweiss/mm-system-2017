@@ -38,7 +38,10 @@ public class AddingDataServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+try {
+	da = new DataAccess();
+	
 		ArrayList<AcademicInstitute> AcadimicIn =new ArrayList<AcademicInstitute>();
 		 try {
 			 AcadimicIn = da.getAllAcademiclnstitution();
@@ -48,35 +51,34 @@ public class AddingDataServlet extends HttpServlet {
 			ArrayList<City> cities =new ArrayList<City>();
 			ArrayList<Area> areas =new ArrayList<Area>();
 			ArrayList<WorkPlace> allWorkingPlace =new ArrayList<WorkPlace>();
-		 try {
+	
 			 allWorkingPlace = da.getAllWorkingPlace();
-			 } catch (SQLException e) {
-			 // TODO Auto-generated catch block
-			 e.printStackTrace();
-			 }
-		 try {
+		
 			 cities = da.getAllCities();
-			 } catch (SQLException e) {
-				 e.printStackTrace();
-			 }
-		 try {
+			
 			 areas = da.getAllAreas();
-			 } catch (SQLException e) {
-				 e.printStackTrace();
-			 }
+			
 
 		 
-			try {
-				da.closeConnection();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		
 			request.setAttribute("workplaces", allWorkingPlace);
 			request.setAttribute("areas", areas);
 			request.setAttribute("cities", cities);
 			request.setAttribute("AcadimicIn", AcadimicIn); 
 		RequestDispatcher req = request.getRequestDispatcher("addCityWorkPlaceOrAcademy.jsp");
 		req.forward(request, response);
+} catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}finally {
+	try {
+		if(da!=null)
+		da.closeConnection();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+}
+
 	}
 
 	/**
