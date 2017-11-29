@@ -53,7 +53,9 @@ public class LoginWeb extends HttpServlet {
 
 		String email = request.getParameter("uName");
 		String pass = request.getParameter("uPass");
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+		da = new DataAccess();
 		User temp = null;
 		try {
 			temp = da.login(email);
@@ -61,12 +63,7 @@ public class LoginWeb extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		
 
 		if (temp == null) {
@@ -88,5 +85,14 @@ public class LoginWeb extends HttpServlet {
 				response.setContentType("text/html");
 				req.include(request, response);
 			}  
+		}finally {
+				try {
+					if(da!=null)
+					da.closeConnection();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 	}
 }

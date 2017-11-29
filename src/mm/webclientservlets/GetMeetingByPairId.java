@@ -43,7 +43,11 @@ public class GetMeetingByPairId extends HttpServlet {
 		
 		System.out.println("GetMeetingByPairId Servlet");
 		int pairId =Integer.parseInt( request.getParameter("id"));
-        DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+		
+		      da = new DataAccess();
+			
             Pair pair = null;
           try {
                pair = da.getPair(pairId);
@@ -69,19 +73,23 @@ public class GetMeetingByPairId extends HttpServlet {
         	  allMeetings1.add(p);      	  
               
           }   
-      	try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+     
           
           request.setAttribute("Pairs", pairDetails);
           request.setAttribute("meetings", allMeetings1);
           RequestDispatcher req = null;
 		  req=request.getRequestDispatcher("meetings.jsp");
 	      req.forward(request, response);	
+		}finally{
+		 	try {
+		 		if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 	
 	

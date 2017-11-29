@@ -32,7 +32,9 @@ public class MenteeReports extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("mentees reports");
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+		da = new DataAccess();
 		String address = request.getParameter("uAddress");
 		String gender1 = request.getParameter("uGender");
 		String academicInstitution1 = request.getParameter("uAcademicInstitution");
@@ -61,6 +63,15 @@ public class MenteeReports extends HttpServlet {
 	    PrintWriter writer = response.getWriter().append(menteeReports);
 		writer.println();
 		writer.close();
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

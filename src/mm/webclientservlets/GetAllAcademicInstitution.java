@@ -35,8 +35,11 @@ public class GetAllAcademicInstitution extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		DataAccess da = new DataAccess();		
-		
+		DataAccess da = null;		
+		try {
+			
+			da = new DataAccess();
+			
 		ArrayList<meetingType> meetingTypes=new ArrayList<meetingType>();
 		meetingTypes.add(meetingType.FACE_TO_FACE);
 		meetingTypes.add(meetingType.PHONE);
@@ -58,12 +61,7 @@ public class GetAllAcademicInstitution extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		
 		request.setAttribute("AllAcademicInstitutes", allAcademicInstitutes);
 		request.setAttribute("AllWorkPlaces", workPlaces);
@@ -71,6 +69,15 @@ public class GetAllAcademicInstitution extends HttpServlet {
 		System.out.println("ACADEMIC"+allAcademicInstitutes);
 		RequestDispatcher req = request.getRequestDispatcher("reports.jsp");
 		req.forward(request, response);
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**

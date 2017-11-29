@@ -65,7 +65,9 @@ public class UpdateMentor extends HttpServlet {
 		int uArea= Integer.parseInt(areaId);
 		Boolean status = false;
 
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+		da = new DataAccess();
         Mentor myMentor=new Mentor();
         try {
 			myMentor = (Mentor) da.getUser(id);
@@ -84,7 +86,15 @@ public class UpdateMentor extends HttpServlet {
 		RequestDispatcher req ;
 		req=request.getRequestDispatcher("GetAllMentors");
 		req.forward(request, response);
-
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

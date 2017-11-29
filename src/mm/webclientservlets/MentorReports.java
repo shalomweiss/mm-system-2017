@@ -34,7 +34,9 @@ public class MentorReports extends HttpServlet {
 			throws ServletException, IOException {
         
 		System.out.println("Mentors's Reports ");
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+		da = new DataAccess();
 		boolean flagAddress = false;
 		boolean flagGender = false;
 		boolean flagCompany = false;
@@ -84,6 +86,16 @@ public class MentorReports extends HttpServlet {
 	    PrintWriter writer = response.getWriter().append(mentorReports);
 		writer.println();
 		writer.close();		
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -41,7 +41,9 @@ public class GetPairDetails extends HttpServlet {
 		System.out.println("GetPairDetails Servlet");
 		int pairId =Integer.parseInt( request.getParameter("pairId"));
         String nextPage = request.getParameter("jsp");
-        DataAccess da = new DataAccess();
+    	DataAccess da = null;
+		try {
+		da = new DataAccess();
             Pair pair = new Pair();
           try {
                pair = da.getPair(pairId);
@@ -56,17 +58,21 @@ public class GetPairDetails extends HttpServlet {
                // TODO Auto-generated catch block
                e.printStackTrace();
            }
-          try {
-  			da.closeConnection();
-  		} catch (SQLException e) {
-  			// TODO Auto-generated catch block
-  			e.printStackTrace();
-  		}
-  		
+     
 
         response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);	
+		}finally{
+		     try {
+		    	 if(da!=null)
+		  			da.closeConnection();
+		  		} catch (SQLException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
+		  		
+		}
 	}
 
 }

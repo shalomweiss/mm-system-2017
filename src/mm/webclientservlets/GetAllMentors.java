@@ -42,7 +42,10 @@ public class GetAllMentors extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("GET ALL MENTORS");
 		ArrayList<User> ArrMentors = new ArrayList<User>();
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		
+		try {
+		 da = new DataAccess();
 		 try {
 		 ArrMentors = da.getUsers(userType.MENTOR);
 		 } catch (SQLException e) {
@@ -79,12 +82,7 @@ public class GetAllMentors extends HttpServlet {
 			 // TODO Auto-generated catch block
 			 e.printStackTrace();
 			 }
-			try {
-				da.closeConnection();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
 		request.setAttribute("areas", areas);
 		request.setAttribute("cities", cities);
 		request.setAttribute("Mentors", ArrMentors);
@@ -95,6 +93,15 @@ public class GetAllMentors extends HttpServlet {
 		req = request.getRequestDispatcher("mentors.jsp");
 		req.forward(request, response);
 		writer.close();
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**

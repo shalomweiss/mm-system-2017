@@ -38,24 +38,32 @@ public class GetMentorById extends HttpServlet {
 		System.out.println("Get MentorById Servlet");
 		int id =Integer.parseInt( request.getParameter("uId"));
         String jsp = request.getParameter("jsp");
-          DataAccess da = new DataAccess();
+        DataAccess da = null;
+        try {
+        
+        	da = new DataAccess();
+        	
             User mentor = null;
           try {
                 mentor = da.getUser(id);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-          try {
-  			da.closeConnection();
-  		} catch (SQLException e) {
-  			// TODO Auto-generated catch block
-  			e.printStackTrace();
-  		}
+       
   		
         request.setAttribute("MentorById", mentor);	
         response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(jsp);
 		req.forward(request, response);
+        }finally {
+        	   try {
+        		   if(da!=null)
+         			da.closeConnection();
+         		} catch (SQLException e) {
+         			// TODO Auto-generated catch block
+         			e.printStackTrace();
+         		}
+        }
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

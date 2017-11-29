@@ -40,7 +40,11 @@ public class GetMentorsAndMentees extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		ArrayList<User> ArrMentors = new ArrayList<User>();
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+		
+			 da = new DataAccess();
+		
 		 try {
 		 ArrMentors = da.getUsers(userType.MENTOR);
 		 } catch (SQLException e) {
@@ -72,18 +76,22 @@ public class GetMentorsAndMentees extends HttpServlet {
 					e.printStackTrace();
 				}			
 			 }
-		 try {
-				da.closeConnection();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+
 		request.setAttribute("Mentees", arrMentees);
 		response.setContentType("text/html");
 	
 		RequestDispatcher req = request.getRequestDispatcher("addPair.jsp");
 		req.forward(request, response);
+		}finally {
+			 try {
+				 if(da!=null)
+					da.closeConnection();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+		}
 	
 	}
 

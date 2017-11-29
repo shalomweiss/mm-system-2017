@@ -43,7 +43,11 @@ public class GetAllMentees extends HttpServlet {
 
 		HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<User> ArrMentees = new ArrayList<User>();
-		DataAccess da = new DataAccess();
+		DataAccess da =null;
+		try {
+			
+			da =  new DataAccess();
+			
 		 try {
 		 ArrMentees = da.getUsers(userType.MENTEE);
 		 } catch (SQLException e) {
@@ -84,12 +88,7 @@ public class GetAllMentees extends HttpServlet {
 			 }
 
 
-			try {
-				da.closeConnection();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		System.out.println("AREAS: "+ areas +"/n Cities:" + cities);	
 		request.setAttribute("areas", areas);
 		request.setAttribute("cities", cities);
@@ -98,6 +97,15 @@ public class GetAllMentees extends HttpServlet {
 	
 		RequestDispatcher req = request.getRequestDispatcher("mentees.jsp");
 		req.forward(request, response);
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 	/**

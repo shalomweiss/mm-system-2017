@@ -42,23 +42,20 @@ public class DisconnectPair extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("DISCONNECT PAIR SERVLET");
 		String pairId=request.getParameter("pairId");
+
+		DataAccess da = null;
+		try {
+		 da =new DataAccess();
 	//	String nextPage=request.getParameter("jsp");
 		int id=Integer.parseInt(pairId);
 		
-		DataAccess da = new DataAccess();
 	    boolean res=true;
 	    RequestDispatcher req = null;
 	    response.setContentType("text/html");
 	    
 		res = da.disconnectPair(id);
 		
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 		if(res){
 		//	response.getWriter().append("Disconnect Pair Successfull");
 			
@@ -70,6 +67,16 @@ public class DisconnectPair extends HttpServlet {
 		
 		req.forward(request, response);
 		
+	}finally {
+		try {
+			if(da!=null)
+			da.closeConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	}
 
 	}

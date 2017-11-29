@@ -61,7 +61,9 @@ public class UpdateMentee extends HttpServlet {
 		String notes = request.getParameter("uNotes");
 		String personalId = request.getParameter("personalId");
 
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+		da = new DataAccess();
 		Boolean status = false;
 		int academicInstitution = Integer.parseInt(request.getParameter("uAcademicInstitution"));
 		String cityId=request.getParameter("cityId");
@@ -86,17 +88,21 @@ public class UpdateMentee extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 		request.setAttribute("status", status);
 	    RequestDispatcher req;
 		req=request.getRequestDispatcher("GetAllMentees");
 		req.forward(request, response);
+		}
+		finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
