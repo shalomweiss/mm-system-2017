@@ -7,15 +7,15 @@ public class Pair {
     private User mentor;
     private User mentee;
 	private	int activeStatus;
-	private	long startDate;
-	private	long endDate;
+	private	Long startDate;
+	private	Long endDate;
 	private	String joinMessage;
 	private String tsofenMessage;
 	
 	public Pair(){}
 	
-	public Pair(int pairId, int mentorId, int menteeId, User mentor, User mentee, int activeStatus, long startDate,
-			long endDate, String joinMessage, String tsofenMessage) {
+	public Pair(int pairId, int mentorId, int menteeId, User mentor, User mentee, int activeStatus, Long startDate,
+			Long endDate, String joinMessage, String tsofenMessage) {
 		super();
 		this.pairId = pairId;
 		this.mentorId = mentorId;

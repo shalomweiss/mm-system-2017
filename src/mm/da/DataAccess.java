@@ -694,7 +694,7 @@ public class DataAccess implements DataInterface {
 		if (!rs.next()) // user does not exist
 			return null;
 		Date d = rs.getDate(DataContract.PairsTable.COL_ENDDATE);
-		long l = -1;
+		Long l = null;
 		if (d != null)
 			l = d.getTime();
 		Pair p = new Pair(rs.getInt(DataContract.PairsTable.COL_PAIRID),
@@ -1564,5 +1564,40 @@ public class DataAccess implements DataInterface {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public ArrayList<Pair> getPairsWithoutMeetingsInDateRange(Date date) throws SQLException {
+		Logger logger = Logger.getLogger(DataAccess.class.getName());
+		logger.log(Level.INFO, "getPairsWithMeetingsInDateRange starting...");
+		
+		Date now = Date.valueOf(LocalDate.now());
+		ArrayList<Pair> pairs = new ArrayList<Pair>();
+		PreparedStatement stm = c.prepareStatement(SQLStatements.selectPairsWithMeetingsInDateRange);
+		stm.setDate(1,now);
+		stm.setDate(2, date);
+		
+		ResultSet rs = stm.executeQuery();
+		while (rs.next()) {
+			Date d = rs.getDate(DataContract.PairsTable.COL_ENDDATE);
+			Long l = null;
+			if (d != null)
+				l = d.getTime();
+			Pair p = new Pair(rs.getInt(DataContract.PairsTable.COL_PAIRID),
+					rs.getInt(DataContract.PairsTable.COL_MENTORID), rs.getInt(DataContract.PairsTable.COL_MENTEEID),
+					getUser(rs.getInt(DataContract.PairsTable.COL_MENTORID)),
+					getUser(rs.getInt(DataContract.PairsTable.COL_MENTEEID)),
+					rs.getInt(DataContract.PairsTable.COL_ACTIVESTATUS),
+					rs.getDate(DataContract.PairsTable.COL_STARTDATE).getTime(), l,
+					rs.getString(DataContract.PairsTable.COL_JOINTMESSAGE),
+					rs.getString(DataContract.PairsTable.COL_TSOFENMESSAGE));
+			
+			pairs.add(p);
+		}
+		
+		rs.close();
+		stm.close();
+		
+		return pairs;
 	}
 }

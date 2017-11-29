@@ -14,6 +14,7 @@ import mm.model.User;
 import mm.model.User.userType;
 import mm.model.WorkPlace;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -122,5 +123,7 @@ public interface DataInterface {
 	public boolean addCity(String name) throws SQLException;
 	
 	public boolean addArea(String name) throws SQLException;
+	
+	public ArrayList<Pair> getPairsWithoutMeetingsInDateRange(Date date) throws SQLException;
 
 }
