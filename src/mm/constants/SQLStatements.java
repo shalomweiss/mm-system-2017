@@ -217,4 +217,6 @@ public class SQLStatements {
 	
 	public final static String insertArea = "INSERT INTO " + DataContract.AreasTable.TABLE_NAME + " ("
 			+ DataContract.AreasTable.COL_NAME + ") VALUES (?)";
+	
+	public final static String selectPairsWithoutMeetingsInDateRange = "SELECT DISTINCT p.* FROM "+ DataContract.PairsTable.TABLE_NAME + " as p , "+DataContract.MeetingTable.TABLE_NAME+" as a WHERE NOT (p.pairId=a.pairId) OR (p.pairId=a.pairId AND NOT (a.date >= ? AND a.date <= ?));";
 }
