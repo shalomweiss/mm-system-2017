@@ -121,10 +121,11 @@ public class DownloadFile extends HttpServlet {
 
 		String id = null;
 		String token = null;
-		AndroidIOManager iom = new AndroidIOManager(request, response);
-		JsonObject jsonRequest = iom.getJsonRequest();
+		AndroidIOManager iom = null;
 		try {
 		
+			iom =  new AndroidIOManager(request, response);
+			JsonObject jsonRequest = iom.getJsonRequest();
 		int userIdToValidate = -1;
 		boolean isValid = false;
 		boolean isDoc = false;
@@ -410,6 +411,7 @@ public class DownloadFile extends HttpServlet {
 									return 404;
 								}
 							});
+							if(iom!=null)
 							iom.SendJsonResponse();
 						}
 				
@@ -433,6 +435,7 @@ public class DownloadFile extends HttpServlet {
 									return 404;
 								}
 							});
+							if(iom!=null)
 							iom.SendJsonResponse();
 						}
 						
@@ -447,12 +450,12 @@ public class DownloadFile extends HttpServlet {
 					}
 
 					if (jsonRequest.has("cv")) {
-						
+						if(iom!=null)
 						iom.SendJsonResponse();
 					}
 
 					if (jsonRequest.has("grade")) {
-			
+						if(iom!=null)
 						iom.SendJsonResponse();
 					}
 
@@ -461,6 +464,7 @@ public class DownloadFile extends HttpServlet {
 
 				e.printStackTrace();
 				iom.setResponseMessage(new RESPONSE_STATUS(RESPONSE_STATUS.GENERAL_ERROR));
+				if(iom!=null)
 				iom.SendJsonResponse();
 			}
 		}
@@ -480,7 +484,12 @@ public class DownloadFile extends HttpServlet {
 					return 404;
 				}
 			});
+			if(iom!=null)
 			iom.SendJsonResponse();
+		}
+		finally {
+			if(iom!=null)
+				iom.closeConnection();
 		}
 	}
 

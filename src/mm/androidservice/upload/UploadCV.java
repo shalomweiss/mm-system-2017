@@ -45,10 +45,11 @@ public class UploadCV extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		AndroidIOManager iom = new AndroidIOManager(response);
+		AndroidIOManager iom = null;
 		File file = null;
 		File outPdf = null;
 		try {
+			iom  = new AndroidIOManager(response);
 		String isForUser = null;
 		boolean forUser = false;
 		//forUserId - int
@@ -197,6 +198,7 @@ public class UploadCV extends HttpServlet {
 			if (outPdf != null)
 				outPdf.deleteOnExit();
 
+			if(iom!=null)
 			iom.SendJsonResponse();
 		}
 		

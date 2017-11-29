@@ -42,20 +42,17 @@ public class UploadGradeSheet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		AndroidIOManager iom = null;
 
+		File file = null;
+		try {
 		String id = request.getHeader("id");
 		String token = request.getHeader("token");
-		AndroidIOManager iom = new AndroidIOManager(response);
+		iom = new AndroidIOManager(response);
 
 		FileItemFactory itemFactory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(itemFactory);
 
-		// if (!contentType.equals("image/png")) {
-		// out.println("Only PNG image files supported.");
-		// continue;
-		// }
-		File file = null;
-		try {
 			if (id != null) {
 				if (token.equals("TSOFEN")||ServerUtils.validateUserSession(Integer.parseInt(id), token, iom.getDataAccess())) {
 					List<FileItem> items = upload.parseRequest(new ServletRequestContext(request));
@@ -103,6 +100,7 @@ public class UploadGradeSheet extends HttpServlet {
 			if (file != null)
 				file.deleteOnExit();
 
+			if(iom!=null)
 			iom.SendJsonResponse();
 		}
 
