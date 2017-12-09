@@ -43,6 +43,12 @@ public class AddWorkingPlace extends HttpServlet {
 		String city=request.getParameter("cityId");
 		String area=request.getParameter("areaId");	
 		String address=request.getParameter("address");
+		
+		
+
+		DataAccess da = null;
+		try {
+		 da = new DataAccess();
 		int cityId,areaId=0;
 		if(city.equals(null) ||city.equals(""))
 			cityId=0;
@@ -60,7 +66,6 @@ public class AddWorkingPlace extends HttpServlet {
 		 
 		WorkPlace newWorkPlace= new WorkPlace(0,company,"","",address, areaId, cityId); //TODO: needs to be given proper city/area id
 		
-		DataAccess da = new DataAccess();
 	    boolean res=false;
 
 		try {
@@ -69,12 +74,7 @@ public class AddWorkingPlace extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 		if(res){
 			response.getWriter().append("Working Place Is Added");
@@ -83,6 +83,15 @@ public class AddWorkingPlace extends HttpServlet {
 			response.getWriter().append("Failed in added Work Place");	
 		
 		//req.forward(request, response);
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}	
 	}
 

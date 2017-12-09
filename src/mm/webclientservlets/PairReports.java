@@ -32,7 +32,9 @@ public class PairReports extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+		da = new DataAccess();
 		String nextPage = request.getParameter("jsp");
 		
 		int numOfMeetings = Integer.parseInt(request.getParameter("numOfMeetings"));
@@ -64,6 +66,17 @@ public class PairReports extends HttpServlet {
 		
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
+		
+		}
+		finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	}
 

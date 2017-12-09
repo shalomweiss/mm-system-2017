@@ -50,7 +50,9 @@ public class GetAllPairs extends HttpServlet {
 
 		ArrayList<Pair> pairsArray = new ArrayList<Pair>();
 		ArrayList<Pair> activePairsArray= new ArrayList<Pair>();
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+			 da = new DataAccess();
 		 try {
 			 pairsArray = da.getAllPairs();
 			 } catch (SQLException e) {
@@ -89,18 +91,22 @@ public class GetAllPairs extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 	    request.setAttribute("areas", areas);
 	    request.setAttribute("cities", cities);
 		request.setAttribute("pairs", activePairsArray);
 		response.setContentType("text/html");
 	    RequestDispatcher req = request.getRequestDispatcher("mainPair.jsp");
 	    req.forward(request, response);
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 		
 	/**

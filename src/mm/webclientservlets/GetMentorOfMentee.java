@@ -41,7 +41,9 @@ public class GetMentorOfMentee extends HttpServlet {
 		System.out.println("Get Mentor Of Mentee");
 		int menteeId =Integer.parseInt(request.getParameter("id"));
     
-          DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+	           da = new DataAccess();
           Mentor mentor = new Mentor();
           try {
                 mentor = da.getMentorOfMentee(menteeId);
@@ -55,12 +57,7 @@ public class GetMentorOfMentee extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+      
         if(mentor==null)
         {
         	response.getWriter().append("No Mentor");
@@ -76,7 +73,15 @@ public class GetMentorOfMentee extends HttpServlet {
         }
 			
         
-		
+		}finally {
+			  try {
+				  if(da!=null)
+					da.closeConnection();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
 	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

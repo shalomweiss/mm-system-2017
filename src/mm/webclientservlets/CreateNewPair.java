@@ -43,7 +43,9 @@ public class CreateNewPair extends HttpServlet {
 		System.out.println("CreateNewPair");
 		int MentorId =Integer.parseInt( request.getParameter("mentorID"));
 		int MenteeId =Integer.parseInt( request.getParameter("menteeID"));
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+			da = new DataAccess();
 		User mentor = null;
 		try {
 			mentor = da.getUser(MentorId);
@@ -66,12 +68,7 @@ public class CreateNewPair extends HttpServlet {
 		 // TODO Auto-generated catch block
 		 e.printStackTrace();
 		 }
-			try {
-				da.closeConnection();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
 			
 		if (res) {
 			response.getWriter().append("Success");
@@ -99,7 +96,15 @@ public class CreateNewPair extends HttpServlet {
 			response.getWriter().append("Failure");
 		
 			
-		
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	}
 }

@@ -41,28 +41,23 @@ public class addCity extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		DataAccess da = null;
+		try {
+			 da =  new DataAccess();
 		String city=request.getParameter("city");
 		
 		
 		RequestDispatcher req = null;
 		 
 		
-		DataAccess da = new DataAccess();
 	    boolean res=false;
 	    
 	    
-		try {
+
 			res = da.addCity(city);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+
 		
 		if(res){
 			response.getWriter().append("City Added");
@@ -73,7 +68,19 @@ public class addCity extends HttpServlet {
 		
 		req.forward(request, response);
 	
-	
+		} catch (SQLException e) {
+			response.getWriter().append("Failed in added City");
+			e.printStackTrace();
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
 	}
 
 }

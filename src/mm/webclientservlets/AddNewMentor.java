@@ -53,7 +53,11 @@ public class AddNewMentor extends HttpServlet {
 		String comp=request.getParameter("company");
 		String personalId=request.getParameter("personalId");
 		int gender = Integer.parseInt(request.getParameter("gender"));
-
+		DataAccess da = null;
+		try {
+			
+			da = new DataAccess();
+			
 		boolean booleanPro=false;
 		int uCity;
 		int uArea;
@@ -83,7 +87,7 @@ public class AddNewMentor extends HttpServlet {
 		
 		User newMentor = new Mentor(0, firstName, lastName, email, phoneNumber, pass, gender, address, notes,
 				booleanPro, true, userType.MENTOR,uArea,"",uCity,"",date,personalId, experience, role, company, volunteering, workHistory);
-		DataAccess da = new DataAccess();
+
 		int res = -1;
 		RequestDispatcher req = null;
 
@@ -104,11 +108,7 @@ public class AddNewMentor extends HttpServlet {
 		    SendingMail.sendFromGMail(to,subject,body);
 
 		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	
 		
 		if (res==-1)
 		response.getWriter().append("Failed in added Mentor");
@@ -118,5 +118,13 @@ public class AddNewMentor extends HttpServlet {
 		request.setAttribute("NewMentor", newMentor);
 		req=request.getRequestDispatcher("GetAllMentors");
 		req.forward(request, response);
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

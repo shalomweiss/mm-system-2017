@@ -43,22 +43,22 @@ public class DeactivateUser extends HttpServlet {
 		// TODO Auto-generated method stub
 		String userId=request.getParameter("userId");
 		int id=Integer.parseInt(userId);
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		
 	    boolean res=false;
 	    response.setContentType("text/html");
 	    
+	    try {
+	    
+	    	da = new DataAccess();
+	    	
 		try {
 			res = da.deactivateUser(id);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		
 		if(res)
 			response.getWriter().append("Success");			
@@ -66,5 +66,14 @@ public class DeactivateUser extends HttpServlet {
 			response.getWriter().append("Failure");
 		
 		//req.forward(request, response);	
+	    }finally {
+	    	try {
+	    		if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
 	}
 }

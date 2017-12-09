@@ -88,7 +88,13 @@ public class AddMentee extends HttpServlet {
 		boolean booleanGrade=false;
 		Float avg= null;
 		Float remSemesters= null;
+		
+		DataAccess da = null;
+		
+		try {
         
+			da = new DataAccess();
+			
 		if (profilePicture!=null)
 		     booleanPro=true;
 		if (resume!=null)
@@ -138,7 +144,7 @@ public class AddMentee extends HttpServlet {
 		User newMentee=new Mentee(0,uFirstName,uLastName,uEmail,uPhoneNumber,uPass,uGender,uAddress,uNotes,booleanPro,true,userType.MENTEE,uArea,"",uCity,"",date,personalId,remSemesters,uGraduationStatus,uAcademicInstitution, avg,academicDicipline,academicDicipline2,SignedEULA,booleanResume,booleanGrade );
 		
 		User user=new User();
-		DataAccess da = new DataAccess();
+
 		RequestDispatcher req=null;
 	    int resId=-1;
 	
@@ -160,12 +166,7 @@ public class AddMentee extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			try {
-				da.closeConnection();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			
 			request.setAttribute("AddedSuc", 1);
 		}
@@ -175,5 +176,14 @@ public class AddMentee extends HttpServlet {
 		}
 		req=request.getRequestDispatcher("GetAllMentees");
 		req.forward(request, response);
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

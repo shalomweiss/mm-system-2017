@@ -38,27 +38,32 @@ public class ActivateUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		DataAccess da = null;
+		try {
 		String userId=request.getParameter("userId");
 		int id=Integer.parseInt(userId);
-		DataAccess da = new DataAccess();
+		da =  new DataAccess();
 	    boolean res=false;
 	    response.setContentType("text/html");   
-		try {
+
 			res = da.activateUser(id);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+
 		
 		if(res)
 			response.getWriter().append("Success");			
 		else
 			response.getWriter().append("Failure");	
+		} catch (SQLException e) {
+			response.getWriter().append("Failure");	
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

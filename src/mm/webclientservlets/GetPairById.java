@@ -33,24 +33,31 @@ public class GetPairById extends HttpServlet {
 		System.out.println("Get PairDetails Servlet");
 		int pairId = Integer.parseInt(request.getParameter("pairId"));
 		String nextPage = request.getParameter("jsp");
-		DataAccess da = new DataAccess();
+		DataAccess da = null;
+		try {
+		da = new DataAccess();
+		
 		Pair pair = new Pair();
 		try {
 			pair = da.getPair(pairId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		try {
-			da.closeConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		
 		request.setAttribute("PairById", pairId);
 		response.setContentType("text/html");
 		RequestDispatcher req = request.getRequestDispatcher(nextPage);
 		req.forward(request, response);
+		}finally {
+			try {
+				if(da!=null)
+				da.closeConnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
