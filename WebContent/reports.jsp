@@ -78,7 +78,7 @@ $(".search").click(function() {
 	          numOfDays: numOfDays,
 	        },
 	        function(data,status){
-	        	
+	        	//TODO: fill here, look for other function below for reference (will need to expand)
 	        });
 });
 $("#submit1").click(function() {
